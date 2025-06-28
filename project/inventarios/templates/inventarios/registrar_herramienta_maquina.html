@@ -1,0 +1,62 @@
+{% extends "base_registros.html" %}
+{% load static %}
+
+{% block title %} 
+    <title>Registar herramienta</title>
+{% endblock %}
+
+{% block extra_styles %}
+    <link rel="stylesheet" href="{% static 'css/formularios.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="cerrar-login">
+    <a href="javascript:history.back()" title="Cancelar e ir atrás">✖</a>
+</div>
+
+<section class="contenedor_principal">
+
+    <div class="logo">
+        <a href="{% url 'inicio' %}" title="volver al inicio">
+            <img class="logo-item" src="{% static 'img/logo_agronova.png' %}" alt="logo - Agronova">
+        </a>
+    </div>
+
+    <form id="formularioIngreso">
+        <fieldset class="encabezado">
+            <legend>Registrar</legend>
+            
+            <!-- nombre del producto -->
+            <div class="botones">
+                <i class="fa-solid fa-tag"></i>
+                <label for="nombre">Nombre</label>
+                <input type="text" id="nombre" name="nombre" placeholder="Nombre de la (Herramienta / Maquina)" required>
+            </div>
+
+
+            <!-- Estado del producto -->
+            <div class="botones">
+                <i class="fa-solid fa-circle-check"></i>
+                <label for="estado">Estado</label>
+                <select id="estado" name="estado" required>
+                    <option value="" disabled selected>Selecciona el estado</option>
+                    <option value="buena">Buena</option>
+                    <option value="regular">Regular</option>
+                    <option value="mala">Mala</option>
+                </select>
+            </div>
+
+
+            <!-- Stock del producto -->
+            <div class="botones">
+                <i class="fa-solid fa-box-open"></i>
+                <label for="stock">Stock</label>
+                <input type="number" id="stock" name="stock" placeholder="Stock" min="0" required>
+            </div>
+
+            <button class="boton" type="button" id="btnEnviar"><i class="fas fa-save"></i> Realizar registro</button>
+
+        </fieldset>
+    </form>
+</section>
+{% endblock %}

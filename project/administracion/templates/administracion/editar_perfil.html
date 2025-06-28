@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %} 
+    <title>Editar perfil</title>
+{% endblock %}
+
+{% block extra_styles %}
+    <link rel="stylesheet" href="{% static 'administracion/css/editar_perfil.css' %}">
+{% endblock %}
+
+{% block header %}
+{% endblock %}
+
+{% block content %}
+<main>
+    <div class="cerrar-login">
+        <a href="{% url 'sobre_mi' %}" title="Cancelar e ir atrás">✖</a>
+    </div>
+
+    <section class="contenedor_principal">
+
+        <div class="logo">
+            <a href="{% url 'inicio' %}" title="volver al inicio">
+                <img class="logo-item" src="{% static 'img/logo_agronova.png' %}" alt="logo - Agronova">
+            </a>
+        </div>
+
+        <fieldset class="encabezado">
+            <legend>Editar perfil</legend>
+
+            <div class="botones">
+                <i class="fas fa-phone"></i>
+                <label for="numero_telefonico">Numero telefonico</label>
+                <input id="numero_telefonico" name="numero_telefonico" type="tel" placeholder="Numero telefonico" required />
+            </div>
+
+            <div class="botones">
+                <i class="fas fa-envelope"></i>
+                <label for="Correo_electronico">Correo electronico</label>
+                <input id="correo_electronico" name="correo_electronico" type="email" placeholder="Correo electronico" required />
+            </div>
+
+            <section class="botones_editar">
+                <button class="boton" type="submit">Confirmar</button>
+                <button class="boton" type="reset">Cancelar</button>
+            </section>
+                
+
+        </fieldset>
+</section>
+</main>
+{% endblock %}

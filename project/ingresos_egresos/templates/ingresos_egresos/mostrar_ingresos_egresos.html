@@ -1,0 +1,70 @@
+{% extends "base_header_1.html" %}
+{% load static %}
+
+{% block title %} 
+    <title> Ingresos y egresos </title>
+{% endblock %}
+
+{% block extra_styles %}
+    <link rel="stylesheet" href="{% static 'ingresos_egresos/css/ingresos_egresos.css' %}">
+{% endblock %}
+
+{% block logotipo %}
+    Ingresos y egresos
+{% endblock %}
+
+{% block nav_icons %}
+    <div class="menu">
+        <div class="boton_icono">
+            <i class="fa-solid fa-file-lines"></i>
+            <span>Informes</span>
+        </div>
+
+        <ul class="submenu">
+            <li><a href="{% url 'informe_anual' %}">Anual</a></li>
+            <li><a href="{% url 'informe_mensual' %}">Mensual</a></li>
+        </ul>
+    </div>
+
+    <div class="boton">
+        <button type="button" title="Eliminar datos">
+            <i class="fas fa-trash-alt"></i>
+        </button>
+        <span>Eliminar</span>
+    </div>
+{%endblock%}
+
+{% block content %}
+    <section>
+    <table>
+        <tr>
+            <th>Código ingresos o egresos</th>
+            <th>Documento del administrador</th>
+            <th>Nombre del administrador</th>
+            <th>Código del total de pago</th>
+            <th>Tipo (ingreso/egreso)</th>
+            <th>Descripción</th>
+            <th>Fecha</th>
+            <th>Valor</th>
+        </tr>
+
+        <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+        <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+        <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+        <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+        <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+        <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+        <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+        <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+        <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+        <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+        <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+        <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+    </table>
+    </section>
+
+    <div class="ingresar">
+        <a href="{% url 'registro_ingresos_egresos' %}" class="agregar-btn">+</a>
+        <span class="agregar-texto">Agregar</span>
+    </div>
+{% endblock %}

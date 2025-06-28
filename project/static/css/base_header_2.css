@@ -1,0 +1,177 @@
+body,html{
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    padding: 0;
+    font-family:sans-serif;
+}
+
+.barra_navegacion {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: url(../img/fondo-header.png) center center / cover no-repeat #000 ;
+    color: #fff;
+    padding: 10px;
+    z-index: 1000;
+    top: 0;
+    box-shadow: 0 0 20px #000;
+    transition: background-position 0.4s ease-in-out;
+}
+
+.barra_navegacion:hover {
+    background: #4b7510;
+    background-position: center top;
+    transition: background 0.4s ease-in-out, border-radius 0.3s ease-in-out;
+}
+
+.logotipo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logotipo img {
+    width: 80px;
+    height: 80px;
+    transition: transform 0.2s ease;
+}
+
+.logotipo img:hover{
+    transform: scale(1.2);
+}
+
+.texto-logotipo {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+
+.acciones {
+    display: flex;
+    flex: 1;
+    width: 10%;
+    text-align: left;
+    gap: 20px;
+    padding-left:50px ;
+}
+
+main{
+    margin-bottom: 100px;
+}
+
+footer {
+    background-color: #E5C49E;
+    color: black;
+    width: 100%;
+    margin-top: auto;
+    padding-top: 0;
+}
+
+.pie-contenedor {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 30px;
+}
+
+.pie-seccion {
+    text-align: center;
+    flex: 1;
+    padding-bottom: 15px;
+}
+
+.pie-seccion h4,
+.pie-seccion a{
+    list-style: none;
+    color: white;
+    padding: 10px 0;
+    margin: 0;
+}
+
+/* Colores individuales solo para los títulos */
+
+
+.creditos {
+    background-color: #5B2C23;
+}
+
+.soporte,
+.terminos {
+    background-color: #4b7510;
+}
+
+.pie-seccion p,
+.pie-seccion a {
+    margin: 5px 0;
+    color: black;
+    text-decoration: none;
+}
+
+.terminos a {
+    color: #fff;
+}
+
+/* Ocultar flechas nativas */
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Ocultar flechas en Chrome, Safari, Edge */
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Ocultar flechas en Firefox */
+input[type=number] {
+    -moz-appearance: textfield;
+    /* para Firefox */
+    appearance: textfield;
+    /* para futuros navegadores */
+}
+
+.numero {
+    position: relative;
+    width: 100%;
+}
+
+.numero input[type="number"] {
+    width: 100%;
+    padding-right: 30px;
+    /* espacio para flechas */
+    background: transparent;
+    color: #fff;
+    font-size: 20px;
+    border: none;
+    outline: none;
+}
+
+.flechas span {
+    color: white;
+    font-size: 10px;
+    line-height: 10px;
+    background: transparent;
+    user-select: none;
+}
+
+/* Selector verde para que combine con el campo */
+select {
+    background-color: #4b7510; /* verde Agronova */
+    color: #fff;
+    border: none;           /* sin borde */
+    outline: none;          
+    border-radius: 23px;
+    font-size: 20px;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    cursor: pointer;
+}
+
+select option {
+    background-color: #4b7510; /* mismo verde */
+    color: #fff;
+}

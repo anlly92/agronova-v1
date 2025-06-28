@@ -1,0 +1,90 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% block title %}{% endblock %}
+    <link rel="icon" href="{% static 'img/icono_agronova.png'%}" type="image/png">
+    <link rel="stylesheet" href="{% static  'css/base_home.css'%}">
+    {% block extra_styles %}{% endblock %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+
+<body>
+    <header>
+        <nav class="barra-navegacion-fija">
+            <div class="contenedor-navegacion">
+                <div class="logotipo">
+                    <a href="{% url 'home' %}">
+                        <img src="{% static 'img/logo_agronova.png' %}" alt="Agronova Logo" />
+                    </a>
+                    <span class="texto-logotipo">Agronova</span>
+                </div>
+
+                <ul class="menu-principal">
+                    <li class="menu-desplegable">
+                        <a href="#">Sobre nosotros ▾</a>
+                        <ul class="elementos-submenu">
+                            <li><a href="{% url 'que_es_agronova' %}">¿Qué es Agronova?</a></li>
+                            <li><a href="{% url 'como_surgio_agronova' %}">¿Cómo surgió?</a></li>
+                            <li><a href="{% url 'ventajas' %}">Ventajas</a></li>
+                            <li><a href="{% url 'mision_y_vision_agronova' %}">Misión y visión</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="menu-desplegable">
+                        <a href="#">Sobre la Elisa ▾</a>
+                        <ul class="elementos-submenu">
+                            <li><a href="{% url 'historia' %}">Historia</a></li>
+                            <li><a href="{% url 'mision_y_vision_la_elisa' %}">Misión y visión</a></li>
+                        </ul>
+                    </li>
+
+                    <li>
+                        <a href="{% url 'login' %}" class="boton-llamada-accion">Iniciar Sesión</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        {% block header %}
+        {% endblock %}
+    </header>
+
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <footer>
+        <section class="pie-contenedor">  
+            <article class="pie-seccion"> 
+                <h4 class="contactanos">Contáctanos</h4>
+                <div class="social-icons">
+                    <a href="https://wa.me/+573105144802" target="_blank" aria-label="WhatsApp">
+                        <i class="fab fa-whatsapp"></i> <!--Enlase whatsApp con icono-->
+                    </a>
+                    <a href="gmail:agronovaesloni@gmail.com" target="_blank" aria-label="Correo">
+                        <i class="fas fa-envelope"></i>
+                    </a>
+                </div>
+            </article>
+
+            <article class="pie-seccion"> 
+                <h4 class="siguenos">Síguenos</h4>
+                <div class="social-icons">
+                    <a href="https://www.instagram.com/cafeuribia/" target="_blank" aria-label="Instagram">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="https://www.facebook.com/cafeuribia/" target="_blank" aria-label="Facebook">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                </div>
+            </article>
+        </section>
+    </footer>
+    {% block script %}
+    {% endblock %}
+</body>
+</html>

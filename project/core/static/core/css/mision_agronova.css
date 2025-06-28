@@ -1,0 +1,59 @@
+header{
+    position: absolute;
+    height: 100px ;
+    background: #000;
+    color: #ccc;
+}
+
+main {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    background: url(/static/img/mision_y_vision.jpg) center center / cover no-repeat #000 ;
+}
+
+.contenedor{
+    display: flex;
+    height: auto;
+}
+
+.contenedor_derecho,.contenedor_izquierdo{
+    width: 50%;
+    background:transparent;
+    color: #ddd;
+    padding: 0 50px;
+    padding-top: 60px;
+}
+
+.contenedor_derecho{
+    border-left: 3px solid #fff
+}
+
+h2 {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 4rem;
+    font-weight: bold;
+    margin-top: 80px;
+    margin-bottom: 40px;
+    background: linear-gradient(45deg, #555, #fff, #aaa);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+}
+
+p {
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 30px;
+    font-weight: 400;
+    color: #ccc;
+    line-height: 1.5;
+    letter-spacing: 2px;
+    background: linear-gradient(45deg, #fff, #ccc, #fff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    margin-top: 15px;
+}

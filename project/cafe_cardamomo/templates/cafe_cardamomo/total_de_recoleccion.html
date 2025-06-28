@@ -1,0 +1,52 @@
+{% extends "base_header_2.html" %}
+{% load static %}
+
+{% block title %} 
+    <title> Total recolección </title>
+{% endblock %}
+
+{% block extra_styles %}
+    <link rel="stylesheet" href="{% static 'cafe_cardamomo/css/total_recoleccón.css' %}">
+{% endblock %}
+
+
+{% block nav_icons %}
+    <div class="boton">
+        <button type="button" title="Descargar datos">
+            <i class="fas fa-download"></i>
+            <span>Descargar</span>
+        </button>
+    </div>
+
+    <div class="cerrar-login">
+        <a href="javascript:history.back()" class="acciones" title="Cancelar e ir atrás">✖</a>
+        <span>Salir</span>
+    </div>
+    
+{%endblock%}
+
+{% block content %}
+    <section>
+        <table>
+            <tr>
+                <th>Año</th>
+                <th>Mes</th>
+                <th>Nombre del lote</th>
+                <th>Total de kilos recolectados</th>
+            </tr>
+            <tr><td></td><td></td><td></td><td></td></tr>
+            <tr><td></td><td></td><td></td><td></td></tr>
+            <tr><td></td><td></td><td></td><td></td></tr>
+            <tr><td></td><td></td><td></td><td></td></tr>
+            <tr><td></td><td></td><td></td><td></td></tr>
+            <tr><td></td><td></td><td></td><td></td></tr>
+            <tr><td></td><td></td><td></td><td></td></tr>
+            <tr><td></td><td></td><td></td><td></td></tr>
+            <tr><td></td><td></td><td></td><td></td></tr>
+            <tr><td></td><td></td><td></td><td></td></tr>
+            <tr><td></td><td></td><td></td><td></td></tr>
+            <tr><td></td><td></td><td></td><td></td></tr>
+        </table>
+    </section>
+{%endblock%}
+

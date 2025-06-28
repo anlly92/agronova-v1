@@ -1,0 +1,421 @@
+/* Aplica estilos al cuerpo del documento */
+body {
+    display: flex; /* Utiliza Flexbox para el layout */
+    flex-direction: column; /* Organiza los hijos en columna */
+    font-family: sans-serif; /* Fuente sans-serif para todo el texto */
+    justify-content: center; /* Centra verticalmente el contenido */
+    margin: 0; /* Elimina márgenes por defecto */
+    background: #000; /* Fondo negro para toda la página */
+}
+
+/* Estilos para el elemento <main> */
+main {
+    width: 100%; /* Ocupa todo el ancho disponible */
+    background: url("../img/fondo-sesion.jpeg") center center / cover fixed no-repeat #000; /* Imagen de fondo centrada, cubre área, fija, sin repetición, y fondo negro por defecto */
+    display: flex; /* Usa Flexbox */
+    padding: 30px 0; /* Espaciado arriba y abajo de 30px */
+    align-items: center; /* Centra verticalmente los hijos */
+    justify-content: center; /* Centra horizontalmente los hijos */
+}
+
+/* Contenedor para el botón de cerrar login */
+.cerrar-login {
+    display: flex; /* Flexbox para posicionamiento */
+    position: absolute; /* Posición absoluta respecto al contenedor padre */
+    justify-content: flex-end; /* Alinea contenido al final horizontalmente */
+    top: 0; /* Arriba */
+    right: 30px; /* 30px desde la derecha */
+    padding: 0; /* Sin relleno */
+}
+
+/* Estilos para el enlace dentro de cerrar-login */
+.cerrar-login a {
+    font-size: 40px; /* Tamaño grande para el texto */
+    color: #fff; /* Color blanco */
+    text-decoration: none; /* Sin subrayado */
+    background: transparent; /* Fondo transparente */
+    border: none; /* Sin borde */
+    cursor: pointer; /* Cambia cursor a puntero (manito) */
+    transition: transform 0.2s ease, color 0.2s ease; /* Transición suave para transformaciones y color */
+}
+
+/* Efecto hover para el enlace cerrar-login */
+.cerrar-login a:hover {
+    transform: scale(1.2); /* Aumenta tamaño un 20% */
+    color: #4b7510; /* Cambia color al verde oscuro */
+}
+
+/* Contenedor principal del contenido */
+.contenedor_principal {
+    width: 80%; /* Ocupa el 80% del ancho del contenedor padre */
+    margin: 0px auto; /* Centrado horizontal automático, sin margen vertical */
+}
+
+/* Contenedor para el logo */
+.logo {
+    width: 100%; /* Ancho completo */
+    display: flex; /* Flexbox para posicionar */
+    justify-content: center; /* Centra horizontalmente */
+}
+
+/* Elementos individuales del logo */
+.logo-item {
+    width: 200px; /* Ancho fijo de 200px */
+    height: 200px; /* Alto fijo de 200px */
+    cursor: pointer; /* Cursor pointer al pasar por encima */
+    transition: transform 0.2s ease; /* Transición suave para transformaciones */
+}
+
+/* Efecto hover para logo-item */
+.logo-item:hover {
+    transform: scale(1.2); /* Escala el elemento al 120% */
+    filter: drop-shadow(0 0 10px #fff); /* Añade sombra difusa blanca alrededor */
+}
+
+/* Encabezado principal */
+.encabezado {
+    display: flex; /* Flexbox */
+    border: none; /* Sin borde */
+    align-items: center; /* Centra verticalmente */
+    flex-direction: column; /* Organiza en columna */
+    text-align: center; /* Texto centrado */
+    margin: 0; /* Sin margen */
+    padding: 0; /* Sin relleno */
+    margin-bottom: 70px;
+    color: #fff; /* Texto blanco */
+}
+
+/* Estilos para la leyenda dentro del encabezado */
+.encabezado legend {
+    font-size: 40px; /* Tamaño de fuente grande */
+    font-weight: bold; /* Fuente en negrita */
+    margin-bottom: 20px; /* Margen inferior */
+    letter-spacing: 1px; /* Espacio entre letras */
+}
+
+/* Contenedores para los botones y campos de formulario */
+.botones,
+.boton {
+    width: 100%; /* Ancho total */
+    display: flex; /* Flexbox */
+    justify-content: left; /* Alinea el contenido a la izquierda */
+    width: 80%; /* Sobrescribe el ancho al 80% */
+    background-color: #4b7510; /* Fondo verde oscuro */
+    padding: 1.5rem 30px; /* Relleno arriba/abajo 1.2rem, izquierda/derecha 30px */
+    margin: 20px 0; /* Margen arriba y abajo */
+    border-radius: 23px; /* Bordes redondeados */
+    border-right: 5px solid #fff; /* Borde derecho blanco de 5px */
+    border-bottom: 5px solid #fff; /* Borde inferior blanco de 5px */
+}
+
+/* Estilos para inputs y textarea dentro de botones */
+.botones input,
+.botones textarea,
+input::placeholder {
+    width: 100%; /* Ancho completo dentro del contenedor */
+    border: none; /* Sin borde */
+    outline: none; /* Sin contorno al enfocar */
+    background: transparent; /* Fondo transparente */
+    font-size: 22px; /* Tamaño de fuente */
+    color: #fff; /* Texto blanco */
+    margin: 0 20px; /* Margen lateral de 20px */
+    padding: 10px 18px; /* Relleno */
+    box-sizing: border-box; /* Incluye padding y borde en el ancho */
+    font-family: sans-serif; /* Fuente sans-serif */
+    line-height: 1; /* Altura de línea */
+    height: 42px; /* Altura fija */
+    resize: none; /* Desactiva el redimensionamiento para textarea */
+}
+
+/* Estilos generales para inputs, selects y textareas */
+input,
+select,
+textarea {
+    background-color: #4b7510; /* Fondo verde oscuro */
+    border-radius: 8px; /* Bordes redondeados */
+}
+
+/* Color del texto placeholder para input y textarea */
+input::placeholder,
+textarea::placeholder {
+    color: white; /* Texto blanco */
+    opacity: 1; /* Opacidad completa */
+}
+
+/* Tamaño de íconos dentro de botones */
+.botones i,
+.boton i {
+    font-size: 30px; /* Tamaño de fuente grande */
+}
+
+/* Etiquetas dentro de botones ocultas visualmente */
+.botones label {
+    width: 1px; /* Ancho mínimo */
+    height: 1px; /* Alto mínimo */
+    overflow: hidden; /* Oculta contenido que exceda */
+}
+
+/* Estilos para los botones principales */
+.boton {
+    width: 60%;
+    display: flex; /* Flexbox */
+    padding: 20px; /* Relleno */
+    margin: 20px; /* Margen */
+    font-size: 30px; /* Tamaño de texto grande */
+    justify-content: center; /* Centra contenido horizontalmente */
+    color: white; /* Texto blanco */
+}
+
+/* Margen para iconos dentro de botones */
+.boton i {
+    margin: 5px 20px; /* Margen arriba/abajo y lateral */
+}
+
+/* Efecto hover para botones: aumenta ligeramente tamaño */
+.boton:hover {
+    transform: scale(1.03);
+}
+
+/* Contenedor para información extra */
+.info_extra {
+    width: 80%; /* Ancho del 80% */
+    display: flex; /* Flexbox */
+    justify-content: space-between; /* Espacio entre elementos */
+    align-items: center; /* Centra verticalmente */
+    margin: 10px 0; /* Margen arriba y abajo */
+    flex-wrap: wrap; /* Permite que los hijos se ajusten en varias líneas */
+}
+
+/* Estilos para labels y enlaces dentro de info_extra */
+.info_extra label,
+.info_extra a {
+    font-size: 19px; /* Tamaño de fuente */
+    font-weight: bold; /* Negrita */
+    letter-spacing: 0.5px; /* Espaciado entre letras */
+    text-decoration: none; /* Sin subrayado */
+    color: #fff; /* Texto blanco */
+}
+
+/* Enlaces con clase recuperar tienen subrayado */
+.recuperar a {
+    text-decoration: underline;
+}
+
+/* Iconos con margen y cursor pointer */
+.icono {
+    margin-right: 10px; /* Margen a la derecha */
+    padding-right: 10px; /* Relleno derecho */
+    color: #fff; /* Color blanco */
+    cursor: pointer; /* Cursor pointer */
+}
+
+/* Oculta la barra de desplazamiento en textarea (webkit browsers) */
+textarea::-webkit-scrollbar {
+    display: none;
+}
+
+/* Estilos para formularios */
+form {
+    justify-content: center; /* Centra contenido (si aplica) */
+    display: block; /* Display block */
+    margin-top: 0em; /* Sin margen arriba */
+    unicode-bidi: isolate; /* Aísla el texto para dirección bidireccional */
+}
+
+/* Oculta flechas de inputs tipo number en navegadores webkit */
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none; /* Elimina la apariencia por defecto */
+    margin: 0; /* Sin margen */
+}
+
+/* Para Firefox y otros navegadores */
+input[type=number] {
+    -moz-appearance: textfield; /* Elimina las flechas */
+    appearance: textfield; /* Elimina las flechas */
+}
+
+/* Contenedor para inputs de tipo número */
+.numero {
+    position: relative; /* Posición relativa para posicionar elementos hijos si es necesario */
+    width: 100%; /* Ancho completo */
+}
+
+/* Estilos para inputs numéricos dentro de la clase .numero */
+.numero input[type="number"] {
+    width: 100%; /* Ancho completo */
+    padding-right: 30px; /* Espacio derecho para posibles iconos/flechas */
+    background: transparent; /* Fondo transparente */
+    color: #fff; /* Texto blanco */
+    font-size: 16px; /* Tamaño de fuente */
+    border: none; /* Sin borde */
+    outline: none; /* Sin contorno al enfocar */
+    height: 40px; /* Altura fija */
+}
+
+/* Estilos para spans dentro de flechas */
+.flechas span {
+    color: white; /* Color blanco */
+    font-size: 10px; /* Tamaño pequeño */
+    line-height: 10px; /* Altura de línea pequeña */
+    background: transparent; /* Fondo transparente */
+    user-select: none; /* No permite selección de texto */
+}
+
+/* Estilos generales para select */
+select {
+    background-color: #4b7510; /* Fondo verde oscuro */
+    color: #fff; /* Texto blanco */
+    border: none; /* Sin borde */
+    outline: none; /* Sin contorno al enfocar */
+    border-radius: 23px; /* Bordes redondeados */
+    font-size: 24px; /* Tamaño de fuente */
+    appearance: none; /* Quita estilo nativo */
+    cursor: pointer; /* Cursor pointer */
+    margin: 0 25px; /* Margen lateral */
+    box-sizing: border-box; /* Incluye padding y borde en el ancho */
+    font-family: sans-serif; /* Fuente sans-serif */
+    line-height: 2; /* Altura de línea */
+    resize: none; /* No permite redimensionar */
+}
+
+/* Opciones dentro de select */
+select option {
+    background-color: #4b7510; /* Fondo verde oscuro */
+    color: #fff; /* Texto blanco */
+}
+
+/* Efecto hover para opciones de select */
+select option:hover {
+    background-color: #356306; /* Fondo verde más oscuro */
+    color: #fff; /* Texto blanco */
+}
+
+/* Estilos para botones de categoría en inventario */
+.categoria {
+    width: 100%; /* Ancho completo */
+    display: flex; /* Flexbox */
+    justify-content: left; /* Alinea contenido a la izquierda */
+    width: 80%; /* Sobrescribe ancho al 80% */
+    background-color: #4b7510; /* Fondo verde oscuro */
+    padding: 0.6rem 30px; /* Relleno */
+    margin: 25px 0; /* Margen vertical */
+    border-radius: 23px; /* Bordes redondeados */
+    border-right: 5px solid #fff; /* Borde derecho blanco */
+    border-bottom: 5px solid #fff; /* Borde inferior blanco */
+    transition: all 0.3s ease; /* Transición suave para cualquier cambio */
+}
+
+/* Efecto hover para categoría: levanta y sombra */
+.categoria:hover {
+    transform: translateY(-2px); /* Mueve hacia arriba 2px */
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3); /* Sombra debajo */
+}
+
+/* Tamaño de íconos en categorías y subcategorías */
+.categoria i, .sub_categoria i {
+    font-size: 30px; /* Tamaño grande */
+}
+
+/* Etiquetas dentro de categoría ocultas */
+.categoria label {
+    width: 1px; /* Ancho mínimo */
+    height: 1px; /* Alto mínimo */
+    overflow: hidden; /* Oculta contenido excedente */
+}
+
+/* Estilos para subcategoría */
+.sub_categoria {
+    display: flex; /* Flexbox */
+    padding: 8px; /* Relleno */
+    margin: 20px; /* Margen */
+    font-size: 30px; /* Tamaño grande */
+    justify-content: center; /* Centra horizontalmente */
+    color: white; /* Texto blanco */
+    width: 100%; /* Ancho completo */
+    background: transparent; /* Fondo transparente */
+    border: none; /* Sin borde */
+    cursor: pointer; /* Cursor pointer */
+    transition: all 0.3s ease; /* Transición suave */
+}
+
+/* Efecto hover para subcategoría: escala ligeramente */
+.sub_categoria:hover {
+    transform: scale(1.02); /* Escala al 102% */
+}
+
+/* Margen para íconos dentro de subcategoría */
+.sub_categoria i {
+    margin: 5px 20px;
+}
+
+.tipo_ingreso label{
+    height: 50px;
+}
+
+.ingresos_egresos {
+    margin-top:9px
+}
+
+#fecha {
+    background-color:none;
+    outline: none;
+    padding: 10px 15px;
+    width: 100%;
+}
+
+.flatpickr-calendar {
+    border: none;
+    border-radius: 10px;
+}
+
+.flatpickr-day.selected,
+.flatpickr-day.today,
+.flatpickr-day:hover {
+    background: #a3e635 !important;
+    color: black !important;
+}
+
+.flatpickr-current-month input.cur-year {
+    all: unset;
+    width: 65px !important;
+    min-width: 65px !important;
+    color: #000;
+    margin-left: 0;
+    background: transparent;
+    border: none;
+    text-align: center;
+    font-size: 18px;
+}
+
+.flatpickr-current-month{
+    width: -1px;
+}
+
+
+.arrowDown,
+.arrowUp{
+    margin: 0 -15px;
+}
+
+.flatpickr-current-month {
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Estilos para el selector de mes si se usa en forma de dropdown */
+.flatpickr-monthDropdown-months,
+.flatpickr-monthDropdown-months option {
+    color: #000 !important;
+    font-size: 16px;
+    padding: 5px;
+    border: 3px solid #000;
+}
+
+/* Ocultar ícono nativo del input tipo fecha */
+input[type="date"]::-webkit-calendar-picker-indicator {
+    display: none;
+    -webkit-appearance: none;
+}

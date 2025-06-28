@@ -1,0 +1,68 @@
+{% extends "base_registros.html" %}
+{% load static %}
+
+{% block title %} 
+    <title>Registrar lotes</title>
+{% endblock %}
+
+{% block extra_styles %}
+    <link rel="stylesheet" href="{% static 'css/formularios.css' %}">
+{% endblock %}
+
+{% block header %}
+{% endblock %}
+
+{% block content %}
+<div class="cerrar-login"> <!-- Botón o enlace para cerrar o cancelar -->
+    <a href="javascript:history.back()" title="Cancelar e ir atrás">✖</a>
+</div>
+<!-- Contenedor principal del formulario como el logo-->
+<section class="contenedor_principal">
+    <div class="logo">
+        <a href="{% url 'inicio' %}" title="volver al inicio">
+            <img class="logo-item" src="{% static 'img/logo_agronova.png' %}" alt="logo - Agronova">
+        </a>
+    </div>
+    <!-- Formulario de registro de lotes -->
+    <form id="formularioIngreso">
+        <fieldset class="encabezado">
+            <legend>Registro de lotes</legend>
+            <!-- Campo para el nombre del lote -->
+            <div class="botones">
+                <i class="fa-solid fa-seedling"></i>
+                <label for="Nombre">Nombre del lote</label>
+                <input id="Nombre" name="Nombre" type="text" placeholder="Nombre del lote" required />
+            </div>
+            <!-- Campo para ingresar el número de hectáreas -->
+            <div class="botones">
+                <i class="fas fa-draw-polygon"></i>
+                <label for="Hectareas">Hectareas</label>
+                <input id="Hectareas" name="Hectareas" type="number" placeholder="Hectareas" min="0" required />
+            </div>
+            <!-- Campo para seleccionar el tipo de arbusto -->
+            <div class="botones">
+                <i class="fa-solid fa-leaf"></i>
+                <label for="Tipo de arbusto">Tipo_de_arbusto</label>
+                <select name="Tipo de arbusto" id="Tipo de arbusto" required>
+                    <option value=""disabled selected>Tipo de arbusto</option>
+                    <option value="Cafe">Café</option>
+                    <option value="Cardamomo">Cardamomo</option>
+                </select>
+            </div>
+            <!-- Campo para seleccionar el estado del lote -->
+            <div class="botones">
+                <i class="fa-solid fa-toggle-on"></i>
+                <label for="Estado del lote">estado_del_lote</label>
+                <select name="Estado del lote" id="Estado del lote" required>
+                    <option value=""disabled selected>Estado del lote</option>
+                    <option value="Activo">Activo</option>
+                    <option value="Inactivo">Incativo</option>
+                </select>
+                
+            </div>
+            <!-- Botón para enviar el formulario -->
+            <button class="boton" type="button" id="btnEnviar"><i class="fa-solid fa-pen-to-square"></i>Registrar lote</button>
+        </fieldset>
+    </form>
+</section>
+{% endblock %}

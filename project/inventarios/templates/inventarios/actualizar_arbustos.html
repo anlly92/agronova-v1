@@ -1,0 +1,63 @@
+{% extends "base_actualizar.html" %}
+{% load static %}
+
+{% block title %} 
+    <title>Actualizar arbustos</title>
+{% endblock %}
+
+{% block extra_styles %}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <link rel="stylesheet" href="{% static 'css/formularios.css' %}">
+{% endblock %}
+
+{% block content %}
+        <div class="cerrar-login">
+            <a href="javascript:history.back()" title="Cancelar e ir atrás">✖</a>
+        </div>
+        
+        <section class="contenedor_principal">
+            <div class="logo">
+                <a href="{% url 'inicio' %}" title="volver al inicio">
+                    <img class="logo-item" src="{% static 'img/logo_agronova.png' %}" alt="logo - Agronova">
+                </a>
+            </div>
+
+            <form id="formularioIngreso">
+                <fieldset class="encabezado">
+                    <legend>Actualizar datos del registro de arbustos</legend>
+
+                    <!-- Código del lote de siembra -->
+                    <div class="botones">
+                        <i class="fas fa-key"></i>
+                        <label for="codigoLote">Código del lote de siembra</label>
+                        <input type="text" id="codigoLote" name="codigoLote" placeholder="Código del lote de siembra" required>
+                    </div>
+
+                    <!-- Cantidad sembrada -->
+                    <div class="botones">
+                        <i class="fa-solid fa-sort-numeric-up-alt"></i>
+                        <label for="cantidadSembrada">Cantidad sembrada</label>
+                        <input type="number" id="cantidadSembrada" name="cantidadSembrada" placeholder="Cantidad sembrada" min="1" required>
+                    </div>
+
+                    <!-- Fecha de siembra -->
+                <div class="botones">
+                    <span id="icono-calendario" style="cursor: pointer;">
+                        <i class="fa-solid fa-calendar-days"></i>
+                    </span>
+                    <input type="text" id="fecha" name="fecha" required placeholder="Fecha">
+                </div>
+
+                    <button class="boton" type="button" id="btnEnviar">
+                        <i class="fas fa-save"></i> Actualizar datos
+                    </button>
+                </fieldset>
+            </form>
+        </section>
+{% endblock %}
+
+{% block script %}
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/es.js"></script>
+    <script src="{% static 'js/calendario.js' %}"></script>
+{% endblock %}

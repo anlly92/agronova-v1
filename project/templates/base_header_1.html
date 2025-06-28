@@ -1,0 +1,62 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% block title %}{% endblock %}
+    <link rel="icon" href="{% static 'img/icono_agronova.png'%}" type="image/png">
+    <link rel="stylesheet" href="{% static  'css/base_header_1.css'%}">
+    {% block extra_styles %}{% endblock %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+
+<body>
+    <header>
+        <nav class="barra_navegacion">
+            <div class="logotipo">
+                <a href="{% url 'inicio' %}">
+                    <img src="{% static 'img/logo_agronova.png' %}" alt="Agronova Logo" />
+                </a>
+                <span class="texto-logotipo">{% block logotipo %}{% endblock %}</span>
+            </div>
+
+            <form class="buscador" method="GET">
+                <input type="text" placeholder="Buscar">
+                <button type="submit">Buscar</button>
+            </form>
+
+            <div class="acciones">
+                {% block nav_icons %}
+                {%endblock%}
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <footer>
+        <section class="pie-contenedor">
+            <section class="pie-seccion">
+                <h4 class="soporte">Soporte técnico</h4>
+                <a href="mailto:agronovasloni@gmail.com">agronovavision1@gmail.com</a>
+            </section>
+
+            <section class="pie-seccion">
+                <h4 class="creditos">Créditos</h4>
+                <p>Anyí Lorena Vásquez Sánchez</p>
+                <p>María Estefanía Tubérlía Herrera</p>
+                <p>Nicol Melissa Jiménez Moreno</p>
+            </section>
+
+            <section class="pie-seccion">
+                <h4 class="terminos"><a href="{% url 'terminos_condiciones' %}">Términos y condiciones</a></h4>
+            </section>
+        </section>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,31 @@
+{% extends "base_home.html" %}
+{% load static %}
+
+{% block title %} 
+    <title>¿Cómo surgio Agronova?</title>
+{% endblock %}
+
+{% block extra_styles %}
+    <link rel="stylesheet" href="{% static 'core/css/como_surgio.css' %}">
+{% endblock %}
+
+{% block content %}
+    <section class="contenedor">
+        <section class="contenedor_derecho">
+
+        </section>
+
+        <section class="contenedor_izquierdo">
+            <h2>¿Cómo surgio Agronova?</h2>
+            <p>
+                Agronova nació como una respuesta a los problemas organizacionales y operativos en la Finca La Elisa, donde la información se gestionaba manualmente, generando desorden, pérdida de datos y dificultades en la toma de decisiones.
+            </p>
+            <p>
+                Inicialmente, el equipo de trabajo Esloni exploró diferentes proyectos sin un enfoque claro. Tras analizar el contexto nacional, identificamos que el café es el producto más producido en Colombia y que muchas fincas aún dependen de métodos tradicionales para registrar sus operaciones. Esto nos llevó a la idea de desarrollar un sistema que digitalizara la gestión agrícola, optimizando procesos y reduciendo el uso de papel, alineándonos con prácticas más sostenibles.
+            </p>
+            <p>
+                A medida que avanzamos con el proyecto, le dimos un enfoque más definido y decidimos implementarlo en la Finca La Elisa, una finca que no solo produce su propia marca de café, sino que también maneja otras actividades agrícolas clave. De esta manera, Agronova se convirtió en una solución integral, permitiendo una gestión eficiente y sostenible, al tiempo que fortalece la competitividad del café en el mercado.
+            </p>
+        </section>
+    </section>
+{% endblock %}

@@ -1,0 +1,67 @@
+{% extends "base_header_1.html" %}
+{% load static %}
+
+{% block title %} 
+    <title> Gestionar recolección </title>
+{% endblock %}
+
+{% block extra_styles %}
+    <link rel="stylesheet" href="{% static 'css/tablas.css' %}">
+{% endblock %}
+
+{% block logotipo %}
+    Recolección
+{% endblock %}
+
+{% block nav_icons %}
+    <div class="boton">
+        <a href="{% url 'total_de_recoleccion' %}" class="total_de_recoleccion">
+            <i class="fas fa-file-invoice-dollar"></i>
+        </a>
+        <span>Total recolección</span>
+    </div>
+
+    <div class="boton">
+        <a href="{% url 'registrar_pago' %}" class="registrar_pago">
+            <i class="fas fa-dollar-sign"></i>
+        </a>
+        <span>Pago</span>
+    </div>
+{%endblock%}
+
+{% block content %}
+    <section>
+        <table>
+            <tr>
+                <th>Codigo de recolección</th>
+                <th>Identificación del empleado</th>
+                <th>Nombre del empleado</th>
+                <th>Código de lote</th>
+                <th>Nombre del lote</th>
+                <th>Tipo de producto (Cáfe/Cardamomo)</th>
+                <th>Kilos recolectados</th>
+                <th>Fecha recolección</th>
+                <th>Tipo de pago (Horas/Kilos)</th>
+                <th>Horas trabajadas</th>
+                <th>Total a pagar</th>
+            </tr>
+            <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+            <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+            <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+            <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+            <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+            <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+            <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+            <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+            <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+            <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+            <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+            <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+        </table>
+    </section>
+
+    <div class="ingresar">
+        <a href="{% url 'registrar_recoleccion' %}" class="agregar-btn">+</a>
+        <span class="agregar-texto">Agregar</span>
+    </div>
+{%endblock%}

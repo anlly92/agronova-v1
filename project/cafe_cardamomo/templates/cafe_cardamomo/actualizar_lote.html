@@ -1,0 +1,55 @@
+{% extends "base_actualizar.html" %}
+{% load static %}
+
+{% block title %} 
+    <title>Actualización del estado del lote</title>
+{% endblock %}
+
+{% block extra_styles %}
+    <link rel="stylesheet" href="{%  static 'css/formularios.css' %}">
+{% endblock %}
+
+
+{% block content %}
+    <!-- Botón para cerrar o volver atrás -->
+    <div class="cerrar-login">
+        <a href="javascript:history.back()" title="Cancelar e ir atrás">✖</a>
+    </div>
+    <!-- Contenedor principal con logo y formulario -->
+    <section class="contenedor_principal">
+        <!-- Logo con enlace al inicio -->
+        <div class="logo">
+            <a href="{% url 'inicio' %}" title="volver al inicio">
+                <img class="logo-item" src="{% static 'img/logo_agronova.png' %}" alt="logo - Agronova">
+            </a>
+        </div>
+        <!-- Formulario de actualización del estado del lote -->
+        <form id="formularioIngreso">
+            <fieldset class="encabezado">
+                <legend>Actualización del estado del lote</legend>
+
+                <!-- Campo para ingresar el código del lote -->
+                <div class="botones">
+                    <i class="fa-solid fa-key"></i>
+                    <label for="Codigo_del_lote">Codigo_del_lote</label>
+                    <input id="Codigo_del_lote" name="Codigo_del_lote" type="number" placeholder="Codigo del lote" required />
+                </div>
+                <!-- Selección del estado (activo/inactivo) -->
+                <div class="botones">
+                    <i class="fa-solid fa-toggle-on"></i>
+                    <label for="estado_del_lote">Estado del lote</label>
+                    <select name="estado_del_lote" id="estado_del_lote" required>
+                        <option value=""disabled selected >Estado del lote</option>
+                        <option value="Activo">Activo</option>
+                        <option value="Inactivo">Inactivo</option>
+                    </select>
+                </div>
+                <!-- Botón para enviar el formulario -->
+                <button class="boton" type="button" id="btnEnviar">
+                    <i class="fa-solid fa-pen-to-square"></i>Actualizar estado del lote
+                </button>
+            </fieldset>
+        </form>
+    </section>
+    
+{% endblock %}

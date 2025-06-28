@@ -1,0 +1,67 @@
+{% extends "base_registros.html" %}
+{% load static %}
+
+{% block title %} 
+    <title>Registro de agroquímicos</title>
+{% endblock %}
+
+{% block extra_styles %}
+    <link rel="stylesheet" href="{% static 'css/formularios.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="cerrar-login">
+    <a href="javascript:history.back()" title="Cancelar e ir atrás">✖</a>
+</div>
+
+<section class="contenedor_principal">
+    <div class="logo">
+        <a href="{% url 'inicio' %}" title="Volver al inicio">
+            <img class="logo-item" src="{% static 'img/logo_agronova.png' %}" alt="logo - Agronova">
+        </a>
+    </div>
+
+    <form id="formularioIngreso">
+        <fieldset class="encabezado">
+            <legend>Registro de agroquímicos</legend>
+
+            <!-- Nombre del agroquímico -->
+            <div class="botones">
+                <i class="fa-solid fa-prescription-bottle"></i>
+                <label for="nombreAgroquimico">Nombre del agroquímico</label>
+                <input type="text" id="nombreAgroquimico" name="nombreAgroquimico" placeholder="Nombre del agroquímico" required>
+            </div>
+
+            <!-- Descripción del agroquímico -->
+            <div class="botones">
+                <i class="fa-solid fa-file-lines"></i>
+                <label for="descripcionAgroquimico">Descripción del agroquímico</label>
+                <textarea id="descripcionAgroquimico" name="descripcionAgroquimico" placeholder="Descripción del agroquimico..." required></textarea>
+            </div>
+
+            <!-- Unidad de medida -->
+            <div class="botones">
+                <i class="fa-solid fa-flask-vial"></i>
+                <label for="unidadMedida">Unidad de medida</label>
+                <select name="unidadMedida" id="unidadMedida" required>
+                    <option value="" disabled selected>Seleccionar unidad de medida</option>
+                    <option value="Kg">Kilogramos (Kg)</option>
+                    <option value="g">Gramos (g)</option>
+                    <option value="L">Litros (L)</option>
+                </select>
+            </div>
+
+            <!-- Stock -->
+            <div class="botones">
+                <i class="fa-solid fa-box-open"></i>
+                <label for="stock">Stock</label>
+                <input type="number" id="stock" name="stock" placeholder="stock" min="1" required>
+            </div>
+
+            <button class="boton" type="button" id="btnEnviar">
+                <i class="fas fa-save"></i> Registrar agroquímico
+            </button>
+        </fieldset>
+    </form>
+</section>
+{% endblock %}

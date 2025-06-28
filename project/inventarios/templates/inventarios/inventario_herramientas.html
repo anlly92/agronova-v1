@@ -1,0 +1,63 @@
+{% extends "base_header_1.html" %}
+{% load static %}
+
+{% block title %} 
+    <title> Inventario herramientas </title>
+{% endblock %}
+
+{% block extra_styles %}
+    <link rel="stylesheet" href="{% static 'css/tablas.css' %}">
+{% endblock %}
+
+{% block logotipo %}
+    Herramientas Maquinas
+{% endblock %}
+
+{% block nav_icons %}
+    <div class="boton">
+        <a href="{% url 'actualizar_inventario_herramientas' %}" class="boton-actualizar">
+            <i class="fas fa-arrows-rotate"></i>
+        </a>
+        <span>Actualizar</span>
+    </div>
+
+    <div class="boton">
+        <button type="button">
+            <i class="fas fa-trash"></i>
+        </button>
+        <span>Eliminar</span>
+    </div>
+{% endblock %}
+
+{% block content %}
+    <section>
+        <table>
+            <tr>
+                <th>Código inventario</th>
+                <th>Categoría</th>
+                <th>Nombre</th>
+                <th>Estado</th>
+                <th>Stock</th>
+            </tr>
+            <tr><td></td><td></td><td></td><td></td><td></td></tr>
+            <tr><td></td><td></td><td></td><td></td><td></td></tr>
+            <tr><td></td><td></td><td></td><td></td><td></td></tr>
+            <tr><td></td><td></td><td></td><td></td><td></td></tr>
+            <tr><td></td><td></td><td></td><td></td><td></td></tr>
+            <tr><td></td><td></td><td></td><td></td><td></td></tr>
+            <tr><td></td><td></td><td></td><td></td><td></td></tr>
+            <tr><td></td><td></td><td></td><td></td><td></td></tr>
+            <tr><td></td><td></td><td></td><td></td><td></td></tr>
+            <tr><td></td><td></td><td></td><td></td><td></td></tr>
+            <tr><td></td><td></td><td></td><td></td><td></td></tr>
+            <tr><td></td><td></td><td></td><td></td><td></td></tr>
+            <tr><td></td><td></td><td></td><td></td><td></td></tr>
+            <tr><td></td><td></td><td></td><td></td><td></td></tr>
+        </table>
+    </section>
+
+    <div class="ingresar">
+        <a href="{% url 'categoria_herramientas' %}" class="agregar-btn">+</a>
+        <span class="agregar-texto">Agregar</span>
+    </div>
+{% endblock %}

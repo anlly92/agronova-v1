@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %} 
+    <title>Sobre mi</title>
+{% endblock %}
+
+{% block extra_styles %}
+    <link rel="stylesheet" href="{% static 'administracion/css/sobre_mi.css' %}">
+{% endblock %}
+
+{% block header %}
+{% endblock %}
+
+{% block content %}
+<main>
+    <div class="cerrar-login">
+        <a href="{% url 'inicio' %}" title="Cancelar e ir atrás">✖</a>
+    </div>
+
+    <section class="contenedor_principal">
+
+        <div class="logo">
+            <a href="{% url 'inicio' %}" title="volver al inicio">
+                <img class="logo-item" src="{% static 'img/logo_agronova.png' %}" alt="logo - Agronova">
+            </a>
+        </div>
+
+        <fieldset class="encabezado">
+            <legend>Sobre mi</legend>
+
+            <div class="botones">
+                <i class="fas fa-id-badge"></i>
+                <label>Nombres</label>
+                <p>Nombres</p>
+            </div>
+
+            <div class="botones">
+                <i class="fas fa-id-badge"></i>
+                <label>Apellidos</label>
+                <p>Apellidos</p>
+            </div>
+
+            <div class="botones">
+                <i class="fas fa-phone"></i>
+                <label>Numero telefonico</label>
+                <p>Numero telefonico</p>
+            </div>
+
+            <div class="botones">
+                <i class="fas fa-envelope"></i>
+                <label>Correo electronico</label>
+                <p>Correo electronico</p>
+            </div>
+
+            <section class="boton">
+                <div class="botones bon">
+                    <a href="{% url 'editar_perfil' %}">Editar perfil</a>
+                </div>
+
+                <div class="botones bon">
+                    <a href="{% url 'contraseña' %}">Cambiar contraseña</a>
+                </div>
+            </section>
+        </fieldset>
+</section>
+</main>
+{% endblock %}

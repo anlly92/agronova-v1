@@ -1,0 +1,8 @@
+from django.urls import path
+from personal import views
+
+urlpatterns = [
+    path("gestionar_personal/", views.gestionar_personal, name='gestionar_personal'),
+    path("registro_del_personal/", views.registro_personal, name='registro_personal'),
+    path("actualizar_personal/", views.actualizar_personal, name='actualizar_personal'),
+]

@@ -1,0 +1,94 @@
+{% extends "base_registros.html" %}
+{% load static %}
+
+{% block title %} 
+    <title>Registro de recolección</title>
+{% endblock %}
+
+{% block extra_styles %}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <link rel="stylesheet" href="{% static 'css/formularios.css' %}">
+{% endblock %}
+
+{% block header %}
+{% endblock %}
+
+{% block content %}
+<div class="cerrar-login">  <!-- Botón o ícono para cerrar -->
+    <a href="javascript:history.back()" title="Cancelar e ir atrás">✖</a>
+</div>
+
+<section class="contenedor_principal"> <!-- Sección principal que contiene todo el formulario -->
+    
+    <div class="logo">
+        <a href="{% url 'inicio' %}" title="volver al inicio">
+            <img class="logo-item" src="{% static 'img/logo_agronova.png' %}" alt="logo - Agronova">
+        </a>
+    </div>
+    <!-- Formulario de registro de recolección -->
+    <form id="formularioIngreso">
+        <fieldset class="encabezado"> <!-- Título del formulario -->
+            <legend>Registro de recolección</legend>
+            <!-- Campo: Identificación del empleado -->
+            <div class="botones">
+                <i class="fas fa-id-card"></i>
+                <label for="Identificación_del_empleado">Identificación_del_empleado</label>
+                <input id="Identificación_del_empleado" name="Identificación_del_empleado" type="number" placeholder="Identificación del empleado" min="0" required />
+            </div>
+            <!-- Campo: Código del lote -->
+            <div class="botones">
+                <i class="fas fa-key"></i>
+                <label for="Código_del_lote">Código_del_lote</label>
+                <input id="Código_del_lote" name="Código_del_lote" type="number" placeholder="Código del lote" min="0" required />
+            </div>
+            <!-- Campo: Tipo de arbusto (selección) -->
+            <div class="botones">
+                <i class="fa-solid fa-leaf"></i>
+                <label for="Tipo de arbusto">Tipo_de_arbusto</label>
+                <select name="Tipo de arbusto" id="Tipo de arbusto" required>
+                    <option value="" disabled selected >Tipo de arbusto</option>
+                    <option value="Cafe">Cafe</option>
+                    <option value="Cardamomo">Cardamomo</option>
+                </select>
+            </div>
+            <!-- Campo: Kilos recolectados -->
+            <div class="botones">
+                <i class="fas fa-weight-hanging"></i>
+                <label for="Kilos_recolectados">Kilos_recolectados</label>
+                <input id="Kilos_recolectados" name="Kilos_recolectados" type="number" placeholder="Kilos recolectados" required />
+            </div>
+            <!-- Campo: Tipo de pago (por horas o por kilos) -->
+            <div class="botones">
+                <i class="fas fa-hand-holding-dollar"></i>
+                <label for="Tipo_de_pago">Tipo_de_pago</label>
+                <select name="Tipo_de_pago" id="Tipo_de_pago" required>
+                    <option value="" disabled selected>Tipo de pago</option>
+                    <option value="Cafe">Horas</option>
+                    <option value="Cardamomo">Kilos</option>
+                </select>
+            </div>
+            <!-- Campo: Horas trabajadas (formato hora) -->
+            <div class="botones">
+                <i class="fas fa-clock"></i>
+                <label for="Horas_trabajadas">Horas_trabajadas</label>
+                <input id="Horas_trabajadas" name="Horas_trabajadas" type="number" placeholder="Horas trabajadas" required />
+            </div>
+            <!-- Campo: Fecha de recolección -->
+            <div class="botones">
+                <span id="icono-calendario" style="cursor: pointer;">
+                    <i class="fa-solid fa-calendar-days"></i>
+                </span>
+                <input type="text" id="fecha" name="fecha" required placeholder="Fecha">
+            </div>
+            <!-- Botón para enviar el formulario -->
+            <button class="boton" type="button" id="btnEnviar"><i class="fas fa-save"></i>Registrar recolección</button>
+        </fieldset>
+    </form>
+</section>
+{% endblock %}
+
+{% block script %}
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/es.js"></script>
+    <script src="{% static 'js/calendario.js' %}"></script>
+{% endblock %}

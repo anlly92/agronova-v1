@@ -1,0 +1,80 @@
+{% extends "base_registros.html" %}
+{% load static %}
+
+{% block title %} 
+    <title>registro de ingresos y egresos</title>
+{% endblock %}
+
+{% block extra_styles %}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <link rel="stylesheet" href="{% static 'css/formularios.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="cerrar-login"> <!-- Botón o enlace para cerrar o cancelar -->
+    <a href="javascript:history.back()" title="Cancelar e ir atrás">✖</a>
+</div>
+<!-- Contenedor principal del formulario como el logo -->
+<section class="contenedor_principal">
+    <div class="logo">
+        <a href="{% url 'inicio' %}" title="volver al inicio">
+            <img class="logo-item" src="{% static 'img/logo_agronova.png' %}" alt="logo - Agronova">
+        </a>
+    </div>
+    <!-- Formulario para registrar ingresos o egresos -->
+    <form id="formularioIngreso">
+        <fieldset class="encabezado">
+            <legend>Registro de ingresos y egresos</legend>
+            <!-- Campo para la identificación del administrador -->
+            <div class="botones">
+                <i class="fa-solid fa-id-card"></i>
+                <label for="Identificación">Identificación_del_administrador</label>
+                <input id="Identificación" name="Identificación" type="number" placeholder="Identificación del administrador" min = "0" required />
+            </div>
+            <!-- Campo para el código total de pago (relacionado con el registro contable) -->
+            <div class="botones">
+                <i class="fa-solid fa-key"></i>
+                <label for="Codigo_total_de_pago">Codigo_total_de_pago</label>
+                <input id="Codigo_total_de_pago" name="Codigo_total_de_pago" type="number"  placeholder="Codigo total de pago" min = "0" required />
+            </div>
+            <!-- Selector del tipo de operación: ingreso o egreso -->
+            <div class="botones">
+                <i class="fa-solid fa-repeat ingresos_egresos"></i>
+                <label for="Tipo_de_ingreso_egreso">Tipo_de_ingreso_egreso</label>
+                <select name="Tipo_de_ingreso_egreso" id="Tipo_de_ingreso_egreso" required>
+                    <option value="" disabled selected> Seleccione el tipo (Ingreso / Egreso)</option>
+                    <option value="Cafe">Ingresos</option>
+                    <option value="Cardamomo">Egresos</option>
+                </select>
+            </div>
+            <!-- Campo de descripción adicional de la transacción -->
+            <div class="botones">
+                <i class="fa-solid fa-file-lines"></i>
+                <label for="Descripción">Descripción</label>
+                <textarea id="Descripción" name="Descripción" placeholder="Descripción" required></textarea>
+            </div>
+            <!-- Fecha de la operación -->
+            <div class="botones">
+                <span id="icono-calendario" style="cursor: pointer;">
+                    <i class="fa-solid fa-calendar-days"></i>
+                </span>
+                <input type="text" id="fecha" name="fecha" required placeholder="Fecha">
+            </div>
+            <!-- Valor monetario del ingreso o egreso -->
+            <div class="botones">
+                <i class="fa-solid fa-dollar-sign"></i>
+                <label for="Valor">Valor</label>
+                <input id="Valor" name="Valor" type="number" step="0.01" placeholder="Valor" min ="0"required />
+            </div>
+            <!-- Botón para enviar el formulario -->
+            <button class="boton" type="button" id="btnEnviar"><i class="fa-solid fa-pen-to-square"></i>Registrar ingreso o egreso</button>
+        </fieldset>
+    </form>
+</section>
+{% endblock %}
+
+{% block script %}
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/es.js"></script>
+    <script src="{% static 'js/calendario.js' %}"></script>
+{% endblock %}
