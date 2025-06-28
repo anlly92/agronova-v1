@@ -1,0 +1,77 @@
+{% extends "base_registros.html" %}
+{% load static %}
+
+{% block title %} 
+    <title>Registro producto final</title>
+{% endblock %}
+
+{% block extra_styles %}
+    <link rel="stylesheet" href="{% static 'css/formularios.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="cerrar-login">
+    <a href="javascript:history.back()" title="Cancelar e ir atrás">✖</a>
+</div>
+
+<section class="contenedor_principal">
+
+    <div class="logo">
+        <a href="{% url 'inicio' %}" title="volver al inicio">
+            <img class="logo-item" src="{% static 'img/logo_agronova.png' %}" alt="logo - Agronova">
+        </a>
+    </div>
+
+    <form id="formularioIngreso">
+        <fieldset class="encabezado">
+            <legend>Registro producto final</legend>
+            
+            <!-- nombre del producto -->
+            <div class="botones">
+                <i class="fa-solid fa-clipboard-list"></i>
+                <label for="nombreProductofinal">nombre_producto</label>
+                <input type="text" id="nombreProductofinal" name="nombreProductofinal" placeholder="Nombre del produto final" required>
+            </div>
+
+
+            <!-- Descripción del producto -->
+            <div class="botones">
+                <i class="fa-solid fa-file-lines"></i>
+                <label for="descripcionProducto">Descripcion producto</label>
+                <textarea id="descripcionProducto" name="descripcionProducto" placeholder="Descripción del producto..." required></textarea>
+            </div>
+
+
+            <!-- Contenido neto del producto-->
+            <div class="botones">
+                <i class="fa-solid fa-scale-balanced"></i>
+                <label for="contenido_neto">Contenido neto </label>
+                <input type="number" id="contenido_neto" name="contenido_neto" placeholder="Contenido Neto" step="0.01" min="0" required>
+
+                <select id="unidad_neto" name="unidad_neto" required>
+                    <option value="" disabled selected>Selecciona la unidad</option><!-- inicialmente muestra seleccionar el tipo de grano-->
+
+                    <option value="g">g</option>
+                    <option value="kg">kg</option>
+                </select>
+            </div>
+
+            <!-- Precio unitario -->
+            <div class="botones">
+                <i class="fa-solid fa-dollar-sign"></i>
+                <label for="precio_unitario">Precio unitario</label>
+                <input type="number" id="precio_unitario" name="precio_unitario" placeholder="Precio Unitario" step="0.01" min="0" required>
+            </div>
+
+            <!-- Stock del producto -->
+            <div class="botones">
+                <i class="fa-solid fa-box-open"></i>
+                <label for="stock">Stock</label>
+                <input type="number" id="stock" name="stock" placeholder="Stock" min="0" required>
+            </div> <!-- le puse cantidad diponible para que el señor entienda -->
+
+            <button class="boton" type="button" id="btnEnviar"><i class="fas fa-save"></i> Registrar producto</button>
+        </fieldset>
+    </form>
+</section>
+{% endblock %}

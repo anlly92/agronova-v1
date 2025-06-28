@@ -1,0 +1,82 @@
+{% extends "base_home.html" %}
+{% load static %}
+
+{% block title %} 
+    <title>Software Agrícola - Agronova </title>
+{% endblock %}
+
+{% block extra_styles %}
+    <link rel="stylesheet" href="{% static 'core/css/home_principal.css' %}">
+{% endblock %}
+
+
+{% block header %}
+    <div class="contenido-portada">
+        <h1 class="titulo-portada">Revolución Cafetera Digital</h1>
+        <p class="subtitulo-portada">
+            Transformamos fincas cafeteras tradicionales en ecosistemas inteligentes.
+            Descubre cómo la tecnología puede maximizar tu producción mientras preservas
+            la esencia artesanal del mejor café colombiano.
+        </p>
+        <a href="#video" class="boton-video">Descubre Agronova</a>
+    </div>
+
+    <div class="indicador-desplazamiento">
+        <i class="fas fa-chevron-down" style="font-size: 2rem;"></i>
+    </div>
+{% endblock %}
+        
+
+{% block content %}
+    <main class="contenido-principal">
+        <section class="contenedor-video" id="video">
+            <div class="envoltorio-video">
+                <video id="video-principal" controls muted preload="metadata">
+                    <source src="{% static 'img/video_elisa.mp4' %}" type="video/mp4" />
+                    Tu navegador no soporta la reproducción de video.
+                </video>
+            </div>
+        </section>
+
+        <div class="seccion-con-fondo">
+            <section class="contenido-con-imagen mostrar-al-desplazar">
+                <div class="contenedor-imagen">
+                    <img src="{% static 'img/logo44.jpg' %}" alt="Agronova Logo" class="imagen-lateral" />
+                </div>
+                <div class="contenedor-texto">
+                    <h2>Nuestra Misión</h2>
+                    <p>Revolucionamos la caficultura colombiana integrando tecnología de vanguardia con
+                        el conocimiento ancestral de nuestros caficultores. Cada grano cuenta una historia
+                        de innovación, sostenibilidad y pasión por el café de calidad mundial.</p>
+                </div>
+            </section>
+
+            <section class="contenido-con-imagen mostrar-al-desplazar">
+                <div class="contenedor-imagen">
+                    <img src="{% static 'img/logo55.jpg' %}" alt="Agronova Logo" class="imagen-lateral" />
+                </div>
+                <div class="contenedor-texto">
+                    <h2>Transformación</h2>
+                    <p>Optimiza tus procesos, eleva tu café.
+                        Implementamos tecnología inteligente en cada etapa de producción para llevar tu café al siguiente nivel.</p>
+                </div>
+            </section>
+
+            <section class="contenido-con-imagen mostrar-al-desplazar">
+                <div class="contenedor-imagen">
+                    <img src="{% static 'img/logo66.jpg' %}" alt="Agronova Logo"class="imagen-lateral" />
+                </div>
+                <div class="contenedor-texto">
+                    <h2>Del cuaderno al clic</h2>
+                    <p>Modernizamos tu finca con sistemas inteligentes.
+                        Deja atrás los procesos manuales y gestiona tu producción cafetera con eficiencia, control y tecnología.</p>
+                </div>
+            </section>
+        </div>
+    </main>
+{% endblock %}
+
+{% block script %}
+    <script src="{% static 'core/js/home_principa.js' %}"></script>
+{% endblock %}
+

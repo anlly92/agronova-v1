@@ -1,0 +1,84 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>iniciar sesión Agronova</title>
+    <link rel="icon" href="{% static 'img/icono_agronova.png'%}" type="image/png">
+    <link rel="stylesheet" href="{% static  'core/css/terminos_condiciones.css'%}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+
+<body>
+    <main>
+        <div class="cerrar-login">
+            <a href="javascript:history.back()" title="Cancelar e ir atrás">✖</a>
+        </div>
+        
+        <section class="contenedor_principal">
+
+            <div class="logo">
+                <a href="{% url 'home' %}" title="volver al inicio">
+                    <img class="logo-item" src="{% static 'img/logo_agronova.png' %}" alt="logo - Agronova">
+                </a>
+            </div>
+
+            <h2>Terminos y Condiciones</h2>
+
+            <section class="contenedor">
+                <p>
+                    Bienvenido al sistema integral de gestión de la finca La Elisa. Este sistema ha sido diseñado para optimizar la administración de la producción de café y cardamomo, la gestión de personal, inventarios, ventas y otros procesos administrativos. Al acceder y utilizar este sistema, usted acepta cumplir con los términos y condiciones aquí establecidos.
+                </p>
+
+                <ul>
+                    <li>
+                        <strong>Registro y acceso</strong>
+                        <ol>
+                            <li>Solo el Administrador Global puede registrar nuevos Administradores Secundarios.</li>
+                            <li>Cada administrador deberá proporcionar información veraz y actualizada al registrarse.</li>
+                            <li>Está prohibido compartir credenciales de acceso con terceros.</li>
+                            <li>Los administradores deberán mantener la confidencialidad de sus credenciales y datos.</li>
+                        </ol>
+                    </li>
+                    <li>
+                        <strong>Uso del Sistema</strong>
+                        <ol>
+                            <li>El sistema debe utilizarse exclusivamente para la gestión administrativa de la finca La Elisa</li>
+                            <li>No está permitido ingresar información falsa, errónea o malintencionada que pueda afectar la operación del sistema.</li>
+                            <li>Se prohíbe el uso del sistema para actividades ilegales o no autorizadas.</li>
+                        </ol>
+                    </li>
+                    <li>
+                        <strong>Responsabilidades del Administrador Global</strong>
+                        <ol>
+                            <li>Registrar y gestionar Administradores Secundarios.</li>
+                            <li>Asignar y administrar los permisos de acceso de cada Administrador Secundario.</li>
+                            <li>Velar por la correcta administración de los datos financieros, de personal y producción.</li>
+                            <li>Garantizar la confidencialidad y seguridad de la información del sistema.</li>
+                        </ol>
+                    </li>
+                    <li>
+                        <strong>Responsabilidades de los Administradores Secundarios</strong>
+                        <ol>
+                            <li>Utilizar el sistema únicamente dentro de los permisos otorgados por el Administrador Global.</li>
+                            <li>Garantizar la veracidad de los datos ingresados.</li>
+                            <li>Reportar cualquier problema o irregularidad en el sistema al Administrador Global.</li>
+                        </ol>
+                    </li>
+                    <li>
+                        <strong>Seguridad y Privacidad</strong>
+                        <ol>
+                            <li>El sistema implementa medidas de seguridad para proteger la información de accesos no autorizados.</li>
+                            <li>Los administradores deben utilizar contraseñas seguras y actualizarlas periódicamente.</li>
+                            <li>Los datos almacenados serán utilizados únicamente para los fines operativos de la finca.</li>
+                        </ol>
+                    </li>
+                </ul>
+            </section>
+
+                    
+        </section>
+    </main>
+</body>
+</html>

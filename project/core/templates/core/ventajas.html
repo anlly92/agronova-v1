@@ -1,0 +1,44 @@
+{% extends "base_home.html" %}
+{% load static %}
+
+{% block title %} 
+    <title>Ventajas de Agronova</title>
+{% endblock %}
+
+{% block extra_styles %}
+    <link rel="stylesheet" href="{% static 'core/css/ventajas.css' %}">
+{% endblock %}
+
+{% block content %}
+    <section class="contenedor">
+        <section class="contenedor_izquierdo">
+            <h2>Ventajas de Agronova</h2>
+            <ul>
+                <li>
+                    <strong>Organización eficiente</strong>
+                    <p>El sistema permite digitalizar y centralizar toda la información de la finca, eliminando el desorden y las pérdidas de datos generadas por el manejo manual (papel y lápiz).</p>
+                </li>
+                <li>
+                    <strong>Control de producción</strong>
+                    <p>Agronova facilita el seguimiento completo del proceso de producción del café y el cardamomo desde la recolección hasta el empacado, asegurando calidad y trazabilidad.</p>
+                </li>
+                <li>
+                    <strong>Inventario actualizado</strong>
+                    <p>Permite gestionar en tiempo real el inventario de productos finales, herramientas, agroquímicos y arbustos sembrados, evitando pérdidas o mal uso de recursos.</p>
+                </li>
+                <li>
+                    <strong>Gestión del personal simplificada</strong>
+                    <p>Registra trabajadores vinculados y no vinculados, su rendimiento y pagos, lo cual mejora la transparencia y facilita la administración.</p>
+                </li>
+                <li>
+                    <strong>Mejora la toma de decisiones</strong>
+                    <p>Con reportes claros y actualizados, Gonzalo Gaviria podrá tomar decisiones informadas basadas en datos reales.</p>
+                </li>
+            </ul>
+        </section>
+
+        <section class="contenedor_derecho">
+
+        </section>
+    </section>
+{% endblock %}

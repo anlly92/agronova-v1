@@ -1,0 +1,65 @@
+{% extends "base_header_1.html" %}
+{% load static %}
+
+{% block title %} 
+    <title> Gestionar personal </title>
+{% endblock %}
+
+{% block extra_styles %}
+    <link rel="stylesheet" href="{% static 'css/tablas.css' %}">
+{% endblock %}
+
+
+
+{% block logotipo %}
+    Gestionar personal
+{% endblock %}
+
+{% block nav_icons %}
+    <div class="link">
+        <a href="{% url 'actualizar_personal' %}" class="boton-actualizar">
+            <i class="fas fa-arrows-rotate"></i>
+        </a>
+        <span>Actualizar</span>
+    </div>
+    <div class="boton">
+        <button type="button">
+            <i class="fas fa-trash"></i>
+        </button>
+        <span>Eliminar</span>
+    </div>
+{%endblock%}
+
+{% block content %}
+    <section>
+    <table>
+        <tr>
+            <th>Documento empleado</th>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Teléfono</th>
+            <th>tipo de empleado (vinculado/no vinculado)</th>
+            <th>pago por contrato <br> (solo vinculados)</th>
+        </tr>
+        <tr><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+        <tr><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+        <tr><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+        <tr><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+        <tr><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+        <tr><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+        <tr><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+        <tr><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+        <tr><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+        <tr><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+        <tr><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+        <tr><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+        <tr><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+
+    </table>
+    </section>
+
+    <div class="ingresar">
+        <a href="{% url 'registro_personal' %}" class="agregar-btn">+</a>
+        <span class="agregar-texto">Agregar</span>
+    </div>
+{% endblock %}

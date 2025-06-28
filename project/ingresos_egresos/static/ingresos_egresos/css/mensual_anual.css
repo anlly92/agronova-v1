@@ -1,0 +1,47 @@
+.menu {
+    position: relative;
+    display: inline-block;
+}
+
+.acciones .boton button,
+.acciones .cerrar-login a{
+    background: transparent;
+    border: none;
+    padding: 6px ;
+    border-radius: 4px;
+    cursor: pointer;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 30px;
+    color: #fff;
+    transition: transform 0.2s ease;
+}
+
+
+.boton span,
+.cerrar-login span{
+    margin-top: 5px;
+    font-size: 15px;
+    letter-spacing: 1px;
+}
+
+.acciones .boton i:hover,
+.acciones .cerrar-login a:hover {
+    transform: scale(1.2);
+    color: #000;
+}
+
+/*---------------
+GRAFICAS
+---------------*/
+.contenedor-imagen {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* toda la altura de la pantalla */
+}
+
+.contenedor-imagen img {
+    max-width: 100%;
+    height: auto;
+}

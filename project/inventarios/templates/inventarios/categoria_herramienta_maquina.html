@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %} 
+    <title>Categoria</title>
+{% endblock %}
+
+{% block extra_styles %}
+    <link rel="stylesheet" href="{% static 'css/formularios.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="cerrar-login">
+    <a href="javascript:history.back()" title="Cancelar e ir atrás">✖</a>
+</div>
+
+<section class="contenedor_principal">
+
+    <div class="logo">
+        <a href="{% url 'inicio' %}" title="volver al inicio">
+            <img class="logo-item" src="{% static 'img/logo_agronova.png' %}" alt="logo - Agronova">
+        </a>
+    </div>
+
+    <form>
+        <fieldset class="encabezado">
+            <legend>Categoría</legend>
+            <div class="categoria">
+                <a class="sub_categoria" href="{% url 'registrar_herramientas' %}">
+                    <i class="fa-solid fa-toolbox"></i> Herramienta
+                </a>
+            </div>
+            
+            <div class="categoria">
+                <a class="sub_categoria" href="{% url 'registrar_herramientas' %}">
+                    <i class="fa-solid fa-industry"></i> Maquina
+                </a>
+            </div>
+            
+        </fieldset>
+    </form>
+</section>
+{% endblock %}

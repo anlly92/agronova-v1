@@ -1,0 +1,106 @@
+
+/* -------------------------------------- */
+/* ✨ ESTILO GENERAL DE LOS MODALES */
+/* -------------------------------------- */
+.modal-content {
+    width: 100%;
+    min-height: 280px;
+    background-color: rgba(0, 0, 0, 0.85);
+    color: white;
+    border: 3px solid #4b7510;
+    border-radius: 20px;
+    box-shadow: 0 0 40px #4b7510;
+    padding: 30px;
+    font-size: 1.6rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Contenedor de cada modal */
+#confirmarModal .modal-dialog,
+#exitoModal .modal-dialog,
+#advertenciaModal .modal-dialog {
+    max-width: 700px;
+    width: 90%;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* -------------------------------------- */
+/* 🎯 Cuerpo central del modal (para todos) */
+/* -------------------------------------- */
+.modal-body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 25px;
+    width: 100%;
+    text-align: center;
+}
+
+/* MODAL DE ÉXITO */
+.modal-success .modal-content {
+    font-size: 2rem; /* Aumentado */
+}
+
+/* MODAL DE ADVERTENCIA */
+.advertencia-texto {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    font-size: 1.6rem; /* ⬆Aumentado */
+    color: white;
+    text-align: center;
+    margin: 0;
+}
+
+.advertencia-texto i {
+    color: red;
+    font-size: 2.5rem; /* ⬆Aumentado */
+}
+
+.btn-close {
+    filter: invert(1);
+    width: 40px;           /* Área más grande para facilitar clic */
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    font-size: 1.6rem;     /* Aumenta tamaño del ícono */
+    cursor: pointer;       /* Asegura el cursor tipo botón */
+}
+
+
+/* BOTONES PERSONALIZADOS */
+.btn-si {
+    background-color: #4b7510;
+    color: black;
+    font-weight: bold;
+    width: 120px;
+    padding: 12px 0;
+    border-radius: 10px;
+    border: none;
+    font-size: 1.3rem; /* ⬆Aumentado */
+}
+
+.btn-no {
+    background-color: white;
+    color: black;
+    font-weight: bold;
+    width: 120px;
+    padding: 12px 0;
+    border-radius: 10px;
+    border: none;
+    font-size: 1.3rem; /* ⬆Aumentado */
+}
+
+/* Botón de cerrar (X) */
+.btn-close {
+    filter: invert(1);
+}

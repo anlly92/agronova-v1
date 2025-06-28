@@ -1,0 +1,50 @@
+{% extends "base_header_1.html" %}
+{% load static %}
+
+{% block title %} 
+    <title> Procesos Agrícolas </title>
+{% endblock %}
+
+{% block extra_styles %}
+    <link rel="stylesheet" href="{% static 'css/tablas.css' %}">
+{% endblock %}
+
+{% block logotipo %}
+    Procesos Agrícolas
+{% endblock %}
+
+
+{% block content %}
+    <section>
+        <table>
+            <tr>
+                <th>Código del proceso agrícola</th>
+                <th>Código del lote</th>
+                <th>Documento del empleado</th>
+                <th>Nombre del empleado</th>
+                <th>Descripción del proceso agrícola</th>
+                <th>Código agroquímico</th>
+                <th>Cantidad agroquímico</th>
+                <th>Fecha de registro</th>
+            </tr>
+            <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+            <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+            <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+            <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+            <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+            <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+            <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+            <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+            <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+            <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+            <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+            <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+            <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+        </table>
+    </section>
+
+    <div class="ingresar">
+        <a href="{% url 'registrar_procesos_agricolas' %}" class="agregar-btn">+</a>
+        <span class="agregar-texto">Agregar</span>
+    </div>
+{% endblock %}

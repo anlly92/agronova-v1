@@ -1,0 +1,66 @@
+{% extends "base_header_1.html" %}
+{% load static %}
+
+{% block title %} 
+    <title> Inventario de arbustos </title>
+{% endblock %}
+
+{% block extra_styles %}
+    <link rel="stylesheet" href="{% static 'css/tablas.css' %}">
+{% endblock %}
+
+{% block logotipo %}
+    Arbustos
+{% endblock %}
+
+{% block nav_icons %}
+    <div class="boton">
+        <a href="{% url 'actualizar_inventario_arbustos' %}" class="boton-actualizar">
+            <i class="fas fa-arrows-rotate"></i>
+        </a>
+        <span>Actualizar</span>
+    </div>
+
+    <div class="boton">
+        <button type="button">
+            <i class="fas fa-trash"></i>
+        </button>
+        <span>Eliminar</span>
+    </div>
+{% endblock %}
+
+{% block content %}
+    <section>
+        <table>
+            <tr>
+                <th>Código inventario</th>
+                <th>Arbusto</th>
+                <th>Nombre arbusto</th>
+                <th>Código del lote</th>
+                <th>Nombre del lote</th>
+                <th>Cantidad sembrada</th>
+                <th>Fecha de siembra</th>
+                <th>Renovación</th>
+            </tr>
+            <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+            <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+            <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+            <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+            <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+            <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+            <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+            <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+            <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+            <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+            <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+            <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+            <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+            <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+        </table>
+    </section>
+
+    <div class="ingresar">
+        <a href="{% url 'registrar_inventario_arbustos' %}" class="agregar-btn">+</a>
+        <span class="agregar-texto">Agregar</span>
+    </div>
+{% endblock %}
