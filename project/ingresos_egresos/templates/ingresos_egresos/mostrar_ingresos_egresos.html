@@ -1,12 +1,13 @@
 {% extends "base_header_1.html" %}
 {% load static %}
+{% load humanize %}
 
 {% block title %} 
     <title> Ingresos y egresos </title>
 {% endblock %}
 
 {% block extra_styles %}
-    <link rel="stylesheet" href="{% static 'ingresos_egresos/css/ingresos_egresos.css' %}">
+    <link rel="stylesheet" href="{% static 'css/tablas.css' %}">
 {% endblock %}
 
 {% block logotipo %}
@@ -41,25 +42,34 @@
             <th>Código ingresos o egresos</th>
             <th>Documento del administrador</th>
             <th>Nombre del administrador</th>
-            <th>Código del total de pago</th>
             <th>Tipo (ingreso/egreso)</th>
             <th>Descripción</th>
             <th>Fecha</th>
             <th>Valor</th>
         </tr>
 
-        <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-        <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-        <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-        <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-        <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-        <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-        <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-        <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-        <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-        <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-        <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-        <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+        {% for item in Ingresos_Egresos %}
+        <tr>
+            <td>{{ item.id_transaccion }}</td>
+            <td>{{ item.id_admin }}</td>
+            <td>{{ item.id_admin.nombre }}</td>
+            <td>{{ item.tipo }}</td>
+            <td>{{ item.descripcion }}</td>
+            <td>{{ item.fecha|date:"d/m/Y" }}</td>
+            <td>{{ item.monto|floatformat:0|intcomma }}</td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="7">No hay ingresos o egresos registrados.</td>
+        </tr>
+        {% endfor %}
+        
+        {% for i in filas_vacias %}
+        <tr>
+            <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+        </tr>
+        {% endfor %}
+
     </table>
     </section>
 

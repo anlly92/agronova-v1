@@ -23,6 +23,12 @@
                     <span class="texto-logotipo">Agronova</span>
                 </div>
 
+
+                            <!-- ÍCONO HAMBURGUESA -->
+            <button class="boton-hamburguesa" id="toggle-menu" aria-label="Abrir menú">
+                <i class="fas fa-bars"></i>
+            </button>
+
                 <ul class="menu-principal">
                     <li class="menu-desplegable">
                         <a href="#">Sobre nosotros ▾</a>
@@ -65,7 +71,7 @@
                     <a href="https://wa.me/+573105144802" target="_blank" aria-label="WhatsApp">
                         <i class="fab fa-whatsapp"></i> <!--Enlase whatsApp con icono-->
                     </a>
-                    <a href="gmail:agronovaesloni@gmail.com" target="_blank" aria-label="Correo">
+                    <a href="mailto:agronovaesloni@gmail.com" target="_blank" aria-label="Correo">
                         <i class="fas fa-envelope"></i>
                     </a>
                 </div>
@@ -85,6 +91,7 @@
         </section>
     </footer>
     {% block script %}
+    <script src="{% static 'core/js/home_principa.js' %}"></script>
     {% endblock %}
 </body>
 </html>

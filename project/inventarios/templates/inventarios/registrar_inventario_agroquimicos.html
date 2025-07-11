@@ -11,7 +11,7 @@
 
 {% block content %}
 <div class="cerrar-login">
-    <a href="javascript:history.back()" title="Cancelar e ir atrás">✖</a>
+    <a href="{% url 'inventario_agroquimicos' %}" title="Cancelar e ir atrás">✖</a>
 </div>
 
 <section class="contenedor_principal">
@@ -21,7 +21,8 @@
         </a>
     </div>
 
-    <form id="formularioIngreso">
+    <form id="formularioIngreso" method="post">
+        {% csrf_token %}
         <fieldset class="encabezado">
             <legend>Registro de agroquímicos</legend>
 
@@ -29,21 +30,21 @@
             <div class="botones">
                 <i class="fa-solid fa-prescription-bottle"></i>
                 <label for="nombreAgroquimico">Nombre del agroquímico</label>
-                <input type="text" id="nombreAgroquimico" name="nombreAgroquimico" placeholder="Nombre del agroquímico" required>
+                <input type="text" id="nombre" name="nombre" placeholder="Nombre del agroquímico" required>
             </div>
 
             <!-- Descripción del agroquímico -->
             <div class="botones">
                 <i class="fa-solid fa-file-lines"></i>
                 <label for="descripcionAgroquimico">Descripción del agroquímico</label>
-                <textarea id="descripcionAgroquimico" name="descripcionAgroquimico" placeholder="Descripción del agroquimico..." required></textarea>
+                <textarea id="descripcion" name="descripcion" placeholder="Descripción del agroquimico..." required></textarea>
             </div>
 
             <!-- Unidad de medida -->
             <div class="botones">
                 <i class="fa-solid fa-flask-vial"></i>
                 <label for="unidadMedida">Unidad de medida</label>
-                <select name="unidadMedida" id="unidadMedida" required>
+                <select name="unidad" id="unidad" required>
                     <option value="" disabled selected>Seleccionar unidad de medida</option>
                     <option value="Kg">Kilogramos (Kg)</option>
                     <option value="g">Gramos (g)</option>

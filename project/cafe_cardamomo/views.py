@@ -1,22 +1,76 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
+from django.db.models import Sum, F, Func, Value
+from django.db.models.functions import ExtractYear, ExtractMonth
+from .forms import LoteForm, RecoleccionForm, PagosForm
+from .models import Lote, Recoleccion
 
 def gestionar_lote (request):
-    return render (request, 'cafe_cardamomo/mostrar_lotes.html')
+    Lotes = Lote.objects.all()
+    cantidad_filas_vacias = 15 - Lotes.count()
+    return render (request, 'cafe_cardamomo/mostrar_lotes.html', {'Lotes': Lotes, 'filas_vacias': range(cantidad_filas_vacias)})
 
 def registrar_lote (request):
-    return render (request, 'cafe_cardamomo/registro_lote.html')
+    if request.method == 'POST':
+        form = LoteForm(request.POST)
+
+        if form.is_valid():
+            lote = form.save(commit=False) 
+            lote.save()
+
+            return redirect('gestionar_lote')
+    else:
+        form = LoteForm()
+
+    return render (request, 'cafe_cardamomo/registro_lote.html', {'form': form})
 
 def actualizar_lote (request):
     return render (request, 'cafe_cardamomo/actualizar_lote.html')
 
 def gestionar_recoleccion (request):
-    return render (request, 'cafe_cardamomo/mostrar_recoleccion.html')
+    recolecciones = Recoleccion.objects.all()
+    cantidad_filas_vacias = 15 - recolecciones.count()
+    return render (request, 'cafe_cardamomo/mostrar_recoleccion.html', {'recolecciones': recolecciones, 'filas_vacias': range(cantidad_filas_vacias)})
 
 def registrar_recoleccion (request):
-    return render (request, 'cafe_cardamomo/registro_recoleccion.html')
+    if request.method == 'POST':
+        form = RecoleccionForm(request.POST)
+
+        if form.is_valid():
+            recoleccion = form.save(commit=False) 
+            recoleccion.save()
+
+            return redirect('gestionar_recoleccion')
+    else:
+        form = RecoleccionForm()
+
+    return render (request, 'cafe_cardamomo/registro_recoleccion.html', {'form': form})
 
 def registrar_pago (request):
-    return render (request, 'cafe_cardamomo/registrar_pago.html')
+    if request.method == 'POST':
+        form = PagosForm(request.POST)
+
+        if form.is_valid():
+            pago = form.save(commit=False) 
+            pago.save()
+
+            return redirect('gestionar_recoleccion')
+    else:
+        form = PagosForm()
+
+    return render (request, 'cafe_cardamomo/registrar_pago.html', {'form': form})
 
 def total_de_recoleccion (request):
-    return render (request, 'cafe_cardamomo/total_de_recoleccion.html')
+    consulta_total_recoleccion = (
+        Recoleccion.objects
+        .annotate(  # agrega campos adicionales calculados a cada fila antes de agrupar o contar
+            año=ExtractYear('fecha'),
+            mes=ExtractMonth('fecha'),
+            nombre_lote=F('id_lote__nombre')
+        )
+        .values('año', 'mes', 'nombre_lote')
+        .annotate(total_kilos=Sum('kilos'))
+        .order_by('-año', '-mes')
+    )
+
+    cantidad_filas_vacias = 15 - consulta_total_recoleccion.count()
+    return render (request, 'cafe_cardamomo/total_de_recoleccion.html', {'total_recoleccion': consulta_total_recoleccion,'filas_vacias': range(cantidad_filas_vacias)})

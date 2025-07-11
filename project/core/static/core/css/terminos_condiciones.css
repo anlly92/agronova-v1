@@ -8,11 +8,11 @@ body{
 }
 
 main {
-    width: 100%;
-    background: url('/static/img/fondo-sesion.jpeg') center center / cover fixed no-repeat #000;
-    display: flex;
     position: absolute;
-    top: 20px;;
+    width: 100%;
+    background: url('/static/img/nuevo_termino.jpeg') center center / cover fixed no-repeat #000;
+    display: flex;
+    top: 0;
     margin: 0;
     padding: 50px 0;
     align-items: center;
@@ -56,8 +56,8 @@ main {
 }
 
 .logo-item{
-    width: 200px;
-    height: 200px;
+    width: 300px;
+    height: 300px;
     cursor: pointer;
     transition: transform 0.2s ease;
 }
@@ -70,25 +70,27 @@ main {
 h2{
     text-align: center;
     color: #fff;
+    margin-top: 0;
     margin-bottom: 40px;
-    font-size: 30px;
+    font-size: 50px;
     font-weight: bold;
     text-shadow: 0 0 30px #000;
 }
 
-.contenedor{
-    box-sizing: border-box;
-    width: 100%;
-    background: #222;
+.contenedor {
+    background: rgba(34, 37, 30, 0.7); /* más transparente */
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     border-radius: 50px;
-    border-right: 5px solid #fff;
-    border-bottom: 5px solid #fff;
-    color: #eee; 
+    border-right: 5px solid #aaa;
+    border-bottom: 5px solid #aaa;
+    padding: 20px 50px;
+    color: #eee;
     font-size: 30px;
     line-height: 1.6;
     box-shadow: 0 0 30px 0 #000;
-    padding: 20px 50px;
 }
+
 
 ul {
     list-style: none;

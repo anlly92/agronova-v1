@@ -2,11 +2,12 @@
 {% load static %}
 
 {% block title %} 
-    <title>Sobre mi</title>
+    <title>Sobre mí</title>
 {% endblock %}
 
 {% block extra_styles %}
     <link rel="stylesheet" href="{% static 'administracion/css/sobre_mi.css' %}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
 {% endblock %}
 
 {% block header %}
@@ -19,50 +20,44 @@
     </div>
 
     <section class="contenedor_principal">
-
         <div class="logo">
-            <a href="{% url 'inicio' %}" title="volver al inicio">
+            <a href="{% url 'inicio' %}" title="Volver al inicio">
                 <img class="logo-item" src="{% static 'img/logo_agronova.png' %}" alt="logo - Agronova">
             </a>
         </div>
 
-        <fieldset class="encabezado">
-            <legend>Sobre mi</legend>
+        <fieldset class="encabezado tarjeta-perfil">
+            <legend>Sobre mí</legend>
 
-            <div class="botones">
+            <div class="campo">
                 <i class="fas fa-id-badge"></i>
-                <label>Nombres</label>
-                <p>Nombres</p>
+                <input type="text" placeholder="Nombre del administrador" required>
             </div>
 
-            <div class="botones">
+            <div class="campo">
                 <i class="fas fa-id-badge"></i>
-                <label>Apellidos</label>
-                <p>Apellidos</p>
+                <input type="text" placeholder="Apellidos del administrador" required>
             </div>
 
-            <div class="botones">
+            <div class="campo">
                 <i class="fas fa-phone"></i>
-                <label>Numero telefonico</label>
-                <p>Numero telefonico</p>
+                <input type="text" placeholder="Número telefónico" required>
             </div>
 
-            <div class="botones">
+            <div class="campo">
                 <i class="fas fa-envelope"></i>
-                <label>Correo electronico</label>
-                <p>Correo electronico</p>
+                <input type="text" placeholder="Correo electrónico" required>
             </div>
 
             <section class="boton">
-                <div class="botones bon">
-                    <a href="{% url 'editar_perfil' %}">Editar perfil</a>
-                </div>
-
-                <div class="botones bon">
-                    <a href="{% url 'contraseña' %}">Cambiar contraseña</a>
-                </div>
+                <a class="boton-guardar" href="{% url 'editar_perfil' %}">
+                    <i class="fas fa-user-edit"></i> Editar perfil
+                </a>
+                <a class="boton-guardar" href="{% url 'contraseña' %}">
+                    <i class="fas fa-lock"></i> Cambiar contraseña
+                </a>
             </section>
         </fieldset>
-</section>
+    </section>
 </main>
 {% endblock %}

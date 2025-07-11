@@ -26,43 +26,45 @@
             </a>
         </div>
 
-        <form id="formularioIngreso">
+        <form id="formularioIngreso" method="post">
+            {% csrf_token %}
             <fieldset class="encabezado">
                 <legend>Registro de administrador</legend>
 
                 <div class="botones">
                     <i class="fas fa-file-alt"></i>
                     <label for="Documento">Documento</label>
-                    <input id="documento" name="documento" type="number" placeholder="Documento" required />
+                    <input id="documento" name="id_admin" type="number" placeholder="Documento" required />
                 </div>
 
                 <div class="botones">
                     <i class="fas fa-id-badge"></i>
                     <label for="nombres">Nombres</label>
-                    <input id="nombres" name="nombres" type="text" placeholder="Nombres" required />
+                    <input id="nombres" name="nombre" type="text" placeholder="Nombres" required />
                 </div>
 
                 <div class="botones">
                     <i class="fas fa-id-badge"></i>
                     <label for="Apellidos">Apellidos</label>
-                    <input id="apellidos" name="apellidos" type="text" placeholder="Apellidos" required />
+                    <input id="apellidos" name="apellido" type="text" placeholder="Apellidos" required />
                 </div>
 
                 <div class="botones">
                     <i class="fas fa-phone"></i>
                     <label for="numero_telefonico">Numero telefonico</label>
-                    <input id="numero_telefonico" name="numero_telefonico" type="tel" placeholder="Numero telefonico" required />
+                    <input id="numero_telefonico" name="telefono" type="tel" placeholder="Numero telefonico" required />
                 </div>
 
                 <div class="botones">
                     <i class="fas fa-envelope"></i>
                     <label for="Correo_electronico">Correo electronico</label>
-                    <input id="correo_electronico" name="correo_electronico" type="email" placeholder="Correo electronico" required />
+                    <input id="correo_electronico" name="correo" type="email" placeholder="Correo electronico" required />
                 </div>
 
                 <button class="boton" type="button" id="btnEnviar"><i class="fas fa-address-card"></i>Registrar administrador</button>
             </fieldset>
         </form>
     </section>
+
 </main>
 {% endblock %}
