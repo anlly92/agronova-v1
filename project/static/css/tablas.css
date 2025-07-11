@@ -1,7 +1,6 @@
   /* Fondo del área principal */
 main.contenedor-tabla {
     background: url('/static/img/fondo-tabla.jpg') center center / cover no-repeat fixed;
-    min-height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -77,13 +76,13 @@ tbody tr:hover {
 
 /* Botón "Agregar" */
 .ingresar {
-  position: absolute;
-  right: 0px;   /* Lo pega a la derecha */
-  bottom: 20px;  /* Lo posiciona desde abajo */
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
+    position: absolute;
+    right: 0px;   /* Lo pega a la derecha */
+    bottom: 20px;  /* Lo posiciona desde abajo */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
 }
 
 .agregar-btn {
