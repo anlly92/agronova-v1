@@ -13,7 +13,7 @@
 
 {% block content %}
 <div class="cerrar-login">
-    <a href="javascript:history.back()" title="Cancelar e ir atrás">✖</a>
+    <a href="{% url 'inventario_arbustos' %}" title="Cancelar e ir atrás">✖</a>
 </div>
 
 <section class="contenedor_principal">
@@ -23,7 +23,8 @@
         </a>
     </div>
 
-    <form id="formularioIngreso">
+    <form id="formularioIngreso" method="post">
+        {% csrf_token %}
         <fieldset class="encabezado">
             <legend>Registro de arbustos</legend>
 
@@ -31,9 +32,9 @@
             <div class="botones">
                 <i class="fa-solid fa-seedling"></i>
                 <label for="tipoArbusto">Tipo de arbusto</label>
-                <select name="tipoArbusto" id="tipoArbusto" required>
+                <select name="tipo_arbusto" id="tipo_arbusto" required>
                     <option value="" disabled selected>Seleccionar tipo de arbusto</option>
-                    <option value="Cafe">Café</option>
+                    <option value="Café">Café</option>
                     <option value="Cardamomo">Cardamomo</option>
                 </select>
             </div>
@@ -42,28 +43,28 @@
             <div class="botones">
                 <i class="fa-solid fa-leaf"></i>
                 <label for="nombreArbusto">Nombre del arbusto</label>
-                <input type="text" id="nombreArbusto" name="nombreArbusto" placeholder="Nombre del arbusto" required>
+                <input type="text" id="nombre" name="nombre" placeholder="Nombre del arbusto" required>
             </div>
 
             <!-- Código del lote de siembra -->
             <div class="botones">
                 <i class="fas fa-key"></i>
                 <label for="codigoLote">Código del lote de siembra</label>
-                <input type="text" id="codigoLote" name="codigoLote" placeholder="Código del lote de siembra" required>
+                <input type="number" id="id_lote" name="id_lote" placeholder="Código del lote de siembra" required>
             </div>
 
             <!-- Cantidad sembrada -->
             <div class="botones">
                 <i class="fa-solid fa-sort-numeric-up-alt"></i>
                 <label for="cantidadSembrada">Cantidad sembrada</label>
-                <input type="number" id="cantidadSembrada" name="cantidadSembrada" placeholder="Cantidad sembrada" min="1" required>
+                <input type="number" id="stock" name="stock" placeholder="Cantidad sembrada" min="1" required>
             </div>
             
             <div class="botones">
                 <span id="icono-calendario" style="cursor: pointer;">
                     <i class="fa-solid fa-calendar-days"></i>
                 </span>
-                <input type="text" id="fecha" name="fecha" required placeholder="Fecha">
+                <input type="text" id="fecha_siembra" name="fecha_siembra" required placeholder="Fecha">
             </div>
 
             <!-- Renovación -->
@@ -72,7 +73,7 @@
                 <label for="renovacion">Renovación</label>
                 <select name="renovacion" id="renovacion" required>
                     <option value="" disabled selected>¿Es renovación?</option>
-                    <option value="Si">Sí</option>
+                    <option value="Sí">Sí</option>
                     <option value="No">No</option>
                 </select>
             </div>
