@@ -27,47 +27,48 @@
             </a>
         </div>
 
-        <form id="formularioIngreso" >
+        <form id="formularioIngreso" method="post">
+            {% csrf_token %}
             <fieldset class="encabezado">
                 <legend>Registro de personal</legend>
 
                 <div class="botones">
                     <i class="fas fa-file-alt"></i>
                     <label for="Documento">Documento</label>
-                    <input id="documento" name="documento" type="number" placeholder="Documento" required />
+                    <input id="id_empleado" name="id_empleado" type="number" placeholder="Documento" required />
                 </div>
 
                 <div class="botones">
                     <i class="fas fa-id-badge"></i>
                     <label for="nombres">Nombres</label>
-                    <input id="nombres" name="nombres" type="text" placeholder="Nombres" required />
+                    <input id="nombre" name="nombre" type="text" placeholder="Nombres" required />
                 </div>
 
                 <div class="botones">
                     <i class="fas fa-id-badge"></i>
                     <label for="Apellidos">Apellidos</label>
-                    <input id="apellidos" name="apellidos" type="text" placeholder="Apellidos" required />
+                    <input id="apellido" name="apellido" type="text" placeholder="Apellidos" required />
                 </div>
 
                 <div class="botones">
                     <i class="fas fa-phone"></i>
                     <label for="numero_telefonico">Numero telefonico</label>
-                    <input id="numero_telefonico" name="numero_telefonico" type="tel" placeholder="Numero telefonico" required />
+                    <input id="telefono" name="telefono" type="tel" placeholder="Numero telefonico" required />
                 </div>
 
                 <div class="botones">
                     <i class="fas fa-users icono"></i>
                     <label for="Tipo_de_personal">Tipo</label>
-                    <select name="Tipo_de_personal" id="Tipo_de_personal" aria-placeholder="Tipo">
-                        <option value="Cafe">Vinculado</option>
-                        <option value="Cardamomo">No Vinculado</option>
+                    <select name="tipo_empleado" id="tipo_empleado" aria-placeholder="Tipo">
+                        <option value="Vinculado">Vinculado</option>
+                        <option value="No vinculado">No Vinculado</option>
                     </select>
                 </div>
 
                 <div class="botones">
                     <i class="fas fa-dollar-sign"></i>
                     <label for="pago_por_contrato">Pago por contrato</label>
-                    <input id="pago_por_contrato" name="pago_por_contrato" type="number" step="0.01" min="0" placeholder="Pago por contrato"/>
+                    <input id="pago_contrato" name="pago_contrato" type="number" step="0.01" min="0" placeholder="Pago por contrato"/>
                 </div>
 
                 <button class="boton" type="button" id="btnEnviar">

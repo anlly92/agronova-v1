@@ -1,37 +1,96 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
+from .forms import ProductoFinalform, Arbustosform, Agroquimicosform, Herramientasform
+from .models import Inventario
 
 def inventario_producto_final (request):
-    return render (request, 'inventarios/inventario_producto_final.html')
+    producto_final = Inventario.objects.filter(tipo='Inventario Producto final')
+    cantidad_filas_vacias = 15 - producto_final.count()
+    return render (request, 'inventarios/inventario_producto_final.html', {'producto_final': producto_final, 'filas_vacias': range(cantidad_filas_vacias)})
 
 def registrar_inventario_producto_final (request):
-    return render (request, 'inventarios/registrar_inventario_producto_final.html')
+    if request.method == 'POST':
+        form = ProductoFinalform(request.POST)
+
+        if form.is_valid():
+            ProductoFinal = form.save(commit=False) 
+            ProductoFinal.tipo = 'Inventario Producto final'
+            ProductoFinal.save()
+
+            return redirect('inventario_producto_final')  
+    else:
+        form = ProductoFinalform()
+
+    return render (request, 'inventarios/registrar_inventario_producto_final.html', {'form': form})
 
 def actualizar_producto_final (request):
     return render (request, 'inventarios/actualizar_producto_final.html')
 
 def inventario_arbustos (request):
-    return render (request, 'inventarios/inventario_arbustos.html')
+    arbustos = Inventario.objects.filter(tipo='Inventario Arbustos')
+    cantidad_filas_vacias = 15 - arbustos.count()
+    return render (request, 'inventarios/inventario_arbustos.html',{'arbustos': arbustos, 'filas_vacias': range(cantidad_filas_vacias)})
 
 def registrar_inventario_arbustos (request):
-    return render (request, 'inventarios/registrar_inventario_arbustos.html')
+    if request.method == 'POST':
+        form = Arbustosform(request.POST)
+
+        if form.is_valid():
+            Arbusto = form.save(commit=False) 
+            Arbusto.tipo = 'Inventario Arbustos'
+            Arbusto.save()
+
+            return redirect('inventario_arbustos')  
+    else:
+        form = Arbustosform()
+
+    return render (request, 'inventarios/registrar_inventario_arbustos.html', {'form': form})
 
 def actualizar_inventario_arbustos (request):
     return render (request, 'inventarios/actualizar_arbustos.html')
 
 def inventario_agroquimicos (request):
-    return render (request, 'inventarios/inventario_agroquimicos.html')
+    agroquimicos = Inventario.objects.filter(tipo='Inventario Agroquimicos')
+    cantidad_filas_vacias = 15 - agroquimicos.count()
+    return render (request, 'inventarios/inventario_agroquimicos.html',{'agroquimicos': agroquimicos, 'filas_vacias': range(cantidad_filas_vacias)})
 
 def registrar_inventario_agroquimicos (request):
-    return render (request, 'inventarios/registrar_inventario_agroquimicos.html')
+    if request.method == 'POST':
+        form = Agroquimicosform(request.POST)
+
+        if form.is_valid():
+            Agroquimicos = form.save(commit=False) 
+            Agroquimicos.tipo = 'Inventario Agroquimicos'
+            Agroquimicos.save()
+
+            return redirect('inventario_agroquimicos')  
+    else:
+        form = Agroquimicosform()
+
+    return render (request, 'inventarios/registrar_inventario_agroquimicos.html', {'form': form})
 
 def actualizar_inventario_agroquimicos (request):
     return render (request, 'inventarios/actualizar_agroquimico.html')
 
 def inventario_herramientas (request):
-    return render (request, 'inventarios/inventario_herramientas.html')
+    herramientas = Inventario.objects.filter(tipo='Inventario Herramientas')
+    cantidad_filas_vacias = 15 - herramientas.count()
+    return render (request, 'inventarios/inventario_herramientas.html',{'herramientas': herramientas, 'filas_vacias': range(cantidad_filas_vacias)})
 
-def registrar_herramientas (request):
-    return render (request, 'inventarios/registrar_herramienta_maquina.html')
+def registrar_herramientas (request, categoria):
+    if request.method == 'POST':
+        form = Herramientasform(request.POST)
+
+        if form.is_valid():
+            Herramientas = form.save(commit=False) 
+            Herramientas.tipo = 'Inventario Herramientas'
+            Herramientas.categoria = categoria
+            Herramientas.save()
+
+            return redirect('inventario_herramientas')  
+    else:
+        form = Herramientasform()
+
+    return render (request, 'inventarios/registrar_herramienta_maquina.html', {'form': form, 'categoria': categoria})
 
 def actualizar_inventario_herramientas (request):
     return render (request, 'inventarios/actualizar_herramienta_maquina.html')

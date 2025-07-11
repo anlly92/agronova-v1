@@ -35,21 +35,29 @@
             <th>Documento administrador</th>
             <th>Nombre</th>
             <th>Apellido</th>
+            <th>correo</th>
             <th>Teléfono</th>
         </tr>
-        <tr><td></td><td></td><td></td><td></td></tr>
-        <tr><td></td><td></td><td></td><td></td></tr>
-        <tr><td></td><td></td><td></td><td></td></tr>
-        <tr><td></td><td></td><td></td><td></td></tr>
-        <tr><td></td><td></td><td></td><td></td></tr>
-        <tr><td></td><td></td><td></td><td></td></tr>
-        <tr><td></td><td></td><td></td><td></td></tr>
-        <tr><td></td><td></td><td></td><td></td></tr>
-        <tr><td></td><td></td><td></td><td></td></tr>
-        <tr><td></td><td></td><td></td><td></td></tr>
-        <tr><td></td><td></td><td></td><td></td></tr>
-        <tr><td></td><td></td><td></td><td></td></tr>
-        <tr><td></td><td></td><td></td><td></td></tr>
+
+        {% for item in Administradores %}
+        <tr>
+            <td>{{ item.id_admin }}</td>
+            <td>{{ item.nombre }}</td>
+            <td>{{ item.apellido }}</td>
+            <td>{{ item.correo }}</td>
+            <td>{{ item.telefono }}</td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="5">No hay herramientas registradas.</td>
+        </tr>
+        {% endfor %}
+        
+        {% for i in filas_vacias %}
+        <tr>
+            <td></td><td></td><td></td><td></td><td></td>
+        </tr>
+        {% endfor %}
 
     </table>
     </section>

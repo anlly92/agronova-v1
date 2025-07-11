@@ -1,4 +1,3 @@
-
   const btnEnviar = document.getElementById('btnEnviar');
   const formulario = document.getElementById('formularioIngreso');
 
@@ -34,7 +33,15 @@
       modalExito.show();
       setTimeout(() => {
         formulario.submit();
-      }, 1500);
+      }, 800);
     }, 400);
   });
+
+  const registroExitoso = "{{ registro_exitoso|yesno:'true,false' }}";
+  if (registroExitoso == true) {
+    modalExito.show();
+    setTimeout(() => {
+      window.location.href = "{% url 'gestionar_administrador' %}";
+    }, 3000);
+  }
 

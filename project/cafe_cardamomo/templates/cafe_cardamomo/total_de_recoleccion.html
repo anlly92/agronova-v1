@@ -1,5 +1,7 @@
 {% extends "base_header_2.html" %}
 {% load static %}
+{% load humanize %}
+
 
 {% block title %} 
     <title> Total recolección </title>
@@ -34,18 +36,19 @@
                 <th>Nombre del lote</th>
                 <th>Total de kilos recolectados</th>
             </tr>
+
+            {% for fila in total_recoleccion %}
+            <tr>
+                <td>{{ fila.año }}</td>
+                <td>{{ fila.mes }}</td>
+                <td>{{ fila.nombre_lote }}</td>
+                <td>{{ fila.total_kilos|floatformat:0|intcomma}}</td>
+            </tr>
+            {% endfor %}
+
+            {% for i in filas_vacias %}
             <tr><td></td><td></td><td></td><td></td></tr>
-            <tr><td></td><td></td><td></td><td></td></tr>
-            <tr><td></td><td></td><td></td><td></td></tr>
-            <tr><td></td><td></td><td></td><td></td></tr>
-            <tr><td></td><td></td><td></td><td></td></tr>
-            <tr><td></td><td></td><td></td><td></td></tr>
-            <tr><td></td><td></td><td></td><td></td></tr>
-            <tr><td></td><td></td><td></td><td></td></tr>
-            <tr><td></td><td></td><td></td><td></td></tr>
-            <tr><td></td><td></td><td></td><td></td></tr>
-            <tr><td></td><td></td><td></td><td></td></tr>
-            <tr><td></td><td></td><td></td><td></td></tr>
+            {% endfor %}
         </table>
     </section>
 {%endblock%}

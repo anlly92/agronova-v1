@@ -20,26 +20,40 @@
             <tr>
                 <th>Código del proceso agrícola</th>
                 <th>Código del lote</th>
+                <th>Nombre del lote</th>
                 <th>Documento del empleado</th>
                 <th>Nombre del empleado</th>
                 <th>Descripción del proceso agrícola</th>
                 <th>Código agroquímico</th>
+                <th>Nombre del agroquímico</th>
                 <th>Cantidad agroquímico</th>
                 <th>Fecha de registro</th>
             </tr>
-            <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-            <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-            <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-            <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-            <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-            <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-            <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-            <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-            <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-            <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-            <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-            <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-            <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+
+            {% for item in proceso_agricola %}
+            <tr>
+                <td>{{ item.id_proceso }}</td>
+                <td>{{ item.id_lote.id_lote }}</td>
+                <td>{{ item.id_lote.nombre }}</td>
+                <td>{{ item.id_empleado.id_empleado }}</td>
+                <td>{{ item.id_empleado.nombre }} {{ item.id_empleado.apellido }}</td>
+                <td>{{ item.descripcion }}</td>
+                <td>{{ item.id_inventario.id_inventario}}</td>
+                <td>{{ item.id_inventario.nombre}}</td>
+                <td>{{ item.cantidad|floatformat:0  }}</td>
+                <td>{{ item.fecha|date:"d/m/Y"}}</td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="10">No hay procesos agricolas registrados.</td>
+            </tr>
+            {% endfor %}
+            
+            {% for i in filas_vacias %}
+            <tr>
+                <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+            </tr>
+            {% endfor %}
         </table>
     </section>
 

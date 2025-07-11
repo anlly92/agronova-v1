@@ -39,20 +39,26 @@
                 <th>Estado</th>
                 <th>Stock</th>
             </tr>
-            <tr><td></td><td></td><td></td><td></td><td></td></tr>
-            <tr><td></td><td></td><td></td><td></td><td></td></tr>
-            <tr><td></td><td></td><td></td><td></td><td></td></tr>
-            <tr><td></td><td></td><td></td><td></td><td></td></tr>
-            <tr><td></td><td></td><td></td><td></td><td></td></tr>
-            <tr><td></td><td></td><td></td><td></td><td></td></tr>
-            <tr><td></td><td></td><td></td><td></td><td></td></tr>
-            <tr><td></td><td></td><td></td><td></td><td></td></tr>
-            <tr><td></td><td></td><td></td><td></td><td></td></tr>
-            <tr><td></td><td></td><td></td><td></td><td></td></tr>
-            <tr><td></td><td></td><td></td><td></td><td></td></tr>
-            <tr><td></td><td></td><td></td><td></td><td></td></tr>
-            <tr><td></td><td></td><td></td><td></td><td></td></tr>
-            <tr><td></td><td></td><td></td><td></td><td></td></tr>
+
+            {% for item in herramientas %}
+            <tr>
+                <td>{{ item.id_inventario }}</td>
+                <td>{{ item.categoria }}</td>
+                <td>{{ item.nombre }}</td>
+                <td>{{ item.estado }}</td>
+                <td>{{ item.stock|floatformat:0 }}</td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="5">No hay herramientas registradas.</td>
+            </tr>
+            {% endfor %}
+            
+            {% for i in filas_vacias %}
+            <tr>
+                <td></td><td></td><td></td><td></td><td></td>
+            </tr>
+            {% endfor %}
         </table>
     </section>
 

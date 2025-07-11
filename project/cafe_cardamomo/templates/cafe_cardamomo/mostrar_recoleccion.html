@@ -1,5 +1,6 @@
 {% extends "base_header_1.html" %}
 {% load static %}
+{% load humanize %}
 
 {% block title %} 
     <title> Gestionar recolección </title>
@@ -42,21 +43,37 @@
                 <th>Kilos recolectados</th>
                 <th>Fecha recolección</th>
                 <th>Tipo de pago (Horas/Kilos)</th>
+                <th>valor</th>
                 <th>Horas trabajadas</th>
                 <th>Total a pagar</th>
             </tr>
-            <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-            <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-            <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-            <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-            <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-            <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-            <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-            <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-            <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-            <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-            <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-            <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+
+            {% for item in recolecciones %}
+            <tr>
+                <td>{{ item.id_recoleccion }}</td>
+                <td>{{ item.id_empleado.id_empleado }}</td>
+                <td>{{ item.id_empleado.nombre}} {{ item.id_empleado.apellido }}</td>
+                <td>{{ item.id_lote.id_lote }}</td>
+                <td>{{ item.id_lote.nombre }}</td>
+                <td>{{ item.tipo_producto }}</td>
+                <td>{{ item.kilos|floatformat:0 }}</td>
+                <td>{{ item.fecha|date:"d/m/Y" }}</td>
+                <td>{{ item.tipo_pago.tipo_pago }}</td>
+                <td>{{ item.tipo_pago.valor|intcomma }}</td>
+                <td>{{ item.horas_trabajadas|floatformat:0 }}</td>
+                <td>{{ item.calcular_total|floatformat:0|intcomma }}</td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="11">No hay Lotes registrados.</td>
+            </tr>
+            {% endfor %}
+            
+            {% for i in filas_vacias %}
+            <tr>
+                <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+            </tr>
+            {% endfor %}
         </table>
     </section>
 

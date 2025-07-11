@@ -233,3 +233,60 @@ h4.siguenos {
     transform: scale(1.2);
     color: #4b7510;
 } 
+/* Botón hamburguesa */
+.boton-hamburguesa {
+    display: none;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 28px;
+    cursor: pointer;
+}
+
+/* Mostrar solo en móviles */
+@media (max-width: 1280px) {
+    .boton-hamburguesa {
+        display: block;
+        position: absolute;
+        top: 30px;
+        right: 20px;
+        z-index: 1100;
+    }
+
+    .menu-principal {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        background: rgba(0, 0, 0, 0.9);
+        border-radius: 0 0 10px 10px;
+        padding: 20px 0;
+        position: absolute;
+        top: 100px;
+        left: 0;
+        z-index: 1000;
+    }
+
+    .menu-principal.abierto {
+        display: flex;
+    }
+
+    .elementos-submenu {
+        position: static;
+        background: transparent;
+        border: none;
+        padding: 0;
+    }
+
+    .elementos-submenu li a {
+        padding-left: 20px;
+        display: block;
+    }
+
+    .menu-desplegable:hover .elementos-submenu li a {
+        display: none;
+    }
+
+    .menu-desplegable:focus-within .elementos-submenu li a {
+        display: block;
+    }
+}

@@ -10,12 +10,9 @@
     <link rel="stylesheet" href="{% static 'css/formularios.css' %}">
 {% endblock %}
 
-{% block header %}
-{% endblock %}
-
 {% block content %}
 <div class="cerrar-login">  <!-- Botón o ícono para cerrar -->
-    <a href="javascript:history.back()" title="Cancelar e ir atrás">✖</a>
+    <a href="{% url 'gestionar_recoleccion' %}" title="Cancelar e ir atrás">✖</a>
 </div>
 
 <section class="contenedor_principal"> <!-- Sección principal que contiene todo el formulario -->
@@ -26,28 +23,29 @@
         </a>
     </div>
     <!-- Formulario de registro de recolección -->
-    <form id="formularioIngreso">
+    <form id="formularioIngreso" method="post">
+        {% csrf_token %}
         <fieldset class="encabezado"> <!-- Título del formulario -->
             <legend>Registro de recolección</legend>
             <!-- Campo: Identificación del empleado -->
             <div class="botones">
                 <i class="fas fa-id-card"></i>
                 <label for="Identificación_del_empleado">Identificación_del_empleado</label>
-                <input id="Identificación_del_empleado" name="Identificación_del_empleado" type="number" placeholder="Identificación del empleado" min="0" required />
+                <input id="id_empleado" name="id_empleado" type="number" placeholder="Identificación del empleado" min="0" required />
             </div>
             <!-- Campo: Código del lote -->
             <div class="botones">
                 <i class="fas fa-key"></i>
                 <label for="Código_del_lote">Código_del_lote</label>
-                <input id="Código_del_lote" name="Código_del_lote" type="number" placeholder="Código del lote" min="0" required />
+                <input id="id_lote" name="id_lote" type="number" placeholder="codigo lote" min="0" required />
             </div>
             <!-- Campo: Tipo de arbusto (selección) -->
             <div class="botones">
                 <i class="fa-solid fa-leaf"></i>
                 <label for="Tipo de arbusto">Tipo_de_arbusto</label>
-                <select name="Tipo de arbusto" id="Tipo de arbusto" required>
+                <select name="tipo_producto" id="tipo_producto" required>
                     <option value="" disabled selected >Tipo de arbusto</option>
-                    <option value="Cafe">Cafe</option>
+                    <option value="Café">Café</option>
                     <option value="Cardamomo">Cardamomo</option>
                 </select>
             </div>
@@ -55,23 +53,23 @@
             <div class="botones">
                 <i class="fas fa-weight-hanging"></i>
                 <label for="Kilos_recolectados">Kilos_recolectados</label>
-                <input id="Kilos_recolectados" name="Kilos_recolectados" type="number" placeholder="Kilos recolectados" required />
+                <input id="kilos" name="kilos" type="number" placeholder="Kilos recolectados" required />
             </div>
             <!-- Campo: Tipo de pago (por horas o por kilos) -->
             <div class="botones">
                 <i class="fas fa-hand-holding-dollar"></i>
                 <label for="Tipo_de_pago">Tipo_de_pago</label>
-                <select name="Tipo_de_pago" id="Tipo_de_pago" required>
+                <select name="tipo_pago" id="Tipo_de_pago" required>
                     <option value="" disabled selected>Tipo de pago</option>
-                    <option value="Cafe">Horas</option>
-                    <option value="Cardamomo">Kilos</option>
+                    <option value="Horas">Horas</option>
+                    <option value="Kilos">Kilos</option>
                 </select>
             </div>
             <!-- Campo: Horas trabajadas (formato hora) -->
             <div class="botones">
                 <i class="fas fa-clock"></i>
                 <label for="Horas_trabajadas">Horas_trabajadas</label>
-                <input id="Horas_trabajadas" name="Horas_trabajadas" type="number" placeholder="Horas trabajadas" required />
+                <input id="horas_trabajadas" name="horas_trabajadas" type="number" placeholder="Horas trabajadas" required />
             </div>
             <!-- Campo: Fecha de recolección -->
             <div class="botones">
