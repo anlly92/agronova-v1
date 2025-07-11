@@ -22,8 +22,11 @@
     </div>
 
     <div class="indicador-desplazamiento">
-        <i class="fas fa-chevron-down" style="font-size: 2rem;"></i>
+        <a href="#video">
+            <i class="fas fa-chevron-down" style="font-size: 2rem;"></i>
+        </a>
     </div>
+
 {% endblock %}
         
 
@@ -38,43 +41,47 @@
             </div>
         </section>
 
+        <!-- Fondo parallax para toda la fila -->
         <div class="seccion-con-fondo">
-            <section class="contenido-con-imagen mostrar-al-desplazar">
-                <div class="contenedor-imagen">
-                    <img src="{% static 'img/logo44.jpg' %}" alt="Agronova Logo" class="imagen-lateral" />
-                </div>
-                <div class="contenedor-texto">
-                    <h2>Nuestra Misión</h2>
-                    <p>Revolucionamos la caficultura colombiana integrando tecnología de vanguardia con
-                        el conocimiento ancestral de nuestros caficultores. Cada grano cuenta una historia
-                        de innovación, sostenibilidad y pasión por el café de calidad mundial.</p>
-                </div>
-            </section>
+            <!-- Nueva fila para los tres bloques alineados -->
+            <div class="fila-contenedores">
+                <section class="contenido-con-imagen mostrar-al-desplazar">
+                    <div class="contenedor-imagen">
+                        <img src="{% static 'img/logo44.jpg' %}" alt="Agronova Logo" class="imagen-lateral" />
+                    </div>
+                    <div class="contenedor-texto">
+                        <h2>Innovación</h2>
+                        <p>Revolucionamos la caficultura colombiana integrando tecnología de vanguardia con
+                            el conocimiento ancestral de nuestros caficultores.</p>
+                    </div>
+                </section>
 
-            <section class="contenido-con-imagen mostrar-al-desplazar">
-                <div class="contenedor-imagen">
-                    <img src="{% static 'img/logo55.jpg' %}" alt="Agronova Logo" class="imagen-lateral" />
-                </div>
-                <div class="contenedor-texto">
-                    <h2>Transformación</h2>
-                    <p>Optimiza tus procesos, eleva tu café.
-                        Implementamos tecnología inteligente en cada etapa de producción para llevar tu café al siguiente nivel.</p>
-                </div>
-            </section>
+                <section class="contenido-con-imagen mostrar-al-desplazar">
+                    <div class="contenedor-imagen">
+                        <img src="{% static 'img/contenedor2.jpg' %}" alt="Agronova Logo" class="imagen-lateral" />
+                    </div>
+                    <div class="contenedor-texto">
+                        <h2>Transformación</h2>
+                        <p>Optimiza tus procesos, eleva tu café.
+                            Implementamos tecnología inteligente en cada etapa de producción para llevar tu café al siguiente nivel.</p>
+                    </div>
+                </section>
 
-            <section class="contenido-con-imagen mostrar-al-desplazar">
-                <div class="contenedor-imagen">
-                    <img src="{% static 'img/logo66.jpg' %}" alt="Agronova Logo"class="imagen-lateral" />
-                </div>
-                <div class="contenedor-texto">
-                    <h2>Del cuaderno al clic</h2>
-                    <p>Modernizamos tu finca con sistemas inteligentes.
-                        Deja atrás los procesos manuales y gestiona tu producción cafetera con eficiencia, control y tecnología.</p>
-                </div>
-            </section>
+                <section class="contenido-con-imagen mostrar-al-desplazar">
+                    <div class="contenedor-imagen">
+                        <img src="{% static 'img/contenedor3.png' %}" alt="Agronova Logo" class="imagen-lateral" />
+                    </div>
+                    <div class="contenedor-texto">
+                        <h2>Digitalización</h2>
+                        <p>Modernizamos tu finca con sistemas inteligentes.
+                            Deja atrás los procesos manuales y gestiona tu producción cafetera con eficiencia y tecnología.</p>
+                    </div>
+                </section>
+            </div>
         </div>
     </main>
 {% endblock %}
+
 
 {% block script %}
     <script src="{% static 'core/js/home_principa.js' %}"></script>

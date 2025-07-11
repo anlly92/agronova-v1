@@ -1,21 +1,24 @@
 /* Aplica estilos al cuerpo del documento */
 body {
-    display: flex; /* Utiliza Flexbox para el layout */
-    flex-direction: column; /* Organiza los hijos en columna */
-    font-family: sans-serif; /* Fuente sans-serif para todo el texto */
-    justify-content: center; /* Centra verticalmente el contenido */
-    margin: 0; /* Elimina márgenes por defecto */
-    background: #000; /* Fondo negro para toda la página */
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    font-family: sans-serif;
+    margin: 0;
+    background: #000;
 }
 
 /* Estilos para el elemento <main> */
 main {
-    width: 100%; /* Ocupa todo el ancho disponible */
-    background: url("../img/fondo-sesion.jpeg") center center / cover fixed no-repeat #000; /* Imagen de fondo centrada, cubre área, fija, sin repetición, y fondo negro por defecto */
-    display: flex; /* Usa Flexbox */
-    padding: 30px 0; /* Espaciado arriba y abajo de 30px */
-    align-items: center; /* Centra verticalmente los hijos */
-    justify-content: center; /* Centra horizontalmente los hijos */
+    flex: 1;
+    width: 100%;
+    background: url("../img/fondo-tabla.jpg") center center / cover no-repeat #000;
+    display: flex;
+    padding: 30px 0;
+    align-items: center;
+    justify-content: center;
+    min-height: calc(100vh - 180px); /* Asegura espacio para el footer */
+    box-sizing: border-box;
 }
 
 /* Contenedor para el botón de cerrar login */
@@ -47,8 +50,11 @@ main {
 
 /* Contenedor principal del contenido */
 .contenedor_principal {
-    width: 80%; /* Ocupa el 80% del ancho del contenedor padre */
-    margin: 0px auto; /* Centrado horizontal automático, sin margen vertical */
+    width: 90%; /* Ocupa el 80% del ancho del contenedor padre */
+    margin: 0 auto; /* Centrado horizontal automático, sin margen vertical */
+    max-width: 1400px;
+    padding: 50px 40px;
+    border-radius: 18px;
 }
 
 /* Contenedor para el logo */
@@ -69,7 +75,7 @@ main {
 /* Efecto hover para logo-item */
 .logo-item:hover {
     transform: scale(1.2); /* Escala el elemento al 120% */
-    filter: drop-shadow(0 0 10px #fff); /* Añade sombra difusa blanca alrededor */
+    filter: drop-shadow(0 0 10px #111); /* Añade sombra difusa blanca alrededor */
 }
 
 /* Encabezado principal */
@@ -91,7 +97,8 @@ main {
     font-weight: bold; /* Fuente en negrita */
     margin-bottom: 20px; /* Margen inferior */
     letter-spacing: 1px; /* Espacio entre letras */
-}
+    color: #fff;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5)}
 
 /* Contenedores para los botones y campos de formulario */
 .botones,
@@ -133,6 +140,7 @@ select,
 textarea {
     background-color: #4b7510; /* Fondo verde oscuro */
     border-radius: 8px; /* Bordes redondeados */
+    font-size: 22px;
 }
 
 /* Color del texto placeholder para input y textarea */
@@ -419,3 +427,163 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     display: none;
     -webkit-appearance: none;
 }
+
+.seleccion i{
+    margin-right: 25px;
+    
+}
+
+.seleccion option{
+    font-size: 22px;
+}
+
+input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0px 1000px #4b7510 inset !important; /* Fondo verde igual al botón */
+    -webkit-text-fill-color: white !important; /* Texto blanco */
+    caret-color: white;
+    transition: background-color 9999s ease-in-out 0s;
+}
+
+/* Para evitar parpadeo blanco en algunos navegadores */
+input:-webkit-autofill:focus {
+    -webkit-box-shadow: 0 0 0px 1000px #4b7510 inset !important;
+}
+
+/* ------------------ Diseño responsivo  ------------------ */
+
+@media screen and (max-width: 768px) {
+    body {
+        font-size: 16px; /*Tamaño de la letra*/
+        padding: 10px;
+        align-items: stretch;
+    }
+
+    .contenedor_principal {
+        width: 95%;
+        padding: 10px;
+    }
+
+    .logo-item {
+        width: 120px;
+        height: 120px;
+    }
+
+    .encabezado legend {
+        font-size: 24px;
+    }
+
+    .botones,
+    .boton {
+        flex-direction: row;
+        align-items: center;
+        width: 100%;
+        padding: 8px 12px;
+        font-size: 14px;
+    }
+
+    .botones input,
+    .botones textarea,
+    .botones select {
+        font-size: 14px;
+        width: 100%;
+        margin: 6px 0;
+        padding: 4px 8px;
+        height: 30px;
+    }
+
+    select {
+        height: 30px !important;
+        font-size: 14px;
+    }
+
+    .boton {
+        justify-content: flex-start;
+        font-size: 14px;
+        padding: 10px 15px;
+        min-height: 42px;
+        width: 85%;
+        text-align: left;
+        white-space: nowrap;
+        gap: 10px;
+    }
+
+    .boton i {
+        font-size: 14px;
+        margin-right: 10px;
+    }
+
+    .pie-contenedor {
+        flex-wrap: wrap;
+        justify-content: space-around;
+        gap: 10px;
+        padding: 10px;
+    }
+
+    .pie-seccion {
+        flex: 1 1 30%;
+        min-width: 150px;
+    }
+
+    .cerrar-login {
+        right: 8px;
+        top: 8px;
+    }
+
+    .cerrar-login a {
+        font-size: 26px;
+    }
+}
+
+
+
+
+
+/* === RESPONSIVE: pantallas menores a 480px === */
+@media screen and (max-width: 480px) {
+    
+    .botones input,
+    .botones textarea,
+    .botones select {
+        font-size: 14px;
+        width: 100%;
+        margin: 6px 0;
+        padding: 4px 8px;
+        height: 30px;
+    }
+
+
+    .pie-contenedor {
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        padding: 0;
+    }
+
+    .pie-seccion {
+        width: 70%;
+        text-align: center;
+        padding: 10px 0;
+    }
+
+    .pie-seccion h4.soporte,
+    .pie-seccion h4.terminos {
+        background-color: #4b7510;
+        color: white;
+        padding: 8px 0;
+        font-size: 16px;
+    }
+
+    .pie-seccion h4.creditos{
+    background-color: #5B2C23; 
+    color: white;
+    padding: 8px 0;
+    font-size: 14px;
+    }
+
+    .pie-seccion p,
+    .pie-seccion a {
+        font-size: 14px;
+        color: black;
+    }
+}
+

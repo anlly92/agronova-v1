@@ -2,112 +2,117 @@
 {% load static %}
 
 {% block title %}
-    <title>Software Agrícola - Agronova</title>
+<title>Software Agrícola - Agronova</title>
 {% endblock %}
 
 {% block extra_styles %}
-    <link rel="stylesheet" href="{% static 'core/css/style.css' %}">
+<link rel="stylesheet" href="{% static 'core/css/style.css' %}">
 {% endblock %}
 
 {% block header %}
-    <img class="logo" src="{% static 'img/logo_agronova.png' %}" alt="logo - Agronova">
-    <nav class="menu">
-        <ul>
-            <li class="menu-item"><a href="{% url 'gestionar_personal' %}">Personal</a></li>
+<img class="logo" src="{% static 'img/logo_agronova.png' %}" alt="logo - Agronova">
+<nav class="menu">
+    <ul>
+        <li class="menu-item"><a href="{% url 'gestionar_personal' %}">Personal</a></li>
 
-            <li class="menu-item">
-                <a href="#">Café y cardamomo ▾</a>
-                <ul class="submenu">
-                    <li><a href="{% url 'gestionar_lote' %}">Lotes</a></li>
-                    <li><a href="{% url 'gestionar_recoleccion' %}">Recolección</a></li>    
-                </ul>
-            </li>
-            
-            <li class="menu-item">
-                <a href="#">Procesos ▾</a>
-                <ul class="submenu">
-                    <li><a href="{% url 'proceso_de_produccion' %}">Procesos de producción</a></li>
-                    <li><a href="{% url 'procesos_agricolas' %}">Procesos agricolas</a></li>
-                </ul>
-            </li>
+        <li class="menu-item">
+            <a href="#">Café y cardamomo ▾</a>
+            <ul class="submenu">
+                <li><a href="{% url 'gestionar_lote' %}">Lotes</a></li>
+                <li><a href="{% url 'gestionar_recoleccion' %}">Recolección</a></li>
+            </ul>
+        </li>
 
-            <li class="menu-item">
-                <a href="#">Inventarios ▾</a>
-                <ul class="submenu">
-                    <li><a href="{% url 'inventario_producto_final' %}">Producto final</a></li>
-                    <li><a href="{% url 'inventario_arbustos' %}">Arbustos</a></li>
-                    <li><a href="{% url 'inventario_agroquimicos' %}">Agroquimicos</a></li>
-                    <li><a href="{% url 'inventario_herramientas' %}">Herramientas</a></li>
-                </ul>
-            </li>
+        <li class="menu-item">
+            <a href="#">Procesos ▾</a>
+            <ul class="submenu">
+                <li><a href="{% url 'proceso_de_produccion' %}">Procesos de producción</a></li>
+                <li><a href="{% url 'procesos_agricolas' %}">Procesos agricolas</a></li>
+            </ul>
+        </li>
 
-            <li class="menu-item"><a href="{% url 'ingresos_egresos' %}">Ingresos y egresos</a></li>
-            <li class="menu-item"><a href="{% url 'gestionar_administrador' %}">Adminitrador</a></li>
+        <li class="menu-item">
+            <a href="#">Inventarios ▾</a>
+            <ul class="submenu">
+                <li><a href="{% url 'inventario_producto_final' %}">Producto final</a></li>
+                <li><a href="{% url 'inventario_arbustos' %}">Arbustos</a></li>
+                <li><a href="{% url 'inventario_agroquimicos' %}">Agroquimicos</a></li>
+                <li><a href="{% url 'inventario_herramientas' %}">Herramientas</a></li>
+            </ul>
+        </li>
 
-            <li class="menu-item">
-                <a class="icono-yo" href="#">
-                    <img src="https://cdn-icons-png.flaticon.com/512/3106/3106921.png" alt="Sobre mi">
-                </a>
-                <ul class="submenu sobre-mi">
-                    <li><a href="{% url 'sobre_mi' %}">Sobre mi</a></li>
-                    <li><a href="{% url 'home' %}">Cerra sesión</a></li>
-                </ul>
-            </li>
-        </ul>
-    </nav>
+        <li class="menu-item"><a href="{% url 'ingresos_egresos' %}">Ingresos y egresos</a></li>
+        <li class="menu-item"><a href="{% url 'gestionar_administrador' %}">Adminitrador</a></li>
+
+        <li class="menu-item">
+            <a class="icono-yo" href="#">
+                <img src="https://cdn-icons-png.flaticon.com/512/3106/3106921.png" alt="Sobre mí">
+            </a>
+            <ul class="submenu sobre-mi">
+                <li><a href="{% url 'sobre_mi' %}">Sobre mi</a></li>
+                <li><a href="{% url 'home' %}">Cerra sesión</a></li>
+            </ul>
+        </li>
+    </ul>
+</nav>
 {% endblock %}
 
 {% block content %}
-    <section class="paneles ">
-        <section class="panel panel-principal">
-            <img  src="{% static 'img/icono_produccion.png'%}" alt="Produccion final">
-            <section class="produccion-mensual">
-                <h3>Mayo</h3>
-                <h4>Producción mensual</h4>
-                <ul>
-                    <li><strong>900 kg</strong> de café</li>
-                    <li><strong>250 kg</strong> de cardamomo</li>
-                </ul>
-            </section>
+<section class="paneles ">
+
+    <a href="{% url 'proceso_de_produccion' %}" class="panel panel-principal enlace-panel">
+        <img src="{% static 'img/icono_produccion.png' %}" alt="Producción final">
+        <section class="produccion-mensual">
+            <h3>Mayo</h3>
+            <h4>Producción mensual</h4>
+            <ul>
+                <li><strong>900 kg</strong> de café</li>
+                <li><strong>250 kg</strong> de cardamomo</li>
+            </ul>
         </section>
+    </a>
 
-        <section class="panel panel-principal">
-            <img src="{% static 'img/icono-agroquimico.png'%}" alt="Agroquimicos">
-            <section class="inventario-agroquimicos">
-                <h3>mayo</h3>
-                <h4>Inventario Agroquimicos</h4>
-                <ul>
-                    <li>Fertilizantes: <strong>1.200 kg</strong></li>
-                    <li>Abono: <strong>500 kg</strong></li>
-                </ul>
-            </section>
+    <a href="{% url 'inventario_agroquimicos' %}" class="panel panel-principal enlace-panel">
+        <img src="{% static 'img/icono-agroquimico.png'%}" alt="Agroquímicos">
+        <section class="inventario-agroquimicos">
+            <h3>Mayo</h3>
+            <h4>Inventario Agroquímicos</h4>
+            <ul>
+                <li>Fertilizantes: <strong>1.200 kg</strong></li>
+                <li>Abono: <strong>500 kg</strong></li>
+            </ul>
         </section>
+    </a>
 
-        <section class="panel panel-principal">
-            <img src="{% static 'img/icono-producto-final.png'%}" alt="Producto final">
-            <section class="inventario-producto-final">
-                <h3>Mayo</h3>
-                <h4>Inventario Producto final</h4>
-                <ul>
-                    <li>Cafe con cardamomo: <strong>100</strong></li>
-                    <li>Café honi: <strong>500</strong></li>
-                </ul>
-            </section>
+
+    <a href="{% url 'inventario_producto_final' %}" class="panel panel-principal enlace-panel">
+        <img src="{% static 'img/icono-producto-final.png'%}" alt="Producto final">
+        <section class="inventario-producto-final">
+            <h3>Mayo</h3>
+            <h4>Inventario Producto final</h4>
+            <ul>
+                <li>Cafe con cardamomo: <strong>100</strong></li>
+                <li>Café honi: <strong>500</strong></li>
+            </ul>
         </section>
-
-        <section class="panel informe-mensual">
-            <h3>Recolecció mensual</h3>
-            <img  src="{% static 'img/grafico2.png'%}" alt="Gráfico de producción" />
-        </section>
-
-        <section class="panel calendario">
-            <h3>Calendario de tareas</h3>
-            <img src="{% static 'img/calendario-tareas.png'%}" alt="Calendario de tareas">
-        </section>
+    </a>
 
 
-        <section class="panel-secundario">
-            <section class="panel finanzas">
+    <section class="panel informe-mensual">
+        <h3>Recolecció mensual</h3>
+        <img src="{% static 'img/grafico2.png'%}" alt="Gráfico de producción" />
+    </section>
+
+    <section class="panel calendario">
+        <h3>Calendario de tareas</h3>
+        <img src="{% static 'img/calendario-tareas.png'%}" alt="Calendario de tareas">
+    </section>
+
+
+    <section class="panel-secundario">
+
+        <section class="panel finanzas">
+            <a href="{% url 'ingresos_egresos' %}" class="enlace-panel">
                 <img src="{% static 'img/icono-finanzas.png'%}" alt="Finanzas">
                 <section class="control-finanzas">
                     <h3>Mayo</h3>
@@ -117,23 +122,27 @@
                         <li>Egresos: <strong>$6.800.000</strong></li>
                     </ul>
                 </section>
-            </section>
-
-            <section class="panel alerta">
-                <h3>Alertas y estado</h3>
-                <ul>
-                    <li>⚠ Baja produccion en el lote 4</li>
-                    <li>✅ Todos los lotes recolectados</li>
-                </ul>
-            </section>
+            </a>
         </section>
 
-        <section class="panel trabajador">
-            <img src="{% static 'img/icono-trabajador.png'%}" alt="Empleados">
-            <section class="panel-trabajo">
-                <h3>Total de empleados</h3>
-                <h4>45</h4>
-            </section>
+
+        <section class="panel alerta">
+            <h3>Alertas y estado</h3>
+            <ul>
+                <li>⚠ Baja produccion en el lote 4</li>
+                <li>✅ Todos los lotes recolectados</li>
+            </ul>
         </section>
     </section>
+
+    <a href="{% url 'gestionar_personal' %}" class="panel trabajador enlace-panel">
+        <img src="{% static 'img/icono-trabajador.png'%}" alt="Empleados">
+        <section class="panel-trabajo">
+            <h3>Total de empleados</h3>
+            <h4>45</h4>
+        </section>
+    </a>
+
+    
+</section>
 {% endblock %}
