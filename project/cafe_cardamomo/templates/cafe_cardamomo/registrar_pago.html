@@ -14,26 +14,27 @@
 
 {% block content %}
 <div class="cerrar-login"> <!-- Botón o enlace para cerrar o cancelar -->
-    <a href=":history.back()" titjavascriptle="Cancelar e ir atrás">✖</a>
+    <a href="{% url 'gestionar_recoleccion' %}" title="Cancelar e ir atrás">✖</a>
 </div>
 <!-- Contenedor principal del formulario como el logo -->
 <section class="contenedor_principal">
     <div class="logo">
         <a href="{% url 'inicio' %}" title="volver al inicio">
-            <img class="logo-item" src="{% static 'principal_app/img/logo_agronova.png' %}" alt="logo - Agronova">
+            <img class="logo-item" src="{% static 'img/logo_agronova.png' %}" alt="logo - Agronova">
         </a>
     </div>
     <!-- Formulario para registrar un nuevo pago -->
-    <form>
+    <form method="post">
+        {% csrf_token %}
         <fieldset class="encabezado">
             <!-- Campo para seleccionar el tipo de pago (horas o kilos) -->
             <div class="botones">
                 <i class="fas fa-hand-holding-dollar"></i>
                 <label for="Tipo_de_pago">Tipo de pago</label>
-                <select name="Tipo_de_pago" id="Tipo_de_pago" required>
+                <select name="tipo_pago" id="tipo_pago" required>
                     <option value="" disabled selected>Tipo de pago</option>
-                    <option value="Activo">Horas</option>
-                    <option value="Inactivo">kilos</option>
+                    <option value="Horas">Horas</option>
+                    <option value="Kilos">kilos</option>
                 </select>
             </div>
 
@@ -43,7 +44,7 @@
             <div class="botones">
                 <i class="fa-solid fa-key"></i>
                 <label for="Valor_del_pago">Valor_del_pago</label>
-                <input id="Valor_del_pago" name="Valor_del_pago" type="number" step="0.01" placeholder="Valor del pago" required />
+                <input id="valor" name="valor" type="number" step="0.01" placeholder="Valor del pago" required />
             </div>
             <!-- Botón para enviar el formulario -->
             <button class="boton" type="submit"><i class="fa-solid fa-pen-to-square"></i>Registrar pago</button>

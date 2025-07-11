@@ -11,7 +11,7 @@
 
 {% block content %}
 <div class="cerrar-login">
-    <a href="javascript:history.back()" title="Cancelar e ir atrás">✖</a>
+    <a href="{% url 'inventario_herramientas' %}" title="Cancelar e ir atrás">✖</a>
 </div>
 
 <section class="contenedor_principal">
@@ -22,7 +22,8 @@
         </a>
     </div>
 
-    <form id="formularioIngreso">
+    <form id="formularioIngreso" method="post">
+        {% csrf_token %}
         <fieldset class="encabezado">
             <legend>Registrar</legend>
             
@@ -40,9 +41,9 @@
                 <label for="estado">Estado</label>
                 <select id="estado" name="estado" required>
                     <option value="" disabled selected>Selecciona el estado</option>
-                    <option value="buena">Buena</option>
-                    <option value="regular">Regular</option>
-                    <option value="mala">Mala</option>
+                    <option value="Buena">Buena</option>
+                    <option value="Regular">Regular</option>
+                    <option value="Mala">Mala</option>
                 </select>
             </div>
 

@@ -36,22 +36,31 @@
                 <th>Código inventario</th>
                 <th>Nombre del agroquímico</th>
                 <th>Descripción del agroquímico</th>
+                <th>Contenido</th>
                 <th>Unidad de medida</th>
                 <th>Stock</th>
             </tr>
-            <tr><td></td><td></td><td></td><td></td><td></td></tr>
-            <tr><td></td><td></td><td></td><td></td><td></td></tr>
-            <tr><td></td><td></td><td></td><td></td><td></td></tr>
-            <tr><td></td><td></td><td></td><td></td><td></td></tr>
-            <tr><td></td><td></td><td></td><td></td><td></td></tr>
-            <tr><td></td><td></td><td></td><td></td><td></td></tr>
-            <tr><td></td><td></td><td></td><td></td><td></td></tr>
-            <tr><td></td><td></td><td></td><td></td><td></td></tr>
-            <tr><td></td><td></td><td></td><td></td><td></td></tr>
-            <tr><td></td><td></td><td></td><td></td><td></td></tr>
-            <tr><td></td><td></td><td></td><td></td><td></td></tr>
-            <tr><td></td><td></td><td></td><td></td><td></td></tr>
-            <tr><td></td><td></td><td></td><td></td><td></td></tr>
+
+            {% for item in agroquimicos %}
+            <tr>
+                <td>{{ item.id_inventario }}</td>
+                <td>{{ item.nombre }}</td>
+                <td>{{ item.descripcion }}</td>
+                <td>{{ item.contenido }}</td>
+                <td>{{ item.unidad }}</td>
+                <td>{{ item.stock|floatformat:0 }}</td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="6">No hay arbustos registrados.</td>
+            </tr>
+            {% endfor %}
+            
+            {% for i in filas_vacias %}
+            <tr>
+                <td></td><td></td><td></td><td></td><td></td><td></td>
+            </tr>
+            {% endfor %}
         </table>
     </section>
 

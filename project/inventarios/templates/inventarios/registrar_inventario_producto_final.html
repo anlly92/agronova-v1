@@ -11,7 +11,7 @@
 
 {% block content %}
 <div class="cerrar-login">
-    <a href="javascript:history.back()" title="Cancelar e ir atrás">✖</a>
+    <a href="{% url 'inventario_producto_final' %}" title="Cancelar e ir atrás">✖</a>
 </div>
 
 <section class="contenedor_principal">
@@ -22,7 +22,8 @@
         </a>
     </div>
 
-    <form id="formularioIngreso">
+    <form id="formularioIngreso" method="post">
+        {% csrf_token %}
         <fieldset class="encabezado">
             <legend>Registro producto final</legend>
             
@@ -30,7 +31,7 @@
             <div class="botones">
                 <i class="fa-solid fa-clipboard-list"></i>
                 <label for="nombreProductofinal">nombre_producto</label>
-                <input type="text" id="nombreProductofinal" name="nombreProductofinal" placeholder="Nombre del produto final" required>
+                <input type="text" id="nombre" name="nombre" placeholder="Nombre del produto final" required>
             </div>
 
 
@@ -38,7 +39,7 @@
             <div class="botones">
                 <i class="fa-solid fa-file-lines"></i>
                 <label for="descripcionProducto">Descripcion producto</label>
-                <textarea id="descripcionProducto" name="descripcionProducto" placeholder="Descripción del producto..." required></textarea>
+                <textarea id="descripcion" name="descripcion" placeholder="Descripción del producto..." ></textarea>
             </div>
 
 
@@ -46,7 +47,7 @@
             <div class="botones">
                 <i class="fa-solid fa-scale-balanced"></i>
                 <label for="contenido_neto">Contenido neto </label>
-                <input type="number" id="contenido_neto" name="contenido_neto" placeholder="Contenido Neto" step="0.01" min="0" required>
+                <input type="number" id="contenido" name="contenido" placeholder="Contenido Neto" step="0.01" min="0" required>
 
                 <select id="unidad_neto" name="unidad_neto" required>
                     <option value="" disabled selected>Selecciona la unidad</option><!-- inicialmente muestra seleccionar el tipo de grano-->

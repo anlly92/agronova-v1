@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.humanize',
     'core',
     'administracion',
     'personal',
@@ -81,10 +82,15 @@ WSGI_APPLICATION = 'agronova.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'agronova',  # 👈 pon aquí el nombre real de tu base de datos
+        'USER': 'agronova',
+        'PASSWORD': '123456',
+        'HOST': 'localhost',
+        'PORT': '3306',
     }
 }
+
 
 
 # Password validation
@@ -129,3 +135,21 @@ STATIC_ROOT = BASE_DIR / 'staticfiles'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Motor que Django usa para enviar correos (SMTP en este caso)
+# SMTP es un protocolo que permite enviar correos electrónicos desde una app
+EMAIL_BACEND="django.core.mail.backends.smtp.EmailBackend" 
+
+# Esta es la dirección del servidor que se usará para enviar los correos electrónicos.
+# en este caso sera gmail
+EMAIL_HOST="smtp.gmail.com"
+
+# Activa la encriptación TLS para enviar el correo de forma segura
+EMAIL_USE_TLS=True
+
+# Puerto usado por TLS para enviar correos (recomendado por Gmail)
+EMAIL_PORT=587
+
+# Correo desde el cual se enviarán los mensajes (remitente)
+EMAIL_HOST_USER="agronovaesloni@gmail.com"
+EMAIL_HOST_PASSWORD="rsfrhtcoleaoxlux"
