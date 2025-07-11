@@ -12,7 +12,7 @@ urlpatterns = [
     path("registrar_inventario_agroquimicos/", views.registrar_inventario_agroquimicos, name='registrar_inventario_agroquimicos'),
     path("actualizar_inventario_agroquimicos/", views.actualizar_inventario_agroquimicos, name='actualizar_inventario_agroquimicos'),
     path("inventario_herramientas/", views.inventario_herramientas, name='inventario_herramientas'),
-    path("registrar_herramientas/", views.registrar_herramientas, name='registrar_herramientas'),
+    path("registrar_herramientas/<str:categoria>/", views.registrar_herramientas, name='registrar_herramientas'),
     path("actualizar_inventario_herramientas/", views.actualizar_inventario_herramientas, name='actualizar_inventario_herramientas'),
     path("categoria_herramientas/", views.categoria_herramientas, name='categoria_herramientas'),
 ] 

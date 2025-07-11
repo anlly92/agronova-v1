@@ -39,21 +39,26 @@
                 <th>Tipo de arbusto (Cáfe/Cardamomo)</th>
                 <th>Estado (Activo/Inactivo)</th>
             </tr>
-            <!-- Puedes usar Django aquí para llenar las filas -->
-            <tr><td></td><td></td><td></td><td></td><td></td></tr>
-            <tr><td></td><td></td><td></td><td></td><td></td></tr>
-            <tr><td></td><td></td><td></td><td></td><td></td></tr>
-            <tr><td></td><td></td><td></td><td></td><td></td></tr>
-            <tr><td></td><td></td><td></td><td></td><td></td></tr>
-            <tr><td></td><td></td><td></td><td></td><td></td></tr>
-            <tr><td></td><td></td><td></td><td></td><td></td></tr>
-            <tr><td></td><td></td><td></td><td></td><td></td></tr>
-            <tr><td></td><td></td><td></td><td></td><td></td></tr>
-            <tr><td></td><td></td><td></td><td></td><td></td></tr>
-            <tr><td></td><td></td><td></td><td></td><td></td></tr>
-            <tr><td></td><td></td><td></td><td></td><td></td></tr>
-            <tr><td></td><td></td><td></td><td></td><td></td></tr>
-            <tr><td></td><td></td><td></td><td></td><td></td></tr>
+
+            {% for item in Lotes %}
+            <tr>
+                <td>{{ item.id_lote }}</td>
+                <td>{{ item.nombre }}</td>
+                <td>{{ item.hectareas|floatformat:0 }}</td>
+                <td>{{ item.tipo_arbusto }}</td>
+                <td>{{ item.estado }}</td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="5">No hay Lotes registrados.</td>
+            </tr>
+            {% endfor %}
+            
+            {% for i in filas_vacias %}
+            <tr>
+                <td></td><td></td><td></td><td></td><td></td>
+            </tr>
+            {% endfor %}
         </table>
     </section>
 

@@ -12,7 +12,7 @@
 
 {% block content %}
 <div class="cerrar-login">
-    <a href="javascript:history.back()" title="Cancelar e ir atrás">✖</a>
+    <a href="{% url 'procesos_agricolas'}" title="Cancelar e ir atrás">✖</a>
 </div>
 
 <section class="contenedor_principal">
@@ -23,42 +23,43 @@
         </a>
     </div>
 
-    <form id="formularioIngreso">
+    <form id="formularioIngreso" method="post">
+        {% csrf_token %}
         <fieldset class="encabezado">
             <legend>Proceso Agricola</legend>
             
             <div class="botones">
                 <i class="fas fa-key"></i>
                 <label for="codigolote">codigo lote</label>
-                <input type="number" id="codigolote" name="codigolote" placeholder="Código del lote" required>
+                <input type="number" id="id_lote" name="id_lote" placeholder="Código del lote" required>
             </div>
 
             <!-- Documento del empleado -->
             <div class="botones">
                 <i class="fa-solid fa-id-card"></i>
                 <label for="documentoEmpleado">documento empleado</label>
-                <input type="number" id="documentoEmpleado" name="documentoEmpleado" placeholder="Documento del empleado" min="0" required>
+                <input type="number" id="id_empleado" name="id_empleado" placeholder="Documento del empleado" min="0" required>
             </div>
 
             <!-- Descripción del proceso -->
             <div class="botones">
                 <i class="fa-solid fa-file-lines"></i>
                 <label for="descripcionProceso">descripcion Proceso</label>
-                <textarea id="descripcionProceso" name="descripcionProceso" placeholder="Descripción del proceso..." required></textarea>
+                <textarea id="descripcion" name="descripcion" placeholder="Descripción del proceso..." required></textarea>
             </div>
 
             <!-- Código agroquímico -->
             <div class="botones">
                 <i class="fa-solid fa-vial"></i>
                 <label for="codigoAgroquimico">código agroquimico</label>
-                <input type="number" id="codigoAgroquimico" name="codigoAgroquimico" placeholder="Código agroquímico" required>
+                <input type="number" id="id_inventario" name="id_inventario" placeholder="Código agroquímico" required>
             </div>
 
             <!-- Cantidad agroquímico utilizado -->
             <div class="botones">
                 <i class="fa-solid fa-weight-hanging"></i>
                 <label for="cantidadAgroquimico"> cantidad agroquimico</label>
-                <input type="number" id="cantidadAgroquimico" name="cantidadAgroquimico" placeholder="Cantidad agroquímico (kg/L)" step="0.01" min="0" required>
+                <input type="number" id="cantidad" name="cantidad" placeholder="Cantidad agroquímico (kg/L)" step="0.01" min="0" required>
             </div>
             
             <button class="boton" type="button" id="btnEnviar"><i class="fas fa-save"></i> Registrar proceso agricola</button>
