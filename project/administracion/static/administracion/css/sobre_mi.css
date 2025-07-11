@@ -8,7 +8,7 @@ body {
 
 main {
     width: 100%;
-    background: url("/static/img/fondo-sesion.jpeg") center center / cover fixed no-repeat #000;
+    background: url("/static/img/sobre-mi.jpeg") center center / cover fixed no-repeat #000;
     display: flex;
     padding: 30px 0;
     align-items: center;
@@ -62,89 +62,94 @@ main {
     filter: drop-shadow(0 0 10px #fff);
 }
 
-.encabezado {
-    display: flex;
-    border: none;
-    align-items: center;
-    flex-direction: column;
+.tarjeta-perfil {
+    background-color: rgba(255, 255, 255, 0.07);
+    backdrop-filter: blur(8px);
+    border-radius: 25px;
+    padding: 50px 60px;
+    max-width: 700px;  /* antes 500px */
+    width: 100%;
+    color: white;
     text-align: center;
-    margin: 0;
-    padding: 0;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    margin: 0 auto;
+    
+}
+
+.campo {
+    display: flex;
+    align-items: center;
+    background-color: rgba(75, 117, 16, 0.45);
+    border-radius: 18px;
+    padding: 18px 22px;
+    margin: 18px 0;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.3);
+    backdrop-filter: blur(10px);
+    font-size: 1.2rem;
+}
+
+.campo i {
+    margin-right: 15px;
+    font-size: 1.5rem;
     color: #fff;
 }
 
+.campo input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    color: white;
+    font-size: 1.2rem;
+    outline: none;
+}
+
+/* BOTONES DE ACCIÓN */
+.boton {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 25px;
+    flex-wrap: wrap;
+}
+
+.boton-guardar {
+    background-color: #4b7510;
+    color: white;
+    border: none;
+    padding: 14px 30px;
+    border-radius: 15px;
+    font-size: 1rem;
+    font-weight: bold;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    transition: background 0.3s, transform 0.2s;
+}
+
+.boton-guardar:hover {
+    background-color: #365a0b;
+    transform: scale(1.05);
+}
 
 .encabezado legend {
-    font-size: 40px;
+    font-size: 50px;
+    font-weight: 800;
+    margin-bottom: 25px;
+    letter-spacing: 1.5px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+}
+
+.titulo-perfil {
+    font-size: 48px;
     font-weight: bold;
-    margin-bottom: 20px;
-    letter-spacing: 1px;
+    margin-bottom: 30px;
+    color: white;
+    text-align: center;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
 }
 
-.botones{
-    width: 100%;
-    display: flex;
-    justify-content: left;
-    width: 80%;
-    background-color: #4b7510;
-    /* verde agronova */
-    padding: 1.5rem 30px;
-    margin: 20px 0;
-    border-radius: 23px;
-    border-right: 5px solid #fff;
-    border-bottom: 5px solid #fff;
-}
-
-
-.botones p {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    border: none;
-    outline: none;
-    margin: 0 30px;
-    background: transparent;
-    font-size: 20px;
+.campo input::placeholder {
     color: #fff;
-}
-
-.botones i{
-    font-size: 30px;
-}
-
-.botones label {
-    width: 1px;
-    height: 1px;
-    overflow: hidden;
-}
-
-.boton{
-    width: 100%;
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    justify-content: center;
-}
-
-.boton .botones{
-    display: flex;
-    width: 30%;
-    justify-content: center;
-    margin: 40px;
-    transition: transform 0.2s ease ;
-}
-
-.bon:hover{
-    transform: scale(1.1);
-}
-
-
-.boton a{
-    display: flex;
-    justify-content: space-between;
-    font-size: 19px;
-    font-weight: bold;
-    letter-spacing: 0.5px;
-    text-decoration: none;
-    color: #fff;
+    opacity: 1; 
 }
