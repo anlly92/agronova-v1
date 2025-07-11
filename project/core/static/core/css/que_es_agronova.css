@@ -25,7 +25,7 @@ main {
 .contenedor_derecho{
     width: 50%;
     background: linear-gradient(to right, rgba(0, 16, 2, 1), rgba(1, 28, 4, 0)),
-        url(/static/img/contendor-medio.jpg) center center / cover no-repeat;
+        url(/static/img/Contenedor2.jpg) center center / cover no-repeat;
 }
 
 h2 {

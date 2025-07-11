@@ -38,7 +38,8 @@
 .boton-video {
     background: linear-gradient(45deg, #4a7c59, #228B22, #495e31); /* Degradado verde en diagonal */
     color: white; /* Texto blanco */
-    margin-top: 50px; /* Espacio superior */
+    margin-top: 20px; /* Espacio superior */
+    margin-bottom: 60px;
     padding: 15px 40px; /* Relleno interno horizontal y vertical */
     font-size: 18px; /* Tamaño del texto */
     font-weight: bold; /* Texto en negrita */
@@ -67,6 +68,10 @@
     transform: translateX(-50%); /* Ajusta el centrado exacto */
     color: white; /* Color del icono o texto */
     animation: bounce 2s infinite; /* Animación de rebote infinita cada 2 segundos */
+}
+
+.indicador-desplazamiento i {
+    color: #f0f8f0;
 }
 
 
