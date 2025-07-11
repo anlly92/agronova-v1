@@ -30,7 +30,7 @@
 {% endblock %}
 
 {% block content %}
-    <section>
+    <div class="tabla-contenedor">
         <table>
             <tr>
                 <th>Código inventario</th>
@@ -67,7 +67,7 @@
             </tr>
             {% endfor %}
         </table>
-    </section>
+    </div>
 
     <div class="ingresar">
         <a href="{% url 'registrar_inventario_arbustos' %}" class="agregar-btn">+</a>
