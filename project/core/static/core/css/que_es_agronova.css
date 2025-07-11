@@ -1,5 +1,5 @@
 header{
-    height: 100px ;
+    height: 0px;
     background: #000;
     color: #ccc;
 }
@@ -10,33 +10,33 @@ main {
     display: flex;
     margin: 0;
     padding: 0;
-    text-align: center;
+    text-align: justify;
+
 }
 
 .contenedor_izquierdo{
     width: 50%;
-    background: #000;
-    color: #ddd;
-    padding-left: 80px;
+    background: #001002;
+    color: #fff;
+    padding: 0 40px;
+    padding-top: 120px;
 }
 
 .contenedor_derecho{
     width: 50%;
-    background: 
-        linear-gradient(to right, rgba(0, 0, 0,1), rgba(0, 0, 0, 0)),
-        url(/static/img/fondo.png) center center / cover no-repeat;
+    background: linear-gradient(to right, rgba(0, 16, 2, 1), rgba(1, 28, 4, 0)),
+        url(/static/img/contendor-medio.jpg) center center / cover no-repeat;
 }
 
 h2 {
     font-family: 'Courier New', Courier, monospace;
     font-size: 4rem;
     font-weight: bold;
-    margin-bottom: 20px;
-    background: linear-gradient(45deg, #555, #fff, #aaa);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    margin-bottom: 45px;
+    color: #ccc;
     text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    text-align: center;
+
 }
 
 p {
@@ -45,10 +45,6 @@ p {
     font-weight: 400;
     color: #ccc;
     line-height: 1.5;
-    letter-spacing: 2px;
-    background: linear-gradient(45deg, #fff, #ccc, #fff);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
     background-clip: text;
     text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
 }

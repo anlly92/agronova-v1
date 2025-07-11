@@ -30,34 +30,36 @@
 {% endblock %}
 
 {% block content %}
-    <section>
+    <div class="tabla-contenedor">
         <table>
-            <tr>
-                <th>Código inventario</th>
-                <th>Arbusto</th>
-                <th>Nombre arbusto</th>
-                <th>Código del lote</th>
-                <th>Nombre del lote</th>
-                <th>Cantidad sembrada</th>
-                <th>Fecha de siembra</th>
-                <th>Renovación</th>
-            </tr>
-            <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-            <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-            <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-            <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-            <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-            <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-            <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-            <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-            <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-            <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-            <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-            <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-            <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-            <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+            <thead>
+                <tr>
+                    <th>Código inventario</th>
+                    <th>Arbusto</th>
+                    <th>Nombre arbusto</th>
+                    <th>Código del lote</th>
+                    <th>Nombre del lote</th>
+                    <th>Cantidad sembrada</th>
+                    <th>Fecha de siembra</th>
+                    <th>Renovación</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                </tr>
+                            <tr>
+                    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                </tr>
+                            <tr>
+                    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                </tr>
+                <tr>
+                    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                </tr>
+            </tbody>
         </table>
-    </section>
+    </div>
 
     <div class="ingresar">
         <a href="{% url 'registrar_inventario_arbustos' %}" class="agregar-btn">+</a>

@@ -4,54 +4,55 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>iniciar sesión Agronova</title>
-    <link rel="icon" href="{% static 'img/icono_agronova.png'%}" type="image/png">
-    <link rel="stylesheet" href="{% static  'core/css/login.css'%}">
+    <title>Iniciar sesión - Agronova</title>
+    <link rel="icon" href="{% static 'img/icono_agronova.png' %}" type="image/png">
+    <link rel="stylesheet" href="{% static 'core/css/login.css' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap" rel="stylesheet">
+
 </head>
 
 <body>
     <main>
         <div class="cerrar-login">
-            <a href="javascript:history.back()" title="Cancelar e ir atrás">✖</a>
+            <a href="javascript:history.back()" title="Cancelar e ir atrás">&times;</a>
         </div>
-        
+
         <section class="contenedor_principal">
 
             <div class="logo">
-                <a href="{% url 'home' %}" title="volver al inicio">
-                    <img class="logo-item" src="{% static 'img/logo_agronova.png' %}" alt="logo - Agronova">
+                <a href="{% url 'home' %}" title="Volver al inicio">
+                    <img class="logo-item" src="{% static 'img/logo_agronova.png' %}" alt="Logo Agronova">
                 </a>
             </div>
 
-            <form method="post" action="{% url 'inicio' %}" >
+            <form method="post" action="{% url 'inicio' %}">
                 {% csrf_token %}
                 <fieldset class="encabezado">
                     <legend>Inicio de sesión</legend>
 
                     <div class="botones">
-                        <i class="fa-solid fa-envelope"></i> 
-                        <label for="email">Correo electrónico</label>
+                        <i class="fa-solid fa-envelope"></i>
                         <input id="email" name="email" type="email" placeholder="Correo electrónico" required />
                     </div>
 
                     <div class="botones">
                         <i class="fa-solid fa-key"></i>
-                        <label for="password"> Contraseña</label>
+                        
                         <input id="password" name="password" type="password" placeholder="Contraseña" required />
                     </div>
 
                     <div class="info_extra">
-                        <div class="terminos">
+                        <label for="terminos">
                             <input type="checkbox" id="terminos" name="terminos" required />
-                            <label for="terminos">Acepto los <a href="{% url 'terminos_condiciones' %}">Términos y Condiciones</a></label>
-                        </div>
-                        <div class="recuperar">
-                            <a href="{% url 'contraseña' %}">Recuperar contraseña</a>
-                        </div>
+                            Acepto los <a href="{% url 'terminos_condiciones' %}">Términos y Condiciones</a>
+                        </label>
+                        <a class="recuperar" href="{% url 'contraseña' %}">Recuperar contraseña</a>
                     </div>
 
-                    <button class="boton" type="submit"><i class="fa-solid fa-right-to-bracket"></i> Iniciar sesión</button>
+                    <button class="boton" type="submit">
+                        <i class="fa-solid fa-right-to-bracket"></i> Iniciar sesión
+                    </button>
                 </fieldset>
             </form>
         </section>

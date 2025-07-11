@@ -1,7 +1,6 @@
-/* Reset básico */
-header{
+header {
     position: absolute;
-    height: 100px ;
+    height: 100px;
     background: #fff;
     color: #ccc;
 }
@@ -13,70 +12,71 @@ main {
     text-align: center;
 }
 
+body{
+    background-image: url("/static/img/historia.jpg");
+    background-size: cover; /*  Mostrar imagen completa sin recortarla */
+    background-repeat: no-repeat;
 
-/* Contenedor general */
+}
+
+/* Imagen lado izquierdo que ocupa todo el fondo */
 .contenedor {
     position: relative;
     width: 100%;
-    height: auto;
-    background: #fff;
-}
-
-
-.contenedor_principal {
     display: flex;
-    width: 100%;
-    height: 150vh;
-}
+    padding: 40px 20px;
 
-/* Lado izquierdo con imagen */
-.contenedor_izquierdo {
-    width: 60%;
-    background: linear-gradient(to left, rgb(215, 215, 215,0.5),transparent), url("/static/img/historia.jpg") center center / cover no-repeat #000;
 }
 
 
 
-/* Lado derecho con fondo blanco translúcido */
-.contenedor_derecho {
-    width: 40%;
-    background: linear-gradient(#0003 ,#fff)
-}
-
-
-/* Texto encima de la imagen */
-.contenedor_secundario {
+/* Capa negra transparente sobre la imagen */
+.overlay {
     position: absolute;
-    top: 60px;
-    left: 40%;
-    width: 50%;
-    margin: auto;
-    justify-content: center;
-    color: #000;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1;
 }
 
+
+.historia {
+    box-sizing: border-box;
+    width: 50%;
+    height: 100%;
+    position: relative;
+    margin-left: auto;
+    z-index: 2;
+    color: #fff;
+    text-align: center;
+    padding-right: 50px;
+
+}
+
+/* Título */
 h2 {
     font-family: 'Courier New', Courier, monospace;
-    font-size: 3rem;
+    font-size: 48px;
     font-weight: bold;
     margin-bottom: 30px;
-    background: linear-gradient(45deg, #555, #000, #333);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.4);
+    color:#aaa;
+    text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.9);
+    text-align: center;
+    margin-top: 80px;
 }
 
 p {
-    font-size: 22px;
-    line-height: 1.7;
-    letter-spacing: 1.2px;
-    margin-bottom: 25px;
+    font-size: 24px;
+    line-height: 1.8;
+    letter-spacing: 1px;
+    margin-bottom: 24px;
     text-align: justify;
-    color: #333;
-    background: linear-gradient(45deg, #000, #555, #333);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-    }
+    color: #ffffff;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
+    font-weight: 400;
+}
+
+
+
