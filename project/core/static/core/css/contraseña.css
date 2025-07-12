@@ -1,41 +1,37 @@
-body{
-    display: flex;
-    flex-direction: column;
-    font-family: sans-serif;
+body {
     margin: 0;
-    background: #000; 
-}
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #000;
+    display: flex;/*Convierte el body en un contenedor flexible*/
+    flex-direction: column;} /*Organiza los elementos hijos en una columna*/
 
 main {
     width: 100%;
-    background: url('/static/img/fondo-sesion.jpeg') center center / cover fixed no-repeat #000;
-    display: flex;
-    position: absolute;
-    top: 20px;;
-    margin: 0;
-    padding: 50px 0;
-    align-items: center;
+    min-height: 100vh;/*Asegura que el main tenga almenos la altura de la pantalla */
+    background: url('/static/img/fondo-tabla.jpg') center center / cover no-repeat fixed;
+    display: flex; /*Distribuye los elementos*/
+    align-items: center; /*Centra los hijos verticalmente*/
     justify-content: center;
-    padding-bottom: 100px;
+    position: relative;/*posiciona los elementos hijos respecto a este conetenedor*/
 }
 
 .cerrar-login {
     display: flex;
     position: absolute;
-    justify-content: flex-end;
-    top: 0;
+    top: 10px;
     right: 30px;
-    padding: 0;
+    z-index: 10;  /* Se asegura de que este elemento esté por encima de otros (evita que quede oculto). */
 }
 
 .cerrar-login a {
     font-size: 40px;
-    color: #fff;
-    text-decoration: none;
-    background: transparent;
-    border: none;
+    color: white;
+    text-decoration: none;/*Quita el subrayado del enlace*/
+    filter: drop-shadow(0 0 20px rgba(93, 12, 12, 0.2));
+    text-shadow: 2px 2px 16px rgba(0, 0, 0, 0.6); /* Sombra más notoria */
+    transition: transform 0.2s ease, color 0.2s ease;  /* Suaviza las animaciones de cambio de tamaño o color. */
     cursor: pointer;
-    transition: transform 0.2s ease, color 0.2s ease;
+
 }
 
 .cerrar-login a:hover {
@@ -43,75 +39,86 @@ main {
     color: #4b7510;
 }
 
-.contenedor_principal{
-    width: 80%;
-    margin:0px auto;
+.contenedor_principal {
+    width: 90%;
+    max-width: 900px; /* Aumentado de 500px */
+    background-color: rgba(0, 0, 0, 0.6); /* fondo semi-transparente */
+    padding: 50px 40px; /* Aumentado arriba y abajo, izquierda derecha*/
+    border-radius: 20px;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
 }
 
-.logo{
-    width: 100%;
-    display: flex; 
-    justify-content: center;  
+.logo {
+    text-align: center;
+}
+.logo-item {
+    width: 160px;
+    height: 160px;
+    transition: transform 0.3s ease;
+}
+.logo-item:hover {
+    transform: scale(1.1);
+    filter: drop-shadow(0 0 10px #fff);
 }
 
-.logo-item{
-    width: 200px;
-    height: 200px;
-    cursor: pointer;
-    transition: transform 0.2s ease;
-}
-
-.logo-item:hover{
-    transform: scale(1.2);
-    filter:drop-shadow(0 0 10px #fff) ;
-}
 
 .encabezado {
-    display: flex;
+    font-family: 'Raleway', sans-serif;
+    font-size: 2.5rem;
+    color: #e5f7d2;
+    font-weight: 700;
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.6); /* Sombra para legibilidad */
     border: none;
     align-items: center;
     flex-direction: column;
     text-align: center;
-    margin: 0;
+    
     padding: 0;
-    color: #fff;
+    margin: 0;
 }
 
-.encabezado legend{
-    font-size: 40px;
+.encabezado legend {
+    font-size: 42px; /* Aumentado de 42px */
     font-weight: bold;
     margin-bottom: 20px;
-    letter-spacing: 1px;
+    display: inline-block; /* Permite que el elemento se alinee con otros en la misma línea, manteniendo la capacidad de definir ancho y alto */
+    padding-bottom: 5px;
 }
 
-.botones,.boton{
-    width: 100%;
+.botones {
+    background-color: #4b7510;
+    color: white;
     display: flex;
-    justify-content: left;
-    width: 80%;
-    background-color: #4b7510; /* verde agronova */
-    padding: 1.5rem 30px;
-    margin: 20px 0;
-    border-radius: 23px;
-    border-right: 5px solid #fff;
-    border-bottom: 5px solid #fff;
+
+    align-items: center;
+    padding: 20px 20px;
+    border-radius: 15px;
+    margin-bottom: 30px;
+    border-right: 4px solid #fff;
+    border-bottom: 4px solid #fff;
 }
 
 
-.botones input{
-    width: 100%;
-    display: flex;
+.botones i, .boton i {
+    font-size: 30px;
+    margin-right: 15px;
+}
+
+.botones label {
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+}
+.botones input {
+    flex: 1;
+    background: transparent;
     border: none;
     outline: none;
-    margin: 0 20px;
-    background: transparent;
-    font-size: 20px;
-    color: #fff;
+    font-size: 18px;
+    color: white;
 }
-input {
-    background: transparent;
-    color: #fff;
-}
+
+
 
 .botones input[type="email"],
 .botones input[type="email"]:focus,
@@ -123,38 +130,37 @@ input {
     box-shadow: none !important;
 }
 
-
-input::placeholder,.boton{
+input {
+    background: transparent;
     color: #fff;
 }
 
-.botones i,.boton i{
-    font-size: 30px;
-}
-
-.botones label {
-    width: 1px;
-    height: 1px;
-    overflow: hidden;
-}
-
-.boton{
-    width: 70%;
-    display: flex;
+/* BOTÓN DE ENVIAR  */
+.boton {
+    width: 80%;
+    background-color: #4b7510;
+    color: white;
     padding: 20px;
-    margin: 20px;
-    font-size: 30px;
+    font-size: 20px;
+    font-weight: bold;
+    border-radius: 15px;
+    border: none;
+    display: flex;
+    align-items: center;
     justify-content: center;
-    margin-bottom: 40px;
-    transition: transform 0.2s ease
+    cursor: pointer;
+    transition: transform 0.2s ease;
+    border-right: 4px solid #fff;
+    border-bottom: 4px solid #fff;
+    margin: auto;    
 }
 
-.boton:hover{
-    transform: scale(1.1);
+.boton:hover {
+    transform: scale(1.05);
 }
 
-.boton i{
-    margin: 0 20px;
+input::placeholder,.boton{
+    color: #fff;
 }
 
 .volver a{
@@ -164,4 +170,57 @@ input::placeholder,.boton{
     text-decoration: underline;
     letter-spacing: 1px;
     font-weight: bold;
+}
+
+/* Estilo de auto completado */
+input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0px 1000px #4b7510 inset !important; /* Fondo verde igual al botón */
+    -webkit-text-fill-color: white !important; /* Texto blanco */
+    caret-color: white;
+    transition: background-color 9999s ease-in-out 0s;
+}
+
+/* Para evitar parpadeo blanco en algunos navegadores */
+input:-webkit-autofill:focus {
+    -webkit-box-shadow: 0 0 0px 1000px #4b7510 inset !important;
+}
+
+
+/* ===== RESPONSIVE: TABLETS Y CELULARES ===== */
+@media screen and (max-width: 768px) {
+    .contenedor_principal {
+        padding: 30px 20px;
+    }
+    .logo-item {
+        width: 100px;
+        height: 100px;
+    }
+    .encabezado legend {
+        font-size: 26px;
+    }
+    .botones {
+        padding: 12px 15px;
+    }
+    .botones i {
+        font-size: 20px;
+    }
+    .botones input {
+        font-size: 16px;
+    }
+    .boton {
+        font-size: 18px;
+        padding: 12px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .info_extra {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+    .cerrar-login {
+        top: 10px;
+        right: 15px;
+    }
 }
