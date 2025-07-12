@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block title %} 
-    <title>Proceso de producción</title>
+    <title>Registrar proceso de producción</title>
 {% endblock %}
 
 {% block extra_styles %}
@@ -11,7 +11,7 @@
 
 {% block content %}
 <div class="cerrar-login">
-    <a href="{% url 'proceso_de_produccion'}" title="Cancelar e ir atrás">✖</a>
+    <a href="{% url 'proceso_de_produccion' %}" title="Cancelar e ir atrás">✖</a>
 </div>
 
 <section class="contenedor_principal">
@@ -22,46 +22,46 @@
         </a>
     </div>
 
-    <form id="formularioIngreso" method="post">
+    <form id="formularioIngreso">
         {% csrf_token %}
         <fieldset class="encabezado">
             <legend>Proceso de producción</legend>
-            
+
             <!-- Documento del empleado -->
             <div class="botones">
                 <i class="fa-solid fa-id-card"></i>
-                <label for="documentoEmpleado">documento empleado</label>
+                <label for="id_empleado">documento empleado</label>
                 <input type="number" id="id_empleado" name="id_empleado" placeholder="Documento del empleado" min="0" required>
             </div>
 
-            <!-- Campo: Tipo de arbusto (selección) -->
+            <!-- Tipo de grano -->
             <div class="botones">
                 <i class="fa-solid fa-seedling"></i>
-                <label for="Tipo_grano">Tipo de grano</label>
+                <label for="tipo_producto">tipo de grano</label>
                 <select name="tipo_producto" id="tipo_producto" required>
-                    <option value="" disabled selected>Seleccionar el tipo de grano</option><!-- inicialmente muestra seleccionar el tipo de grano-->
+                    <option value="" disabled selected>Seleccionar el tipo de grano</option>
                     <option value="Café">Café</option>
                     <option value="Cardamomo">Cardamomo</option>
                 </select>
             </div>
 
-
             <!-- Descripción del proceso -->
             <div class="botones">
                 <i class="fa-solid fa-file-lines"></i>
-                <label for="descripcionProceso">Descripcion Proceso</label>
+                <label for="descripcion">descripción proceso</label>
                 <textarea id="descripcion" name="descripcion" placeholder="Descripción del proceso..." required></textarea>
             </div>
 
-
-            <!-- Cantidad de grano procesada -->
+            <!-- Cantidad procesada -->
             <div class="botones">
                 <i class="fa-solid fa-weight-hanging"></i>
-                <label for="cantidad_procesada"> cantidad procesada</label>
-                <input type="number" id="cantidad" name="cantidad" placeholder="Cantidad procesada (Kg)"  min="0" required>
+                <label for="cantidad">cantidad procesada</label>
+                <input type="number" id="cantidad" name="cantidad" placeholder="Cantidad procesada (Kg)" step="0.01" min="0" required>
             </div>
-            
-            <button class="boton" type="button" id="btnEnviar"><i class="fas fa-save"></i> Registrar proceso de producción</button>
+
+            <button class="boton" type="button" id="btnEnviar">
+                <i class="fas fa-save"></i> Registrar proceso de producción
+            </button>
         </fieldset>
     </form>
 </section>
