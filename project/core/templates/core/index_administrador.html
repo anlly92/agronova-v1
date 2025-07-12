@@ -50,7 +50,12 @@
             </a>
             <ul class="submenu sobre-mi">
                 <li><a href="{% url 'sobre_mi' %}">Sobre mi</a></li>
-                <li><a href="{% url 'home' %}">Cerra sesión</a></li>
+                <li><form action="{% url 'logout' %}" method="post" style="display:inline;">
+                    {% csrf_token %}
+                    <button type="submit" class="btn-logout">
+                        <i class="fas fa-sign-out-alt"></i> Cerrar sesion
+                    </button>
+                </form></li>
             </ul>
         </li>
     </ul>

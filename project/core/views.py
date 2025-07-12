@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
 
 def mostrar_home(request):
     return render (request,'core/home_principal.html')
@@ -6,6 +7,7 @@ def mostrar_home(request):
 def mostrar_login(request):
     return render ( request, 'core/login.html')
 
+@login_required(login_url='login')
 def mostrar_inicio(request):
     return render ( request, 'core/index_administrador.html')
 
