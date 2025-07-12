@@ -19,8 +19,8 @@ main {
     position: relative;
 }
 
-/* ===== BOTÓN CERRAR ===== */
-    .cerrar-login {
+/* cerrar X */
+.cerrar-login {
     position: absolute;
     top: 0px;
     right: 30px;
@@ -33,6 +33,7 @@ main {
     filter: drop-shadow(0 0 20px rgba(93, 12, 12, 0.2));
     text-shadow: 2px 2px 16px rgba(0, 0, 0, 0.6); /* Sombra más notoria */
     transition: transform 0.2s ease, color 0.2s ease;
+    cursor: pointer;
 }
 
 
@@ -50,7 +51,7 @@ main {
     box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
 }
 
-/* ===== LOGO ===== */
+
 .logo {
     text-align: center;
 }
@@ -64,7 +65,7 @@ main {
     filter: drop-shadow(0 0 10px #fff);
 }
 
-/* ===== ENCABEZADO ===== */
+
 .encabezado {
     font-family: 'Raleway', sans-serif;
     font-size: 2.5rem;
@@ -83,14 +84,14 @@ main {
 
 
 .encabezado legend {
-    font-size: 42px; /* Aumentado de 42px */
+    font-size: 42px; 
     font-weight: bold;
     margin-bottom: 20px;
-    display: inline-block;
+    display: inline-block; /* Permite que el elemento se alinee con otros en la misma línea, manteniendo la capacidad de definir ancho y alto */
     padding-bottom: 5px;
 }
 
-/* ===== CAMPOS DE FORMULARIO ===== */
+
 .botones {
     background-color: #4b7510;
     color: white;
@@ -198,6 +199,11 @@ input:-webkit-autofill {
 /* Para evitar parpadeo blanco en algunos navegadores */
 input:-webkit-autofill:focus {
     -webkit-box-shadow: 0 0 0px 1000px #4b7510 inset !important;
+}
+
+.mensaje-error p {
+    color: #a94442;
+    font-size: 20px;
 }
 
 

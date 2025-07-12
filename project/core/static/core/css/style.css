@@ -93,7 +93,8 @@ header:hover {
     list-style: none;
 }
 
-.submenu li a {
+.submenu li a,
+.submenu li form button{
     width: auto;
     display: none;
     font-size: 15px;
@@ -103,11 +104,13 @@ header:hover {
     text-decoration: none;
     text-align: left;
     padding-left: 15px;
+    padding-bottom: 15px;
     transition: transform 0.2s ease;
 }
 
 .submenu li a:hover,
-.menu-item a:hover {
+.menu-item a:hover,
+.submenu li form button:hover {
     transform: translateY(-2px);
 }
 
@@ -118,11 +121,27 @@ header:hover {
     width: 130px;
 }
 
-
-
-.menu-item:hover .submenu li a {
+.menu-item:hover .submenu li a,
+.menu-item:hover .submenu li form button  {
     display: block;
 }
+
+.btn-logout {
+    background: none;
+    border: none;
+    color: inherit;
+    font: inherit;
+    cursor: pointer;
+    padding: 0;
+    text-align: left;
+    width: 100%;
+}
+
+.submenu li form {
+    margin: 0;
+}
+
+
 
 /* Body */
 main {
