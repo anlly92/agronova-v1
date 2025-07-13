@@ -1,8 +1,29 @@
-header{
-    position: absolute;
-    height: 100px ;
-    background: #000;
-    color: #ccc;
+body {
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    font-family: sans-serif;
+    min-height: 100vh;
+    background: url("/static/img/ventajas.jpg") no-repeat center center fixed;
+    background-size: cover;
+    position: relative;
+    overflow-x: hidden;
+}
+
+header {
+    position: fixed;
+    height: 100px;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    background: transparent; /* completamente transparente por defecto */
+    color: #fff;
+    transition: background 0.3s ease;
+}
+
+header:hover {
+    background: rgba(0, 0, 0, 0.03); /* ✅ mínimo visible al hover */
 }
 
 main {
@@ -12,51 +33,48 @@ main {
     text-align: center;
 }
 
-.contenedor{
+.contenedor {
     display: flex;
-    height: auto; 
+    height: auto;
+    margin-top: 50px;
 }
 
-.contenedor_izquierdo{
+.contenedor_izquierdo {
     width: 50%;
-    background: #000;
+    background: transparent;
     color: #ddd;
     padding: 0 50px;
     padding-top: 60px;
 }
 
-.contenedor_derecho{
+.contenedor_derecho {
     width: 50%;
-    background: 
-        linear-gradient(to right, rgba(0, 0, 0,0.6), rgba(0, 0, 0, 0)),
-        url(/static/img/ventajas.jpn.jpg) left center / cover no-repeat #000;
+    background: transparent;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-color: transparent;
 }
 
 h2 {
     font-family: 'Courier New', Courier, monospace;
-    font-size: 3rem;
+    font-size: 4.2rem; 
     font-weight: bold;
-    margin-top: 80px;
+    margin-top: 0;
+    padding-top: 0;
     margin-bottom: 40px;
-    background: linear-gradient(45deg, #555, #fff, #aaa);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    color:#ccc ;
 }
 
 p {
+    font-weight: bold;
     font-family: 'Times New Roman', Times, serif;
-    font-size: 25px;
+    font-size: 30px; 
     font-weight: 400;
-    color: #ccc;
+    color: #aaa;
     line-height: 1.5;
     letter-spacing: 2px;
-    background: linear-gradient(45deg, #fff, #ccc, #fff);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
     margin-top: 15px;
 }
 
@@ -65,4 +83,9 @@ p {
     text-align: left;
     padding: 20px 0;
     font-size: 20px;
+}
+
+.contenedor_izquierdo li strong{
+    font-size: 35px;
+    color: #bbb;
 }

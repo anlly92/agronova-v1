@@ -15,8 +15,8 @@ main {
     position: relative;/*posiciona los elementos hijos respecto a este conetenedor*/
 }
 
+/* Botón cerrar */
 .cerrar-login {
-    display: flex;
     position: absolute;
     top: 10px;
     right: 30px;
@@ -31,7 +31,6 @@ main {
     text-shadow: 2px 2px 16px rgba(0, 0, 0, 0.6); /* Sombra más notoria */
     transition: transform 0.2s ease, color 0.2s ease;  /* Suaviza las animaciones de cambio de tamaño o color. */
     cursor: pointer;
-
 }
 
 .cerrar-login a:hover {
@@ -61,7 +60,6 @@ main {
     filter: drop-shadow(0 0 10px #fff);
 }
 
-
 .encabezado {
     font-family: 'Raleway', sans-serif;
     font-size: 2.5rem;
@@ -72,7 +70,6 @@ main {
     align-items: center;
     flex-direction: column;
     text-align: center;
-    
     padding: 0;
     margin: 0;
 }
@@ -89,7 +86,6 @@ main {
     background-color: #4b7510;
     color: white;
     display: flex;
-
     align-items: center;
     padding: 20px 20px;
     border-radius: 15px;
@@ -97,7 +93,6 @@ main {
     border-right: 4px solid #fff;
     border-bottom: 4px solid #fff;
 }
-
 
 .botones i, .boton i {
     font-size: 30px;
@@ -117,8 +112,6 @@ main {
     font-size: 18px;
     color: white;
 }
-
-
 
 .botones input[type="email"],
 .botones input[type="email"]:focus,
@@ -169,8 +162,9 @@ input::placeholder,.boton{
     font-size: 20px;
     text-decoration: underline;
     letter-spacing: 1px;
-    font-weight: bold;
+    font-weight: bold;
 }
+
 
 /* Estilo de auto completado */
 input:-webkit-autofill {

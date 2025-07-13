@@ -1,50 +1,66 @@
-header{
+/* Encabezado */
+header {
     height: 0px;
     background: #000;
     color: #ccc;
 }
 
+/* Sección principal con fondo completo */
 main {
+    position: relative;
     width: 100%;
-    height: 100vh; 
+    height: 100vh;
     display: flex;
     margin: 0;
     padding: 0;
     text-align: justify;
-
+    background: url('/static/img/Contenedor2.jpg') center center / cover no-repeat;
+    background-attachment: fixed; /* Puedes quitarlo si no quieres efecto parallax */
 }
 
-.contenedor_izquierdo{
+/* Capa oscura encima de la imagen para facilitar lectura */
+main::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to right, rgba(0, 16, 2, 0.85), rgba(0, 16, 2, 0.2));
+    z-index: 0;
+}
+
+/* Contenido lado izquierdo */
+.contenedor_izquierdo {
     width: 50%;
-    background: #001002;
     color: #fff;
-    padding: 0 40px;
-    padding-top: 120px;
+    padding: 120px 40px 0 40px;
+    position: relative;
+    z-index: 1;
 }
 
-.contenedor_derecho{
+/* Contenido lado derecho (puede estar vacío o contener una imagen decorativa adicional) */
+.contenedor_derecho {
     width: 50%;
-    background: linear-gradient(to right, rgba(0, 16, 2, 1), rgba(1, 28, 4, 0)),
-        url(/static/img/Contenedor2.jpg) center center / cover no-repeat;
+    position: relative;
+    z-index: 1;
+    /* Puedes dejarlo vacío o añadir contenido decorativo */
 }
 
+/* Estilos de título */
 h2 {
     font-family: 'Courier New', Courier, monospace;
     font-size: 4rem;
     font-weight: bold;
     margin-bottom: 45px;
     color: #ccc;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
     text-align: center;
-
 }
 
+/* Estilos de párrafo */
 p {
     font-family: 'Times New Roman', Times, serif;
     font-size: 30px;
     font-weight: 400;
     color: #ccc;
     line-height: 1.5;
-    background-clip: text;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
