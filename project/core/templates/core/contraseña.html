@@ -11,40 +11,57 @@
     <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap" rel="stylesheet">
 
 </head>
-
 <body>
+
     <main>
+        <!-- Botón cerrar -->
         <div class="cerrar-login">
             <a href="javascript:history.back()" title="Cancelar e ir atrás">✖</a>
         </div>
-        
+
+        <!-- Contenedor principal -->
         <section class="contenedor_principal">
 
+            <!-- Logo -->
             <div class="logo">
-                <a href="{% url 'home' %}" title="volver al inicio">
-                    <img class="logo-item" src="{% static 'img/logo_agronova.png' %}" alt="logo - Agronova">
+                <a href="{% url 'home' %}" title="Volver al inicio">
+                    <img class="logo-item" src="{% static 'img/logo_agronova.png' %}" alt="Logo Agronova">
                 </a>
             </div>
 
-            <form method="post" >
-                {% csrf_token %}
-                <fieldset class="encabezado">
-                    <legend>Contraseña</legend>
+            <!-- Título principal -->
+            <h1 class="titulo-encabezado">Restablecer contraseña</h1>
 
-                    <div class="botones">
-                        <i class="fa-solid fa-envelope"></i> 
-                        <label for="email">Correo electrónico</label>
-                        <input id="email" name="email" type="email" placeholder="Correo electrónico" required />
+            <!-- Formulario -->
+            <form method="post">
+                {% csrf_token %}
+                
+                <fieldset class="tarjeta-perfil">
+
+                    <!-- Campo de email -->
+                    <div class="campo">
+                        <i class="fa-solid fa-envelope"></i>
+                        <label for="email" class="sr-only">Correo electrónico</label>
+                        <input id="email" name="email" type="email" placeholder="Correo electrónico" required>
                     </div>
 
-                    <button class="boton" type="submit"><i class="fas fa-lock"></i>Cambiar contraseña</button>
+                    <!-- Botón -->
+                    <div class="boton">
+                        <button type="submit" class="boton-guardar">
+                            <i class="fas fa-lock"></i> Cambiar contraseña
+                        </button>
+                    </div>
 
+                    <!-- Enlace volver -->
                     <div class="volver">
-                        <a href="{% url 'login' %}">Volver a inicio de sesión</a>
+                        <a href="{% url 'login' %}">← Volver a inicio de sesión</a>
                     </div>
                 </fieldset>
             </form>
+
         </section>
     </main>
+
 </body>
 </html>
+

@@ -15,8 +15,9 @@ main {
     position: relative;/*posiciona los elementos hijos respecto a este conetenedor*/
 }
 
+
+/* Botón cerrar */
 .cerrar-login {
-    display: flex;
     position: absolute;
     top: 10px;
     right: 30px;
@@ -31,7 +32,6 @@ main {
     text-shadow: 2px 2px 16px rgba(0, 0, 0, 0.6); /* Sombra más notoria */
     transition: transform 0.2s ease, color 0.2s ease;  /* Suaviza las animaciones de cambio de tamaño o color. */
     cursor: pointer;
-
 }
 
 .cerrar-login a:hover {
@@ -166,8 +166,97 @@ input::placeholder,.boton{
 .volver a{
     text-decoration: none;
     color: #fff;
-    font-size: 20px;
+    text-align: center;
+    letter-spacing: 1.5px;
+    text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.6);
+    margin: 0; /* 🔥 más limpio con gap */
+}
+
+/* Tarjeta estilo glass */
+.tarjeta-perfil {
+    background-color: rgba(255, 255, 255, 0.07);
+    backdrop-filter: blur(10px);
+    border-radius: 25px;
+    padding: 50px 60px;
+    max-width: 600px;
+    width: 90%;
+    color: white;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    margin: 0 auto;
+}
+
+
+/* Campo */
+.campo {
+    display: flex;
+    align-items: center;
+    background-color: rgba(75, 117, 16, 0.45);
+    border-radius: 18px;
+    padding: 18px 22px;
+    margin: 18px 0;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+    font-size: 1.2rem;
+}
+
+.campo i {
+    margin-right: 15px;
+    font-size: 1.5rem;
+    color: #fff;
+}
+
+.campo input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    color: white;
+    font-size: 1.2rem;
+    outline: none;
+}
+
+.campo input::placeholder {
+    color: #fff;
+    opacity: 1;
+}
+
+/* Botón */
+.boton {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+.boton-guardar {
+    background-color: #4b7510;
+    color: white;
+    border: none;
+    border-radius: 15px;
+    font-size: 1rem;
+    font-weight: bold;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 220px;
+    height: 50px;
+    gap: 10px;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.2s;
+}
+
+.boton-guardar:hover {
+    background-color: #365a0b;
+    transform: scale(1.05);
+}
+
+/* Volver */
+.volver {
+    margin-top: 20px;
+}
+
+.volver a {
     text-decoration: underline;
+    color: #fff;
+    font-size: 18px;
     letter-spacing: 1px;
     font-weight: bold;
 }
