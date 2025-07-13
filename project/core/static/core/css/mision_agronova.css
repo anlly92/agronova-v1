@@ -6,16 +6,19 @@ header{
 }
 
 main {
+    position: relative;
+    z-index: 1;
     width: 100%;
     margin: 0;
     padding: 0;
     text-align: center;
-    background: url(/static/img/mision_y_vision.jpg) center center / cover no-repeat #000 ;
+    background: url(/static/img/mision_vision.jpeg) center center / cover no-repeat #000 ;
 }
 
-.contenedor{
+.contenedor {
     display: flex;
-    height: auto;
+    position: relative;  /* necesario */
+    z-index: 2;          /* eleva el texto por encima de la capa oscura */
 }
 
 .contenedor_derecho,.contenedor_izquierdo{
@@ -23,7 +26,8 @@ main {
     background:transparent;
     color: #ddd;
     padding: 0 50px;
-    padding-top: 60px;
+    padding-bottom: 150px;
+    padding-top: 80px;
 }
 
 .contenedor_derecho{
@@ -36,10 +40,6 @@ h2 {
     font-weight: bold;
     margin-top: 80px;
     margin-bottom: 40px;
-    background: linear-gradient(45deg, #555, #fff, #aaa);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
     text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
 }
 
@@ -47,13 +47,19 @@ p {
     font-family: 'Times New Roman', Times, serif;
     font-size: 30px;
     font-weight: 400;
-    color: #ccc;
+    color: #eee9e9;
     line-height: 1.5;
     letter-spacing: 2px;
-    background: linear-gradient(45deg, #fff, #ccc, #fff);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
     text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
     margin-top: 15px;
+}
+
+.capa-negra {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* negro con opacidad */
+    z-index: 0;
 }
