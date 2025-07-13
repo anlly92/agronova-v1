@@ -1,37 +1,64 @@
-header{
-    position: absolute;
-    height: 100px ;
-    background: #000;
-    color: #ccc;
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+
+    background: 
+        linear-gradient(to left, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.3)),
+        url(/static/img/surgio.png) center center / cover no-repeat;
+    background-attachment: fixed;
 }
 
+/* Header transparente para que se vea la imagen detrás */
+header {
+    position: absolute;
+    height: 100px;
+    width: 100%;
+    background: transparent;
+    color: #ccc;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    padding-left: 20px;
+}
+
+/* Sección principal */
 main {
     width: 100%;
+    min-height: 100vh;
     margin: 0;
     padding: 0;
     text-align: center;
-}
 
-.contenedor{
     display: flex;
-    height: auto; 
+    align-items: center;
+    justify-content: center;
 }
 
-.contenedor_izquierdo{
+/* Contenedor general */
+.contenedor {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    max-width: 1600px;
+    padding-top: 100px; /* Espacio para el header */
+}
+
+/* Contenedor izquierdo (texto) */
+.contenedor_izquierdo {
     width: 50%;
-    background: #000;
+    background: transparent;
     color: #ddd;
-    padding: 0 50px;
-    padding-top: 60px;
+    padding: 60px 50px;
 }
 
-.contenedor_derecho{
+/* Contenedor derecho (puedes dejarlo vacío o decorarlo) */
+.contenedor_derecho {
     width: 50%;
-    background: 
-        linear-gradient(to left, rgba(0, 0, 0,1), rgba(0, 0, 0, 0)),
-        url(/static/img/surgio.png) center center / cover no-repeat #000;
+    background: transparent;
 }
 
+/* Título */
 h2 {
     font-family: 'Courier New', Courier, monospace;
     font-size: 3rem;
@@ -41,9 +68,10 @@ h2 {
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
+/* Párrafos */
 p {
     font-family: 'Times New Roman', Times, serif;
     font-size: 25px;
@@ -55,5 +83,6 @@ p {
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
+
