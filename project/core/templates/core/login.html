@@ -15,7 +15,7 @@
 <body>
     <main>
         <div class="cerrar-login">
-            <a href="javascript:history.back()" title="Cancelar e ir atrás">&times;</a>
+            <a href="{% url 'home' %}" title="Cancelar e ir atrás">&times;</a>
         </div>
 
         <section class="contenedor_principal">
@@ -26,19 +26,26 @@
                 </a>
             </div>
 
-            <form method="post" action="{% url 'inicio' %}">
+            <form method="post" action="{% url 'login' %}">
                 {% csrf_token %}
+
                 <fieldset class="encabezado">
+
+                    {% if form.errors %}
+                        <div class="mensaje-error">
+                            <p>Correo o contraseña incorrectos. Inténtalo de nuevo.</p>
+                        </div>
+                    {% endif %}
+                
                     <legend>Inicio de sesión</legend>
 
                     <div class="botones">
                         <i class="fa-solid fa-envelope"></i>
-                        <input id="email" name="email" type="email" placeholder="Correo electrónico" required />
+                        <input name="username" type="email" placeholder="Correo electrónico" required />
                     </div>
 
                     <div class="botones">
                         <i class="fa-solid fa-key"></i>
-                        
                         <input id="password" name="password" type="password" placeholder="Contraseña" required />
                     </div>
 

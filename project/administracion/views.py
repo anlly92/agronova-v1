@@ -1,6 +1,7 @@
 from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string
 from django.shortcuts import render,redirect
+from django.contrib.auth.models import User 
 from django.contrib.auth.hashers import make_password # Importar hashing seguro
 import random
 import string
@@ -28,6 +29,17 @@ def registro_administrador (request):
 
             # ciframos la contraseña generada
             contraseña_cifrada = make_password(contraseña_generada)
+
+            # Crear objeto User sincronizado (username = correo)
+            user = User.objects.create(
+                username = administrador.correo,   
+                email    = administrador.correo,
+                first_name = administrador.nombre,
+                last_name  = administrador.apellido,
+                password   = contraseña_cifrada ,
+                is_staff   = True             
+            )
+
             administrador.contraseña = contraseña_cifrada
 
             # Guardar administrador

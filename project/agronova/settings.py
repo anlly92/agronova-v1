@@ -83,7 +83,7 @@ WSGI_APPLICATION = 'agronova.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'agronova',  # 👈 pon aquí el nombre real de tu base de datos
+        'NAME': 'agronova',  
         'USER': 'agronova',
         'PASSWORD': '123456',
         'HOST': 'localhost',
@@ -122,6 +122,8 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 
 USE_TZ = True
+
+LOGIN_REDIRECT_URL = '/inicio/' 
 
 
 # Static files (CSS, JavaScript, Images)
