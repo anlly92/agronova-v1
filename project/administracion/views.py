@@ -1,6 +1,6 @@
 from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect,get_object_or_404
 from django.contrib.auth.models import User 
 from django.contrib.auth.hashers import make_password # Importar hashing seguro
 import random
@@ -17,6 +17,35 @@ def gestionar_administrador (request):
     Administradores = Administrador.objects.all()
     cantidad_filas_vacias = 15 - Administradores.count()
     return render (request, 'administracion/gestionar_administrador.html', {'Administradores': Administradores, 'filas_vacias': range(cantidad_filas_vacias)})
+
+def accion_administrador(request):
+    seleccion = request.POST.get("elemento")       # columna seleccionada
+    accion = request.POST.get("accion")         # accion enviada "editar" o "borrar"
+
+    if not seleccion:
+        # si no se selecciono nada no se ejecuta ninguna accion
+        return redirect("gestionar_administrador")
+
+    if accion == "editar":
+        # redirige al formulario de edición
+        return redirect("editar_administrador", seleccion=seleccion)
+
+    if accion == "borrar":
+        # elimina el elemento selecionado
+        admin= get_object_or_404(Administrador, pk=seleccion)
+
+        correo = admin.correo
+
+        # Borra el registro de Administrador
+        admin.delete()
+
+        # Borra el User que tenga ese correo como username
+        from django.contrib.auth.models import User
+        User.objects.filter(username=correo).delete()
+
+        return redirect("gestionar_administrador")
+
+    return redirect("gestionar_administrador")
 
 def registro_administrador (request):
     if request.method == 'POST':
@@ -67,7 +96,7 @@ def registro_administrador (request):
     
     return render (request, 'administracion/registro_administrador.html', {'form': form})
 
-def actualizar_administrador (request):
+def actualizar_administrador (request,seleccion):
     return render (request, 'administracion/actualizar_administrador.html')
 
 def sobre_mi (request):

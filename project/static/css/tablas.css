@@ -19,10 +19,11 @@ main.contenedor-tabla {
 }
 
 .acciones a,
-.acciones button {
+.acciones button,
+.acciones-header button{
     background: transparent;
     border: none;
-    padding: 6px 12px;
+    padding: 6px 30px;
     border-radius: 4px;
     cursor: pointer;
     text-decoration: none;
@@ -30,6 +31,8 @@ main.contenedor-tabla {
     font-size: 30px;
     color: #fff;
     transition: transform 0.2s ease;
+    margin-left: 0;
+    
 }
 
 
@@ -73,7 +76,7 @@ th {
 }
 
 tbody tr:hover {
-    background-color: #f2f2f2;
+    background-color: #ddd;
     cursor: pointer;
 }
 
@@ -198,6 +201,33 @@ tbody tr:hover {
     display: block;
 }
 
+/* estilos para la seleccion de tablas */
+.radio-fila label {
+    cursor: pointer;
+    display: block;
+}
+.radio-fila input {
+    display: none;
+}
+
+.form-accion{
+    display: flex;
+    gap:18px; 
+    align-items:center;
+}
+
+/* pinta cada celda del <tr> que contenga el radio marcado */
+tr:has(input[type="radio"]:checked) td{
+    background:#ddd;   /* verde más notorio */
+}
+
+.primero{
+    width: 0;
+    padding: 0;
+    height: 0;
+    margin: 0;
+}
+
 
 
 @media screen and (max-width: 768px) {
@@ -261,3 +291,4 @@ tbody tr:hover {
         font-size: 12px;
     }
 }
+
