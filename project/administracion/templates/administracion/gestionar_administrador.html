@@ -14,52 +14,69 @@
 {% endblock %}
 
 {% block nav_icons %}
-    <div class="link">
-        <a href="{% url 'actualizar_administrador' %}" class="boton-actualizar">
-            <i class="fas fa-arrows-rotate"></i>
-        </a>
-        <span>Actualizar</span>
-    </div>
-    <div class="boton">
-        <button type="button">
-            <i class="fas fa-trash"></i>
-        </button>
-        <span>Eliminar</span>
-    </div>
+    <form action="{% url 'accion_administrador' %}" method="post" class="form-accion">
+        {% csrf_token %}
+        <input type="hidden" name="elemento" id="elemento_oculto">
+
+        <div class="link" title="Editar administrador">
+            <button type="submit" name="accion" value="editar" class="boton-actualizar">
+                <i class="fas fa-arrows-rotate"></i>
+            </button>
+            <span>Actualizar</span>
+        </div>
+        <div class="boton">
+            <button type="submit" name="accion" value="borrar" title="Eliminar"
+                    onclick="return confirm('¿Eliminar administrador?');">
+                <i class="fas fa-trash"></i>
+            </button>
+            <span>Eliminar</span>
+        </div>
+    </form>
 {%endblock%}
 
 {% block content %}
     <section>
-    <table>
-        <tr>
-            <th>Documento administrador</th>
-            <th>Nombre</th>
-            <th>Apellido</th>
-            <th>correo</th>
-            <th>Teléfono</th>
-        </tr>
+        <form action="{% url 'accion_administrador' %}" method="post">
+            {% csrf_token %}
+            <table >
+                <tr>
+                    <th class="primero"></th>
+                    <th>Documento administrador</th>
+                    <th>Nombre</th>
+                    <th>Apellido</th>
+                    <th>correo</th>
+                    <th>Teléfono</th>
+                </tr>
 
-        {% for item in Administradores %}
-        <tr>
-            <td>{{ item.id_admin }}</td>
-            <td>{{ item.nombre }}</td>
-            <td>{{ item.apellido }}</td>
-            <td>{{ item.correo }}</td>
-            <td>{{ item.telefono }}</td>
-        </tr>
-        {% empty %}
-        <tr>
-            <td colspan="5">No hay herramientas registradas.</td>
-        </tr>
-        {% endfor %}
-        
-        {% for i in filas_vacias %}
-        <tr>
-            <td></td><td></td><td></td><td></td><td></td>
-        </tr>
-        {% endfor %}
+                {% for item in Administradores %}
+                <tr class="radio-fila">
+                    <td class="primero"> 
+                        <input  type="radio"
+                            name="elemento"
+                            id="admin{{ item.id_admin }}"
+                            value="{{ item.id_admin }}"
+                            required>
+                    </td>
+                    <td><label for="admin{{ item.id_admin }}">{{ item.id_admin }}</label></td>
+                    <td><label for="admin{{ item.id_admin }}">{{ item.nombre }}</label></td>
+                    <td><label for="admin{{ item.id_admin }}">{{ item.apellido }}</label></td>
+                    <td><label for="admin{{ item.id_admin }}">{{ item.correo }}</label></td>
+                    <td><label for="admin{{ item.id_admin }}">{{ item.telefono }}</label></td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="6">No hay herramientas registradas.</td>
+                </tr>
+                {% endfor %}
+                
+                {% for i in filas_vacias %}
+                <tr>
+                    <td class="primero"></td><td></td><td></td><td></td><td></td><td></td>
+                </tr>
+                {% endfor %}
 
-    </table>
+            </table>
+        </form>
     </section>
 
     <div class="ingresar">

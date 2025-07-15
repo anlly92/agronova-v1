@@ -20,4 +20,42 @@ urlpatterns = [
     path("mision_y_vision_de_la_elisa/", views.mision_y_vision_elisa, name='mision_y_vision_la_elisa'),
     path("contraseña/", views.contraseña, name='contraseña'),
     path("terminos_condiciones/", views.terminos_condiciones, name='terminos_condiciones'),
+
+    # el usuario ingresa su correo
+    path("password_reset/", auth_views.PasswordResetView.as_view(
+        template_name="core/password_reset.html",
+        email_template_name="core/password_reset_email.html",
+        subject_template_name="core/password_reset_subject.txt",
+        success_url="done/"),
+        name="password_reset"),
+
+    path("password_reset/done/", auth_views.PasswordResetDoneView.as_view(
+        template_name="core/password_reset_done.html"),
+        name="password_reset_done"),
+
+    path("reset/<uidb64>/<token>/", auth_views.PasswordResetConfirmView.as_view(
+        template_name="core/password_reset_confirm.html",
+        success_url="/reset/done/"),
+        name="password_reset_confirm"),
+
+    path("reset/done/", auth_views.PasswordResetCompleteView.as_view(
+        template_name="core/password_reset_complete.html"),
+        name="password_reset_complete"),
+
+    # -----------------------  Cambiar contraseña estando logueado  -----------------------
+    path(
+        "password_change/",
+        auth_views.PasswordChangeView.as_view(
+            template_name="core/password_change.html",
+            success_url="done/"
+        ),
+        name="password_change",
+    ),
+    path(
+        "password_change/done/",
+        auth_views.PasswordChangeDoneView.as_view(
+            template_name="core/password_change_done.html"
+        ),
+        name="password_change_done",
+    ),
 ]

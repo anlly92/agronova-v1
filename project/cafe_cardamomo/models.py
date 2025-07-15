@@ -38,7 +38,6 @@ class Recoleccion(models.Model):
     kilos = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
     tipo_pago = models.ForeignKey('Pagos', to_field='tipo_pago', on_delete=models.CASCADE, db_column='tipo_pago')
     horas_trabajadas = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
-    valor_pago = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
     fecha = models.DateField(blank=True, null=True)
 
     class Meta:

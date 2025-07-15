@@ -1,4 +1,4 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect,get_object_or_404
 from django.db.models import Sum, F, Func, Value
 from django.db.models.functions import ExtractYear, ExtractMonth
 from .forms import LoteForm, RecoleccionForm, PagosForm
@@ -8,6 +8,25 @@ def gestionar_lote (request):
     Lotes = Lote.objects.all()
     cantidad_filas_vacias = 15 - Lotes.count()
     return render (request, 'cafe_cardamomo/mostrar_lotes.html', {'Lotes': Lotes, 'filas_vacias': range(cantidad_filas_vacias)})
+
+def accion_lote(request):
+    seleccion = request.POST.get("elemento")       # columna seleccionada
+    accion = request.POST.get("accion")         # accion enviada "editar" o "borrar"
+
+    if not seleccion:
+        # si no se selecciono nada no se ejecuta ninguna accion
+        return redirect("gestionar_lote")
+
+    if accion == "editar":
+        # redirige al formulario de edición
+        return redirect("actualizar_lote", seleccion=seleccion)
+
+    if accion == "borrar":
+        # elimina el elemento selecionado
+        get_object_or_404(Lote, pk=seleccion).delete()
+        return redirect("gestionar_lote")
+
+    return redirect("gestionar_lote")
 
 def registrar_lote (request):
     if request.method == 'POST':
@@ -23,7 +42,7 @@ def registrar_lote (request):
 
     return render (request, 'cafe_cardamomo/registro_lote.html', {'form': form})
 
-def actualizar_lote (request):
+def actualizar_lote (request,seleccion):
     return render (request, 'cafe_cardamomo/actualizar_lote.html')
 
 def gestionar_recoleccion (request):
@@ -38,7 +57,7 @@ def registrar_recoleccion (request):
         if form.is_valid():
             recoleccion = form.save(commit=False) 
             recoleccion.save()
-
+            
             return redirect('gestionar_recoleccion')
     else:
         form = RecoleccionForm()
