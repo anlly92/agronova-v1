@@ -83,9 +83,9 @@ WSGI_APPLICATION = 'agronova.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'agronova',  
-        'USER': 'agronova',
-        'PASSWORD': '123456',
+        'NAME': 'agronova',  #  pon aquí el nombre real de tu base de datos
+        'USER': 'root',
+        'PASSWORD': 'admin1234',
         'HOST': 'localhost',
         'PORT': '3306',
     }

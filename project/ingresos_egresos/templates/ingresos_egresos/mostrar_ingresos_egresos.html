@@ -2,79 +2,83 @@
 {% load static %}
 {% load humanize %}
 
-{% block title %} 
-    <title> Ingresos y egresos </title>
+{% block title %}
+<title> Ingresos y egresos </title>
 {% endblock %}
 
 {% block extra_styles %}
-    <link rel="stylesheet" href="{% static 'css/tablas.css' %}">
+<link rel="stylesheet" href="{% static 'css/tablas.css' %}">
 {% endblock %}
 
 {% block logotipo %}
-    Ingresos y egresos
+Ingresos y egresos
 {% endblock %}
 
 {% block nav_icons %}
-    <div class="menu">
-        <div class="boton_icono">
-            <i class="fa-solid fa-file-lines"></i>
-            <span>Informes</span>
-        </div>
-
-        <ul class="submenu">
-            <li><a href="{% url 'informe_anual' %}">Anual</a></li>
-            <li><a href="{% url 'informe_mensual' %}">Mensual</a></li>
-        </ul>
+<div class="menu">
+    <div class="boton_icono">
+        <i class="fa-solid fa-file-lines"></i>
+        <span>Informes</span>
     </div>
 
-    <div class="boton">
-        <button type="button" title="Eliminar datos">
-            <i class="fas fa-trash-alt"></i>
-        </button>
-        <span>Eliminar</span>
-    </div>
+    <ul class="submenu">
+        <li><a href="{% url 'informe_anual' %}">Anual</a></li>
+        <li><a href="{% url 'informe_mensual' %}">Mensual</a></li>
+    </ul>
+</div>
+
+<div class="boton">
+    <button type="button" title="Eliminar datos">
+        <i class="fas fa-trash-alt"></i>
+    </button>
+    <span>Eliminar</span>
+</div>
 {%endblock%}
 
 {% block content %}
-    <section>
-    <table>
-        <tr>
-            <th>Código ingresos o egresos</th>
-            <th>Documento del administrador</th>
-            <th>Nombre del administrador</th>
-            <th>Tipo (ingreso/egreso)</th>
-            <th>Descripción</th>
-            <th>Fecha</th>
-            <th>Valor</th>
-        </tr>
+<section class="tabla-contenedor">
+    <div class="tabla-scroll-wrapper">
+        <table>
+            <tr>
+                <th>Código ingresos o egresos</th>
+                <th>Documento del administrador</th>
+                <th>Nombre del administrador</th>
+                <th>Tipo (ingreso/egreso)</th>
+                <th>Descripción</th>
+                <th>Fecha</th>
+                <th>Valor</th>
+            </tr>
 
-        {% for item in Ingresos_Egresos %}
-        <tr>
-            <td>{{ item.id_transaccion }}</td>
-            <td>{{ item.id_admin }}</td>
-            <td>{{ item.id_admin.nombre }}</td>
-            <td>{{ item.tipo }}</td>
-            <td>{{ item.descripcion }}</td>
-            <td>{{ item.fecha|date:"d/m/Y" }}</td>
-            <td>{{ item.monto|floatformat:0|intcomma }}</td>
-        </tr>
-        {% empty %}
-        <tr>
-            <td colspan="7">No hay ingresos o egresos registrados.</td>
-        </tr>
-        {% endfor %}
-        
-        {% for i in filas_vacias %}
-        <tr>
-            <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
-        </tr>
-        {% endfor %}
+            {% for item in Ingresos_Egresos %}
+            <tr>
+                <td>{{ item.id_transaccion }}</td>
+                <td>{{ item.id_admin }}</td>
+                <td>{{ item.id_admin.nombre }}</td>
+                <td>{{ item.tipo }}</td>
+                <td>{{ item.descripcion }}</td>
+                <td>{{ item.fecha|date:"d/m/Y" }}</td>
+                <td>{{ item.monto|floatformat:0|intcomma }}</td>
+            </tr>
 
-    </table>
-    </section>
+            {% endfor %}
 
-    <div class="ingresar">
-        <a href="{% url 'registro_ingresos_egresos' %}" class="agregar-btn">+</a>
-        <span class="agregar-texto">Agregar</span>
+            {% for i in filas_vacias %}
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            {% endfor %}
+        </table>
     </div>
+</section>
+
+<div class="ingresar">
+    <a href="{% url 'registro_ingresos_egresos' %}" class="agregar-btn">+</a>
+    <span class="agregar-texto">Agregar</span>
+</div>
 {% endblock %}

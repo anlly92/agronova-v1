@@ -1,36 +1,38 @@
 {% extends "base_header_1.html" %}
 {% load static %}
 
-{% block title %} 
-    <title> Inventario herramientas </title>
+{% block title %}
+<title> Inventario herramientas </title>
 {% endblock %}
 
 {% block extra_styles %}
-    <link rel="stylesheet" href="{% static 'css/tablas.css' %}">
+<link rel="stylesheet" href="{% static 'css/tablas.css' %}">
 {% endblock %}
 
 {% block logotipo %}
-    Herramientas Maquinas
+Herramientas Maquinas
 {% endblock %}
 
 {% block nav_icons %}
-    <div class="boton">
-        <a href="{% url 'actualizar_inventario_herramientas' %}" class="boton-actualizar">
-            <i class="fas fa-arrows-rotate"></i>
-        </a>
-        <span>Actualizar</span>
-    </div>
+<div class="boton">
+    <a href="{% url 'actualizar_inventario_herramientas' %}" class="boton-actualizar">
+        <i class="fas fa-arrows-rotate"></i>
+    </a>
+    <span>Actualizar</span>
+</div>
 
-    <div class="boton">
-        <button type="button">
-            <i class="fas fa-trash"></i>
-        </button>
-        <span>Eliminar</span>
-    </div>
+<div class="boton">
+    <button type="button">
+        <i class="fas fa-trash"></i>
+    </button>
+    <span>Eliminar</span>
+</div>
 {% endblock %}
 
 {% block content %}
-    <section>
+<section class="tabla">
+    <div class="tabla-scroll-wrapper">
+
         <table>
             <tr>
                 <th>Código inventario</th>
@@ -48,22 +50,23 @@
                 <td>{{ item.estado }}</td>
                 <td>{{ item.stock|floatformat:0 }}</td>
             </tr>
-            {% empty %}
-            <tr>
-                <td colspan="5">No hay herramientas registradas.</td>
-            </tr>
             {% endfor %}
-            
+
             {% for i in filas_vacias %}
             <tr>
-                <td></td><td></td><td></td><td></td><td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
             </tr>
             {% endfor %}
         </table>
-    </section>
-
-    <div class="ingresar">
-        <a href="{% url 'categoria_herramientas' %}" class="agregar-btn">+</a>
-        <span class="agregar-texto">Agregar</span>
     </div>
+</section>
+
+<div class="ingresar">
+    <a href="{% url 'categoria_herramientas' %}" class="agregar-btn">+</a>
+    <span class="agregar-texto">Agregar</span>
+</div>
 {% endblock %}

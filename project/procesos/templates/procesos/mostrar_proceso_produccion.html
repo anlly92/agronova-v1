@@ -15,40 +15,41 @@
 
 
 {% block content %}
-    <section>
-        <table>
-            <tr>
-                <th>Código del proceso</th>
-                <th>Documento del empleado</th>
-                <th>Nombre empleado</th>
-                <th>Tipo de grano</th>
-                <th>Descripción del proceso de producción</th>
-                <th>Cantidad de grano (Kg)</th>
-                <th>Fecha de registro</th>
-            </tr>
+    <section class="tabla-contenedor">
+        <div class="tabla-scroll-wrapper">
+            <table>
+                <tr>
+                    <th>Código del proceso</th>
+                    <th>Documento del empleado</th>
+                    <th>Nombre empleado</th>
+                    <th>Tipo de grano</th>
+                    <th>Descripción del proceso de producción</th>
+                    <th>Cantidad de grano (Kg)</th>
+                    <th>Fecha de registro</th>
+                </tr>
 
-            {% for item in proceso_produccion %}
-            <tr>
-                <td>{{ item.id_proceso }}</td>
-                <td>{{ item.id_empleado.id_empleado }}</td>
-                <td>{{ item.id_empleado.nombre }} {{ item.id_empleado.apellido }}</td>
-                <td>{{ item.tipo_producto}}</td>
-                <td>{{ item.descripcion }}</td>
-                <td>{{ item.cantidad|floatformat:0  }}</td>
-                <td>{{ item.fecha|date:"d/m/Y"}}</td>
-            </tr>
-            {% empty %}
-            <tr>
-                <td colspan="7">No hay procesos de produccion registrados.</td>
-            </tr>
-            {% endfor %}
-            
-            {% for i in filas_vacias %}
-            <tr>
-                <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
-            </tr>
-            {% endfor %}
-        </table>
+                {% for item in proceso_produccion %}
+                <tr>
+                    <td>{{ item.id_proceso }}</td>
+                    <td>{{ item.id_empleado.id_empleado }}</td>
+                    <td>{{ item.id_empleado.nombre }} {{ item.id_empleado.apellido }}</td>
+                    <td>{{ item.tipo_producto}}</td>
+                    <td>{{ item.descripcion }}</td>
+                    <td>{{ item.cantidad|floatformat:0  }}</td>
+                    <td>{{ item.fecha|date:"d/m/Y"}}</td>
+                </tr>
+
+                {% endfor %}
+
+                {% for i in filas_vacias %}
+                <tr>
+                    <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                </tr>
+
+                
+                {% endfor %}
+            </table>
+        </div>
     </section>
 
     <div class="ingresar">

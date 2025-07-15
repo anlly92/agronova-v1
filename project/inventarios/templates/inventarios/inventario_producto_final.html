@@ -2,37 +2,38 @@
 {% load static %}
 {% load humanize %}
 
-{% block title %} 
-    <title> Inventario de productos finales </title>
+{% block title %}
+<title> Inventario de productos finales </title>
 {% endblock %}
 
 {% block extra_styles %}
-    <link rel="stylesheet" href="{% static 'css/tablas.css' %}">
+<link rel="stylesheet" href="{% static 'css/tablas.css' %}">
 {% endblock %}
 
 {% block logotipo %}
-    Productos finales
+Productos finales
 {% endblock %}
 
 {% block nav_icons %}
-    <div class="boton">
-        <a href="{% url 'actualizar_producto_final' %}" class="boton-actualizar">
-            <i class="fas fa-arrows-rotate"></i>
-        </a>
-        <span>Actualizar</span>
-    </div>
+<div class="boton">
+    <a href="{% url 'actualizar_producto_final' %}" class="boton-actualizar">
+        <i class="fas fa-arrows-rotate"></i>
+    </a>
+    <span>Actualizar</span>
+</div>
 
-    <div class="boton">
-        <button type="button">
-            <i class="fas fa-trash"></i>
-        </button>
-        <span>Eliminar</span>
-    </div>
+<div class="boton">
+    <button type="button">
+        <i class="fas fa-trash"></i>
+    </button>
+    <span>Eliminar</span>
+</div>
 {%endblock%}
 
 
 {% block content %}
-    <section>
+<section class="tabla">
+    <div class="tabla-scroll-wrapper">
         <table>
             <tr>
                 <th>Código inventario</th>
@@ -43,7 +44,7 @@
                 <th>Precio unitario</th>
                 <th>Stock</th>
             </tr>
-            
+
             {% for item in producto_final %}
             <tr>
                 <td>{{ item.id_inventario }}</td>
@@ -52,24 +53,31 @@
                 <td>{{ item.contenido }}</td>
                 <td>{{ item.unidad }}</td>
                 <td>$ {{ item.precio_unitario|floatformat:0|intcomma }}</td>
-                <td>{{ item.stock|floatformat:0|intcomma  }}</td>
+                <td>{{ item.stock|floatformat:0|intcomma }}</td>
             </tr>
             {% empty %}
             <tr>
                 <td colspan="6">No hay arbustos registrados.</td>
             </tr>
             {% endfor %}
-            
+
             {% for i in filas_vacias %}
             <tr>
-                <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
             </tr>
             {% endfor %}
         </table>
-    </section>
-
-    <div class="ingresar">
-        <a href="{% url 'registrar_inventario_producto_final' %}" class="agregar-btn">+</a>
-        <span class="agregar-texto">Agregar</span>
     </div>
+</section>
+
+<div class="ingresar">
+    <a href="{% url 'registrar_inventario_producto_final' %}" class="agregar-btn">+</a>
+    <span class="agregar-texto">Agregar</span>
+</div>
 {% endblock %}

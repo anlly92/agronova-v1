@@ -1,24 +1,35 @@
 {% extends "base_home.html" %}
 {% load static %}
 
-{% block title %} 
-    <title>Misión y visión Agronova</title>
+{% block title %}
+<title>Misión y visión Agronova</title>
 {% endblock %}
 
 {% block extra_styles %}
-    <link rel="stylesheet" href="{% static 'core/css/mision_agronova.css' %}">
+<link rel="stylesheet" href="{% static 'core/css/mision_agronova.css' %}">
 {% endblock %}
 
 {% block content %}
-    <section class="contenedor">
-        <section class="contenedor_izquierdo">
-            <h2>Misión</h2>
-            <p>Agronova tiene como misión transformar la manera en que la finca La Elisa gestiona sus procesos productivos, administrativos y agrícolas, brindando una solución tecnológica integral, sencilla y accesible. Nuestro objetivo es facilitar el seguimiento eficiente de las actividades de la finca desde cualquier lugar, promoviendo la sostenibilidad, el orden y la toma de decisiones informadas. Además, buscamos ser un ejemplo para la comunidad cafetera, demostrando que la tecnología no es una barrera, sino una herramienta poderosa al servicio del campo colombiano.</p>
-        </section>
-
-        <section class="contenedor_derecho">
-            <h2>Visión</h2>
-            <p>En cinco años, Agronova será el sistema de gestión agrícola líder en el suroeste antioqueño, conectando fincas cafeteras de todas las dimensiones con la tecnología, sin importar si producen su propio café o comercializan el grano. Soñamos con un campo más organizado, productivo y sostenible, donde cada caficultor pueda controlar sus procesos, mostrar su marca al mundo y ofrecer sus productos a través de un carrito de compras accesible para todos. Queremos que cada finca sienta que no está sola, que tiene una herramienta confiable a su lado.</p>
-        </section>
+<div class="capa-negra"></div>
+<div class="contenedor">
+    <section class="contenedor_izquierdo">
+        <h2>Misión</h2>
+        <p>Agronova tiene como misión transformar la manera en que la finca La Elisa gestiona sus procesos productivos,
+            administrativos y agrícolas, brindando una solución tecnológica integral, sencilla y accesible. Nuestro
+            objetivo es facilitar el seguimiento eficiente de las actividades de la finca desde cualquier lugar,
+            promoviendo la sostenibilidad, el orden y la toma de decisiones informadas. Además, buscamos ser un ejemplo
+            para la comunidad cafetera, demostrando que la tecnología no es una barrera, sino una herramienta poderosa
+            al servicio del campo colombiano.</p>
     </section>
+
+    <section class="contenedor_derecho">
+        <h2>Visión</h2>
+        <p>En cinco años, Agronova será el sistema de gestión agrícola líder en el suroeste antioqueño, conectando
+            fincas cafeteras de todas las dimensiones con la tecnología, sin importar si producen su propio café o
+            comercializan el grano. Soñamos con un campo más organizado, productivo y sostenible, donde cada caficultor
+            pueda controlar sus procesos, mostrar su marca al mundo y ofrecer sus productos a través de un carrito de
+            compras accesible para todos. Queremos que cada finca sienta que no está sola, que tiene una herramienta
+            confiable a su lado.</p>
+    </section>
+</div>
 {% endblock %}
