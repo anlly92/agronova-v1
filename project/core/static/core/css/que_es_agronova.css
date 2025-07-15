@@ -8,9 +8,11 @@ header {
 /* Sección principal con fondo completo */
 main {
     position: relative;
-    width: 100%;
-    height: 100vh;
+    min-height: 100vh;
+    height: auto;
     display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
     margin: 0;
     padding: 0;
     text-align: justify;
@@ -63,4 +65,63 @@ p {
     color: #ccc;
     line-height: 1.5;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+@media (max-width: 768px) {
+    main {
+        display: flex;
+        flex-direction: column;
+        justify-content: center; /* centra verticalmente */
+        align-items: center;
+        min-height: 100vh;
+        padding: 0 20px 120px 20px; /* espacio para el footer */
+        box-sizing: border-box;
+    }
+
+    .contenedor_izquierdo {
+        width: 90%;
+        max-width: 600px;
+        padding: 130px 50px;
+        text-align: center;
+    }
+
+    .contenedor_derecho {
+        display: none; /* Oculto en móviles */
+    }
+
+    h2 {
+        font-size: 1.8rem;
+        margin-bottom: 25px;
+    }
+
+    p {
+        font-size: 1.2rem;
+        line-height: 1.7;
+        text-align: justify;
+    }
+
+    footer {
+        position: relative;
+        bottom: 0;
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    main {
+        padding:0 15px 100px 15px;
+    }
+
+    .contenedor_izquierdo {
+        width: 95%;
+        padding: 120px 40px;
+    }
+
+    h2 {
+        font-size: 1.6rem;
+    }
+
+    p {
+        font-size: 1.15rem;
+    }
 }

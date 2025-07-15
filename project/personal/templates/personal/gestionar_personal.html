@@ -31,44 +31,46 @@
 {%endblock%}
 
 {% block content %}
-    <section>
-    <table>
-        <tr>
-            <th>Documento empleado</th>
-            <th>Nombre</th>
-            <th>Apellido</th>
-            <th>Teléfono</th>
-            <th>tipo de empleado (vinculado/no vinculado)</th>
-            <th>pago por contrato <br> (solo vinculados)</th>
-        </tr>
-
-        {% for item in empleados %}
-        <tr>
-            <td>{{ item.id_empleado }}</td>
-            <td>{{ item.nombre }}</td>
-            <td>{{ item.apellido }}</td>
-            <td>{{ item.telefono }}</td>
-            <td>{{ item.tipo_empleado }}</td>
-            <td>{% if item.pago_contrato %}
-                    {{ item.pago_contrato }}
-                {% else %}
-                    No tiene pago por contrato
-                {% endif %}
-            </td>
-        </tr>
-        {% empty %}
-        <tr>
-            <td colspan="6">No hay empleados registrados.</td>
-        </tr>
-        {% endfor %}
-        
-        {% for i in filas_vacias %}
-        <tr>
-            <td></td><td></td><td></td><td></td><td></td><td></td>
-        </tr>
-        {% endfor %}
-
-    </table>
+    <section class="tabla ">
+        <div class="tabla-scroll-wrapper">
+            <table>
+                <tr>
+                    <th>Documento empleado</th>
+                    <th>Nombre</th>
+                    <th>Apellido</th>
+                    <th>Teléfono</th>
+                    <th>tipo de empleado (vinculado/no vinculado)</th>
+                    <th>pago por contrato <br> (solo vinculados)</th>
+                </tr>
+            
+                {% for item in empleados %}
+                <tr>
+                    <td>{{ item.id_empleado }}</td>
+                    <td>{{ item.nombre }}</td>
+                    <td>{{ item.apellido }}</td>
+                    <td>{{ item.telefono }}</td>
+                    <td>{{ item.tipo_empleado }}</td>
+                    <td>{% if item.pago_contrato %}
+                            {{ item.pago_contrato }}
+                        {% else %}
+                            No tiene pago por contrato
+                        {% endif %}
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="6">No hay empleados registrados.</td>
+                </tr>
+                {% endfor %}
+            
+                {% for i in filas_vacias %}
+                <tr>
+                    <td></td><td></td><td></td><td></td><td></td><td></td>
+                </tr>
+                {% endfor %}
+            
+            </table>
+        </div>
     </section>
 
     <div class="ingresar">
