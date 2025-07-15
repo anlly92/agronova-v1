@@ -1,69 +1,75 @@
 {% extends "base_header_1.html" %}
 {% load static %}
 
-{% block title %} 
-    <title> Gestionar administrador </title>
+{% block title %}
+<title> Gestionar administrador </title>
 {% endblock %}
 
 {% block extra_styles %}
-    <link rel="stylesheet" href="{% static 'css/tablas.css' %}">
+<link rel="stylesheet" href="{% static 'css/tablas.css' %}">
 {% endblock %}
 
 {% block logotipo %}
-    Gestionar administrador
+Gestionar administrador
 {% endblock %}
 
 {% block nav_icons %}
-    <div class="link">
-        <a href="{% url 'actualizar_administrador' %}" class="boton-actualizar">
-            <i class="fas fa-arrows-rotate"></i>
-        </a>
-        <span>Actualizar</span>
-    </div>
-    <div class="boton">
-        <button type="button">
-            <i class="fas fa-trash"></i>
-        </button>
-        <span>Eliminar</span>
-    </div>
+<div class="link">
+    <a href="{% url 'actualizar_administrador' %}" class="boton-actualizar">
+        <i class="fas fa-arrows-rotate"></i>
+    </a>
+    <span>Actualizar</span>
+</div>
+<div class="boton">
+    <button type="button">
+        <i class="fas fa-trash"></i>
+    </button>
+    <span>Eliminar</span>
+</div>
 {%endblock%}
 
 {% block content %}
-    <section>
-    <table>
-        <tr>
-            <th>Documento administrador</th>
-            <th>Nombre</th>
-            <th>Apellido</th>
-            <th>correo</th>
-            <th>Teléfono</th>
-        </tr>
 
-        {% for item in Administradores %}
-        <tr>
-            <td>{{ item.id_admin }}</td>
-            <td>{{ item.nombre }}</td>
-            <td>{{ item.apellido }}</td>
-            <td>{{ item.correo }}</td>
-            <td>{{ item.telefono }}</td>
-        </tr>
-        {% empty %}
-        <tr>
-            <td colspan="5">No hay herramientas registradas.</td>
-        </tr>
-        {% endfor %}
-        
-        {% for i in filas_vacias %}
-        <tr>
-            <td></td><td></td><td></td><td></td><td></td>
-        </tr>
-        {% endfor %}
+<section class="tabla">
+    <div class="tabla-scroll-wrapper">
+        <table>
+            <tr>
+                <th>Documento administrador</th>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>correo</th>
+                <th>Teléfono</th>
+            </tr>
 
-    </table>
-    </section>
+            {% for item in Administradores %}
+            <tr>
+                <td>{{ item.id_admin }}</td>
+                <td>{{ item.nombre }}</td>
+                <td>{{ item.apellido }}</td>
+                <td>{{ item.correo }}</td>
+                <td>{{ item.telefono }}</td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="5">No hay herramientas registradas.</td>
+            </tr>
+            {% endfor %}
 
-    <div class="ingresar">
-        <a href="{% url 'registro_administrador' %}" class="agregar-btn">+</a>
-        <span class="agregar-texto">Agregar</span>
+            {% for i in filas_vacias %}
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            {% endfor %}
+        </table>
     </div>
+</section>
+
+<div class="ingresar">
+    <a href="{% url 'registro_administrador' %}" class="agregar-btn">+</a>
+    <span class="agregar-texto">Agregar</span>
+</div>
 {% endblock %}

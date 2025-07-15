@@ -1,22 +1,21 @@
-body {
+html, body {
     margin: 0;
     padding: 0;
-    font-family: Arial, sans-serif;
-
+    width: 100%;
     background: 
         linear-gradient(to left, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.3)),
-        url(/static/img/surgio.png) center center / cover no-repeat;
-    background-attachment: fixed;
+        url(/static/img/surgio.png) no-repeat center center fixed;
+    background-size: cover;
 }
 
 /* Header transparente para que se vea la imagen detrás */
 header {
-    position: absolute;
+    position: relative;
     height: 100px;
     width: 100%;
     background: transparent;
     color: #ccc;
-    z-index: 10;
+    z-index: 10;/*Controlar la super posicion, lo pone por enima d elos otro elementos*/
     display: flex;
     align-items: center;
     padding-left: 20px;
@@ -25,31 +24,33 @@ header {
 /* Sección principal */
 main {
     width: 100%;
-    min-height: 100vh;
+    min-height: 100vh;/*Altura minima igual a la ventana del navegador*/
     margin: 0;
     padding: 0;
-    text-align: center;
-
     display: flex;
-    align-items: center;
-    justify-content: center;
+    text-align: center;
+    justify-content: center; /* centro horizontal */
+    align-items: center;     /* centro vertical */
 }
 
 /* Contenedor general */
 .contenedor {
     display: flex;
     flex-direction: row;
-    width: 100%;
-    max-width: 1600px;
-    padding-top: 100px; /* Espacio para el header */
+    width: 100%; /*En pantallas pequeñas o medianas, el contenedor se adapta (gracias a width: 100%)*/
+    max-width: 1600px; /*En pantallas muy grandes, no se estira demasiado (gracias a max-width)*/
+    padding: 20px 10px;
+    box-sizing: border-box;/*evita que los elementos crezcan mas alla de lo definido*/
+    justify-content: center;
+    align-items: center;
 }
 
-/* Contenedor izquierdo (texto) */
+/* Contenedor izquierdo  */
 .contenedor_izquierdo {
     width: 50%;
     background: transparent;
     color: #ddd;
-    padding: 60px 50px;
+    padding: 60px 60px;
 }
 
 /* Contenedor derecho (puedes dejarlo vacío o decorarlo) */
@@ -58,7 +59,7 @@ main {
     background: transparent;
 }
 
-/* Título */
+
 h2 {
     font-family: 'Courier New', Courier, monospace;
     font-size: 3rem;
@@ -85,4 +86,77 @@ p {
     background-clip: text;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
+
+/*Se aplica el diseño responsivo*/
+@media (max-width: 768px) {
+    main {
+        display: flex;
+        flex-direction: column;
+        justify-content: center; /* centra verticalmente */
+        align-items: center;
+        min-height: 100vh;/*Altura minima igual a la ventana del navegador*/
+        padding: 10px 10px 40px 10px; /* espacio para el footer */
+        box-sizing: border-box;
+    }
+
+    .contenedor_izquierdo {
+        width: 90%;
+        padding: 70px 10px;
+        text-align: center;
+    }
+
+    .contenedor_derecho {
+        display: none; /* Oculto este contenedor en los moviles */
+    }
+
+    h2 {
+        font-size: 1.8rem;
+        margin-bottom: 55px;
+    }
+
+    p {
+        font-size: 1.2rem;
+        line-height: 1.7;
+        text-align: justify;
+    }
+
+    footer {
+        position: relative;
+        bottom: 0;
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    main {
+        padding:10px 10px 40px 10px;
+    }
+
+    .contenedor_izquierdo {
+        width: 95%;
+        padding: 30px 30px;
+    }
+
+    .contenedor_derecho {
+        display: none; /* Oculto en móviles */
+    }
+
+    h2 {
+        font-size: 1.8rem;
+        margin-bottom: 55px;
+    }
+
+    p {
+        font-size: 1.2rem;
+        line-height: 1.7;
+        text-align: justify;
+    }
+
+    footer {
+        position: relative;
+        bottom: 0;
+        width: 100%;
+    }
+}
+
 
