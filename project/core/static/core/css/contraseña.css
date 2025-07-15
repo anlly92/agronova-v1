@@ -15,8 +15,8 @@ main {
     position: relative;/*posiciona los elementos hijos respecto a este conetenedor*/
 }
 
+/* Botón cerrar */
 .cerrar-login {
-    display: flex;
     position: absolute;
     top: 10px;
     right: 30px;
@@ -31,7 +31,6 @@ main {
     text-shadow: 2px 2px 16px rgba(0, 0, 0, 0.6); /* Sombra más notoria */
     transition: transform 0.2s ease, color 0.2s ease;  /* Suaviza las animaciones de cambio de tamaño o color. */
     cursor: pointer;
-
 }
 
 .cerrar-login a:hover {
@@ -61,7 +60,6 @@ main {
     filter: drop-shadow(0 0 10px #fff);
 }
 
-
 .encabezado {
     font-family: 'Raleway', sans-serif;
     font-size: 2.5rem;
@@ -72,7 +70,6 @@ main {
     align-items: center;
     flex-direction: column;
     text-align: center;
-    
     padding: 0;
     margin: 0;
 }
@@ -89,7 +86,6 @@ main {
     background-color: #4b7510;
     color: white;
     display: flex;
-
     align-items: center;
     padding: 20px 20px;
     border-radius: 15px;
@@ -97,7 +93,6 @@ main {
     border-right: 4px solid #fff;
     border-bottom: 4px solid #fff;
 }
-
 
 .botones i, .boton i {
     font-size: 30px;
@@ -117,8 +112,6 @@ main {
     font-size: 18px;
     color: white;
 }
-
-
 
 .botones input[type="email"],
 .botones input[type="email"]:focus,
@@ -169,8 +162,9 @@ input::placeholder,.boton{
     font-size: 20px;
     text-decoration: underline;
     letter-spacing: 1px;
-    font-weight: bold;
+    font-weight: bold;
 }
+
 
 /* Estilo de auto completado */
 input:-webkit-autofill {
@@ -186,41 +180,51 @@ input:-webkit-autofill:focus {
 }
 
 
-/* ===== RESPONSIVE: TABLETS Y CELULARES ===== */
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 1024px) {
     .contenedor_principal {
-        padding: 30px 20px;
+        padding: 40px 30px;
     }
-    .logo-item {
-        width: 100px;
-        height: 100px;
-    }
+
     .encabezado legend {
-        font-size: 26px;
+        font-size: 38px;
     }
-    .botones {
-        padding: 12px 15px;
-    }
-    .botones i {
-        font-size: 20px;
-    }
-    .botones input {
-        font-size: 16px;
-    }
+
     .boton {
+        font-size: 20px;
+        padding: 18px;
+    }
+
+    .botones input {
         font-size: 18px;
-        padding: 12px;
+    }
+
+    .info_extra {
+        font-size: 20px;
     }
 }
 
-@media screen and (max-width: 480px) {
-    .info_extra {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 10px;
+@media screen and (max-width: 768px) {
+    .contenedor_principal {
+        width: 95%;
+        max-width: 100%;
+        padding: 25px 15px;
     }
-    .cerrar-login {
-        top: 10px;
-        right: 15px;
+
+    .encabezado legend {
+        font-size: 28px;
+    }
+
+    .boton {
+        font-size: 16px;
+        padding: 14px;
+    }
+
+    .botones input {
+        font-size: 16px;
+    }
+
+
+    .info_extra {
+        font-size: 16px;
     }
 }

@@ -449,7 +449,7 @@ input:-webkit-autofill:focus {
     -webkit-box-shadow: 0 0 0px 1000px #4b7510 inset !important;
 }
 
-/* ------------------ Diseño responsivo  ------------------ */
+/*  Diseño responsivo  */
 
 @media screen and (max-width: 768px) {
     body {

@@ -37,51 +37,51 @@
 {%endblock%}
 
 {% block content %}
-    <section>
-        <form action="{% url 'accion_personal' %}" method="post" >
-            {% csrf_token %}
-            <table>
-                <tr>
-                    <th class="primero"></th>
-                    <th>Documento empleado</th>
-                    <th>Nombre</th>
-                    <th>Apellido</th>
-                    <th>Teléfono</th>
-                    <th>tipo de empleado (vinculado/no vinculado)</th>
-                    <th>pago por contrato <br> (solo vinculados)</th>
-                </tr>
-
-                {% for item in empleados %}
-                <tr class="radio-fila">
-                    <td class="primero"> 
-                        <input  type="radio"
-                            name="elemento"
-                            id="personal{{ item.id_empleado }}"
-                            value="{{ item.id_empleado }}"
-                            required>
-                    </td>
-                    <td><label for="personal{{ item.id_empleado }}">{{ item.id_empleado }}</label></td>
-                    <td><label for="personal{{ item.id_empleado }}">{{ item.nombre }}</label></td>
-                    <td><label for="personal{{ item.id_empleado }}">{{ item.apellido }}</label></td>
-                    <td><label for="personal{{ item.id_empleado }}">{{ item.telefono }}</label></td>
-                    <td><label for="personal{{ item.id_empleado }}">{{ item.tipo_empleado }}</label></td>
-                    <td><label for="personal{{ item.id_empleado }}">{% if item.pago_contrato %}
-                            {{ item.pago_contrato }}
-                        {% else %}
-                            No tiene pago por contrato
-                        {% endif %}
-                    </label></td>
-                </tr>
-                {% endfor %}
-                
-                {% for i in filas_vacias %}
-                <tr>
-                    <td class="primero"></td><td></td><td></td><td></td><td></td><td></td><td></td>
-                </tr>
-                {% endfor %}
-
-            </table>
-        </form>
+    <section class="tabla ">
+        <div class="tabla-scroll-wrapper">
+            <form action="{% url 'accion_personal' %}" method="post" >
+                {% csrf_token %}
+                <table>
+                    <tr>
+                        <th class="primero"></th>
+                        <th>Documento empleado</th>
+                        <th>Nombre</th>
+                        <th>Apellido</th>
+                        <th>Teléfono</th>
+                        <th>tipo de empleado (vinculado/no vinculado)</th>
+                        <th>pago por contrato <br> (solo vinculados)</th>
+                    </tr>
+                    {% for item in empleados %}
+                    <tr class="radio-fila">
+                        <td class="primero"> 
+                            <input  type="radio"
+                                name="elemento"
+                                id="personal{{ item.id_empleado }}"
+                                value="{{ item.id_empleado }}"
+                                required>
+                        </td>
+                        <td><label for="personal{{ item.id_empleado }}">{{ item.id_empleado }}</label></td>
+                        <td><label for="personal{{ item.id_empleado }}">{{ item.nombre }}</label></td>
+                        <td><label for="personal{{ item.id_empleado }}">{{ item.apellido }}</label></td>
+                        <td><label for="personal{{ item.id_empleado }}">{{ item.telefono }}</label></td>
+                        <td><label for="personal{{ item.id_empleado }}">{{ item.tipo_empleado }}</label></td>
+                        <td><label for="personal{{ item.id_empleado }}">{% if item.pago_contrato %}
+                                {{ item.pago_contrato }}
+                            {% else %}
+                                No tiene pago por contrato
+                            {% endif %}
+                        </label></td>
+                    </tr>
+                    {% endfor %}
+                    
+                    {% for i in filas_vacias %}
+                    <tr>
+                        <td class="primero"></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            </form>
+        </div>
     </section>
 
     <div class="ingresar">

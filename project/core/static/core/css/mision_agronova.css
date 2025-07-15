@@ -5,17 +5,27 @@ header{
     color: #ccc;
 }
 
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #000; /* o el color que desees para la parte inferior */
+}
+
 main {
+    position: relative;
+    z-index: 1;
     width: 100%;
+    min-height: 100vh;
     margin: 0;
     padding: 0;
     text-align: center;
-    background: url(/static/img/mision_y_vision.jpg) center center / cover no-repeat #000 ;
+    background: url(/static/img/mision_vision.jpeg) center center / cover no-repeat #000 ;
 }
 
-.contenedor{
+.contenedor {
     display: flex;
-    height: auto;
+    position: relative;  /* necesario */
+    z-index: 2;          /* eleva el texto por encima de la capa oscura */
 }
 
 .contenedor_derecho,.contenedor_izquierdo{
@@ -23,7 +33,8 @@ main {
     background:transparent;
     color: #ddd;
     padding: 0 50px;
-    padding-top: 60px;
+    padding-bottom: 150px;
+    padding-top: 80px;
 }
 
 .contenedor_derecho{
@@ -36,10 +47,6 @@ h2 {
     font-weight: bold;
     margin-top: 80px;
     margin-bottom: 40px;
-    background: linear-gradient(45deg, #555, #fff, #aaa);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
     text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
 }
 
@@ -47,13 +54,92 @@ p {
     font-family: 'Times New Roman', Times, serif;
     font-size: 30px;
     font-weight: 400;
-    color: #ccc;
+    color: #eee9e9;
     line-height: 1.5;
     letter-spacing: 2px;
-    background: linear-gradient(45deg, #fff, #ccc, #fff);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
     text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
     margin-top: 15px;
+}
+
+.capa-negra {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* negro con opacidad */
+    z-index: 0;
+}
+
+
+
+@media (max-width: 768px) {
+    main {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    background: url(/static/img/mision_vision_movil.png) center center / cover no-repeat #000 ;
+}
+
+    .contenedor {
+        flex-direction: column;
+        align-items: center;
+        padding: 100px 20px 80px 20px;
+    }
+
+    .contenedor_izquierdo, .contenedor_derecho {
+        width: 100%;
+        padding: 40px 15px;
+        border: none;
+    }
+
+    .contenedor_derecho {
+        margin-top: 10px;
+    }
+
+    h2 {
+        font-size: 1.8rem;
+        margin-bottom: 15px;
+    }
+
+    p {
+        font-size: 1.15rem;
+        line-height: 1.7;
+        text-align: justify;
+    }
+}
+
+@media (max-width: 480px) {
+
+    main {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    background: url(/static/img/mision_vision_movil.png) center center / cover no-repeat #000 ;
+}
+
+    .contenedor_izquierdo, .contenedor_derecho {
+        padding: 40px 10px;
+    }
+
+    h2 {
+        font-size: 1.5rem;
+    }
+
+    p {
+        font-size: 1.05rem;
+        line-height: 1.6;
+    }
+}
+
+footer {
+    position: relative;
+    width: 100%;
+    text-align: center;
 }
