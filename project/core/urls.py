@@ -24,29 +24,29 @@ urlpatterns = [
     # el usuario ingresa su correo
     path("password_reset/", auth_views.PasswordResetView.as_view(
         template_name="core/password_reset.html",
-        email_template_name="core/password_reset_email.html",
-        subject_template_name="core/password_reset_subject.txt",
+        email_template_name="core/password_reset_email.html", # correo para recuperar contraseña
+        subject_template_name="core/password_reset_subject.txt", #asunto del correo
         success_url="done/"),
         name="password_reset"),
 
     path("password_reset/done/", auth_views.PasswordResetDoneView.as_view(
-        template_name="core/password_reset_done.html"),
+        template_name="core/password_reset_done.html"), # mensaje emergente que se envia cuando el usuario solicita restableser la contraseña
         name="password_reset_done"),
 
     path("reset/<uidb64>/<token>/", auth_views.PasswordResetConfirmView.as_view(
-        template_name="core/password_reset_confirm.html",
+        template_name="core/password_reset_confirm.html",# plantilla en la cual ingresa la nueva contraseña y la confirma
         success_url="/reset/done/"),
         name="password_reset_confirm"),
 
     path("reset/done/", auth_views.PasswordResetCompleteView.as_view(
-        template_name="core/password_reset_complete.html"),
+        template_name="core/password_reset_complete.html"),# mensaje de contraseña que fue realizado exitosamente
         name="password_reset_complete"),
 
     # -----------------------  Cambiar contraseña estando logueado  -----------------------
     path(
         "password_change/",
         auth_views.PasswordChangeView.as_view(
-            template_name="core/password_change.html",
+            template_name="core/password_change.html", #formulari en el cual se cambia la contraseña 
             success_url="done/"
         ),
         name="password_change",
@@ -54,7 +54,7 @@ urlpatterns = [
     path(
         "password_change/done/",
         auth_views.PasswordChangeDoneView.as_view(
-            template_name="core/password_change_done.html"
+            template_name="core/password_change_done.html" #ventana emergente de  mensaje de exito
         ),
         name="password_change_done",
     ),
