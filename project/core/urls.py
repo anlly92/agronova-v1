@@ -2,7 +2,7 @@ from django.contrib.auth import views as auth_views
 from django.urls import path
 from core.views import (
     PasswordResetNoRedirectView, PasswordResetConfirmNoRedirectView,
-    PasswordChangeNoRedirectView,PasswordChangeDoneNoRedirectView,
+    PasswordChangeNoRedirectView,
 )
 from core import views
 
@@ -40,7 +40,4 @@ urlpatterns = [
         views.PasswordChangeNoRedirectView.as_view(),
         name="password_change"),
 
-    path("password_change/done/",
-        views.PasswordChangeDoneNoRedirectView.as_view(),
-        name="password_change_done"),
 ]

@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import ( 
     PasswordResetView, PasswordResetConfirmView,
-    PasswordChangeView, PasswordChangeDoneView
+    PasswordChangeView,
     )
 from django.urls import reverse_lazy
 
@@ -101,7 +101,11 @@ class PasswordResetConfirmNoRedirectView(PasswordResetConfirmView):
 
 class PasswordChangeNoRedirectView(PasswordChangeView):
     template_name = "core/password_change.html"
-    success_url   = reverse_lazy("password_change_done")
+    def form_valid(self, form):
+        # 1) Cambia la contraseña:
+        form.save()
+        # 2) Prepara contexto con la bandera
+        context = self.get_context_data(**self.kwargs)
+        context["ok"] = True                     # ← tu JS lo usará
+        return render(self.request, self.template_name, context)
 
-class PasswordChangeDoneNoRedirectView(PasswordChangeDoneView):
-    template_name = "core/password_change_done.html"
