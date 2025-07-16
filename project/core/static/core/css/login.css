@@ -200,8 +200,8 @@ input:-webkit-autofill:focus {
     -webkit-box-shadow: 0 0 0px 1000px #4b7510 inset !important;
 }
 
-.mensaje-error p {
-    color: #a94442;
+.mensaje-error li{
+    color: rgb(212, 35, 35);
     font-size: 20px;
 }
 
@@ -228,6 +228,9 @@ input:-webkit-autofill:focus {
         font-size: 20px;
     }
 }
+
+
+
 
 
 @media screen and (max-width: 768px) {
