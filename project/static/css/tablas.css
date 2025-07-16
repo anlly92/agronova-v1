@@ -1,4 +1,4 @@
-  /* Fondo del área principal */
+/* Fondo general de la sección de la tabla */
 main.contenedor-tabla {
     background: url('/static/img/fondo-tabla.jpg') center center / cover no-repeat fixed;
     display: flex;
@@ -6,23 +6,12 @@ main.contenedor-tabla {
     justify-content: center;
 }
 
-/* Contenedor verde translúcido */
-.tabla-contenedor {
-    overflow: hidden; 
-    background-color: rgba(77, 101, 30, 0.85); /* Verde oscuro translúcido */
-    padding: 80px;
-    border-radius: 20px;
-    box-shadow: 0 0 25px rgba(0, 0, 0, 0.7);
-    width: 80%;
-    position: relative;
-    margin: 100px 0;
-}
-
 .acciones a,
-.acciones button {
+.acciones button,
+.acciones-header button{
     background: transparent;
     border: none;
-    padding: 6px 12px;
+    padding: 6px 15px;
     border-radius: 4px;
     cursor: pointer;
     text-decoration: none;
@@ -30,8 +19,9 @@ main.contenedor-tabla {
     font-size: 30px;
     color: #fff;
     transition: transform 0.2s ease;
+    margin-left: 0;
+    
 }
-
 
 .acciones a:hover,
 .acciones button:hover {
@@ -46,35 +36,71 @@ main.contenedor-tabla {
     font-weight: bold;
 }
 
-/* Tabla */
-table {
-    margin: auto;
-    margin: 80px;
-    margin-bottom: 80px;
-    width: 88% ;
-    border-collapse: collapse;
+
+.tabla {
+    width: 85%;
+    margin: 70px;
+}
+
+/* Contenedor con scroll vertical y horizontal */
+.tabla-scroll-wrapper {
+    overflow: auto; /* Scroll horizontal y vertical */
+    height: 500px;   /* Necesario para activar scroll vertical */
     background: rgba(255, 255, 255, 0.95);
-    border-radius: 14px;
-    overflow: hidden;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.6);
+    white-space: nowrap;
+}
+
+.tabla-scroll-wrapper table{
+    width: 100%;
+}
+
+/* Estilo general de la tabla */
+table {
+    border-collapse: collapse;
+    table-layout: auto;
+    background: rgba(255, 255, 255, 0.95);
     box-shadow: 0 0 30px rgba(0, 0, 0, 0.6);
 }
 
+/* Estilo de celdas */
 th, td {
+    width: max-content;
     padding: 16px;
     text-align: center;
     font-size: 20px;
     border: 1px solid #111;
 }
 
+/* Encabezado fijo */
 th {
-    background-color: #4b7510; /* Verde brillante */
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background-color: #4b7510;
     color: #fff;
     text-shadow: 1px 1px 2px #000;
 }
 
+/* Efecto hover sobre filas */
 tbody tr:hover {
-    background-color: #f2f2f2;
+    background-color: #ddd;
     cursor: pointer;
+}
+
+/* Scrollbar personalizado */
+.tabla-scroll-wrapper::-webkit-scrollbar {
+    width: 8px;   /* Grosor del scroll vertical */
+    height: 8px;  /* Grosor del scroll horizontal */
+}
+
+.tabla-scroll-wrapper::-webkit-scrollbar-thumb {
+    background-color: #4b7510;
+    border: 1px solid #000;
+}
+
+.tabla-scroll-wrapper::-webkit-scrollbar-thumb:hover {
+    background-color: #555;
 }
 
 /* Botón "Agregar" */
@@ -113,7 +139,6 @@ tbody tr:hover {
     transform: scale(1.2);
 }
 
-
 .agregar-texto {
     color: #ccc;
     background: transparent;
@@ -123,20 +148,16 @@ tbody tr:hover {
     font-weight: bold;
 }
 
-
 .menu {
     position: relative;
     display: inline-block;
 }
 
-
 /*ingresos y egresos*/
-
 .boton_icono span{
     margin-top: 5px;
     font-size: 18px;
 }
-
 
 .boton_icono{
     display: flex;
@@ -198,17 +219,50 @@ tbody tr:hover {
     display: block;
 }
 
+/* estilos para la seleccion de tablas */
+.radio-fila label {
+    cursor: pointer;
+    display: block;
+}
+.radio-fila input {
+    display: none;
+}
+
+.form-accion{
+    display: flex;
+    gap:18px; 
+    align-items:center;
+}
+
+/* pinta cada celda del <tr> que contenga el radio marcado */
+tr:has(input[type="radio"]:checked) td{
+    background:#ddd;   /* verde más notorio */
+}
+
+.primero{
+    width: 0;
+    padding: 0;
+    height: 0;
+    margin: 0;
+}
+
 
 
 @media screen and (max-width: 768px) {
     body {
         font-size: 16px;
-        padding: 10px;
-        align-items: stretch;
+        padding: 0 10px;
+    }
+
+    .tabla-contenedor {
+        padding: 40px;
+        width: 95%;
+        margin: 50px 0;
     }
 
     table {
-        width: 95%;
+        width: 100%;
+        margin: 30px 0;
         font-size: 14px;
     }
 
@@ -220,44 +274,94 @@ tbody tr:hover {
     .acciones a,
     .acciones button {
         padding: 6px 10px;
-        font-size: 14px;
+        font-size: 18px;
+    }
+
+    .ingresar {
+        position: static;
+        margin-top: 20px;
+        flex-direction: row;
+        justify-content: center;
+        gap: 10px;
     }
 
     .agregar-btn {
-        width: 50px;
-        height: 50px;
+        width: 48px;
+        height: 48px;
         font-size: 24px;
     }
 
     .agregar-texto {
-        font-size: 14px;
+        font-size: 16px;
+    }
+
+    .boton_icono span {
+        font-size: 16px;
     }
 }
 
-@media screen and (max-width: 480px) {
+
+@media screen and (max-width: 834px) {
+    .tabla-contenedor {
+        width: 90%;
+        padding: 60px;
+    }
+
     table {
         width: 100%;
-        font-size: 13px;
+        margin: 40px 0;
     }
 
     th, td {
-        padding: 8px;
-        font-size: 13px;
+        padding: 14px;
+        font-size: 16px;
+    }
+
+    .agregar-btn {
+        width: 52px;
+        height: 52px;
+        font-size: 26px;
+    }
+
+    .agregar-texto {
+        font-size: 18px;
     }
 
     .acciones a,
     .acciones button {
-        padding: 6px 8px;
-        font-size: 12px;
+        font-size: 20px;
+    }
+}
+
+
+@media screen and (max-width: 1024px) {
+    .tabla-contenedor {
+        width: 85%;
+        padding: 70px;
+    }
+
+    table {
+        width: 95%;
+        margin: 60px auto;
+    }
+
+    th, td {
+        font-size: 18px;
     }
 
     .agregar-btn {
-        width: 45px;
-        height: 45px;
-        font-size: 20px;
+        width: 56px;
+        height: 56px;
+        font-size: 28px;
     }
 
     .agregar-texto {
-        font-size: 12px;
+        font-size: 20px;
+    }
+
+    .acciones a,
+    .acciones button {
+        font-size: 22px;
     }
 }
+

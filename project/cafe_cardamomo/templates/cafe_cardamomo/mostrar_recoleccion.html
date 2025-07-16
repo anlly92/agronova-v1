@@ -15,66 +15,68 @@
 {% endblock %}
 
 {% block nav_icons %}
-    <div class="boton">
-        <a href="{% url 'total_de_recoleccion' %}" class="total_de_recoleccion">
-            <i class="fas fa-file-invoice-dollar"></i>
-        </a>
-        <span>Total recolección</span>
-    </div>
+    <section  class="form-accion">
+        <div class="link">
+            <a href="{% url 'total_de_recoleccion' %}" class="boton-actualizar">
+                <i class="fas fa-file-invoice-dollar"></i>
+            </a>
+            <span>Total </span>
+        </div>
 
-    <div class="boton">
-        <a href="{% url 'registrar_pago' %}" class="registrar_pago">
-            <i class="fas fa-dollar-sign"></i>
-        </a>
-        <span>Pago</span>
-    </div>
+        <div class="boton">
+            <a href="{% url 'registrar_pago' %}">
+                <i class="fas fa-dollar-sign"></i>
+            </a>
+            <span>Pago</span>
+        </div>
+    </section>
 {%endblock%}
 
 {% block content %}
-    <section>
-        <table>
-            <tr>
-                <th>Codigo de recolección</th>
-                <th>Identificación del empleado</th>
-                <th>Nombre del empleado</th>
-                <th>Código de lote</th>
-                <th>Nombre del lote</th>
-                <th>Tipo de producto (Cáfe/Cardamomo)</th>
-                <th>Kilos recolectados</th>
-                <th>Fecha recolección</th>
-                <th>Tipo de pago (Horas/Kilos)</th>
-                <th>valor</th>
-                <th>Horas trabajadas</th>
-                <th>Total a pagar</th>
-            </tr>
+    <section class="tabla">
+        <div class="tabla-scroll-wrapper">
+            <table>
+                <tr>
+                    <th>Codigo de recolección</th>
+                    <th>Identificación del empleado</th>
+                    <th>Nombre del empleado</th>
+                    <th>Código de lote</th>
+                    <th>Nombre del lote</th>
+                    <th>Tipo de producto (Cáfe/Cardamomo)</th>
+                    <th>Kilos recolectados</th>
+                    <th>Fecha recolección</th>
+                    <th>Tipo de pago (Horas/Kilos)</th>
+                    <th>valor</th>
+                    <th>Horas trabajadas</th>
+                    <th>Total a pagar</th>
+                </tr>
 
-            {% for item in recolecciones %}
-            <tr>
-                <td>{{ item.id_recoleccion }}</td>
-                <td>{{ item.id_empleado.id_empleado }}</td>
-                <td>{{ item.id_empleado.nombre}} {{ item.id_empleado.apellido }}</td>
-                <td>{{ item.id_lote.id_lote }}</td>
-                <td>{{ item.id_lote.nombre }}</td>
-                <td>{{ item.tipo_producto }}</td>
-                <td>{{ item.kilos|floatformat:0 }}</td>
-                <td>{{ item.fecha|date:"d/m/Y" }}</td>
-                <td>{{ item.tipo_pago.tipo_pago }}</td>
-                <td>{{ item.tipo_pago.valor|intcomma }}</td>
-                <td>{{ item.horas_trabajadas|floatformat:0 }}</td>
-                <td>{{ item.calcular_total|floatformat:0|intcomma }}</td>
-            </tr>
-            {% empty %}
-            <tr>
-                <td colspan="11">No hay Lotes registrados.</td>
-            </tr>
-            {% endfor %}
-            
-            {% for i in filas_vacias %}
-            <tr>
-                <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
-            </tr>
-            {% endfor %}
-        </table>
+                {% for item in recolecciones %}
+                <tr>
+                    <td>{{ item.id_recoleccion }}</td>
+                    <td>{{ item.id_empleado.id_empleado }}</td>
+                    <td>{{ item.id_empleado.nombre}} {{ item.id_empleado.apellido }}</td>
+                    <td>{{ item.id_lote.id_lote }}</td>
+                    <td>{{ item.id_lote.nombre }}</td>
+                    <td>{{ item.tipo_producto }}</td>
+                    <td>{{ item.kilos|floatformat:0 }}</td>
+                    <td>{{ item.fecha|date:"d/m/Y" }}</td>
+                    <td>{{ item.tipo_pago.tipo_pago }}</td>
+                    <td>{{ item.tipo_pago.valor|intcomma }}</td>
+                    <td>{{ item.horas_trabajadas|floatformat:0 }}</td>
+                    <td>{{ item.calcular_total|floatformat:0|intcomma }}</td>
+                </tr>
+
+                {% endfor %}
+
+                {% for i in filas_vacias %}
+                <tr>
+                    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                </tr>
+                
+                {% endfor %}
+            </table>
+        </div>
     </section>
 
     <div class="ingresar">

@@ -110,3 +110,95 @@ ol li {
     margin-bottom: 15px;
 }
 
+@media screen and (max-width: 1024px) {
+    .contenedor_principal {
+        width: 85%;
+    }
+
+    .logo-item {
+        width: 200px;
+        height: 200px;
+    }
+
+    h2 {
+        font-size: 36px;
+    }
+
+    .contenedor {
+        font-size: 22px;
+        padding: 20px 30px;
+    }
+
+    ul li strong {
+        font-size: 22px;
+        margin: 20px 0;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .contenedor_principal {
+        width: 95%;
+    }
+
+    .logo-item {
+        width: 160px;
+        height: 160px;
+    }
+
+    h2 {
+        font-size: 28px;
+        margin-bottom: 30px;
+    }
+
+    .contenedor {
+        font-size: 18px;
+        padding: 15px 20px;
+        border-radius: 30px;
+    }
+
+    ul li strong {
+        font-size: 18px;
+        margin: 15px 0;
+    }
+
+    .cerrar-login {
+        right: 15px;
+        top: 10px;
+    }
+
+    .cerrar-login a {
+        font-size: 30px;
+    }
+}
+
+
+@media screen and (max-width: 480px) {
+    .logo-item {
+        width: 120px;
+        height: 120px;
+    }
+
+    h2 {
+        font-size: 24px;
+        margin-bottom: 20px;
+    }
+
+    .contenedor {
+        font-size: 16px;
+        padding: 10px 15px;
+    }
+
+    ul li strong {
+        font-size: 16px;
+        margin: 10px 0;
+    }
+
+    .cerrar-login {
+        right: 10px;
+        top: 5px;
+    }
+
+    .cerrar-login a {
+        font-size: 24px;
+    }
+}

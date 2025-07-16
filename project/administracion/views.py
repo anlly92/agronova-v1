@@ -1,8 +1,11 @@
 from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect,get_object_or_404
 from django.contrib.auth.models import User 
 from django.contrib.auth.hashers import make_password # Importar hashing seguro
+from django.contrib.auth.decorators import login_required
+from django.db import IntegrityError
+from django.contrib import messages
 import random
 import string
 from .forms import AdministradorForm
@@ -14,6 +17,30 @@ def generador_contraseña ():
     return ''.join(random.choices (caracteres, k=10))
 
 def gestionar_administrador (request):
+    if request.method == "POST":
+        seleccion = request.POST.get("elemento")       # columna seleccionada
+        accion = request.POST.get("accion")         # accion enviada "editar" o "borrar"
+
+        if seleccion:
+
+            if accion == "editar":
+                # redirige al formulario de edición
+                return redirect("editar_administrador", seleccion=seleccion)
+
+            if accion == "borrar":
+                # elimina el elemento selecionado
+                admin= get_object_or_404(Administrador, pk=seleccion)
+
+                correo = admin.correo
+
+                # Borra el registro de Administrador
+                admin.delete()
+
+                # Borra el User que tenga ese correo como username
+                from django.contrib.auth.models import User
+                User.objects.filter(username=correo).delete()
+                return redirect("gestionar_administrador")
+
     Administradores = Administrador.objects.all()
     cantidad_filas_vacias = 15 - Administradores.count()
     return render (request, 'administracion/gestionar_administrador.html', {'Administradores': Administradores, 'filas_vacias': range(cantidad_filas_vacias)})
@@ -67,11 +94,49 @@ def registro_administrador (request):
     
     return render (request, 'administracion/registro_administrador.html', {'form': form})
 
-def actualizar_administrador (request):
+def actualizar_administrador (request,seleccion):
     return render (request, 'administracion/actualizar_administrador.html')
 
+@login_required
 def sobre_mi (request):
-    return render (request, 'administracion/sobre_mi.html')
+    usuario = request.user
+    try:
+        administrador = Administrador.objects.get(correo=usuario.username)
+    except Administrador.DoesNotExist:
+        administrador = None  
 
+    return render(request, 'administracion/sobre_mi.html',{'usuario': usuario,'administrador': administrador})
+
+@login_required
 def editar_perfil (request):
-    return render (request, 'administracion/editar_perfil.html')
+    if request.method == 'POST':
+        correo = request.POST.get("correo")
+        telefono = request.POST.get("telefono")
+
+        admin = Administrador.objects.get(correo=request.user.username)
+
+        # Solo actualiza si los campos no están vacíos
+        if correo:
+            admin.correo = correo
+            user = request.user
+            user.username = correo
+            user.email = correo
+
+        if telefono:
+            admin.telefono = telefono
+
+        try:
+            admin.save()
+            if correo:
+                user.save()
+            return redirect("sobre_mi")
+
+        except IntegrityError as e:
+            if "correo" in str(e):
+                messages.error(request, "Este correo electrónico ya está registrado.")
+            elif "telefono" in str(e):
+                messages.error(request, "Este número de teléfono ya está registrado.")
+            else:
+                messages.error(request, "Ha ocurrido un error al guardar los datos.")
+    
+    return render(request, 'administracion/editar_perfil.html')

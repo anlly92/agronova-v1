@@ -7,7 +7,6 @@ body {
     flex-direction: column;}
 
 
-
 main {
     width: 100%;
     min-height: 100vh;
@@ -121,7 +120,7 @@ main {
 }
 
 /* ===== INFO EXTRA: Términos y recuperar contraseña ===== */
- .info_extra {
+.info_extra {
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
@@ -201,47 +200,65 @@ input:-webkit-autofill:focus {
     -webkit-box-shadow: 0 0 0px 1000px #4b7510 inset !important;
 }
 
-.mensaje-error p {
-    color: #a94442;
+.mensaje-error p{
+    color: rgb(212, 35, 35);
     font-size: 20px;
 }
 
+.link_correo{
+    color: #fff;
+}
 
-/* ===== RESPONSIVE: TABLETS Y CELULARES ===== */
-@media screen and (max-width: 768px) {
+
+@media screen and (max-width: 1024px) {
     .contenedor_principal {
-        padding: 30px 20px;
+        padding: 40px 30px;
     }
-    .logo-item {
-        width: 100px;
-        height: 100px;
-    }
+
     .encabezado legend {
-        font-size: 26px;
+        font-size: 38px;
     }
-    .botones {
-        padding: 12px 15px;
-    }
-    .botones i {
-        font-size: 20px;
-    }
-    .botones input {
-        font-size: 16px;
-    }
+
     .boton {
+        font-size: 20px;
+        padding: 18px;
+    }
+
+    .botones input {
         font-size: 18px;
-        padding: 12px;
+    }
+
+    .info_extra {
+        font-size: 20px;
     }
 }
 
-@media screen and (max-width: 480px) {
-    .info_extra {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 10px;
+
+
+
+
+@media screen and (max-width: 768px) {
+    .contenedor_principal {
+        width: 95%;
+        max-width: 100%;
+        padding: 25px 15px;
     }
-    .cerrar-login {
-        top: 10px;
-        right: 15px;
+
+    .encabezado legend {
+        font-size: 28px;
+    }
+
+    .boton {
+        font-size: 16px;
+        padding: 14px;
+    }
+
+    .botones input {
+        font-size: 16px;
+    }
+
+    
+    .info_extra {
+        font-size: 16px;
     }
 }

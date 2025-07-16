@@ -4,9 +4,9 @@ from .models import Proceso
 class Agricolaform(forms.ModelForm):
     class Meta:
         model = Proceso
-        fields = ['id_lote', 'id_empleado', 'descripcion', 'id_inventario', 'cantidad']
+        fields = ['id_lote', 'id_empleado', 'descripcion', 'id_inventario', 'cantidad', 'fecha']
 
 class Procesoform(forms.ModelForm):
     class Meta:
         model = Proceso
-        fields = ['id_empleado', 'tipo_producto', 'descripcion', 'cantidad']
+        fields = ['id_empleado', 'tipo_producto', 'descripcion', 'cantidad', 'fecha']

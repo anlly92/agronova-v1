@@ -1,8 +1,18 @@
-header{
-    position: absolute;
-    height: 100px ;
-    background: #000;
-    color: #ccc;
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100px;
+    background: transparent;
+    color: #fff;
+    z-index: 1000;
 }
 
 main {
@@ -10,50 +20,187 @@ main {
     margin: 0;
     padding: 0;
     text-align: center;
-    background: url(/static/img/mision_y_vision.jpg) center center / cover no-repeat #000 ;
+    background: url('/static/img/mision_agro.jpeg') center center / cover no-repeat;
+    min-height: 100vh;
 }
 
-.contenedor{
+.contenedor {
     display: flex;
-    height: auto;
+    min-height: calc(100vh - 100px);
+    align-items: flex-start;
 }
 
-.contenedor_derecho,.contenedor_izquierdo{
+.izquierdo, .derecho {
     width: 50%;
-    background:transparent;
-    color: #ddd;
-    padding: 0 50px;
-    padding-top: 60px;
+    padding-top: 130px;
+    background: transparent;
+    color: #000;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
 }
 
-.contenedor_derecho{
-    border-left: 3px solid #fff
+.derecho {
+    border-left: 3px solid #fff;
+    padding-right: 150px;
+}
+
+.izquierdo {
+    padding-left: 150px;
 }
 
 h2 {
     font-family: 'Courier New', Courier, monospace;
-    font-size: 4rem;
+    font-size: 3rem;
     font-weight: bold;
-    margin-top: 80px;
-    margin-bottom: 40px;
-    background: linear-gradient(45deg, #555, #fff, #aaa);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    margin: 0 0 30px;
+    color: #000;
+    text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.9);
+    text-transform: uppercase;
+    max-width: 500px;
 }
 
 p {
     font-family: 'Times New Roman', Times, serif;
-    font-size: 30px;
-    font-weight: 400;
-    color: #ccc;
-    line-height: 1.5;
-    letter-spacing: 2px;
-    background: linear-gradient(45deg, #fff, #ccc, #fff);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-    margin-top: 15px;
+    font-size: 26px;
+    font-weight: 300;
+    color: #000;
+    line-height: 1.8;
+    letter-spacing: 1px;
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.9);
+    max-width: 500px;
+    text-align: justify;
+    padding: 0 10px;
 }
+
+
+@media (max-width: 1024px) {
+    main {
+        position: relative;
+        z-index: 1;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        text-align: center;
+        background: url(/static/img/mision_agro_movil.jpeg) center center / cover no-repeat #000;
+        min-height: 100vh;
+    }
+
+    .contenedor {
+        flex-direction: column;
+        align-items: center;
+        padding: 100px 20px 80px 20px;
+    }
+
+    .izquierdo, .derecho {
+        width: 100%;
+        padding: 40px 20px;
+        border: none;
+        box-sizing: border-box;
+    }
+
+    .izquierdo {
+        margin-bottom: 60px;
+    }
+
+    .derecho {
+        margin-top: 10px;
+        padding-top: 20px;
+    }
+
+    h2 {
+        font-size: 1.8rem;
+        margin-bottom: 15px;
+    }
+
+    p {
+        font-size: 1.15rem;
+        line-height: 1.7;
+    }
+}
+
+
+
+@media (max-width: 1024px) {
+    main {
+        position: relative;
+        z-index: 1;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        text-align: center;
+        background: url(/static/img/mision_agro_movil.jpeg) center center / cover no-repeat #000;
+        min-height: 100vh;
+    }
+
+    .contenedor {
+        flex-direction: column;
+        align-items: center;
+        padding: 100px 20px 80px 20px;
+    }
+
+    .izquierdo, .derecho {
+        width: 100%;
+        padding: 40px 20px;
+        border: none;
+        box-sizing: border-box;
+    }
+
+    .izquierdo {
+        margin-bottom: 60px;
+    }
+
+    .derecho {
+        margin-top: 10px;
+        padding-top: 20px;
+    }
+
+    h2 {
+        font-size: 1.8rem;
+        margin-bottom: 15px;
+    }
+
+    p {
+        font-size: 1.15rem;
+        line-height: 1.7;
+    }
+}
+
+@media (max-width: 480px) {
+    main {
+        position: relative;
+        z-index: 1;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        text-align: center;
+        background: url(/static/img/mision_agro_movil2.jpeg) center center / cover no-repeat #000;
+        min-height: 100vh;
+    }
+
+    .izquierdo, .derecho {
+        padding: 30px 15px;
+        border: none;
+        box-sizing: border-box;
+    }
+
+    .izquierdo {
+        margin-bottom: 70px;
+    }
+
+    .derecho {
+        padding-top: 30px;
+    }
+
+    h2 {
+        font-size: 1.5rem;
+    }
+
+    p {
+        font-size: 1.05rem;
+        line-height: 1.6;
+    }
+}
+

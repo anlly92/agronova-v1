@@ -1,5 +1,9 @@
 from django.contrib.auth import views as auth_views
 from django.urls import path
+from core.views import (
+    PasswordResetNoRedirectView, PasswordResetConfirmNoRedirectView,
+    PasswordChangeNoRedirectView,
+)
 from core import views
 
 urlpatterns = [
@@ -20,4 +24,20 @@ urlpatterns = [
     path("mision_y_vision_de_la_elisa/", views.mision_y_vision_elisa, name='mision_y_vision_la_elisa'),
     path("contraseña/", views.contraseña, name='contraseña'),
     path("terminos_condiciones/", views.terminos_condiciones, name='terminos_condiciones'),
+
+    # --------------------- Recuperar contraseña  ------------------------------
+
+    path("password_reset/",
+        views.PasswordResetNoRedirectView.as_view(),
+        name="password_reset"),
+
+    path("reset/<uidb64>/<token>/",
+        views.PasswordResetConfirmNoRedirectView.as_view(),
+        name="password_reset_confirm"),
+
+    # -----------------------  Cambiar contraseña estando logueado  -----------------------
+    path("password_change/",
+        views.PasswordChangeNoRedirectView.as_view(),
+        name="password_change"),
+
 ]
