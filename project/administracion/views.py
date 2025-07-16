@@ -3,6 +3,9 @@ from django.template.loader import render_to_string
 from django.shortcuts import render,redirect,get_object_or_404
 from django.contrib.auth.models import User 
 from django.contrib.auth.hashers import make_password # Importar hashing seguro
+from django.contrib.auth.decorators import login_required
+from django.db import IntegrityError
+from django.contrib import messages
 import random
 import string
 from .forms import AdministradorForm
@@ -94,8 +97,46 @@ def registro_administrador (request):
 def actualizar_administrador (request,seleccion):
     return render (request, 'administracion/actualizar_administrador.html')
 
+@login_required
 def sobre_mi (request):
-    return render (request, 'administracion/sobre_mi.html')
+    usuario = request.user
+    try:
+        administrador = Administrador.objects.get(correo=usuario.username)
+    except Administrador.DoesNotExist:
+        administrador = None  
 
+    return render(request, 'administracion/sobre_mi.html',{'usuario': usuario,'administrador': administrador})
+
+@login_required
 def editar_perfil (request):
-    return render (request, 'administracion/editar_perfil.html')
+    if request.method == 'POST':
+        correo = request.POST.get("correo")
+        telefono = request.POST.get("telefono")
+
+        admin = Administrador.objects.get(correo=request.user.username)
+
+        # Solo actualiza si los campos no están vacíos
+        if correo:
+            admin.correo = correo
+            user = request.user
+            user.username = correo
+            user.email = correo
+
+        if telefono:
+            admin.telefono = telefono
+
+        try:
+            admin.save()
+            if correo:
+                user.save()
+            return redirect("sobre_mi")
+
+        except IntegrityError as e:
+            if "correo" in str(e):
+                messages.error(request, "Este correo electrónico ya está registrado.")
+            elif "telefono" in str(e):
+                messages.error(request, "Este número de teléfono ya está registrado.")
+            else:
+                messages.error(request, "Ha ocurrido un error al guardar los datos.")
+    
+    return render(request, 'administracion/editar_perfil.html')

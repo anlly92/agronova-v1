@@ -105,10 +105,11 @@ main {
     flex: 1;
     background: transparent;
     border: none;
-    color: white;
+    color: rgba(255,255,255,0.8);
     font-size: 1.2rem;
     outline: none;
-    padding-left: 10px; /* 👈 Añade esta línea */
+    font-weight: bold;
+    padding-left: 10px;
 }
 
 

@@ -34,22 +34,22 @@
 
             <div class="campo">
                 <i class="fas fa-id-badge"></i>
-                <input type="text" placeholder="Nombre del administrador" required>
+                <input type="text" value="{{ usuario.first_name }}" readonly>
             </div>
 
             <div class="campo">
                 <i class="fas fa-id-badge"></i>
-                <input type="text" placeholder="Apellidos del administrador" required>
+                <input type="text" value="{{ usuario.last_name }}" readonly>
             </div>
 
             <div class="campo">
                 <i class="fas fa-phone"></i>
-                <input type="text" placeholder="Número telefónico" required>
+                <input type="text" value="{{ administrador.telefono }}" readonly>
             </div>
 
             <div class="campo">
                 <i class="fas fa-envelope"></i>
-                <input type="text" placeholder="Correo electrónico" required>
+                <input type="text" value="{{ usuario.email }}" readonly>
             </div>
 
             <!-- Botones -->

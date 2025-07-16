@@ -10,17 +10,10 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
 {% endblock %}
 
-{% block header %}
-{% endblock %}
 
 {% block content %}
 <main>
-    <div class="cerrar-login">
-        <a href="{% url 'sobre_mi' %}" title="Cancelar e ir atrás">✖</a>
-    </div>
-
     <section class="contenedor_principal">
-
         <div class="logo">
             <a href="{% url 'inicio' %}" title="Volver al inicio">
                 <img class="logo-item" src="{% static 'img/logo_agronova.png' %}" alt="logo - Agronova">
@@ -30,29 +23,36 @@
         <fieldset class="encabezado tarjeta-perfil">
             <legend>Editar perfil</legend>
 
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-danger text-center ">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+
             <form method="POST">
                 {% csrf_token %}
 
                 <div class="campo">
                     <i class="fas fa-phone"></i>
-                    <input id="numero_telefonico" name="numero_telefonico" type="tel" placeholder="Número telefónico" required />
+                    <input type="text" name="telefono" placeholder="Número telefónico" >
                 </div>
 
                 <div class="campo">
                     <i class="fas fa-envelope"></i>
-                    <input id="correo_electronico" name="correo_electronico" type="email" placeholder="Correo electrónico" required />
+                    <input type="email" name="correo" placeholder="Correo electrónico" >
                 </div>
 
                 <section class="boton">
                     <button class="boton-guardar" type="submit">
                         <i class="fas fa-check"></i> Confirmar
                     </button>
-                    <button class="boton-guardar" type="reset">
+                    <a href="{% url 'sobre_mi' %}" class="boton-guardar" type="reset">
                         <i class="fas fa-times"></i> Cancelar
-                    </button>
+                    </a>
                 </section>
             </form>
-
         </fieldset>
     </section>
 </main>
