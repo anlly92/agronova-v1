@@ -37,7 +37,9 @@ def registrar_proceso_de_produccion (request):
             Proceso.tipo = 'Producción'
             Proceso.save()
 
-            return redirect('proceso_de_produccion')  
+            return redirect('proceso_de_produccion') 
+        else:
+            print("Errores del formulario:", form.errors)  # 👈 IMPORTANTE 
     else:
         form = Procesoform()
     

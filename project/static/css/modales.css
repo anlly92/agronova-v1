@@ -1,7 +1,5 @@
 
-/* -------------------------------------- */
-/* ✨ ESTILO GENERAL DE LOS MODALES */
-/* -------------------------------------- */
+/* ESTILO GENERAL DE LOS MODALES */
 .modal-content {
     width: 100%;
     min-height: 280px;
@@ -29,9 +27,7 @@
     justify-content: center;
 }
 
-/* -------------------------------------- */
-/* 🎯 Cuerpo central del modal (para todos) */
-/* -------------------------------------- */
+/* Cuerpo central del modal (para todos) */
 .modal-body {
     display: flex;
     flex-direction: column;
@@ -103,4 +99,8 @@
 /* Botón de cerrar (X) */
 .btn-close {
     filter: invert(1);
+}
+
+.link_correo{
+    color: white;
 }

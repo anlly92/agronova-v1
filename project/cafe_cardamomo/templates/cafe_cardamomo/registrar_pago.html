@@ -24,7 +24,7 @@
         </a>
     </div>
     <!-- Formulario para registrar un nuevo pago -->
-    <form method="post">
+    <form id="formularioIngreso" method="post">
         {% csrf_token %}
         <fieldset class="encabezado">
             <!-- Campo para seleccionar el tipo de pago (horas o kilos) -->
@@ -38,8 +38,6 @@
                 </select>
             </div>
 
-            
-            
             <!-- Campo para ingresar el valor del pago -->
             <div class="botones">
                 <i class="fa-solid fa-key"></i>

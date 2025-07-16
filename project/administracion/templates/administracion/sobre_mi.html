@@ -15,49 +15,54 @@
 
 {% block content %}
 <main>
+    <!-- Botón cerrar -->
     <div class="cerrar-login">
         <a href="{% url 'inicio' %}" title="Cancelar e ir atrás">✖</a>
     </div>
 
     <section class="contenedor_principal">
+        <!-- Logo superior -->
         <div class="logo">
             <a href="{% url 'inicio' %}" title="Volver al inicio">
-                <img class="logo-item" src="{% static 'img/logo_agronova.png' %}" alt="logo - Agronova">
+                <img class="logo-item" src="{% static 'img/logo_agronova.png' %}" alt="Logo - Agronova">
             </a>
         </div>
 
-        <fieldset class="encabezado tarjeta-perfil">
-            <legend>Sobre mí</legend>
+        <!-- Tarjeta sin fieldset -->
+        <div class="tarjeta-perfil">
+            <h1 class="titulo-perfil">Sobre mí</h1>
 
             <div class="campo">
                 <i class="fas fa-id-badge"></i>
-                <input type="text" placeholder="Nombre del administrador" required>
+                <input type="text" value="{{ usuario.first_name }}" readonly>
             </div>
 
             <div class="campo">
                 <i class="fas fa-id-badge"></i>
-                <input type="text" placeholder="Apellidos del administrador" required>
+                <input type="text" value="{{ usuario.last_name }}" readonly>
             </div>
 
             <div class="campo">
                 <i class="fas fa-phone"></i>
-                <input type="text" placeholder="Número telefónico" required>
+                <input type="text" value="{{ administrador.telefono }}" readonly>
             </div>
 
             <div class="campo">
                 <i class="fas fa-envelope"></i>
-                <input type="text" placeholder="Correo electrónico" required>
+                <input type="text" value="{{ usuario.email }}" readonly>
             </div>
 
-            <section class="boton">
+            <!-- Botones -->
+            <div class="boton">
                 <a class="boton-guardar" href="{% url 'editar_perfil' %}">
                     <i class="fas fa-user-edit"></i> Editar perfil
                 </a>
-                <a class="boton-guardar" href="{% url 'contraseña' %}">
+                <a class="boton-guardar" href="{% url 'password_change' %}">
                     <i class="fas fa-lock"></i> Cambiar contraseña
                 </a>
-            </section>
-        </fieldset>
+            </div>
+        </div>
     </section>
 </main>
 {% endblock %}
+

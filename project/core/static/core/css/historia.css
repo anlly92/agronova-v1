@@ -1,36 +1,46 @@
-header {
-    position: absolute;
-    height: 100px;
-    background: #fff;
-    color: #ccc;
+/* Fondo general del sitio */
+body {
+    margin: 0;
+    padding: 0;
+    background-image: url("/static/img/historia.jpg");
+    background-size: cover; 
+    background-repeat: no-repeat;
+    background-position: top center;  /* CAMBIADO: antes era center center */
+    background-attachment: fixed;
+    font-family: Arial, sans-serif;
 }
 
+/* Encabezado fijo */
+header {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100px;
+    background: transparent;
+    color: #ccc;
+    z-index: 10;
+}
+
+/* Contenido principal */
 main {
     width: 100%;
     margin: 0;
     padding: 0;
     text-align: center;
+    position: relative;
 }
 
-body{
-    background-image: url("/static/img/historia.jpg");
-    background-size: cover; /*  Mostrar imagen completa sin recortarla */
-    background-repeat: no-repeat;
-
-}
-
-/* Imagen lado izquierdo que ocupa todo el fondo */
+/* Contenedor con imagen + capa + texto */
 .contenedor {
+    display: flex;
     position: relative;
     width: 100%;
-    display: flex;
-    padding: 40px 20px;
-
+    min-height: 110vh; /* CAMBIADO: sube la imagen un poco más visible */
+    padding: 100px 20px 40px 20px; /* ajusta el top si deseas más espacio arriba */
+    box-sizing: border-box;
 }
 
-
-
-/* Capa negra transparente sobre la imagen */
+/* Capa oscura encima de la imagen */
 .overlay {
     position: absolute;
     top: 0;
@@ -41,42 +51,86 @@ body{
     z-index: 1;
 }
 
-
+/* Sección de texto */
 .historia {
-    box-sizing: border-box;
     width: 50%;
-    height: 100%;
-    position: relative;
     margin-left: auto;
     z-index: 2;
     color: #fff;
-    text-align: center;
-    padding-right: 50px;
-
+    padding: 0 50px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 /* Título */
 h2 {
     font-family: 'Courier New', Courier, monospace;
-    font-size: 48px;
+    font-size: 3rem;
     font-weight: bold;
-    margin-bottom: 30px;
-    color:#aaa;
+    margin: 0 0 30px;
+    color: #aaa;
     text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.9);
     text-align: center;
-    margin-top: 80px;
 }
 
+/* Párrafos */
 p {
     font-size: 24px;
-    line-height: 1.8;
+
     letter-spacing: 1px;
-    margin-bottom: 24px;
+    line-height: 1.8;
     text-align: justify;
     color: #ffffff;
     text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
     font-weight: 400;
 }
 
+/* Responsividad */
+@media (max-width: 1024px) {
+    .historia {
+        width: 60%;
+    }
+}
 
+@media (max-width: 768px) {
+    .contenedor {
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 100px 20px 40px;
+        min-height: 120vh; /* para que siga viéndose toda la imagen */
+    }
 
+    .historia {
+        width: 100%;
+        padding: 20px;
+        text-align: center;
+    }
+
+    h2 {
+        font-size: 2rem;
+        margin-bottom: 20px;
+    }
+
+    p {
+        font-size: 1.2rem;
+        line-height: 1.6;
+    }
+}
+
+@media (max-width: 480px) {
+    h2 {
+        font-size: 1.6rem;
+    }
+
+    p {
+        font-size: 1.05rem;
+        line-height: 1.5;
+    }
+
+    .historia {
+        padding: 15px;
+    }
+}
