@@ -5,28 +5,24 @@ from .forms import LoteForm, RecoleccionForm, PagosForm
 from .models import Lote, Recoleccion
 
 def gestionar_lote (request):
+    if request.method == "POST":
+        seleccion = request.POST.get("elemento")       # columna seleccionada
+        accion = request.POST.get("accion")         # accion enviada "editar" o "borrar"
+
+        if seleccion:
+
+            if accion == "editar":
+                # redirige al formulario de edición
+                return redirect("actualizar_lote", seleccion=seleccion)
+
+            if accion == "borrar":
+                # elimina el elemento selecionado
+                get_object_or_404(Lote, pk=seleccion).delete()
+                return redirect("gestionar_lote")
+
     Lotes = Lote.objects.all()
     cantidad_filas_vacias = 15 - Lotes.count()
     return render (request, 'cafe_cardamomo/mostrar_lotes.html', {'Lotes': Lotes, 'filas_vacias': range(cantidad_filas_vacias)})
-
-def accion_lote(request):
-    seleccion = request.POST.get("elemento")       # columna seleccionada
-    accion = request.POST.get("accion")         # accion enviada "editar" o "borrar"
-
-    if not seleccion:
-        # si no se selecciono nada no se ejecuta ninguna accion
-        return redirect("gestionar_lote")
-
-    if accion == "editar":
-        # redirige al formulario de edición
-        return redirect("actualizar_lote", seleccion=seleccion)
-
-    if accion == "borrar":
-        # elimina el elemento selecionado
-        get_object_or_404(Lote, pk=seleccion).delete()
-        return redirect("gestionar_lote")
-
-    return redirect("gestionar_lote")
 
 def registrar_lote (request):
     if request.method == 'POST':

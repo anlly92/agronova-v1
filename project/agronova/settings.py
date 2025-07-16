@@ -85,7 +85,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'agronova',  #  pon aquí el nombre real de tu base de datos
         'USER': 'root',
-        'PASSWORD': 'admin1234',
+        'PASSWORD': '123456',
         'HOST': 'localhost',
         'PORT': '3306',
     }
