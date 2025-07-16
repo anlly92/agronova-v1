@@ -127,6 +127,7 @@ USE_I18N = True
 USE_TZ = True
 
 LOGIN_REDIRECT_URL = '/inicio/'
+LOGIN_URL = '/login/'  # ← Esta es la URL que ya tienes definida
 
 
 
