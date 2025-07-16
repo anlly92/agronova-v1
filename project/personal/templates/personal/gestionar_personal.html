@@ -16,7 +16,7 @@
 {% endblock %}
 
 {% block nav_icons %}
-    <form action="{% url 'accion_personal' %}" method="post" class="form-accion">
+    <form action="{% url 'gestionar_personal' %}" method="post" class="form-accion">
         {% csrf_token %}
         <input type="hidden" name="elemento" id="elemento_oculto">
 
@@ -39,7 +39,7 @@
 {% block content %}
     <section class="tabla ">
         <div class="tabla-scroll-wrapper">
-            <form action="{% url 'accion_personal' %}" method="post" >
+            <form action="{% url 'gestionar_personal' %}" method="post" >
                 {% csrf_token %}
                 <table>
                     <tr>
@@ -48,7 +48,7 @@
                         <th>Nombre</th>
                         <th>Apellido</th>
                         <th>Teléfono</th>
-                        <th>tipo de empleado (vinculado/no vinculado)</th>
+                        <th>tipo de empleado <br> (vinculado/no vinculado)</th>
                         <th>pago por contrato <br> (solo vinculados)</th>
                     </tr>
                     {% for item in empleados %}

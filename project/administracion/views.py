@@ -14,38 +14,33 @@ def generador_contraseña ():
     return ''.join(random.choices (caracteres, k=10))
 
 def gestionar_administrador (request):
+    if request.method == "POST":
+        seleccion = request.POST.get("elemento")       # columna seleccionada
+        accion = request.POST.get("accion")         # accion enviada "editar" o "borrar"
+
+        if seleccion:
+
+            if accion == "editar":
+                # redirige al formulario de edición
+                return redirect("editar_administrador", seleccion=seleccion)
+
+            if accion == "borrar":
+                # elimina el elemento selecionado
+                admin= get_object_or_404(Administrador, pk=seleccion)
+
+                correo = admin.correo
+
+                # Borra el registro de Administrador
+                admin.delete()
+
+                # Borra el User que tenga ese correo como username
+                from django.contrib.auth.models import User
+                User.objects.filter(username=correo).delete()
+                return redirect("gestionar_administrador")
+
     Administradores = Administrador.objects.all()
     cantidad_filas_vacias = 15 - Administradores.count()
     return render (request, 'administracion/gestionar_administrador.html', {'Administradores': Administradores, 'filas_vacias': range(cantidad_filas_vacias)})
-
-def accion_administrador(request):
-    seleccion = request.POST.get("elemento")       # columna seleccionada
-    accion = request.POST.get("accion")         # accion enviada "editar" o "borrar"
-
-    if not seleccion:
-        # si no se selecciono nada no se ejecuta ninguna accion
-        return redirect("gestionar_administrador")
-
-    if accion == "editar":
-        # redirige al formulario de edición
-        return redirect("editar_administrador", seleccion=seleccion)
-
-    if accion == "borrar":
-        # elimina el elemento selecionado
-        admin= get_object_or_404(Administrador, pk=seleccion)
-
-        correo = admin.correo
-
-        # Borra el registro de Administrador
-        admin.delete()
-
-        # Borra el User que tenga ese correo como username
-        from django.contrib.auth.models import User
-        User.objects.filter(username=correo).delete()
-
-        return redirect("gestionar_administrador")
-
-    return redirect("gestionar_administrador")
 
 def registro_administrador (request):
     if request.method == 'POST':

@@ -15,23 +15,25 @@
 {% endblock %}
 
 {% block nav_icons %}
-    <div class="boton">
-        <a href="{% url 'total_de_recoleccion' %}" class="total_de_recoleccion">
-            <i class="fas fa-file-invoice-dollar"></i>
-        </a>
-        <span>Total recolección</span>
-    </div>
+    <section  class="form-accion">
+        <div class="link">
+            <a href="{% url 'total_de_recoleccion' %}" class="boton-actualizar">
+                <i class="fas fa-file-invoice-dollar"></i>
+            </a>
+            <span>Total </span>
+        </div>
 
-    <div class="boton">
-        <a href="{% url 'registrar_pago' %}" class="registrar_pago">
-            <i class="fas fa-dollar-sign"></i>
-        </a>
-        <span>Pago</span>
-    </div>
+        <div class="boton">
+            <a href="{% url 'registrar_pago' %}">
+                <i class="fas fa-dollar-sign"></i>
+            </a>
+            <span>Pago</span>
+        </div>
+    </section>
 {%endblock%}
 
 {% block content %}
-    <section class="tabla-contenedor">
+    <section class="tabla">
         <div class="tabla-scroll-wrapper">
             <table>
                 <tr>

@@ -14,59 +14,69 @@ Herramientas Maquinas
 {% endblock %}
 
 {% block nav_icons %}
-<div class="boton">
-    <a href="{% url 'actualizar_inventario_herramientas' %}" class="boton-actualizar">
-        <i class="fas fa-arrows-rotate"></i>
-    </a>
-    <span>Actualizar</span>
-</div>
+    <form action="{% url 'inventario_herramientas' %}" method="post" class="form-accion">
+        {% csrf_token %}
+        <input type="hidden" name="elemento" id="elemento_oculto">
 
-<div class="boton">
-    <button type="button">
-        <i class="fas fa-trash"></i>
-    </button>
-    <span>Eliminar</span>
-</div>
-{% endblock %}
+        <div class="link" title="Editar">
+            <button type="submit" name="accion" value="editar" class="boton-actualizar">
+                <i class="fas fa-arrows-rotate"></i>
+            </button>
+            <span>Actualizar</span>
+        </div>
+        <div class="boton">
+            <button type="submit" name="accion" value="borrar" title="Eliminar"
+                    onclick="return confirm('¿Eliminar administrador?');">
+                <i class="fas fa-trash"></i>
+            </button>
+            <span>Eliminar</span>
+        </div>
+    </form>
+{%endblock%}
 
 {% block content %}
-<section class="tabla">
-    <div class="tabla-scroll-wrapper">
+    <section class="tabla">
+        <div class="tabla-scroll-wrapper">
+            <form action="{% url 'inventario_herramientas' %}" method="post" >
+                {% csrf_token %}
+                <table>
+                    <tr>
+                        <th class="primero"></th>
+                        <th>Código inventario</th>
+                        <th>Categoría</th>
+                        <th>Nombre</th>
+                        <th>Estado</th>
+                        <th>Stock</th>
+                    </tr>
 
-        <table>
-            <tr>
-                <th>Código inventario</th>
-                <th>Categoría</th>
-                <th>Nombre</th>
-                <th>Estado</th>
-                <th>Stock</th>
-            </tr>
+                    {% for item in herramientas %}
+                    <tr class="radio-fila">
+                        <td class="primero"> 
+                            <input  type="radio"
+                                name="elemento"
+                                id="herramientas{{item.id_inventario }}"
+                                value="{{item.id_inventario }}"
+                                required>
+                        </td>
+                        <td><label for="herramientas{{item.id_inventario }}">{{ item.id_inventario }}</label></td>
+                        <td><label for="herramientas{{item.id_inventario }}">{{ item.categoria }}</label></td>
+                        <td><label for="herramientas{{item.id_inventario }}">{{ item.nombre }}</label></td>
+                        <td><label for="herramientas{{item.id_inventario }}">{{ item.estado }}</label></td>
+                        <td><label for="herramientas{{item.id_inventario }}">{{ item.stock|floatformat:0 }}</label></td>
+                    </tr>
+                    {% endfor %}
 
-            {% for item in herramientas %}
-            <tr>
-                <td>{{ item.id_inventario }}</td>
-                <td>{{ item.categoria }}</td>
-                <td>{{ item.nombre }}</td>
-                <td>{{ item.estado }}</td>
-                <td>{{ item.stock|floatformat:0 }}</td>
-            </tr>
-            {% endfor %}
+                    {% for i in filas_vacias %}
+                    <tr>
+                        <td class="primero"></td><td></td><td></td><td></td><td></td><td></td>
+                    </tr>
+                    {% endfor %}
+                </table>
+        </div>
+    </section>
 
-            {% for i in filas_vacias %}
-            <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-            </tr>
-            {% endfor %}
-        </table>
+    <div class="ingresar">
+        <a href="{% url 'categoria_herramientas' %}" class="agregar-btn">+</a>
+        <span class="agregar-texto">Agregar</span>
     </div>
-</section>
-
-<div class="ingresar">
-    <a href="{% url 'categoria_herramientas' %}" class="agregar-btn">+</a>
-    <span class="agregar-texto">Agregar</span>
-</div>
 {% endblock %}
