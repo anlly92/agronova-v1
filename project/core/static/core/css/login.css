@@ -120,7 +120,7 @@ main {
 }
 
 /* ===== INFO EXTRA: Términos y recuperar contraseña ===== */
- .info_extra {
+.info_extra {
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
@@ -200,9 +200,13 @@ input:-webkit-autofill:focus {
     -webkit-box-shadow: 0 0 0px 1000px #4b7510 inset !important;
 }
 
-.mensaje-error li{
+.mensaje-error p{
     color: rgb(212, 35, 35);
     font-size: 20px;
+}
+
+.link_correo{
+    color: #fff;
 }
 
 
