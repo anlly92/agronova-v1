@@ -3,6 +3,7 @@ from django.db.models import Sum, F, Func, Value
 from django.db.models.functions import ExtractYear, ExtractMonth
 from .forms import LoteForm, RecoleccionForm, PagosForm
 from .models import Lote, Recoleccion
+from django.contrib import messages
 
 def gestionar_lote (request):
     if request.method == "POST":
@@ -39,7 +40,30 @@ def registrar_lote (request):
     return render (request, 'cafe_cardamomo/registro_lote.html', {'form': form})
 
 def actualizar_lote (request,seleccion):
-    return render (request, 'cafe_cardamomo/actualizar_lote.html')
+    lote = get_object_or_404(Lote, pk=seleccion)
+
+    if request.method == 'POST':
+        hectareas = request.POST.get("hectareas","").strip()
+        tipo_arbusto = request.POST.get("tipo_arbusto","").strip()
+        estado = request.POST.get("estado","").strip()
+
+        # Validación: al menos un campo debe estar lleno
+        if not hectareas and not tipo_arbusto and not estado:
+            messages.error(request, "Debes ingresar al menos un dato para actualizar.")
+            return redirect("actualizar_lote", seleccion=seleccion)
+
+        if hectareas:
+            lote.hectareas = hectareas
+
+        if tipo_arbusto:
+            lote.tipo_arbusto = tipo_arbusto
+
+        if estado:
+            lote.estado = estado
+        lote.save()
+        return redirect("gestionar_lote")
+
+    return render(request, 'cafe_cardamomo/actualizar_lote.html', {'lote': lote})
 
 def gestionar_recoleccion (request):
     recolecciones = Recoleccion.objects.all()

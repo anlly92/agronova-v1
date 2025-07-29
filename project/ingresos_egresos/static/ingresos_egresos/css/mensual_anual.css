@@ -1,47 +1,180 @@
-.menu {
-    position: relative;
-    display: inline-block;
+body {
+    background: url('/static/img/fondo-tabla.jpg') center center / cover no-repeat fixed;
 }
 
-.acciones .boton button,
-.acciones .cerrar-login a{
-    background: transparent;
-    border: none;
-    padding: 6px ;
-    border-radius: 4px;
-    cursor: pointer;
-    text-decoration: none;
-    font-weight: bold;
-    font-size: 30px;
-    color: #fff;
-    transition: transform 0.2s ease;
+/* Estilo para el título de la gráfica */
+h2 {
+    font-family: sans-serif;
+    text-align: center;
+    margin-top: 80px;
+    font-size: 40px;
 }
 
-
-.boton span,
-.cerrar-login span{
-    margin-top: 5px;
-    font-size: 15px;
-    letter-spacing: 1px;
-}
-
-.acciones .boton i:hover,
-.acciones .cerrar-login a:hover {
-    transform: scale(1.2);
-    color: #000;
-}
-
-/*---------------
-GRAFICAS
----------------*/
-.contenedor-imagen {
+/* Contenedor de la gráfica */
+.grafica-container {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh; /* toda la altura de la pantalla */
+    width: 100%;
+    max-width: 1000px;
+    min-height: 600px;
+    margin: 0 auto;
+    position: relative;
 }
 
-.contenedor-imagen img {
-    max-width: 100%;
-    height: auto;
+/* Contenedor general de los íconos, alineado a la derecha */
+.acciones {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 40px;
+}
+
+/* Cada botón/icono */
+.boton,
+.cerrar-login {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+/* Íconos uniformes */
+.boton i,
+.cerrar-login a {
+    font-size: 30px;
+    color: #ffffff;
+    /* Cambia si deseas otro color */
+}
+
+/* Iconos visualmente uniformes */
+.acciones i {
+    font-size: 24px;
+    /* tamaño uniforme */
+    color: #ffffff;
+}
+
+/* Estilo para los botones de la gráfica */
+.acciones button {
+    border: none;
+    background-color: transparent;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+/* Texto debajo del ícono */
+.boton span,
+.cerrar-login span {
+    font-size: 20px;
+    color: #ffffff;
+    font-weight: bold;
+}
+
+/* Quitar decoración del botón de salir */
+.cerrar-login a {
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Estilo para la ventana del calendario */
+.ventana-calendario {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-height: 350px;
+    border: 2px solid #4b7510;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 30px;
+    background-color: rgba(0, 0, 0, 0.5);
+    gap: 20px;
+    z-index: 10000;
+    min-width: 300px;
+}
+
+/* Estilo para las etiquetas del calendario */
+.ventana-calendario label {
+    font-size: 16px;
+    font-family: sans-serif;
+    font-weight: bold;
+    color: #ffffff;
+    text-align: center;
+}
+
+/* Estilo para los select del calendario */
+.ventana-calendario select {
+    width: 100%;
+    font-size: 15px;
+    justify-content: center !important;
+    padding: 10px;
+    border-radius: 8px;
+    background-color: #4b7510;
+    color: white;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 18px;
+    margin-top: 10px;
+}
+
+/* Estilo para el contenedor de los botones */
+.ventana-calendario .botones-contenedor > div {
+    display: flex !important;
+    width: 100% !important;
+    align-items: center;
+    text-align: center;
+}
+
+/* Estilo para los botones del calendario */
+.ventana-calendario button {
+    font-size: 14px;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    background-color: white;
+    color: black;
+    transition: background 0.3s ease;
+    flex: 0 0 auto; /* Asegura que no se estiren */
+    margin: 0; /* Elimina márgenes que puedan interferir */
+}
+
+
+/* Estilo para la gráfica anual */
+#verAnual {
+    width: 100% !important;
+    max-height: 600px;
+    display: block;
+    margin: 0 auto;
+    background-color: #ffffff !important;
+}
+
+/* Estilo para la gráfica mensual */
+#verMensual {
+    width: 100% !important;
+    max-height: 600px;
+    margin: 0 auto;
+    background-color: #ffffff !important;
+}
+
+/* Contenedor de la gráfica y título */
+.grafica-container {
+    display: flex;
+    flex-direction: column; /* Apila el título y el gráfico verticalmente */
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-width: 1200px;
+    min-height: 550px;
+    max-height: calc(100vh - 200px); /* Limita la altura al 100% del viewport menos espacio para el footer */
+    margin: 0 auto 50px auto; /* Margen inferior para separar del footer */
+    position: relative;
+    background-color: #ffffff !important;
+    overflow: auto; /* Permite scroll si el contenido excede la altura */
 }

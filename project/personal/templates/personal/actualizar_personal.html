@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block title %} 
-    <title>Registrar personal</title>
+    <title>Actualizar personal</title>
 {% endblock %}
 
 {% block extra_styles %}
@@ -26,32 +26,46 @@
             </a>
         </div>
 
-        <form id="formularioIngreso">
+
+        <form id="formularioIngreso"  method="POST">
+            {% csrf_token %}
             <fieldset class="encabezado">
                 <legend>Actualizar personal</legend>
+
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="mi-mensaje-error text-center">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
 
                 <div class="botones">
                     <i class="fas fa-phone"></i>
                     <label for="numero_telefonico">Numero telefonico</label>
-                    <input id="numero_telefonico" name="numero_telefonico" type="tel" placeholder="Numero telefonico" required />
+                    <input  type="tell" name="telefono" id="telefono" value="{{empleado.telefono}}" placeholder="Numero telefonico"  />
                 </div>
 
                 <div class="botones">
                     <i class="fas fa-users icono"></i>
-                    <label for="Tipo_de_personal">Tipo</label>
-                    <select name="Tipo_de_personal" id="Tipo_de_personal" aria-placeholder="Tipo">
-                        <option value="Cafe">Vinculado</option>
-                        <option value="Cardamomo">No Vinculado</option>
+                    <label for="tipo_empleado">Tipo</label>
+                    <select name="tipo_empleado" id="tipo_empleado">
+                        <option value="" disabled {% if not empleado.tipo_empleado %}selected{% endif %}>Selecciona una opción</option>
+                        <option value="Vinculado" {% if empleado.tipo_empleado == "Vinculado" %}selected{% endif %}>Vinculado</option>
+                        <option value="No Vinculado" {% if empleado.tipo_empleado == "No Vinculado" %}selected{% endif %}>No Vinculado</option>
                     </select>
                 </div>
+
 
                 <div class="botones">
                     <i class="fas fa-dollar-sign"></i>
                     <label for="pago_por_contrato">Pago por contrato</label>
-                    <input id="pago_por_contrato" name="pago_por_contrato" type="number" step="0.01" min="0" placeholder="Pago por contrato"/>
+                    <input id="pago_contrato" name="pago_contrato" type="number"  min="0" value="{{ empleado.pago_contrato|floatformat:0 }}" placeholder="Pago por contrato"/>
                 </div>
 
-                <button class="boton" type="button" id="btnEnviar"><i class="fas fa-sign-out-alt"></i>Actualizar personal</button>
+                <button class="boton" type="button" id="btnEnviar"><i class="fas fa-sign-out-alt"></i>
+                    Actualizar personal
+                </button>
             </fieldset>
         </form>
     </section>

@@ -94,8 +94,33 @@ def registro_administrador (request):
     
     return render (request, 'administracion/registro_administrador.html', {'form': form})
 
-def actualizar_administrador (request,seleccion):
-    return render (request, 'administracion/actualizar_administrador.html')
+def actualizar_administrador(request, seleccion):
+    administrador = get_object_or_404(Administrador, pk=seleccion)
+
+    if request.method == 'POST':
+        telefono = request.POST.get("telefono", "").strip()
+        correo = request.POST.get("correo", "").strip()
+
+        # Validación: al menos un campo debe estar lleno
+        if not telefono and not correo:
+            messages.error(request, "Debes ingresar al menos un dato para actualizar.")
+            return redirect("editar_administrador", seleccion=seleccion)
+
+        if telefono:
+            administrador.telefono = telefono 
+
+        if correo:
+            administrador.correo = correo
+
+        try:
+            administrador.save()
+            return redirect("gestionar_administrador")
+        except IntegrityError as e:
+            if "correo" in str(e):
+                messages.error(request, "Este correo electrónico ya está registrado.")
+                return redirect("actualizar_personal", seleccion=seleccion)
+
+    return render(request, 'administracion/actualizar_administrador.html', {'administrador': administrador})
 
 @login_required
 def sobre_mi (request):

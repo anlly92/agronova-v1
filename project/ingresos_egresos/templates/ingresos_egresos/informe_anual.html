@@ -1,33 +1,52 @@
 {% extends "base_header_2.html" %}
 {% load static %}
 
-{% block title %} 
-    <title> Informe anual </title>
+{% block title %}
+<title>Informe anual</title>
 {% endblock %}
 
 {% block extra_styles %}
-    <link rel="stylesheet" href="{% static 'ingresos_egresos/css/mensual_anual.css' %}">
+<!-- CSS del gráfico y estilos -->
+<link rel="stylesheet" href="{% static 'ingresos_egresos/css/mensual_anual.css' %}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="icon" href="{% static 'favicon.ico' %}" type="image/x-icon">
 {% endblock %}
 
-
 {% block nav_icons %}
+<div class="acciones">
     <div class="boton">
-        <button type="button" title="Descargar datos">
+        <button type="button" id="Calendario" title="Seleccionar año">
+            <i class="fas fa-calendar-alt"></i>
+            <span>Año</span>
+        </button>
+    </div>
+
+    <div class="boton">
+        <button type="button" id="descargarBtn" title="Descargar datos">
             <i class="fas fa-download"></i>
             <span>Descargar</span>
         </button>
     </div>
 
     <div class="cerrar-login">
-        <a href="javascript:history.back()" class="acciones" title="Cancelar e ir atrás">✖</a>
+        <a href="javascript:history.back()" title="Cancelar e ir atrás">✖</a>
         <span>Salir</span>
     </div>
-    
-{%endblock%}
+</div>
+{% endblock %}
 
 {% block content %}
-    <section class="contenedor-imagen">
-        <img src="{% static 'img/anual.png' %}" width="900" height="700" alt="Informe mensual">
-    </section>
-{%endblock%}
+<section class="contenedor-grafica">
+    <h2>Informe Anual de Ingresos y Egresos</h2>
 
+    <div class="grafica-container">
+        <canvas id="verAnual"></canvas>
+    </div>
+</section>
+
+<!-- Librería Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<!-- Script para cargar la gráfica -->
+<script src="{% static 'ingresos_egresos/js/grafica_anual.js' %}"></script>
+{% endblock %}

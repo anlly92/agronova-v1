@@ -19,6 +19,9 @@ from django.http import HttpResponseRedirect
 def mostrar_home(request):
     return render (request,'core/home_principal.html')
 
+def pantalla_carga(request):
+    return render(request, "core/carga.html") # nueva
+
 def mostrar_login(request):
     return render ( request, 'core/login.html')
 
@@ -108,4 +111,7 @@ class PasswordChangeNoRedirectView(PasswordChangeView):
         context = self.get_context_data(**self.kwargs)
         context["ok"] = True                     # ← tu JS lo usará
         return render(self.request, self.template_name, context)
+
+
+
 

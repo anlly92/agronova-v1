@@ -87,13 +87,12 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'agronova',  #  pon aquí el nombre real de tu base de datos
-        'USER': 'root',
-        'PASSWORD': '123456',
+        'USER': 'Nico',
+        'PASSWORD': 'admin',
         'HOST': 'localhost',
         'PORT': '3306',
     }
 }
-
 
 
 # Password validation

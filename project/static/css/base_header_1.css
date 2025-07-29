@@ -18,6 +18,9 @@ body,html{
     top: 0;
     box-shadow: 0 0 20px #000;
     transition: background-position 0.4s ease-in-out;
+    /*Por si algo*/
+    
+
 }
 
 .barra_navegacion:hover {
