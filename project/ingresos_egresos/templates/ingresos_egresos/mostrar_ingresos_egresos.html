@@ -8,6 +8,8 @@
 
 {% block extra_styles %}
 <link rel="stylesheet" href="{% static 'css/tablas.css' %}">
+<link rel="stylesheet" href="{% static 'css/filtro_lotes.css' %}">
+
 {% endblock %}
 
 {% block logotipo %}
@@ -15,80 +17,82 @@ Ingresos y egresos
 {% endblock %}
 
 {% block nav_icons %}
-    <div class="menu">
-        <div class="boton_icono">
-            <i class="fa-solid fa-file-lines"></i>
-            <span>Informes</span>
-        </div>
-
-        <ul class="submenu">
-            <li><a href="{% url 'informe_anual' %}">Anual</a></li>
-            <li><a href="{% url 'informe_mensual' %}">Mensual</a></li>
-        </ul>
+<div class="menu">
+    <div class="boton_icono">
+        <i class="fa-solid fa-file-lines"></i>
+        <span>Informes</span>
     </div>
 
-    <form action="{% url 'ingresos_egresos' %}" method="post" class="form-accion">
-        {% csrf_token %}
-        <input type="hidden" name="elemento" id="elemento_oculto">
+    <ul class="submenu">
+        <li><a href="{% url 'informe_anual' %}">Anual</a></li>
+        <li><a href="{% url 'informe_mensual' %}">Mensual</a></li>
+    </ul>
+</div>
 
-        <div class="boton">
-            <button type="submit" name="accion" value="borrar" title="Eliminar"
-                    onclick="return confirm('¿Eliminar administrador?');">
-                <i class="fas fa-trash"></i>
-            </button>
-            <span>Eliminar</span>
-        </div>
-    </form>
+<form action="{% url 'ingresos_egresos' %}" method="post" class="form-accion">
+    {% csrf_token %}
+    <input type="hidden" name="elemento" id="elemento_oculto">
+
+    <div class="boton">
+        <button type="submit" name="accion" value="borrar" title="Eliminar"
+            onclick="return confirm('¿Eliminar administrador?');">
+            <i class="fas fa-trash"></i>
+        </button>
+        <span>Eliminar</span>
+    </div>
+</form>
 {%endblock%}
 
 {% block content %}
-    <section class="tabla">
-        <div class="tabla-scroll-wrapper">
-            <form action="{% url 'ingresos_egresos' %}" method="post" >
-                {% csrf_token %}
-                <table>
-                    <tr>
-                        <th class="primero"></th>
-                        <th>Código ingresos o egresos</th>
-                        <th>Documento del administrador</th>
-                        <th>Nombre del administrador</th>
-                        <th>Tipo (ingreso/egreso)</th>
-                        <th>Descripción</th>
-                        <th>Fecha</th>
-                        <th>Valor</th>
-                    </tr>
+{% include "ingresos_egresos/filtro_ingresos_egresos.html" %}
 
-                    {% for item in Ingresos_Egresos %}
-                    <tr class="radio-fila">
-                        <td class="primero"> 
-                            <input  type="radio"
-                                name="elemento"
-                                id="ingreso_egreso{{ item.id_transaccion }}"
-                                value="{{ item.id_transaccion }}"
-                                required>
+<section class="tabla">
+    <div class="tabla-scroll-wrapper">
+        <form action="{% url 'ingresos_egresos' %}" method="post">
+            {% csrf_token %}
+            <table>
+                <tr>
+                    <th class="primero"></th>
+                    <th>Código ingresos o egresos</th>
+                    <th>Documento del administrador</th>
+                    <th>Nombre del administrador</th>
+                    <th>Tipo (ingreso/egreso)</th>
+                    <th>Descripción</th>
+                    <th>Fecha</th>
+                    <th>Valor</th>
+                </tr>
+
+                {% if Ingresos_Egresos%}
+                {% for item in Ingresos_Egresos %}
+                <tr class="radio-fila">
+                    <td class="primero">
+                        <input type="radio" name="elemento" id="ingreso_egreso{{ item.id_transaccion }}"
+                            value="{{ item.id_transaccion }}" required>
+                    </td>
+                    <td><label for="ingreso_egreso{{ item.id_transaccion }}">{{ item.id_transaccion }}</label></td>
+                    <td><label for="ingreso_egreso{{ item.id_transaccion }}">{{ item.id_admin.id_admin }}</label></td>
+                    <td><label for="ingreso_egreso{{ item.id_transaccion }}">{{ item.id_admin.nombre }}</label></td>
+                    <td><label for="ingreso_egreso{{ item.id_transaccion }}">{{ item.tipo }}</label></td>
+                    <td><label for="ingreso_egreso{{ item.id_transaccion }}">{{ item.descripcion }}</label></td>
+                    <td><label for="ingreso_egreso{{ item.id_transaccion }}">{{ item.fecha|date:"d/m/Y" }}</label></td>
+                    <td><label for="ingreso_egreso{{ item.id_transaccion }}">{{ item.monto|floatformat:2}}</label></td>
+                    </tr>
+                    
+                    {% endfor %}
+
+                    {% else %}
+                    <tr>
+                        <td colspan="8" style="text-align: center; font-weight: bold; color: #888;">
+                            No se encontraron registros con los filtros aplicados.
                         </td>
-                        <td><label for="ingreso_egreso{{ item.id_transaccion }}">{{ item.id_transaccion }}</label></td>
-                        <td><label for="ingreso_egreso{{ item.id_transaccion }}">{{ item.id_admin }}</label></td>
-                        <td><label for="ingreso_egreso{{ item.id_transaccion }}">{{ item.id_admin.nombre }}</label></td>
-                        <td><label for="ingreso_egreso{{ item.id_transaccion }}">{{ item.tipo }}</label></td>
-                        <td><label for="ingreso_egreso{{ item.id_transaccion }}">{{ item.descripcion }}</label></td>
-                        <td><label for="ingreso_egreso{{ item.id_transaccion }}">{{ item.fecha|date:"d/m/Y" }}</label></td>
-                        <td><label for="ingreso_egreso{{ item.id_transaccion }}">{{ item.monto|floatformat:0|intcomma }}</label></td>
                     </tr>
-
-                    {% endfor %}
-
-                    {% for i in filas_vacias %}
-                    <tr>
-                        <td class="primero"></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
-                    </tr>
-                    {% endfor %}
-                </table>
-        </div>
-    </section>
-
-    <div class="ingresar">
-        <a href="{% url 'registro_ingresos_egresos' %}" class="agregar-btn">+</a>
-        <span class="agregar-texto">Agregar</span>
+                    {% endif %}
+            </table>
     </div>
+</section>
+
+<div class="ingresar">
+    <a href="{% url 'registro_ingresos_egresos' %}" class="agregar-btn">+</a>
+    <span class="agregar-texto">Agregar</span>
+</div>
 {% endblock %}

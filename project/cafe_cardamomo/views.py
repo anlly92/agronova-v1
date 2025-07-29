@@ -1,29 +1,44 @@
 from django.shortcuts import render,redirect,get_object_or_404
-from django.db.models import Sum, F, Func, Value
+from django.db.models import Sum, F, Func, Value, Q # clase que sirve para construir consultas complejas
 from django.db.models.functions import ExtractYear, ExtractMonth
 from .forms import LoteForm, RecoleccionForm, PagosForm
-from .models import Lote, Recoleccion
-from django.contrib import messages
 
-def gestionar_lote (request):
+from django.contrib import messages
+from .models import Lote, Recoleccion, Empleado
+
+from decimal import Decimal, InvalidOperation
+from inventarios.utils import normalizar_texto, es_numero, parsear_fecha # funciones que se encunetran en utils en la app de inventarios
+
+#Vistas para la gestion de los lotes 
+def gestionar_lote(request):
+    # para acciones de editar o borrar 
     if request.method == "POST":
-        seleccion = request.POST.get("elemento")       # columna seleccionada
-        accion = request.POST.get("accion")         # accion enviada "editar" o "borrar"
+        seleccion = request.POST.get("elemento")
+        accion = request.POST.get("accion")
 
         if seleccion:
-
             if accion == "editar":
-                # redirige al formulario de edición
                 return redirect("actualizar_lote", seleccion=seleccion)
-
-            if accion == "borrar":
-                # elimina el elemento selecionado
+            elif accion == "borrar":
                 get_object_or_404(Lote, pk=seleccion).delete()
                 return redirect("gestionar_lote")
+            
 
-    Lotes = Lote.objects.all()
-    cantidad_filas_vacias = 15 - Lotes.count()
-    return render (request, 'cafe_cardamomo/mostrar_lotes.html', {'Lotes': Lotes, 'filas_vacias': range(cantidad_filas_vacias)})
+    lotes, buscar, id_lote, nombre, hectareas, tipo_arbusto, estado = filtrar_lotes(request)
+    cantidad_filas_vacias = lotes.count()
+
+    contexto ={
+        "Lotes": lotes,
+        "filas_vacias": range(cantidad_filas_vacias),
+        "buscar": buscar,
+        "id_lote": id_lote,
+        "nombre": nombre,
+        "filtro_hectareas": hectareas,
+        "filtro_tipo_arbusto": tipo_arbusto,
+        "filtro_estado": estado,
+    }
+    return render(request, 'cafe_cardamomo/mostrar_lotes.html',contexto)
+
 
 def registrar_lote (request):
     if request.method == 'POST':
@@ -65,10 +80,169 @@ def actualizar_lote (request,seleccion):
 
     return render(request, 'cafe_cardamomo/actualizar_lote.html', {'lote': lote})
 
+
+#funcion para la barra de busqueda o filtro en lotes
+
+def filtrar_lotes(request):
+    buscar = request.GET.get("buscar", "").strip()
+    id_lote = request.GET.get("id_lote", "").strip()
+    nombre = request.GET.get("nombre", "").strip()#-----
+    tipo_arbusto = request.GET.get("tipo_arbusto", "")
+    estado = request.GET.get("estado", "")
+    hectareas = request.GET.get("hectareas")
+
+    lotes = Lote.objects.all()
+
+    if buscar:
+        buscar_normalizado = normalizar_texto(buscar)
+        filtro_numerico = Q()
+        filtro_texto = Q()
+        if es_numero(buscar_normalizado):
+            try:
+                filtro_numerico = (
+                    Q(id_lote=int(buscar_normalizado)) |
+                    Q(hectareas=int(buscar_normalizado))
+                )
+            except ValueError:
+                pass
+
+
+        filtro_texto = (
+            Q(nombre__iexact=buscar_normalizado)|
+            Q(tipo_arbusto__iexact=buscar_normalizado)|
+            Q(estado__iexact=buscar_normalizado)
+        )
+
+        lotes = Lote.objects.filter(
+            filtro_numerico | filtro_texto
+        )
+
+    #campos utilizados en la modal del filtro
+    if tipo_arbusto:
+        lotes = lotes.filter(tipo_arbusto=tipo_arbusto)
+    if estado:
+        lotes = lotes.filter(estado=estado)
+    if hectareas:
+        lotes = lotes.filter(hectareas=hectareas)
+
+    return lotes, buscar, id_lote, nombre, hectareas, tipo_arbusto, estado
+
+
 def gestionar_recoleccion (request):
+    lotes, recolecciones, empleados, buscar, id_empleado, id_lote, tipo_producto, kilos, horas, fecha, tipo_pago = filtrar_recoleccion(request)  
+    cantidad_filas_vacias = recolecciones.count()
+
+    contexto = {
+        'recolecciones': recolecciones,
+        'filas_vacias': range(cantidad_filas_vacias),
+        'buscar': buscar,
+        'lotes': lotes,
+        'filtro_id_empleado': id_empleado,
+        'filtro_id_lote': id_lote,
+        'filtro_tipo_producto': tipo_producto,
+        'filtro_kilos': kilos,
+        'filtro_horas': horas,
+        'filtro_fecha': fecha,
+        'filtro_tipo_pago': tipo_pago,
+        'empleados': empleados,
+    }
+
+    return render (request, 'cafe_cardamomo/mostrar_recoleccion.html',contexto)
+
+def filtrar_recoleccion(request):
+    buscar = request.GET.get("buscar", "").strip()
+    id_empleado = request.GET.get("id_empleado", "")
+    id_lote = request.GET.get("id_lote", "")
+    tipo_producto = request.GET.get("tipo_producto", "")
+    kilos = request.GET.get("kilos", "")
+    horas = request.GET.get("horas_trabajadas", "")
+    fecha = request.GET.get("fecha", "")
+    tipo_pago = request.GET.get("tipo_pago", "")
+
     recolecciones = Recoleccion.objects.all()
-    cantidad_filas_vacias = 15 - recolecciones.count()
-    return render (request, 'cafe_cardamomo/mostrar_recoleccion.html', {'recolecciones': recolecciones, 'filas_vacias': range(cantidad_filas_vacias)})
+    empleados = Empleado.objects.all()
+    lotes = Lote.objects.all()
+
+    if buscar:
+        buscar_normalizado = normalizar_texto(buscar)
+        filtro_numerico = Q()
+        filtro_texto = Q()
+        filtro_fecha = Q()
+
+        # Filtra si es número exacto
+        if es_numero(buscar_normalizado):
+            try:
+                filtro_numerico = (
+                    Q(id_recoleccion=int(buscar_normalizado)) |
+                    Q(id_empleado__id_empleado=int(buscar_normalizado)) |
+                    Q(id_lote__id_lote=int(buscar_normalizado)) |
+                    Q(kilos=int(buscar_normalizado)) |
+                    Q(horas_trabajadas=Decimal(buscar_normalizado)) |
+                    Q(tipo_pago__valor=int(buscar_normalizado))
+                )
+            except (ValueError, InvalidOperation):
+                pass
+
+        partes = buscar_normalizado.split()
+        for parte in partes:
+            filtro_texto &= (
+            Q(id_empleado__nombre__icontains=parte) |
+            Q(id_empleado__apellido__icontains=parte)
+            )
+
+
+        filtro_otros_datos = (
+            Q(tipo_producto__iexact=buscar_normalizado) |
+            Q(tipo_pago__tipo_pago__iexact=buscar_normalizado) |
+            Q(id_lote__nombre__iexact=buscar_normalizado) 
+        )
+        # Filtro por fecha
+        fecha_parseada = parsear_fecha(buscar)
+        if fecha_parseada:
+            filtro_fecha = Q(fecha=fecha_parseada)
+        # Consulta combinada
+        recolecciones = Recoleccion.objects.filter(
+            filtro_numerico | filtro_texto | filtro_fecha | filtro_otros_datos
+        )
+
+    if id_empleado:
+        try:
+            id_empleado = int(id_empleado)
+            recolecciones = recolecciones.filter(id_empleado=id_empleado)
+        except ValueError:
+            pass
+
+    if id_lote:
+        try:
+            id_lote = int(id_lote)
+            recolecciones = recolecciones.filter(id_lote=id_lote)
+        except ValueError:
+            pass
+
+    if tipo_producto:
+        recolecciones = recolecciones.filter(tipo_producto=tipo_producto)
+
+    if kilos:
+        try:
+            kilos_decimal = Decimal(kilos)
+            recolecciones = recolecciones.filter(kilos=kilos_decimal)
+        except InvalidOperation:
+            pass
+
+    if horas:
+        try:
+            horas_decimal = Decimal(horas)
+            recolecciones = recolecciones.filter(horas_trabajadas=horas_decimal)
+        except InvalidOperation:
+            pass
+
+    if fecha:
+        recolecciones = recolecciones.filter(fecha=fecha)
+
+    if tipo_pago:
+        recolecciones = recolecciones.filter(tipo_pago__tipo_pago=tipo_pago)
+
+    return lotes, recolecciones, empleados, buscar, id_empleado, id_lote, tipo_producto, kilos, horas, fecha, tipo_pago  
 
 def registrar_recoleccion (request):
     if request.method == 'POST':

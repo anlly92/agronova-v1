@@ -3,26 +3,43 @@ from .forms import Personalform
 from django.contrib import messages
 from django.db import IntegrityError
 from .models import Empleado
+from inventarios.utils import normalizar_texto, es_numero # funciones que se encunetran en utils en la app de inventarios
+from django.db.models import Q
 
-def gestionar_personal (request):
+def gestionar_personal(request):
+    # para acciones de editar y borrar
     if request.method == "POST":
-        seleccion = request.POST.get("elemento")       # columna seleccionada
-        accion = request.POST.get("accion")         # accion enviada "editar" o "borrar"
+        seleccion = request.POST.get("elemento")
+        accion = request.POST.get("accion")
 
         if seleccion:
-
             if accion == "editar":
-                # redirige al formulario de edición
                 return redirect("actualizar_personal", seleccion=seleccion)
-
             if accion == "borrar":
-                # elimina el elemento selecionado
                 get_object_or_404(Empleado, pk=seleccion).delete()
                 return redirect("gestionar_personal")
 
-    empleados = Empleado.objects.all()
-    cantidad_filas_vacias = 15 - empleados.count()
-    return render (request, 'personal/gestionar_personal.html', {'empleados': empleados, 'filas_vacias': range(cantidad_filas_vacias)})
+    # llamamos y desempaquetamos los datos de la funcion filtrar empleados
+    empleados, buscar, id_empleado, nombre, apellido, telefono, tipo_empleado, pago_contrato = filtrar_personal(request)
+    # cantidad de filas vacías para mantener formato en tabla
+    cantidad_filas_vacias = empleados.count()
+
+    #contexto de los datos que se utilizan para filtrar o buscar en la barra
+    contexto = {
+        "empleados": empleados,
+        "filas_vacias": range(cantidad_filas_vacias),
+        "buscar": buscar,
+        "filtro_id_empleado": id_empleado,
+        "nombre": nombre,
+        "apellido": apellido,
+        "telefono": telefono,
+        "filtro_tipo_empleado": tipo_empleado,
+        "filtro_pago_contrato": pago_contrato,
+    }
+
+    return render(request, 'personal/gestionar_personal.html', contexto)
+
+
 
 def registro_personal (request):
     if request.method == 'POST':
@@ -64,4 +81,66 @@ def actualizar_personal (request,seleccion):
         return redirect("gestionar_personal")
 
     return render(request, 'personal/actualizar_personal.html', {'empleado': empleado})
+
+def filtrar_personal(request):
+    
+    buscar = request.GET.get("buscar", "").strip()
+    id_empleado = request.GET.get("id_empleado", "")
+    nombre = request.GET.get("nombre", "")
+    apellido = request.GET.get("apellido", "")
+    telefono = request.GET.get("telefono", "")
+    tipo_empleado = request.GET.get("tipo_empleado", "")
+    pago_contrato = request.GET.get("pago_contrato", "")
+
+    
+    empleados = Empleado.objects.all() 
+    
+    if buscar:
+        buscar_normalizado = normalizar_texto(buscar)
+        filtro_numerico = Q()
+        filtro_texto = Q()
+        if es_numero(buscar_normalizado):
+            try:
+                filtro_numerico = (
+                    Q(id_empleado=int(buscar_normalizado)) |
+                    Q(pago_contrato=float(buscar_normalizado))
+                )
+            except ValueError:
+                pass
+
+
+        partes = buscar_normalizado.split()
+
+        for parte in partes:
+            filtro_texto &= (
+                Q(nombre__icontains=parte) |
+                Q(apellido__icontains=parte) 
+            )
+
+        filtro_otros_datos = (
+            Q(telefono__iexact=buscar_normalizado) |
+            Q(tipo_empleado__iexact=buscar_normalizado) |
+            filtro_numerico
+        )
+
+
+        empleados = Empleado.objects.filter(
+            filtro_texto | filtro_numerico |filtro_otros_datos
+        )
+
+    # campos por los que se filtra en la modal
+    if id_empleado:
+        empleados = empleados.filter(id_empleado=id_empleado)
+
+    if tipo_empleado:
+        empleados = empleados.filter(tipo_empleado=tipo_empleado)
+
+    if pago_contrato:
+        try:
+            pago_neto = float(pago_contrato.replace(".", "").replace(",", "."))
+            empleados = empleados.filter(pago_contrato=pago_neto)
+        except ValueError:
+            pass
+
+    return empleados, buscar, id_empleado, nombre, apellido, telefono, tipo_empleado, pago_contrato
 
