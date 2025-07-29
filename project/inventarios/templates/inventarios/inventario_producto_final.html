@@ -8,6 +8,7 @@
 
 {% block extra_styles %}
 <link rel="stylesheet" href="{% static 'css/tablas.css' %}">
+<link rel="stylesheet" href="{% static 'css/filtro_lotes.css' %}">
 {% endblock %}
 
 {% block logotipo %}
@@ -15,75 +16,80 @@ Productos finales
 {% endblock %}
 
 {% block nav_icons %}
-    <form action="{% url 'inventario_producto_final' %}" method="post" class="form-accion">
-        {% csrf_token %}
-        <input type="hidden" name="elemento" id="elemento_oculto">
+<form action="{% url 'inventario_producto_final' %}" method="post" class="form-accion">
+    {% csrf_token %}
+    <input type="hidden" name="elemento" id="elemento_oculto">
 
-        <div class="link" title="Editar">
-            <button type="submit" name="accion" value="editar" class="boton-actualizar">
-                <i class="fas fa-arrows-rotate"></i>
-            </button>
-            <span>Actualizar</span>
-        </div>
-        <div class="boton">
-            <button type="submit" name="accion" value="borrar" title="Eliminar"
-                    onclick="return confirm('¿Eliminar administrador?');">
-                <i class="fas fa-trash"></i>
-            </button>
-            <span>Eliminar</span>
-        </div>
-    </form>
+    <div class="link" title="Editar">
+        <button type="submit" name="accion" value="editar" class="boton-actualizar">
+            <i class="fas fa-arrows-rotate"></i>
+        </button>
+        <span>Actualizar</span>
+    </div>
+    <div class="boton">
+        <button type="submit" name="accion" value="borrar" title="Eliminar"
+            onclick="return confirm('¿Eliminar administrador?');">
+            <i class="fas fa-trash"></i>
+        </button>
+        <span>Eliminar</span>
+    </div>
+</form>
 {%endblock%}
 
 
 {% block content %}
-    <section class="tabla">
-        <div class="tabla-scroll-wrapper">
-            <form action="{% url 'inventario_producto_final' %}" method="post" >
-                {% csrf_token %}
-                <table>
-                    <tr>
-                        <th class="primero"></th>
-                        <th>Código inventario</th>
-                        <th>Nombre producto final</th>
-                        <th>Descripción del producto</th>
-                        <th>Contenido neto</th>
-                        <th>unidad de medida</th>
-                        <th>Precio unitario</th>
-                        <th>Stock</th>
-                    </tr>
 
-                    {% for item in producto_final %}
-                    <tr class="radio-fila">
-                        <td class="primero"> 
-                            <input  type="radio"
-                                name="elemento"
-                                id="producto_final{{ item.id_inventario }}"
-                                value="{{ item.id_inventario }}"
-                                required>
-                        </td>
-                        <td><label for="producto_final{{ item.id_inventario }}">{{ item.id_inventario }}</label></td>
-                        <td><label for="producto_final{{ item.id_inventario }}">{{ item.nombre }}</label></td>
-                        <td><label for="producto_final{{ item.id_inventario }}">{{ item.descripcion }}</label></td>
-                        <td><label for="producto_final{{ item.id_inventario }}">{{ item.contenido }}</label></td>
-                        <td><label for="producto_final{{ item.id_inventario }}">{{ item.unidad }}</label></td>
-                        <td><label for="producto_final{{ item.id_inventario }}">{{ item.precio_unitario|floatformat:0|intcomma }}</label></td>
-                        <td><label for="producto_final{{ item.id_inventario }}">{{ item.stock|floatformat:0|intcomma }}</label></td>
-                    </tr>
-                    {% endfor %}
+{% include "inventarios/filtro_inventario_producto_final.html" %}
 
-                    {% for i in filas_vacias %}
-                    <tr>
-                        <td class="primero"></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
-                    </tr>
-                    {% endfor %}
-                </table>
-            </form>
-        </div>
-    </section>
+<section class="tabla">
+    <div class="tabla-scroll-wrapper">
+        <form action="{% url 'inventario_producto_final' %}" method="post">
+            {% csrf_token %}
+            <table>
+                <tr>
+                    <th class="primero"></th>
+                    <th>Código inventario</th>
+                    <th>Nombre producto final</th>
+                    <th>Descripción del producto</th>
+                    <th>Contenido neto</th>
+                    <th>unidad de medida</th>
+                    <th>Precio unitario</th>
+                    <th>Stock</th>
+                </tr>
 
-    <div class="ingresar">
-        <a href="{% url 'registrar_inventario_producto_final' %}" class="agregar-btn">+</a>
-        <span class="agregar-texto">Agregar</span>
+                {% if producto_final %}
+                {% for item in producto_final %}
+                <tr class="radio-fila">
+                    <td class="primero">
+                        <input type="radio" name="elemento" id="producto_final{{ item.id_inventario }}"
+                            value="{{ item.id_inventario }}" required>
+                    </td>
+                    <td><label for="producto_final{{ item.id_inventario }}">{{ item.id_inventario }}</label></td>
+                    <td><label for="producto_final{{ item.id_inventario }}">{{ item.nombre }}</label></td>
+                    <td><label for="producto_final{{ item.id_inventario }}">{{ item.descripcion }}</label></td>
+                    <td><label for="producto_final{{ item.id_inventario }}">{{ item.contenido }}</label></td>
+                    <td><label for="producto_final{{ item.id_inventario }}">{{ item.unidad }}</label></td>
+                    <td><label for="producto_final{{ item.id_inventario }}">{{ item.precio_unitario|floatformat:0 }}</label></td>
+                    <td><label for="producto_final{{ item.id_inventario }}">{{ item.stock|floatformat:0 }}</label></td>
+                </tr>
+
+                {% endfor %}
+
+                {% else %}
+                <tr>
+                    <td colspan="8" style="text-align: center; font-weight: bold; color: #888;">
+                        No se encontraron registros con los filtros aplicados.
+                    </td>
+                </tr>
+                {% endif %}
+
+            </table>
+        </form>
     </div>
+</section>
+
+<div class="ingresar">
+    <a href="{% url 'registrar_inventario_producto_final' %}" class="agregar-btn">+</a>
+    <span class="agregar-texto">Agregar</span>
+</div>
 {% endblock %}

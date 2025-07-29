@@ -9,22 +9,36 @@ from datetime import datetime
 from django.utils import timezone
 from calendar import monthrange
 
+from django.db.models import Q
+from decimal import InvalidOperation
+from inventarios.utils import normalizar_texto, es_numero, parsear_fecha # funciones que se encunetran en utils en la app de inventarios
 
-def ingresos_egresos (request):
+
+
+def ingresos_egresos(request):
     if request.method == "POST":
-        seleccion = request.POST.get("elemento")       # columna seleccionada
-        accion = request.POST.get("accion")         # accion enviada "editar" o "borrar"
-
+        seleccion = request.POST.get("elemento")
+        accion = request.POST.get("accion")
         if seleccion:
-
             if accion == "borrar":
-                # elimina el elemento selecionado
                 get_object_or_404(IngresosEgresos, pk=seleccion).delete()
                 return redirect("ingresos_egresos")
 
-    Ingresos_Egresos = IngresosEgresos.objects.all()
+    buscar, Ingresos_Egresos, documento_admin, tipo, fecha, monto = filtrar_ingresos_egresos(request)
     cantidad_filas_vacias = 15 - Ingresos_Egresos.count()
-    return render (request, 'ingresos_egresos/mostrar_ingresos_egresos.html', {'Ingresos_Egresos': Ingresos_Egresos, 'filas_vacias': range(cantidad_filas_vacias)})
+
+    contexto = {
+        'Ingresos_Egresos': Ingresos_Egresos,
+        'filas_vacias': range(cantidad_filas_vacias),
+        'buscar': buscar,
+        'filtro_documento_admin': documento_admin,
+        'filtro_tipo': tipo,
+        'filtro_fecha': fecha,
+        'filtro_monto': monto,
+    }
+
+    return render(request, 'ingresos_egresos/mostrar_ingresos_egresos.html', contexto)
+
 
 def registro_ingresos_egresos (request):
     if request.method == 'POST':
@@ -40,6 +54,65 @@ def registro_ingresos_egresos (request):
         form = IngresosEgresosform()
 
     return render(request, 'ingresos_egresos/registro_ingresos_egresos.html', {'form': form})
+
+
+def filtrar_ingresos_egresos(request):
+    documento_admin = request.GET.get("documento_admin", "")
+    tipo = request.GET.get("tipo", "")
+    fecha = request.GET.get("fecha", "")
+    monto = request.GET.get("monto", "")
+    buscar = request.GET.get("buscar", "").strip()
+
+    Ingresos_Egresos = IngresosEgresos.objects.all()
+
+    # Búsqueda general
+    if buscar:
+        buscar_normalizado = normalizar_texto(buscar)
+        filtro_numerico = Q()
+        filtro_texto = Q()
+        filtro_fecha = Q()
+
+        if es_numero(buscar_normalizado):
+            try:
+                filtro_numerico = (
+                    Q(id_transaccion__iexact=buscar_normalizado) |
+                    Q(id_admin__id_admin__iexact=buscar_normalizado) |
+                    Q(monto=float(buscar_normalizado))
+                )
+            except (ValueError, InvalidOperation):
+                filtro_numerico = Q()
+
+        filtro_texto = (
+            Q(tipo__iexact=buscar_normalizado) |
+            Q(descripcion__icontains=buscar_normalizado) |
+            Q(id_admin__nombre__iexact=buscar_normalizado)
+        )
+
+        fecha_parseada = parsear_fecha(buscar_normalizado)
+        if fecha_parseada:
+            filtro_fecha = Q(fecha=fecha_parseada)
+
+        Ingresos_Egresos = Ingresos_Egresos.filter(
+            filtro_numerico | filtro_texto | filtro_fecha
+        )
+
+    if documento_admin:
+        try:
+            documento_admin_int = int(documento_admin)
+            Ingresos_Egresos = Ingresos_Egresos.filter(id_admin__id_admin=documento_admin_int)
+        except ValueError:
+            pass
+
+    if tipo:
+        Ingresos_Egresos = Ingresos_Egresos.filter(tipo__iexact=tipo)
+
+    if fecha:
+        Ingresos_Egresos = Ingresos_Egresos.filter(fecha=fecha)
+
+    if monto:
+        Ingresos_Egresos = Ingresos_Egresos.filter(monto=monto)
+
+    return buscar, Ingresos_Egresos, documento_admin, tipo, fecha, monto
 
 
 #-------------------------------------Informe anual----------------------------------------#
@@ -183,3 +256,9 @@ def datos_informe_mensual(request):
             'egresos': montos_egresos
         }
     })
+
+def informe_mensual (request):
+    return render (request, 'ingresos_egresos/informe_mensual.html')
+
+
+

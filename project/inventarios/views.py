@@ -2,28 +2,46 @@ from django.shortcuts import render,redirect,get_object_or_404
 from .forms import ProductoFinalform, Arbustosform, Agroquimicosform, Herramientasform
 from .models import Inventario
 from django.contrib import messages
+from.models import Lote
+
+# importaciones para la usqueda
+from django.shortcuts import render # renderizar plantillas HTML desde las vistas
+from django.db.models import Q # realizar consultas con condiciones "OR" (|) y "AND" (&) en filtros de Django.
+from inventarios.utils import parsear_fecha,normalizar_texto, es_numero # funciones que se encunetran en utils
+
+from decimal import Decimal, InvalidOperation
+
 
 # ────────── Producto final ──────────
 
-def inventario_producto_final (request):
+def inventario_producto_final(request):
     if request.method == "POST":
-        seleccion = request.POST.get("elemento")       # columna seleccionada
-        accion = request.POST.get("accion")         # accion enviada "editar" o "borrar"
+        seleccion = request.POST.get("elemento")
+        accion = request.POST.get("accion")
 
         if seleccion:
-
             if accion == "editar":
-                # redirige al formulario de edición
                 return redirect("actualizar_producto_final", seleccion=seleccion)
-
             if accion == "borrar":
-                # elimina el elemento selecionado
                 get_object_or_404(Inventario, pk=seleccion).delete()
                 return redirect("inventario_producto_final")
 
-    producto_final = Inventario.objects.filter(tipo='Inventario Producto final')
-    cantidad_filas_vacias = 15 - producto_final.count()
-    return render (request, 'inventarios/inventario_producto_final.html', {'producto_final': producto_final, 'filas_vacias': range(cantidad_filas_vacias)})
+    producto_final, buscar, nombre, contenido, unidad, precio_unitario, stock = filtrar_producto_final(request)
+    cantidad_filas_vacias = producto_final.count()
+
+    contexto = {
+        'producto_final': producto_final,
+        'filas_vacias': range(cantidad_filas_vacias),
+        'buscar': buscar,
+        'filtro_nombre': nombre,
+        'filtro_contenido': contenido,
+        'filtro_unidad': unidad,
+        'filtro_precio_unitario': precio_unitario,
+        'filtro_stock': stock,
+    }
+
+    return render(request, 'inventarios/inventario_producto_final.html', contexto )
+
 
 def registrar_inventario_producto_final (request):
     if request.method == 'POST':
@@ -68,27 +86,101 @@ def actualizar_producto_final (request,seleccion):
     return render(request, 'inventarios/actualizar_producto_final.html', {'inventario': inventario})
 
 
+
+def filtrar_producto_final(request):
+    producto_final = Inventario.objects.filter(tipo='Inventario Producto final')
+
+    buscar = request.GET.get("buscar", "").strip()
+    nombre = request.GET.get("nombre", "").strip()
+    contenido = request.GET.get("contenido", "").strip()
+    unidad = request.GET.get("unidad", "").strip()
+    precio_unitario = request.GET.get("precio_unitario", "").strip()
+    stock = request.GET.get("stock", "").strip()
+
+
+    if buscar:
+        buscar_normalizado =  normalizar_texto(buscar)
+        filtro_numerico = Q()
+        filtro_texto = Q()
+        #Se filtra si lo ingresado es exacto
+        if es_numero(buscar_normalizado):
+            try:
+                filtro_numerico = (
+                    Q(id_inventario=int(buscar_normalizado))|
+                    Q(contenido__iexact=buscar_normalizado)|
+                    Q(precio_unitario=float(buscar_normalizado))|
+                    Q(stock=int(buscar_normalizado))
+                )
+
+            except(ValueError, InvalidOperation):
+                pass
+
+        filtro_texto = (
+            Q(nombre__iexact=buscar_normalizado)|
+            Q(descripcion__iexact=buscar_normalizado)|
+            Q(unidad__iexact=buscar_normalizado)
+        )
+
+        producto_final = Inventario.objects.filter(
+            Q(tipo='Inventario Producto final') & (filtro_numerico |filtro_texto)
+            )
+
+
+    if nombre:
+        producto_final = producto_final.filter(nombre__icontains=nombre)
+
+    if contenido:
+        producto_final = producto_final.filter(contenido__iexact=contenido)
+
+    if unidad:
+        producto_final = producto_final.filter(unidad__iexact=unidad)
+
+    if stock:
+        try:
+            stock_float = float(stock)
+            producto_final = producto_final.filter(stock=stock_float)
+        except ValueError:
+            pass
+
+    if precio_unitario:
+        try:
+            precio_float = float(precio_unitario)
+            producto_final = producto_final.filter(precio_unitario=precio_float)
+        except ValueError:
+            pass
+
+    return producto_final, buscar, nombre, contenido, unidad, precio_unitario, stock
 # ────────── Arbustos ──────────
 
-def inventario_arbustos (request):
-    if request.method == "POST":
-        seleccion = request.POST.get("elemento")       # columna seleccionada
-        accion = request.POST.get("accion")         # accion enviada "editar" o "borrar"
-
+def inventario_arbustos(request):
+    # Para acciones de editar/borrar
+    if request.method == "POST" and "accion" in request.POST:
+        seleccion = request.POST.get("elemento")
+        accion = request.POST.get("accion")
         if seleccion:
-
             if accion == "editar":
-                # redirige al formulario de edición
                 return redirect("actualizar_inventario_arbustos", seleccion=seleccion)
-
-            if accion == "borrar":
-                # elimina el elemento selecionado
+            elif accion == "borrar":
                 get_object_or_404(Inventario, pk=seleccion).delete()
                 return redirect("inventario_arbustos")
 
-    arbustos = Inventario.objects.filter(tipo='Inventario Arbustos')
+    arbustos, lotes, buscar, tipo_arbusto, nombre_lote, nombre, stock, fecha_siembra, renovacion = filtrar_arbustos(request)
     cantidad_filas_vacias = 15 - arbustos.count()
-    return render (request, 'inventarios/inventario_arbustos.html',{'arbustos': arbustos, 'filas_vacias': range(cantidad_filas_vacias)})
+    contexto= {
+        'arbustos': arbustos,
+        'lote': lotes,
+        'filas_vacias': range(cantidad_filas_vacias),
+        # Para mantener valores
+        'buscar': buscar,
+        'filtro_tipo_arbusto': tipo_arbusto,
+        'filtro_nombre_lote': nombre_lote,
+        'filtro_nombre': nombre,
+        'filtro_stock': stock,
+        'filtro_fecha_siembra': fecha_siembra,
+        'filtro_renovacion': renovacion,
+    }
+
+    return render(request, 'inventarios/inventario_arbustos.html',contexto )
 
 def registrar_inventario_arbustos (request):
     if request.method == 'POST':
@@ -128,27 +220,97 @@ def actualizar_inventario_arbustos (request,seleccion):
 
     return render(request, 'inventarios/actualizar_arbustos.html', {'inventario': inventario})
 
+def filtrar_arbustos(request):
+    buscar = request.GET.get("buscar", "").strip()
+
+    tipo_arbusto = request.GET.get("tipo_arbusto", "")
+    nombre_lote = request.GET.get("nombre_lote", "")
+    nombre = request.GET.get("nombre", "")
+    stock = request.GET.get("stock", "")
+    fecha_siembra = request.GET.get("fecha_siembra", "")
+    renovacion = request.GET.get("renovacion", "")
+
+    arbustos = Inventario.objects.filter(tipo='Inventario Arbustos')
+    lotes = Lote.objects.all()
+
+    if buscar:
+        buscar_normalizado = normalizar_texto(buscar)
+        filtro_numerico = Q()
+        filtro_texto = Q()
+        filtro_fecha = Q()
+
+        # Filtro numérico
+        if es_numero(buscar_normalizado):
+            try:
+                filtro_numerico = (
+                    Q(id_inventario=int(buscar_normalizado)) |
+                    Q(stock=float(buscar_normalizado))|
+                    Q(id_lote__id_lote__iexact=buscar_normalizado) 
+
+                )
+            except (ValueError, InvalidOperation):
+                pass
+
+        filtro_texto = (
+            Q(renovacion__iexact=buscar_normalizado)|
+            Q(nombre__icontains=buscar_normalizado) |
+            Q(tipo_arbusto__icontains=buscar_normalizado) |
+            Q(id_lote__nombre__icontains=buscar_normalizado)
+        )
+
+        fecha_parseada = parsear_fecha(buscar)
+        if fecha_parseada:
+            filtro_fecha = Q(fecha_siembra=fecha_parseada)
+
+        # Aplicar búsqueda combinada
+        arbustos = arbustos.filter(
+            filtro_numerico | filtro_texto | filtro_fecha
+        )
+    # Aplicar filtros del modal
+    if tipo_arbusto:
+        arbustos = arbustos.filter(tipo_arbusto__iexact=tipo_arbusto)
+    if nombre_lote:
+        arbustos = arbustos.filter(id_lote__nombre__icontains=nombre_lote)
+    if nombre:
+        arbustos = arbustos.filter(nombre__icontains=nombre)
+    if stock:
+        arbustos = arbustos.filter(stock=stock)
+    if fecha_siembra:
+        arbustos = arbustos.filter(fecha_siembra=fecha_siembra)
+    if renovacion:
+        arbustos = arbustos.filter(renovacion__iexact=renovacion)
+    return arbustos, lotes, buscar, tipo_arbusto, nombre_lote, nombre, stock, fecha_siembra, renovacion 
+
 # ────────── Agroquímicos ──────────
 
-def inventario_agroquimicos (request):
+def inventario_agroquimicos(request):
     if request.method == "POST":
-        seleccion = request.POST.get("elemento")       # columna seleccionada
-        accion = request.POST.get("accion")         # accion enviada "editar" o "borrar"
+        seleccion = request.POST.get("elemento")
+        accion = request.POST.get("accion")
 
         if seleccion:
-
             if accion == "editar":
-                # redirige al formulario de edición
                 return redirect("actualizar_inventario_agroquimicos", seleccion=seleccion)
-
             if accion == "borrar":
-                # elimina el elemento selecionado
                 get_object_or_404(Inventario, pk=seleccion).delete()
                 return redirect("inventario_agroquimicos")
 
-    agroquimicos = Inventario.objects.filter(tipo='Inventario Agroquimicos')
+    agroquimicos, buscar, nombre, contenido, unidad, stock = filtrar_agroquimicos(request)
     cantidad_filas_vacias = 15 - agroquimicos.count()
-    return render (request, 'inventarios/inventario_agroquimicos.html',{'agroquimicos': agroquimicos, 'filas_vacias': range(cantidad_filas_vacias)})
+
+    contexto = {
+        'agroquimicos': agroquimicos,
+        'filas_vacias': range(cantidad_filas_vacias),
+        'buscar': buscar,
+
+        # valores del filtro que se mantienen
+        'filtro_nombre': nombre,
+        'filtro_contenido': contenido,
+        'filtro_unidad': unidad,
+        'filtro_stock': stock,
+    }
+
+    return render(request, 'inventarios/inventario_agroquimicos.html',contexto )
 
 def registrar_inventario_agroquimicos (request):
     if request.method == 'POST':
@@ -193,27 +355,77 @@ def actualizar_inventario_agroquimicos (request,seleccion):
     return render(request, 'inventarios/actualizar_agroquimico.html', {'inventario': inventario})
 
 
+
+def filtrar_agroquimicos(request):
+    nombre = request.GET.get("nombre", "").strip()
+    contenido = request.GET.get("contenido", "").strip()
+    unidad = request.GET.get("unidad", "").strip()
+    stock = request.GET.get("stock", "").strip()
+    buscar = request.GET.get("buscar", "").strip()
+
+    agroquimicos = Inventario.objects.filter(tipo='Inventario Agroquimicos')
+
+    buscar_normalizado = normalizar_texto(buscar)
+
+    if buscar:
+        filtro_numerico = Q()
+        filtro_texto = Q()
+
+        if es_numero(buscar_normalizado):
+            try:
+                filtro_numerico = (
+                    Q(id_inventario=int(buscar_normalizado)) |
+                    Q(stock=int(buscar_normalizado)) |
+                    Q(contenido=buscar_normalizado)  
+                )
+            except (ValueError, InvalidOperation):
+                pass
+
+        filtro_texto = (
+            Q(nombre__iexact=buscar_normalizado) |
+            Q(descripcion__icontains=buscar_normalizado) |
+            Q(unidad__iexact=buscar_normalizado)
+        )
+        agroquimicos = agroquimicos.filter(filtro_numerico | filtro_texto)
+
+
+    if nombre:
+        agroquimicos = agroquimicos.filter(nombre__iexact=nombre)
+    if contenido:
+        agroquimicos = agroquimicos.filter(contenido__iexact=contenido)
+    if unidad:
+        agroquimicos = agroquimicos.filter(unidad__iexact=unidad)
+    if stock:
+        agroquimicos = agroquimicos.filter(stock=stock)
+
+    return agroquimicos, buscar, nombre, contenido, unidad, stock
 # ────────── Herramientas ──────────
 
-def inventario_herramientas (request):
+def inventario_herramientas(request):
     if request.method == "POST":
         seleccion = request.POST.get("elemento")       # columna seleccionada
-        accion = request.POST.get("accion")         # accion enviada "editar" o "borrar"
+        accion = request.POST.get("accion")            # acción enviada "editar" o "borrar"
 
         if seleccion:
-
             if accion == "editar":
-                # redirige al formulario de edición
                 return redirect("actualizar_inventario_herramientas", seleccion=seleccion)
-
             if accion == "borrar":
-                # elimina el elemento selecionado
                 get_object_or_404(Inventario, pk=seleccion).delete()
                 return redirect("inventario_herramientas")
-
-    herramientas = Inventario.objects.filter(tipo='Inventario Herramientas')
+            
+    herramientas, buscar, categoria, nombre, estado, stock = filtrar_herramientas(request)
     cantidad_filas_vacias = 15 - herramientas.count()
-    return render (request, 'inventarios/inventario_herramientas.html',{'herramientas': herramientas, 'filas_vacias': range(cantidad_filas_vacias)})
+    contexto = {
+        'herramientas': herramientas,
+        'filas_vacias': range(cantidad_filas_vacias),
+        'buscar': buscar,
+        # para mantener valores de los filtros en la plantilla
+        'filtro_categoria': categoria,
+        'filtro_nombre': nombre,
+        'filtro_estado': estado,
+        'filtro_stock': stock,
+    }
+    return render(request, 'inventarios/inventario_herramientas.html',contexto )
 
 def registrar_herramientas (request, categoria):
     if request.method == 'POST':
@@ -256,3 +468,48 @@ def actualizar_inventario_herramientas (request,seleccion):
 
 def categoria_herramientas (request):
     return render (request, 'inventarios/categoria_herramienta_maquina.html')
+
+def filtrar_herramientas(request):
+    categoria = request.GET.get("categoria", "")
+    nombre = request.GET.get("nombre", "")
+    estado = request.GET.get("estado", "")
+    stock = request.GET.get("stock", "")
+    buscar = request.GET.get("buscar", "").strip()
+
+    herramientas = Inventario.objects.filter(tipo='Inventario Herramientas')
+
+    # Filtro de búsqueda general
+    if buscar:
+        buscar_normalizado = normalizar_texto(buscar)
+        filtro_numerico = Q()
+        filtro_texto = Q()
+
+        if es_numero(buscar_normalizado):
+            try:
+                filtro_numerico =(
+                Q(id_inventario__iexact=buscar_normalizado) |
+                Q(stock=int(buscar_normalizado))
+                )
+            except (ValueError, InvalidOperation):
+                filtro_numerico = Q()
+
+        filtro_texto = (
+            Q(nombre__iexact=buscar_normalizado) |
+            Q(categoria__iexact=buscar_normalizado) |
+            Q(estado__iexact=buscar_normalizado)
+        )
+
+        herramientas = herramientas.filter(filtro_numerico | filtro_texto)
+
+
+    if categoria:
+        herramientas = herramientas.filter(categoria__iexact=categoria)
+    if nombre:
+        herramientas = herramientas.filter(nombre__iexact=nombre)
+    if estado:
+        herramientas = herramientas.filter(estado__iexact=estado)
+    if stock:
+        herramientas = herramientas.filter(stock=stock)
+
+    return herramientas, buscar, categoria, nombre, estado, stock
+

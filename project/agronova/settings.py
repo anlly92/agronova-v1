@@ -86,9 +86,9 @@ WSGI_APPLICATION = 'agronova.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'agronova',  #  pon aquí el nombre real de tu base de datos
-        'USER': 'Nico',
-        'PASSWORD': 'admin',
+        'NAME': 'agronova', 
+        'USER': 'root',
+        'PASSWORD': 'admin1234',
         'HOST': 'localhost',
         'PORT': '3306',
     }
@@ -127,6 +127,9 @@ USE_TZ = True
 
 LOGIN_REDIRECT_URL = '/inicio/'
 LOGIN_URL = '/login/'  # ← Esta es la URL que ya tienes definida
+
+USE_L10N = True
+FORMAT_MODULE_PATH = ['project.formats']
 
 
 

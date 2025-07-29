@@ -4,6 +4,7 @@ main.contenedor-tabla {
     display: flex;
     align-items: center;
     justify-content: center;
+    height: 100vh;
 }
 
 .acciones a,
@@ -45,7 +46,8 @@ main.contenedor-tabla {
 /* Contenedor con scroll vertical y horizontal */
 .tabla-scroll-wrapper {
     overflow: auto; /* Scroll horizontal y vertical */
-    height: 500px;   /* Necesario para activar scroll vertical */
+    height: auto;
+    max-height: 500px;   /* Necesario para activar scroll vertical */
     background: rgba(255, 255, 255, 0.95);
     box-shadow: 0 0 30px rgba(0, 0, 0, 0.6);
     white-space: nowrap;
@@ -170,7 +172,7 @@ tbody tr:hover {
 .acciones button {
     background: transparent;
     border: none;
-    padding: 6px 12px;
+    padding: 5px 10px;
     border-radius: 4px;
     cursor: pointer;
     text-decoration: none;
@@ -364,4 +366,3 @@ tr:has(input[type="radio"]:checked) td{
         font-size: 22px;
     }
 }
-
