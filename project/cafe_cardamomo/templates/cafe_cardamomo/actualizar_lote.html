@@ -23,27 +23,49 @@
                 <img class="logo-item" src="{% static 'img/logo_agronova.png' %}" alt="logo - Agronova">
             </a>
         </div>
+
         <!-- Formulario de actualización del estado del lote -->
-        <form id="formularioIngreso">
+        <form id="formularioIngreso"  method="POST">
+            {% csrf_token %}
             <fieldset class="encabezado">
                 <legend>Actualización del estado del lote</legend>
 
-                <!-- Campo para ingresar el código del lote -->
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="mi-mensaje-error text-center">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+
                 <div class="botones">
-                    <i class="fa-solid fa-key"></i>
-                    <label for="Codigo_del_lote">Codigo_del_lote</label>
-                    <input id="Codigo_del_lote" name="Codigo_del_lote" type="number" placeholder="Codigo del lote" required />
+                    <i class="fas fa-draw-polygon"></i>
+                    <label for="hectareas">Hectáreas</label>
+                    <input id="hectareas" name="hectareas" type="number" value="{{ lote.hectareas|floatformat:"0"|cut:',' }}" placeholder="Hectáreas" min="0" step="1" />
                 </div>
+
+                <div class="botones">
+                    <i class="fa-solid fa-leaf"></i>
+                    <label for="tipo_arbusto">Tipo de arbusto</label>
+                    <select name="tipo_arbusto" id="tipo_arbusto">
+                        <option value="" disabled {% if not lote.tipo_arbusto %}selected{% endif %}>Tipo de arbusto</option>
+                        <option value="Café" {% if lote.tipo_arbusto == "Café" %}selected{% endif %}>Café</option>
+                        <option value="Cardamomo" {% if lote.tipo_arbusto == "Cardamomo" %}selected{% endif %}>Cardamomo</option>
+                    </select>
+                </div>
+
+
                 <!-- Selección del estado (activo/inactivo) -->
                 <div class="botones">
                     <i class="fa-solid fa-toggle-on"></i>
                     <label for="estado_del_lote">Estado del lote</label>
-                    <select name="estado_del_lote" id="estado_del_lote" required>
-                        <option value=""disabled selected >Estado del lote</option>
-                        <option value="Activo">Activo</option>
-                        <option value="Inactivo">Inactivo</option>
+                    <select name="estado_del_lote" id="estado_del_lote">
+                        <option value="" disabled {% if not lote.estado %}selected{% endif %}>Estado del lote</option>
+                        <option value="Activo" {% if lote.estado == "Activo" %}selected{% endif %}>Activo</option>
+                        <option value="Inactivo" {% if lote.estado == "Inactivo" %}selected{% endif %}>Inactivo</option>
                     </select>
                 </div>
+
                 <!-- Botón para enviar el formulario -->
                 <button class="boton" type="button" id="btnEnviar">
                     <i class="fa-solid fa-pen-to-square"></i>Actualizar estado del lote

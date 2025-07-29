@@ -1,6 +1,7 @@
 from django.shortcuts import render,redirect,get_object_or_404
 from .forms import ProductoFinalform, Arbustosform, Agroquimicosform, Herramientasform
 from .models import Inventario
+from django.contrib import messages
 
 # ────────── Producto final ──────────
 
@@ -40,7 +41,32 @@ def registrar_inventario_producto_final (request):
     return render (request, 'inventarios/registrar_inventario_producto_final.html', {'form': form})
 
 def actualizar_producto_final (request,seleccion):
-    return render (request, 'inventarios/actualizar_producto_final.html')
+    inventario = get_object_or_404(Inventario, pk=seleccion)
+
+    if request.method == 'POST':
+        nombre = request.POST.get("nombre","").strip()
+        precio_unitario = request.POST.get("precio_unitario","").strip()
+        stock = request.POST.get("stock","").strip()
+
+        # Validación: al menos un campo debe estar lleno
+        if not nombre and not precio_unitario and not stock:
+            messages.error(request, "Debes ingresar al menos un dato para actualizar.")
+            return redirect("actualizar_producto_final", seleccion=seleccion)
+
+        if nombre:
+            inventario.nombre = nombre
+
+        if precio_unitario:
+            inventario.precio_unitario = precio_unitario
+
+        if stock:
+            inventario.stock = stock
+
+        inventario.save()
+        return redirect("inventario_producto_final")
+
+    return render(request, 'inventarios/actualizar_producto_final.html', {'inventario': inventario})
+
 
 # ────────── Arbustos ──────────
 
@@ -80,7 +106,27 @@ def registrar_inventario_arbustos (request):
     return render (request, 'inventarios/registrar_inventario_arbustos.html', {'form': form})
 
 def actualizar_inventario_arbustos (request,seleccion):
-    return render (request, 'inventarios/actualizar_arbustos.html')
+    inventario = get_object_or_404(Inventario, pk=seleccion)
+
+    if request.method == 'POST':
+        stock = request.POST.get("stock","").strip()
+        fecha_siembra = request.POST.get("fecha_siembra","").strip()
+
+        # Validación: al menos un campo debe estar lleno
+        if not stock and not fecha_siembra:
+            messages.error(request, "Debes ingresar al menos un dato para actualizar.")
+            return redirect("actualizar_inventario_arbustos", seleccion=seleccion)
+
+        if stock:
+            inventario.stock = stock
+
+        if fecha_siembra:
+            inventario.fecha_siembra = fecha_siembra
+
+        inventario.save()
+        return redirect("inventario_arbustos")
+
+    return render(request, 'inventarios/actualizar_arbustos.html', {'inventario': inventario})
 
 # ────────── Agroquímicos ──────────
 
@@ -120,7 +166,32 @@ def registrar_inventario_agroquimicos (request):
     return render (request, 'inventarios/registrar_inventario_agroquimicos.html', {'form': form})
 
 def actualizar_inventario_agroquimicos (request,seleccion):
-    return render (request, 'inventarios/actualizar_agroquimico.html')
+    inventario = get_object_or_404(Inventario, pk=seleccion)
+
+    if request.method == 'POST':
+        descripcion = request.POST.get("descripcion","").strip()
+        unidad = request.POST.get("unidad","").strip()
+        stock = request.POST.get("stock","").strip()
+
+        # Validación: al menos un campo debe estar lleno
+        if not descripcion and not unidad and not stock:
+            messages.error(request, "Debes ingresar al menos un dato para actualizar.")
+            return redirect("actualizar_inventario_agroquimicos", seleccion=seleccion)
+
+        if descripcion:
+            inventario.descripcion = descripcion
+
+        if unidad:
+            inventario.unidad = unidad
+
+        if stock:
+            inventario.stock = stock
+
+        inventario.save()
+        return redirect("inventario_agroquimicos")
+
+    return render(request, 'inventarios/actualizar_agroquimico.html', {'inventario': inventario})
+
 
 # ────────── Herramientas ──────────
 
@@ -161,7 +232,27 @@ def registrar_herramientas (request, categoria):
     return render (request, 'inventarios/registrar_herramienta_maquina.html', {'form': form, 'categoria': categoria})
 
 def actualizar_inventario_herramientas (request,seleccion):
-    return render (request, 'inventarios/actualizar_herramienta_maquina.html')
+    inventario = get_object_or_404(Inventario, pk=seleccion)
+
+    if request.method == 'POST':
+        estado = request.POST.get("estado","").strip()
+        stock = request.POST.get("stock","").strip()
+
+        # Validación: al menos un campo debe estar lleno
+        if not estado and not stock:
+            messages.error(request, "Debes ingresar al menos un dato para actualizar.")
+            return redirect("actualizar_inventario_herramientas", seleccion=seleccion)
+
+        if estado:
+            inventario.estado = estado
+
+        if stock:
+            inventario.stock = stock
+
+        inventario.save()
+        return redirect("inventario_herramientas")
+
+    return render(request, 'inventarios/actualizar_herramienta_maquina.html', {'inventario': inventario})
 
 def categoria_herramientas (request):
     return render (request, 'inventarios/categoria_herramienta_maquina.html')

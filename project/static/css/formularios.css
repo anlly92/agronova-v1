@@ -587,3 +587,12 @@ input:-webkit-autofill:focus {
     }
 }
 
+.mi-mensaje-error {
+    color: rgb(139, 24, 24);
+    font-size: 1.4rem;
+    font-weight: bold;
+    margin: 15px 0;
+    border-bottom: 2px solid  rgb(139, 24, 24);;
+    padding-bottom: 5px;
+}
+

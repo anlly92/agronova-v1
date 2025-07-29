@@ -26,20 +26,29 @@
             </a>
         </div>
 
-        <form id="formularioIngreso">
+        <form id="formularioIngreso"  method="POST">
+            {% csrf_token %}
             <fieldset class="encabezado">
                 <legend>Actualizar administrador</legend>
+
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="mi-mensaje-error text-center">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
 
                 <div class="botones">
                     <i class="fas fa-phone"></i>
                     <label for="numero_telefonico">Numero telefonico</label>
-                    <input id="numero_telefonico" name="numero_telefonico" type="tel" placeholder="Numero telefonico" required/>
+                    <input id="telefono" name="telefono" type="tel" value="{{administrador.telefono}}" placeholder="Numero telefonico"/>
                 </div>
 
                 <div class="botones">
                     <i class="fas fa-envelope"></i>
-                    <label for="Correo_electronico">Correo electronico</label>
-                    <input id="correo_electronico" name="correo_electronico" type="email" placeholder="Correo electronico" required/>
+                    <label for="correo">Correo electrónico</label>
+                    <input id="correo" name="correo" type="email" value="{{ administrador.correo }}" placeholder="Correo electrónico" />
                 </div>
 
                 <button class="boton" type="button" id="btnEnviar" ><i class="fas fa-address-card"></i>Actualizar administrador</button>
