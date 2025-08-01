@@ -453,7 +453,7 @@ input:-webkit-autofill:focus {
 
 @media screen and (max-width: 768px) {
     body {
-        font-size: 16px; /*Tamaño de la letra*/
+        font-size: 16px;
         padding: 10px;
         align-items: stretch;
     }
@@ -595,4 +595,3 @@ input:-webkit-autofill:focus {
     border-bottom: 2px solid  rgb(139, 24, 24);;
     padding-bottom: 5px;
 }
-
