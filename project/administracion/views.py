@@ -46,6 +46,7 @@ def gestionar_administrador (request):
     return render (request, 'administracion/gestionar_administrador.html', {'Administradores': Administradores, 'filas_vacias': range(cantidad_filas_vacias)})
 
 def registro_administrador (request):
+    ok = False 
     if request.method == 'POST':
         form = AdministradorForm(request.POST)
         if form.is_valid():
@@ -88,11 +89,11 @@ def registro_administrador (request):
             email.attach_alternative(mensaje_html, "text/html")
             email.send()
 
-            return redirect('gestionar_administrador')
+            ok = True
     else:
         form = AdministradorForm()
     
-    return render (request, 'administracion/registro_administrador.html', {'form': form})
+    return render (request, 'administracion/registro_administrador.html', {'form': form,'ok':ok})
 
 def actualizar_administrador (request,seleccion):
     return render (request, 'administracion/actualizar_administrador.html')
@@ -112,6 +113,10 @@ def editar_perfil (request):
     if request.method == 'POST':
         correo = request.POST.get("correo")
         telefono = request.POST.get("telefono")
+
+        if not correo and not telefono:
+            messages.error(request, "Debes ingresar al menos un dato (correo o teléfono) para actualizar tu perfil.")
+            return redirect("editar_perfil")
 
         admin = Administrador.objects.get(correo=request.user.username)
 

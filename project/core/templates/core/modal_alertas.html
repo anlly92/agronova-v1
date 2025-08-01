@@ -1,0 +1,15 @@
+<div id="modal-alertas" class="modal">
+    <div class="modal-contenido">
+        <span class="cerrar" onclick="cerrarModalAlertas()">&times;</span>
+        <h2>Alertas detalladas</h2>
+        <div class="tabla-scroll-wrapper">
+            <ul>
+                {% for alerta in alertas_extra %}
+                    <li>{{ alerta }}</li>
+                {% empty %}
+                    <li>No hay alertas activas este mes</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>

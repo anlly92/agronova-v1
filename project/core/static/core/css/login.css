@@ -200,7 +200,7 @@ input:-webkit-autofill:focus {
     -webkit-box-shadow: 0 0 0px 1000px #4b7510 inset !important;
 }
 
-.mensaje-error p{
+.mensaje-error li{
     color: rgb(212, 35, 35);
     font-size: 20px;
 }

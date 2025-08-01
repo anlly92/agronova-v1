@@ -25,6 +25,7 @@ def gestionar_lote (request):
     return render (request, 'cafe_cardamomo/mostrar_lotes.html', {'Lotes': Lotes, 'filas_vacias': range(cantidad_filas_vacias)})
 
 def registrar_lote (request):
+    ok = False 
     if request.method == 'POST':
         form = LoteForm(request.POST)
 
@@ -32,11 +33,11 @@ def registrar_lote (request):
             lote = form.save(commit=False) 
             lote.save()
 
-            return redirect('gestionar_lote')
+            ok = True
     else:
         form = LoteForm()
 
-    return render (request, 'cafe_cardamomo/registro_lote.html', {'form': form})
+    return render (request, 'cafe_cardamomo/registro_lote.html', {'form': form,'ok':ok})
 
 def actualizar_lote (request,seleccion):
     return render (request, 'cafe_cardamomo/actualizar_lote.html')
@@ -47,6 +48,7 @@ def gestionar_recoleccion (request):
     return render (request, 'cafe_cardamomo/mostrar_recoleccion.html', {'recolecciones': recolecciones, 'filas_vacias': range(cantidad_filas_vacias)})
 
 def registrar_recoleccion (request):
+    ok = False 
     if request.method == 'POST':
         form = RecoleccionForm(request.POST)
 
@@ -54,11 +56,11 @@ def registrar_recoleccion (request):
             recoleccion = form.save(commit=False) 
             recoleccion.save()
             
-            return redirect('gestionar_recoleccion')
+            ok = True
     else:
         form = RecoleccionForm()
 
-    return render (request, 'cafe_cardamomo/registro_recoleccion.html', {'form': form})
+    return render (request, 'cafe_cardamomo/registro_recoleccion.html', {'form': form,'ok':ok})
 
 def registrar_pago (request):
     if request.method == 'POST':

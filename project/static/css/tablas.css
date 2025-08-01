@@ -24,8 +24,8 @@ main.contenedor-tabla {
 }
 
 .acciones a:hover,
-.acciones button:hover {
-    transform: scale(1.2);
+.acciones button:hover{
+    transform: scale(1.1);
     color: #000;
 }
 
@@ -36,6 +36,14 @@ main.contenedor-tabla {
     font-weight: bold;
 }
 
+.info i{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    font-weight: bold;
+    padding-bottom: 5px;
+    font-size: 30px;
+}
 
 .tabla {
     width: 85%;
@@ -245,7 +253,6 @@ tr:has(input[type="radio"]:checked) td{
     height: 0;
     margin: 0;
 }
-
 
 
 @media screen and (max-width: 768px) {

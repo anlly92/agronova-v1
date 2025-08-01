@@ -1,0 +1,95 @@
+{% extends "base_header_1.html" %}
+{% load static %}
+{% load humanize %}
+
+{% block title %}
+<title> Ventas </title>
+{% endblock %}
+
+{% block extra_styles %}
+<link rel="stylesheet" href="{% static 'css/tablas.css' %}">
+{% endblock %}
+
+{% block logotipo %}
+    Ventas
+{% endblock %}
+
+{% block nav_icons %}
+    <div class="link info">
+        <a href="{% url 'informe_ventas' %}" title="Ver informe de ventas">
+            <i class="fa-solid fa-file-lines"></i>
+        </a>
+        <span>Informes</span>
+    </div>
+
+    <form action="{% url 'ventas' %}" method="post" class="form-accion">
+        {% csrf_token %}
+        <input type="hidden" name="elemento" id="elemento_oculto">
+
+        <div class="link" title="Editar administrador">
+            <button type="submit" name="accion" value="editar" class="boton-actualizar">
+                <i class="fas fa-arrows-rotate"></i>
+            </button>
+            <span>Actualizar</span>
+        </div>
+        <div class="boton">
+            <button type="submit" name="accion" value="borrar" title="Eliminar"
+                    onclick="return confirm('¿Eliminar ventasr?');">
+                <i class="fas fa-trash"></i>
+            </button>
+            <span>Eliminar</span>
+        </div>
+    </form>
+{%endblock%}
+
+{% block content %}
+    <section class="tabla">
+        <div class="tabla-scroll-wrapper">
+            <form action="{% url 'ventas' %}" method="post" >
+                {% csrf_token %}
+                <table>
+                    <tr>
+                        <th class="primero"></th>
+                        <th>Código de venta</th>
+                        <th>Nombre del administrador</th>
+                        <th>Nombre del producto</th>
+                        <th>Cantidad vendida</th>
+                        <th>Precio unitario</th>
+                        <th>Total</th>
+                        <th>Fecha de venta</th>
+                    </tr>
+
+                    {% for item in ventas %}
+                    <tr class="radio-fila">
+                        <td class="primero"> 
+                            <input  type="radio"
+                                name="elemento"
+                                id="venta{{ item.id_venta }}"
+                                value="{{ item.id_venta }}"
+                                required>
+                        </td>
+                        <td><label for="venta{{ item.id_venta }}">{{ item.id_venta }}</label></td>
+                        <td><label for="venta{{ item.id_venta }}">{{ item.id_admin.nombre }} {{ item.id_admin.apellido }}</label></td>
+                        <td><label for="venta{{ item.id_venta }}">{{ item.id_producto.nombre }} {{ item.id_producto.contenido }} {{ item.id_producto.unidad }}</label></td>
+                        <td><label for="venta{{ item.id_venta }}">{{ item.cantidad|floatformat:0|intcomma}}</label></td>
+                        <td><label for="venta{{ item.id_venta }}">{{ item.id_producto.precio_unitario|floatformat:0|intcomma  }}</label></td>
+                        <td><label for="venta{{ item.id_venta }}">{{ item.total|floatformat:0|intcomma }}</label></td>
+                        <td><label for="venta{{ item.id_venta }}">{{ item.fecha|date:"d/m/Y" }}</label></td>
+                    </tr>
+
+                    {% endfor %}
+
+                    {% for i in filas_vacias %}
+                    <tr>
+                        <td class="primero"></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                    </tr>
+                    {% endfor %}
+                </table>
+        </div>
+    </section>
+
+    <div class="ingresar">
+        <a href="{% url 'registrar_ventas' %}" class="agregar-btn">+</a>
+        <span class="agregar-texto">Agregar</span>
+    </div>
+{% endblock %}

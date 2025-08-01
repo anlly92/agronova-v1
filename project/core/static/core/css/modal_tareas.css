@@ -1,0 +1,70 @@
+.titulo{
+    text-align: center;
+    padding-bottom: 15px;
+}
+
+.form-group {
+    width: 100%;
+    margin-bottom: 1.2rem;
+    display: flex;
+    align-items: center;
+
+}
+
+.form-group label {
+    display: none;
+}
+
+/* Inputs y textarea */
+input[type="text"],
+input[type="datetime-local"],
+textarea {
+    display: flex;
+    margin: auto;
+    width: 70%;
+    height: 20px;
+    padding: 0.75rem;
+    outline: none; /* Sin contorno al enfocar */
+    border: none;
+    border-radius: 12px;
+    background-color: #fff;
+    color: #000;
+    font-size: 1rem;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+    resize: none;
+}
+
+textarea::-webkit-scrollbar {
+    display: none;
+}
+
+input::placeholder,
+textarea::placeholder {
+    color: #000; /* Texto blanco */
+    opacity: 1; /* Opacidad completa */
+}
+
+/* Botón de guardar */
+.boton{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #fff;
+    color: #000;
+    height: 40px;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    width: 50%;
+    margin: auto;
+    margin-top: 1rem;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s ease;
+}
+
+.boton:hover {
+    background-color: #45a049;
+}

@@ -16,7 +16,7 @@ Ingresos y egresos
 
 {% block nav_icons %}
     <div class="menu">
-        <div class="boton_icono">
+        <div class="boton_icono info">
             <i class="fa-solid fa-file-lines"></i>
             <span>Informes</span>
         </div>
@@ -68,8 +68,8 @@ Ingresos y egresos
                                 required>
                         </td>
                         <td><label for="ingreso_egreso{{ item.id_transaccion }}">{{ item.id_transaccion }}</label></td>
-                        <td><label for="ingreso_egreso{{ item.id_transaccion }}">{{ item.id_admin }}</label></td>
-                        <td><label for="ingreso_egreso{{ item.id_transaccion }}">{{ item.id_admin.nombre }}</label></td>
+                        <td><label for="ingreso_egreso{{ item.id_transaccion }}">{{ item.id_admin.id_admin }}</label></td>
+                        <td><label for="ingreso_egreso{{ item.id_transaccion }}">{{ item.id_admin.nombre }} {{ item.id_admin.apellido }}</label></td>
                         <td><label for="ingreso_egreso{{ item.id_transaccion }}">{{ item.tipo }}</label></td>
                         <td><label for="ingreso_egreso{{ item.id_transaccion }}">{{ item.descripcion }}</label></td>
                         <td><label for="ingreso_egreso{{ item.id_transaccion }}">{{ item.fecha|date:"d/m/Y" }}</label></td>

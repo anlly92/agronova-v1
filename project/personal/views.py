@@ -23,6 +23,7 @@ def gestionar_personal (request):
     return render (request, 'personal/gestionar_personal.html', {'empleados': empleados, 'filas_vacias': range(cantidad_filas_vacias)})
 
 def registro_personal (request):
+    ok = False 
     if request.method == 'POST':
         form = Personalform(request.POST)
 
@@ -30,11 +31,11 @@ def registro_personal (request):
             personal = form.save(commit=False) 
             personal.save()
 
-            return redirect('gestionar_personal')
+            ok = True 
     else:
         form = Personalform()
 
-    return render (request, 'personal/registrar_personal.html', {'form': form})
+    return render (request, 'personal/registrar_personal.html', {'form': form,'ok':ok})
 
 def actualizar_personal (request,seleccion):
     return render (request, 'personal/actualizar_personal.html')

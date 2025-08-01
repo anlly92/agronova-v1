@@ -6,4 +6,8 @@ urlpatterns = [
     path("registro_ingresos_egresos/", views.registro_ingresos_egresos, name='registro_ingresos_egresos'),
     path("informe_anual/", views.informe_anual, name='informe_anual'),
     path("informe_mensual/", views.informe_mensual, name='informe_mensual'),
+    path("ventas/", views.ventas, name='ventas'),
+    path("registrar_ventas/", views.registrar_ventas, name='registrar_ventas'),
+    path('<int:seleccion>/editar/', views.actualizar_ventas,   name='actualizar_ventas'),
+    path("informe_ventas/", views.informe_ventas, name='informe_ventas'),
 ]
