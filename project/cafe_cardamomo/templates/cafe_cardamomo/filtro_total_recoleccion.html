@@ -1,0 +1,45 @@
+<!-- MODAL DE FILTRO LATERAL DERECHO -->
+{% load filtros %}
+
+<div class="modal fade" id="modalFiltro" tabindex="-1" aria-labelledby="modalFiltroLabel" aria-hidden="true">
+    <div class="modal-dialog modal_filtro_personalizado">
+        <div class="modal-content contenido_filtro">
+            <form method="GET">
+                <div class="modal-header d-none"></div> 
+
+                <div class="filtro_titulo text-center fw-bold">Filtrar total de <br>recolecciones</div> <!--título centrado -->
+
+
+                <div class="modal-body text-center cuerpo_filtro">
+                    <!-- Select de año -->
+                    <select name="año" class="form-select mb-3" onchange="this.form.submit()">
+                        <option value="">Todos los años</option>
+                        {% for a in años_disponibles %}
+                            <option value="{{ a }}" {% if a|stringformat:"s" == año %}selected{% endif %}>{{ a }}</option>
+                        {% endfor %}
+                    </select>
+
+                    <!-- Select de mes -->
+                    <select name="mes" class="form-select mb-3">
+                        <option value="">Todos los meses</option>
+                        {% for m in meses_disponibles %}
+                            <option value="{{ m }}" {% if m|stringformat:"s" == mes %}selected{% endif %}>
+                                {{ m|get_nombre_mes }}
+                            </option>
+                        {% endfor %}
+                    </select>
+
+                    <!-- Input de nombre del lote -->
+                    <input type="text" name="lote" class="form-control mb-3"
+                           placeholder="Filtrar por lote"
+                           value="{{ lote }}">
+                </div>
+
+                <div class="modal-footer botones_filtro">
+                    <a href="{% url 'total_de_recoleccion' %}" class="btn boton_limpiar">Limpiar filtro</a>
+                    <button type="submit" class="btn boton_aplicar">Aplicar filtros</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

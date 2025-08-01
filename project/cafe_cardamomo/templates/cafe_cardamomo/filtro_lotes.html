@@ -1,0 +1,35 @@
+<!-- MODAL DE FILTRO LATERAL DERECHO -->
+<div class="modal fade" id="modalFiltro" tabindex="-1" aria-labelledby="modalFiltroLabel" aria-hidden="true">
+    <div class="modal-dialog modal_filtro_personalizado">
+        <div class="modal-content contenido_filtro">
+            <form method="GET">
+                <div class="modal-header d-none"></div> 
+
+                <div class="filtro_titulo text-center fw-bold">Filtrar lotes</div> <!--título centrado -->
+
+                <div class="modal-body text-center cuerpo_filtro">
+                    <input type="number" name="hectareas" class="form-control mb-3"
+                        placeholder="Filtrar por hectáreas"
+                        {% if filtro_hectareas %} value="{{ filtro_hectareas }}" {% endif %}>
+
+                    <select name="tipo_arbusto" class="form-select mb-3">
+                        <option value="">Todos los tipos</option>
+                        <option value="Café" {% if filtro_tipo_arbusto == 'Café' %}selected{% endif %}>Café</option>
+                        <option value="Cardamomo" {% if filtro_tipo_arbusto == 'Cardamomo' %}selected{% endif %}>Cardamomo</option>
+                    </select>
+
+                    <select name="estado" class="form-select">
+                        <option value="">Todos los estados</option>
+                        <option value="Activo" {% if filtro_estado == 'Activo' %}selected{% endif %}>Activo</option>
+                        <option value="Inactivo" {% if filtro_estado == 'Inactivo' %}selected{% endif %}>Inactivo</option>
+                    </select>
+                </div>
+
+                <div class="modal-footer botones_filtro">
+                    <a href="{% url 'gestionar_lote' %}" class="btn boton_limpiar">Limpiar filtro</a>
+                    <button type="submit" class="btn boton_aplicar">Aplicar filtros</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
