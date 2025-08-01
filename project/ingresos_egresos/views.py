@@ -13,6 +13,99 @@ from django.db.models import Q
 from decimal import InvalidOperation
 from inventarios.utils import normalizar_texto, es_numero, parsear_fecha # funciones que se encunetran en utils en la app de inventarios
 
+# Importaciones que se utilizan para realizar al descarga en excel
+import openpyxl # Se utiliza para que permita la descarga de el informe en excel 
+from openpyxl.styles import Font, Alignment, PatternFill, Border, Side # Define los estilos para el excel ya que no soporta css
+from django.http import HttpResponse
+
+from django.template.loader import get_template
+from xhtml2pdf import pisa
+
+def obtener_datos_ingresos_egresos_filtrados(request): # se define una función auxiliar para traer los datos de la funcion que filtra ingresos y egresos
+    _, datos_filtrados, _, _, _, _ = filtrar_ingresos_egresos(request) # lo que hacen los guiones es ignorar lo que trae esta funcion y no necesita 
+    return datos_filtrados # Retorna los datps filtrados
+
+def exportar_ingresos_egresos_excel(request):
+    datos = obtener_datos_ingresos_egresos_filtrados(request)
+
+    wb = openpyxl.Workbook()
+    ws = wb.active
+    ws.title = "Ingresos y Egresos"
+
+    # Estilos
+    titulo_font = Font(bold=True, size=14)
+    encabezado_font = Font(bold=True, color='FFFFFF')
+    encabezado_fill = PatternFill(start_color='3D7A1F', end_color='3D7A1F', fill_type='solid')
+    alineacion = Alignment(horizontal='center', vertical='center')
+    borde = Border(
+        left=Side(style='thin'),
+        right=Side(style='thin'),
+        top=Side(style='thin'),
+        bottom=Side(style='thin')
+    )
+
+    fila_inicio = 15
+    columna_inicio = 3
+
+    ws.merge_cells(start_row=fila_inicio, start_column=columna_inicio, end_row=fila_inicio, end_column=columna_inicio + 5)
+    celda_titulo = ws.cell(row=fila_inicio, column=columna_inicio)
+    celda_titulo.value = "Informe de Ingresos y Egresos"
+    celda_titulo.font = titulo_font
+    celda_titulo.alignment = alineacion
+
+    encabezados = ['ID', 'Documento Admin', 'Nombre Admin', 'Tipo', 'Descripción', 'Fecha', 'Monto']
+    for i, encabezado in enumerate(encabezados):
+        col = columna_inicio + i
+        celda = ws.cell(row=fila_inicio + 2, column=col, value=encabezado)
+        celda.font = encabezado_font
+        celda.fill = encabezado_fill
+        celda.alignment = alineacion
+        celda.border = borde
+
+    for index, item in enumerate(datos):
+        fila_actual = fila_inicio + 3 + index
+        valores = [
+            item.id_transaccion,
+            item.id_admin.id_admin,
+            item.id_admin.nombre,
+            item.tipo,
+            item.descripcion,
+            item.fecha.strftime('%Y-%m-%d'),
+            float(item.monto)
+        ]
+
+        for i, valor in enumerate(valores):
+            celda = ws.cell(row=fila_actual, column=columna_inicio + i, value=valor)
+            celda.alignment = alineacion
+            celda.border = borde
+
+    for col_letra in ['C', 'D', 'E', 'F', 'G', 'H', 'I']:
+        ws.column_dimensions[col_letra].width = 22
+
+    response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+    response['Content-Disposition'] = 'attachment; filename=ingresos_egresos.xlsx'
+    wb.save(response)
+    return response
+
+
+
+
+def exportar_ingresos_egresos_pdf(request):
+    datos = obtener_datos_ingresos_egresos_filtrados(request)
+
+    template_path = 'ingresos_egresos/pdf_ingresos_egresos.html'
+    context = {'datos': datos}
+
+    response = HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = 'attachment; filename="ingresos_egresos.pdf"'
+
+    template = get_template(template_path)
+    html = template.render(context)
+
+    pisa_status = pisa.CreatePDF(html, dest=response)
+    if pisa_status.err:
+        return HttpResponse('Error al generar el PDF', status=500)
+    return response
 
 
 def ingresos_egresos(request):
@@ -257,8 +350,7 @@ def datos_informe_mensual(request):
         }
     })
 
-def informe_mensual (request):
-    return render (request, 'ingresos_egresos/informe_mensual.html')
+
 
 
 

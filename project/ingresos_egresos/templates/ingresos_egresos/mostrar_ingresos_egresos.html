@@ -8,6 +8,8 @@
 
 {% block extra_styles %}
 <link rel="stylesheet" href="{% static 'css/tablas.css' %}">
+<link rel="stylesheet" href="{% static 'cafe_cardamomo/css/informe.css' %}">
+
 <link rel="stylesheet" href="{% static 'css/filtro_lotes.css' %}">
 
 {% endblock %}
@@ -17,6 +19,19 @@ Ingresos y egresos
 {% endblock %}
 
 {% block nav_icons %}
+
+<div class="boton dropdown" title="Descargar datos">
+    <button type="button">
+        <i class="fas fa-download"></i>
+    </button>
+    <div class="dropdown-content">
+        <a href="{% url 'exportar_ingresos_egresos_excel' %}?documento_admin={{ filtro_documento_admin }}&tipo={{ filtro_tipo }}&fecha={{ filtro_fecha }}&monto={{ filtro_monto }}">Excel</a>
+        <a href="{% url 'exportar_ingresos_egresos_pdf' %}?documento_admin={{ filtro_documento_admin }}&tipo={{ filtro_tipo }}&fecha={{ filtro_fecha }}&monto={{ filtro_monto }}">PDF</a>
+    </div>
+    <span>Descargas</span>
+</div>
+
+
 <div class="menu">
     <div class="boton_icono">
         <i class="fa-solid fa-file-lines"></i>

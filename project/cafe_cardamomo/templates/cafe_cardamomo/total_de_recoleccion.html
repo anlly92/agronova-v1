@@ -1,34 +1,51 @@
-{% extends "base_header_2.html" %}
+{% extends "base_header_1.html" %}
 {% load static %}
 {% load humanize %}
 
 
-{% block title %} 
-    <title> Total recolección </title>
+{% block title %}
+<title> Total recolección </title>
 {% endblock %}
 
 {% block extra_styles %}
-    <link rel="stylesheet" href="{% static 'cafe_cardamomo/css/total_recoleccón.css' %}">
+<link rel="stylesheet" href="{% static 'css/tablas.css' %}">
+<link rel="stylesheet" href="{% static 'cafe_cardamomo/css/informe.css' %}">
+<link rel="stylesheet" href="{% static 'css/filtro_lotes.css' %}">
 {% endblock %}
 
+{% block logotipo %}
+Tota recoleccion
+{% endblock %}
 
 {% block nav_icons %}
-    <div class="boton">
-        <button type="button" title="Descargar datos">
-            <i class="fas fa-download"></i>
-            <span>Descargar</span>
-        </button>
-    </div>
 
-    <div class="cerrar-login">
-        <a href="javascript:history.back()" class="acciones" title="Cancelar e ir atrás">✖</a>
-        <span>Salir</span>
+<div class="boton dropdown" title="Descargar datos">
+    <button type="button">
+        <i class="fas fa-download"></i>
+    </button>
+    <div class="dropdown-content">
+        <a href="{% url 'exportar_total_recolecciones_excel' %}?año={{ año }}&mes={{ mes }}&lote={{ lote }}">Excel</a>
+        <a href="{% url 'exportar_total_recolecciones_pdf' %}?año={{ año }}&mes={{ mes }}&lote={{ lote }}">PDF</a>
     </div>
-    
+    <span>Descargas</span>
+</div>
+
+
+
+<div class="boton">
+    <button type="button" title="Cancelar e ir atrás">
+        <a href="javascript:history.back()">✖</a>
+    </button>
+    <span>Salir</span>
+</div>
+
 {%endblock%}
 
 {% block content %}
-    <section>
+{% include "cafe_cardamomo/filtro_total_recoleccion.html" %}
+
+<section class="tabla">
+    <div class="tabla-scroll-wrapper">
         <table>
             <tr>
                 <th>Año</th>
@@ -47,9 +64,17 @@
             {% endfor %}
 
             {% for i in filas_vacias %}
-            <tr><td></td><td></td><td></td><td></td></tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
             {% endfor %}
         </table>
-    </section>
+    </div>
+</section>
 {%endblock%}
-
+{% block script %}
+    <script src="{% static 'cafe_cardamomo/css/informe.js' %}"></script>
+{% endblock %}
