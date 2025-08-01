@@ -1,0 +1,37 @@
+<!-- MODAL DE FILTRO LATERAL DERECHO -->
+<div class="modal fade" id="modalFiltro" tabindex="-1" aria-labelledby="modalFiltroLabel" aria-hidden="true">
+    <div class="modal-dialog modal_filtro_personalizado">
+        <div class="modal-content contenido_filtro">
+            <form method="GET">
+                <div class="modal-header d-none"></div>
+
+                <div class="filtro_titulo text-center fw-bold">Filtrar procesos <br> de producción </div>
+
+                <div class="modal-body text-center cuerpo_filtro">
+                    <input type="number" name="id_empleado" class="form-control mb-3"
+                        placeholder="Documento del empleado" value="{{ filtro_id_empleado }}">
+
+                    <select name="tipo_producto" class="form-select mb-3">
+                        <option value="">Todos los tipos</option>
+                        <option value="Café" {% if filtro_tipo_producto == 'Café' %}selected{% endif %}>Café</option>
+                        <option value="Cardamomo" {% if filtro_tipo_producto == 'Cardamomo' %}selected{% endif %}>Cardamomo</option>
+                    </select>
+
+                    <input type="text" name="descripcion" class="form-control mb-3"
+                        placeholder="Descripción del proceso" value="{{ filtro_descripcion }}">
+
+                    <input type="number" step="any" name="cantidad" class="form-control mb-3"
+                        placeholder="Cantidad exacta (kg)" value="{{ filtro_cantidad }}">
+
+                    <input type="date" name="fecha" class="form-control"
+                        value="{{ filtro_fecha }}">
+                </div>
+
+                <div class="modal-footer botones_filtro">
+                    <a href="{% url 'proceso_de_produccion' %}" class="btn boton_limpiar">Limpiar filtro</a>
+                    <button type="submit" class="btn boton_aplicar">Aplicar filtros</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
