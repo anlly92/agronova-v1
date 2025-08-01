@@ -10,4 +10,5 @@ urlpatterns = [
     path("registrar_ventas/", views.registrar_ventas, name='registrar_ventas'),
     path('<int:seleccion>/editar/', views.actualizar_ventas,   name='actualizar_ventas'),
     path("informe_ventas/", views.informe_ventas, name='informe_ventas'),
+    path("datos_informe_mensual/", views.datos_informe_mensual, name='datos_informe_mensual'),
 ]

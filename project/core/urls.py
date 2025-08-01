@@ -8,6 +8,7 @@ from core import views
 
 urlpatterns = [
     path("", views.mostrar_home, name="home"),
+    path("pantalla_carga", views.pantalla_carga, name="pantalla_carga"),#nueva
     path("login/", auth_views.LoginView.as_view(
             template_name='core/login.html',
             redirect_authenticated_user=True
@@ -27,6 +28,7 @@ urlpatterns = [
     path('crear-evento/', views.crear_evento_google_view, name='crear_evento'),
     path("eliminar-evento/", views.eliminar_evento_google_view, name="eliminar_evento"),
     path('actualizar-evento/', views.actualizar_evento_google_view, name='actualizar_evento'),
+
 
     # --------------------- Recuperar contraseña  ------------------------------
 

@@ -1,0 +1,19 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Cargando...</title>
+    <link rel="stylesheet" href="{% static 'core/css/carga.css' %}">
+    <meta http-equiv="refresh" content="4; url={% url 'login' %}">
+</head>
+<body>
+    <div class="contenedor">
+        <div id="lottie"></div>
+        <h1 class="titulo-cafe">AGRONOVA</h1>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.0/lottie.min.js"></script>
+    <script src="{% static 'core/js/carga.js' %}"></script>
+</body>
+</html>
