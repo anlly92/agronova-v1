@@ -29,17 +29,13 @@
                 <button type="submit"></button>
             </form>
 
-
-
-            <!-- Botón de Filtrar con estilo personalizado -->
-            <div class="contenedor-filtro-boton ms-2 ">
-                <button type="button" class="boton_filtro" data-bs-toggle="modal" data-bs-target="#modalFiltro">
-                    <i class="fas fa-filter fa-lg icono-filtro"></i>
-                </button>
-                <span class="texto-filtro">Filtrar</span>
-            </div>
-
             <div class="acciones">
+                <div class="boton">
+                    <button type="button" data-bs-toggle="modal" data-bs-target="#modalFiltro">
+                        <i class="fas fa-filter fa-lg icono-filtro"></i>
+                    </button>
+                    <span>Filtrar</span>
+                </div>
                 {% block nav_icons %}
                 {%endblock%}
             </div>

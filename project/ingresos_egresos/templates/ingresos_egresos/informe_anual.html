@@ -12,36 +12,36 @@
 <link rel="icon" href="{% static 'favicon.ico' %}" type="image/x-icon">
 {% endblock %}
 
+{% block logotipo %}
+    Informe Anual de Ingresos y Egresos
+{% endblock %}
+
 {% block nav_icons %}
-<div class="acciones">
     <div class="boton">
         <button type="button" id="Calendario" title="Seleccionar año">
             <i class="fas fa-calendar-alt"></i>
-            <span>Año</span>
         </button>
+        <span>Año</span>
     </div>
 
     <div class="boton">
         <button type="button" id="descargarBtn" title="Descargar datos">
             <i class="fas fa-download"></i>
-            <span>Descargar</span>
         </button>
+        <span>Descargar</span>
     </div>
 
-    <div class="cerrar-login">
-        <a href="javascript:history.back()" title="Cancelar e ir atrás">✖</a>
+    <div class="boton salir">
+        <button type="button" title="Cancelar e ir atrás">
+            <a href="javascript:history.back()">✖</a>
+        </button>
         <span>Salir</span>
     </div>
-</div>
 {% endblock %}
 
 {% block content %}
 <section class="contenedor-grafica">
-    <h2>Informe Anual de Ingresos y Egresos</h2>
-
-    <div class="grafica-container">
-        <canvas id="verAnual"></canvas>
-    </div>
+    <canvas id="verAnual"></canvas>
 </section>
 
 <!-- Librería Chart.js -->

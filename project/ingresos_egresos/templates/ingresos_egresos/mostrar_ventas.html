@@ -15,13 +15,14 @@
 {% endblock %}
 
 {% block nav_icons %}
-    <div class="link info">
+    <div class="boton">
         <a href="{% url 'informe_ventas' %}" title="Ver informe de ventas">
             <i class="fa-solid fa-file-lines"></i>
         </a>
         <span>Informes</span>
     </div>
 
+    
     <form action="{% url 'ventas' %}" method="post" class="form-accion">
         {% csrf_token %}
         <input type="hidden" name="elemento" id="elemento_oculto">

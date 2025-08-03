@@ -8,8 +8,8 @@
 
 {% block extra_styles %}
 <link rel="stylesheet" href="{% static 'css/tablas.css' %}">
+<link rel="stylesheet" href="{% static 'cafe_cardamomo/css/informe.css' %}">
 <link rel="stylesheet" href="{% static 'css/filtro_lotes.css' %}">
-
 {% endblock %}
 
 {% block logotipo %}
@@ -17,17 +17,25 @@ Ingresos y egresos
 {% endblock %}
 
 {% block nav_icons %}
-    <div class="menu">
-        <div class="boton_icono info">
+
+<div class="boton dropdown" title="Descargar datos">
+    <button type="button">
+        <i class="fas fa-download"></i>
+    </button>
+    <div class="dropdown-content">
+        <a href="{% url 'exportar_ingresos_egresos_excel' %}?documento_admin={{ filtro_documento_admin }}&tipo={{ filtro_tipo }}&fecha={{ filtro_fecha }}&monto={{ filtro_monto }}">Excel</a>
+        <a href="{% url 'exportar_ingresos_egresos_pdf' %}?documento_admin={{ filtro_documento_admin }}&tipo={{ filtro_tipo }}&fecha={{ filtro_fecha }}&monto={{ filtro_monto }}">PDF</a>
+    </div>
+    <span>Descargas</span>
+</div>
+
+
+<div class="menu boton">
+    <div class="boton">
+        <button>
             <i class="fa-solid fa-file-lines"></i>
-            <span>Informes</span>
-        </div>
-
-        <ul class="submenu">
-            <li><a href="{% url 'informe_anual' %}">Anual</a></li>
-            <li><a href="{% url 'informe_mensual' %}">Mensual</a></li>
-        </ul>
-
+        </button>
+        <span>Informes</span>
     </div>
 
     <ul class="submenu">
@@ -82,31 +90,17 @@ Ingresos y egresos
                     <td><label for="ingreso_egreso{{ item.id_transaccion }}">{{ item.tipo }}</label></td>
                     <td><label for="ingreso_egreso{{ item.id_transaccion }}">{{ item.descripcion }}</label></td>
                     <td><label for="ingreso_egreso{{ item.id_transaccion }}">{{ item.fecha|date:"d/m/Y" }}</label></td>
-                    <td><label for="ingreso_egreso{{ item.id_transaccion }}">{{ item.monto|floatformat:2}}</label></td>
+                    <td><label for="ingreso_egreso{{ item.id_transaccion }}">{{ item.monto|intcomma}}</label></td>
                 </tr>
                     
                 {% endfor %}
+                {% endif %}
 
                 {% for i in filas_vacias %}
                     <tr>
                         <td class="primero"></td><td></td><td></td><td></td><td></td><td></td><td></td>
                     </tr>
                 {% endfor %}
-
-                {% else %}
-                    <tr>
-                        <td colspan="8" style="text-align: center; font-weight: bold; color: #888;">
-                            No se encontraron registros con los filtros aplicados.
-                        </td>
-                        <td><label for="ingreso_egreso{{ item.id_transaccion }}">{{ item.id_transaccion }}</label></td>
-                        <td><label for="ingreso_egreso{{ item.id_transaccion }}">{{ item.id_admin.id_admin }}</label></td>
-                        <td><label for="ingreso_egreso{{ item.id_transaccion }}">{{ item.id_admin.nombre }} {{ item.id_admin.apellido }}</label></td>
-                        <td><label for="ingreso_egreso{{ item.id_transaccion }}">{{ item.tipo }}</label></td>
-                        <td><label for="ingreso_egreso{{ item.id_transaccion }}">{{ item.descripcion }}</label></td>
-                        <td><label for="ingreso_egreso{{ item.id_transaccion }}">{{ item.fecha|date:"d/m/Y" }}</label></td>
-                        <td><label for="ingreso_egreso{{ item.id_transaccion }}">{{ item.monto|floatformat:0|intcomma }}</label></td>
-                    </tr>
-                    {% endif %}
             </table>
     </div>
 </section>

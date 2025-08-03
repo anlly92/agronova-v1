@@ -1,13 +1,155 @@
-from django.shortcuts import render,redirect,get_object_or_404
-from django.db.models import Sum, F, Func, Value, Q # clase que sirve para construir consultas complejas
-from django.db.models.functions import ExtractYear, ExtractMonth
-from .forms import LoteForm, RecoleccionForm, PagosForm
-
-from django.contrib import messages
-from .models import Lote, Recoleccion, Empleado
-
-from decimal import Decimal, InvalidOperation
+from django.shortcuts import render,redirect,get_object_or_404 #obtiene un objeto del modelo, o devuelve un error 404 si no se encuentra.
+from django.db.models import Sum, F, Q # sumar, referenciar campos del modelo, clase que sirve para construir consultas complejas
+from .forms import LoteForm, RecoleccionForm, PagosForm # formularios importados desde la  misma app
+from django.contrib import messages #mensajes de exito y error
+from .models import Lote, Recoleccion, Empleado # modelos utilizados en las consultas
+from decimal import Decimal, InvalidOperation ##excepcion que se lanza si hay error al convertir un string a decimal
 from inventarios.utils import normalizar_texto, es_numero, parsear_fecha # funciones que se encunetran en utils en la app de inventarios
+
+from django.http import HttpResponse # devuelve una respuesta http personalizada como un archivo excel o pdf descaegable 
+
+import openpyxl # para generar documentos excel
+from django.template.loader import get_template # carga una plantilla html para convertir a pdf o excel
+from openpyxl.styles import Font, Alignment, PatternFill, Border, Side # estilos para exce, funete, alineacion de texto, relleno, bordes
+from xhtml2pdf import pisa # para generar pdf desde html y css
+from django.db.models.functions import ExtractYear, ExtractMonth # para extraer partes de fechas en concultas 
+
+
+def obtener_datos_recoleccion_filtrados(request):
+    año = request.GET.get("año")
+    mes = request.GET.get("mes")
+    lote = request.GET.get("lote", "").strip().lower() # bloque que toma los parametros enviados desde el formulario Get
+
+    recolecciones = Recoleccion.objects.all() # obtiene todsos los registros del modelo
+
+    # Solo filtrar si año y mes son números válidos y numericos 
+    if año and año.isdigit():
+        recolecciones = recolecciones.filter(fecha__year=int(año))
+    if mes and mes.isdigit():
+        recolecciones = recolecciones.filter(fecha__month=int(mes))
+    if lote:
+        recolecciones = recolecciones.filter(id_lote__nombre__icontains=lote)
+
+    consulta_total = (
+        recolecciones
+        .annotate(
+            año=ExtractYear('fecha'),
+            mes=ExtractMonth('fecha'),
+            nombre_lote=F('id_lote__nombre')
+        )
+        .values('año', 'mes', 'nombre_lote')
+        .annotate(total_kilos=Sum('kilos'))
+        .order_by('-año', '-mes')
+    )# bloque que agrupa y resume la informacion por año, mes y lote, calcula el total de kilos y devuelve una lista de diccionarios 
+    return consulta_total 
+
+
+def exportar_total_recolecciones_excel(request):
+    datos = obtener_datos_recoleccion_filtrados(request)  # usa los filtros del GET,es decir obtiene los datos filtrados segun la solicitud
+
+    wb = openpyxl.Workbook() # crea una nueva hora de excel
+    ws = wb.active
+    ws.title = "Total Recolección" # tituilo de la hora de excel
+
+    # Estilos
+    titulo_font = Font(bold=True, size=14) # estilo titulo dle informe
+    encabezado_font = Font(bold=True, color='FFFFFF') # asegura que el texto sea visible en un fondo blanco 
+    encabezado_fill = PatternFill(start_color='3D7A1F', end_color='3D7A1F', fill_type='solid') #  Sirve para resaltar visualmente los encabezados de la tabla.
+
+    alineacion_centrada = Alignment(horizontal='center', vertical='center') # alinea el contenido de la celdas, horizontal y verticalmente 
+    borde = Border(
+        left=Side(style='thin'),
+        right=Side(style='thin'),
+        top=Side(style='thin'),
+        bottom=Side(style='thin')
+    ) # define borde para todas las celdas, para la representacion de tipo tabla
+
+    fila_inicio = 15 # inicio desde donde se escriben los datos 
+    columna_inicio = 5 # inicio 
+
+    ws.merge_cells(start_row=fila_inicio, start_column=columna_inicio, end_row=fila_inicio, end_column=columna_inicio + 3) #une varias celdas en una sola para que el titulo ocupe varias columnas
+    celda_titulo = ws.cell(row=fila_inicio, column=columna_inicio) #seleccional aprimera celda del rango combinado para poner el titulo
+    celda_titulo.value = "Informe de Recolecciones" # se establece el titulo que aparecera en al hoja 
+    celda_titulo.font = titulo_font # aplica el estilo que se definio antes
+    celda_titulo.alignment = alineacion_centrada # centra horizontalmente l titulo dentro d ela ceda combinada
+
+    encabezados = ['Año', 'Mes', 'Nombre del lote', 'Total de kilos recolectados']
+    for i, encabezado in enumerate(encabezados): # itera sobre la lista de encabezdos 
+        col = columna_inicio + i# calcula la columna de inicio de donde se colocan los enacabezados (ejm:5,6,7)
+        celda = ws.cell(row=fila_inicio + 2, column=col, value=encabezado)#Crea una celda en la fila donde van los encabezados, dos filas debajo del título principal y pone el texto, año, mes 
+        celda.font = encabezado_font #aplica estilos definidos anteriormete
+        celda.fill = encabezado_fill
+        celda.alignment = alineacion_centrada
+        celda.border = borde
+
+    for index, fila in enumerate(datos):# lista de diccionarios obtenidos
+        fila_actual = fila_inicio + 3 + index # espacio entre el titulo, los encabezados y los registros y se suma idex para avanzar a ala siguiente fila en acda iteracion
+        ws.cell(row=fila_actual, column=columna_inicio, value=fila["año"])  # pone los valores en cada columna segun corresponda el dato 
+        ws.cell(row=fila_actual, column=columna_inicio + 1, value=fila["mes"])
+        ws.cell(row=fila_actual, column=columna_inicio + 2, value=fila["nombre_lote"])
+        ws.cell(row=fila_actual, column=columna_inicio + 3, value=round(fila["total_kilos"] or 0))
+
+        for col in range(columna_inicio, columna_inicio + 4):# recorre 4 columnasque comiences desde inicio 
+            celda = ws.cell(row=fila_actual, column=col) # obtiene la celda en la fila actual y en la columna
+            celda.alignment = alineacion_centrada # alinea el cntenido
+            celda.border = borde #aplica borde alrededor de la celda 
+
+    for col_letra in ['E', 'F', 'G', 'H']:
+        ws.column_dimensions[col_letra].width = 22 # ajusta el ancho de las columnas 
+
+    response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet') # prepara la respuesta http cpon excel y  crea la respuesta  con el tipo de contenido propio de archivos excel 
+    response['Content-Disposition'] = 'attachment; filename=informe_recolecciones.xlsx' # indica al navegador que debe descargar el archivo no abrirlo en el navegador 
+    wb.save(response)#guarda el libro excel directamente en el response, es decir lo escribe como si fuer aun archivo
+    return response # devuelve el archivo como respuesta 
+
+
+def exportar_total_recolecciones_pdf(request):
+    datos = obtener_datos_recoleccion_filtrados(request)  # se llama a al funcion que filtra los datos que estan almeacenados 
+
+    template_path = 'cafe_cardamomo/pdf_total_recoleccion.html' #Especifica qué plantilla HTML usar para generar el contenido del PDF.
+    context = {'total_recoleccion': datos}#Crea un diccionario con los datos que serán enviados a la plantilla.
+    
+    response = HttpResponse(content_type='application/pdf') #Inicia una respuesta HTTP indicando que será un archivo PDF.
+    response['Content-Disposition'] = 'attachment; filename="total_recoleccion.pdf"' #attachment fuerza la descarga del archivo y se define el nombre que vera el usuario 
+
+    template = get_template(template_path) #Carga la plantilla y la renderiza con los datos enviados.
+    html = template.render(context)
+
+    pisa_status = pisa.CreatePDF(html, dest=response)# Usa xhtml2pdf (Pisa) para convertir el HTML renderizado en PDF y se guarda directamente en la respuesta
+    if pisa_status.err:
+        return HttpResponse('Error al generar el PDF', status=500) #Si hubo un error al generar el PDF, devuelve un mensaje con error 500.
+    return response
+
+
+def total_de_recoleccion(request):
+    consulta_total_recoleccion = obtener_datos_recoleccion_filtrados(request)
+    
+    año = request.GET.get("año")
+    mes = request.GET.get("mes")
+    lote = request.GET.get("lote", "").strip().lower()
+
+    años_disponibles = Recoleccion.objects.annotate(a=ExtractYear('fecha')).values_list('a', flat=True).distinct().order_by('-a')
+    meses_disponibles = Recoleccion.objects.annotate(
+        y=ExtractYear('fecha'),
+        m=ExtractMonth('fecha')
+    )
+    if año:
+        meses_disponibles = meses_disponibles.filter(fecha__year=año)
+    meses_disponibles = meses_disponibles.values_list('m', flat=True).distinct().order_by('m')
+
+    cantidad_filas_vacias = 15 - consulta_total_recoleccion.count()
+
+    contexto = {
+        'total_recoleccion': consulta_total_recoleccion,
+        'filas_vacias': range(cantidad_filas_vacias),
+        'año': año,
+        'mes': mes,
+        'lote': lote,
+        'años_disponibles': años_disponibles,
+        'meses_disponibles': meses_disponibles,
+    }
+    return render(request, 'cafe_cardamomo/total_de_recoleccion.html', contexto)
+
 
 #Vistas para la gestion de los lotes 
 def gestionar_lote(request):
@@ -274,18 +416,5 @@ def registrar_pago (request):
 
     return render (request, 'cafe_cardamomo/registrar_pago.html', {'form': form})
 
-def total_de_recoleccion (request):
-    consulta_total_recoleccion = (
-        Recoleccion.objects
-        .annotate(  # agrega campos adicionales calculados a cada fila antes de agrupar o contar
-            año=ExtractYear('fecha'),
-            mes=ExtractMonth('fecha'),
-            nombre_lote=F('id_lote__nombre')
-        )
-        .values('año', 'mes', 'nombre_lote')
-        .annotate(total_kilos=Sum('kilos'))
-        .order_by('-año', '-mes')
-    )
 
-    cantidad_filas_vacias = 15 - consulta_total_recoleccion.count()
-    return render (request, 'cafe_cardamomo/total_de_recoleccion.html', {'total_recoleccion': consulta_total_recoleccion,'filas_vacias': range(cantidad_filas_vacias)})
+

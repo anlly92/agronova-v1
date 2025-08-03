@@ -77,13 +77,14 @@ Gestionar personal
                         </label></td>
                 </tr>
                 {% endfor %}
-                {% else %}
-                <tr>
-                    <td colspan="6" style="text-align: center; font-weight: bold; color: #888; border:none">
-                        No se encontraron registros con los filtros aplicados. <!--para que muestre esto si no se encuentran los filtros buscados-->
-                    </td>
-                </tr>
                 {% endif %}
+                
+                {% for i in filas_vacias %}
+                    <tr>
+                        <td class="primero"></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                    </tr>
+                {% endfor %}
+                
 
 
 

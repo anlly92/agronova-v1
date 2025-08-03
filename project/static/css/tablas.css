@@ -26,8 +26,8 @@ main.contenedor-tabla {
 
 .acciones a:hover,
 .acciones button:hover{
-    transform: scale(1.1);
-    color: #000;
+    transform: scale(1.2);
+
 }
 
 .link,.boton{

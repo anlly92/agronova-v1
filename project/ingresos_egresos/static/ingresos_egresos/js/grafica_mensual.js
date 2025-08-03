@@ -31,7 +31,16 @@ document.addEventListener('DOMContentLoaded', function () {
         return;
     }
 
+    function obtenerNombreMes(numeroMes) {
+        const nombresMeses = [
+            'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
+            'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'
+        ];
+        return nombresMeses[numeroMes - 1];
+    }
+
     function cargarGrafica(mes = (new Date().getMonth() + 1).toString(), anio = new Date().getFullYear().toString()) {
+        const nombreMes = obtenerNombreMes(mes);
         console.log(`Cargando gráfica para mes: ${mes}, año: ${anio}`);
 
         // Validación de mes y año
@@ -91,6 +100,16 @@ document.addEventListener('DOMContentLoaded', function () {
                     },
                     options: {
                         responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            title: {
+                                display: true,
+                                text: `Ingresos y Egresos - ${nombreMes} ${anio}`,
+                                font: {
+                                    size: 18
+                                }
+                            }
+                        },
                         scales: {
                             y: {
                                 beginAtZero: true,
@@ -234,19 +253,34 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     // Soporte para el botón #descargarBtn
-    if (btnDescargar) {
-        btnDescargar.addEventListener('click', () => {
-            if (!chart) {
-                alert('No hay gráfica para descargar.');
-                return;
-            }
-            const link = document.createElement('a');
-            link.href = canvas.toDataURL('image/png');
-            const mes = selectMes.value || new Date().getMonth() + 1;
-            const anio = selectAnio.value || new Date().getFullYear();
-            link.download = `grafica_mensual_${mes}_${anio}.png`;
-            link.click();
-        });
-        console.log('Evento click asignado al botón descargarBtn');
-    }
+if (btnDescargar) {
+    btnDescargar.addEventListener('click', () => {
+        if (!chart) {
+            alert('No hay gráfica para descargar.');
+            return;
+        }
+
+        // Crear canvas temporal con fondo blanco
+        const tempCanvas = document.createElement('canvas');
+        const tempCtx = tempCanvas.getContext('2d');
+        tempCanvas.width = canvas.width;
+        tempCanvas.height = canvas.height;
+
+        // Fondo blanco
+        tempCtx.fillStyle = '#ffffff';
+        tempCtx.fillRect(0, 0, tempCanvas.width, tempCanvas.height);
+
+        // Copiar gráfico encima
+        tempCtx.drawImage(canvas, 0, 0);
+
+        // Descargar imagen
+        const link = document.createElement('a');
+        link.href = tempCanvas.toDataURL('image/png');
+        const mes = selectMes.value || new Date().getMonth() + 1;
+        const anio = selectAnio.value || new Date().getFullYear();
+        link.download = `grafica_mensual_${mes}_${anio}.png`;
+        link.click();
+    });
+    console.log('Evento click asignado al botón descargarBtn');
+}
 });

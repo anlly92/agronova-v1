@@ -10,75 +10,6 @@ h2 {
     font-size: 40px;
 }
 
-/* Contenedor de la gráfica */
-.grafica-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    max-width: 1000px;
-    min-height: 600px;
-    margin: 0 auto;
-    position: relative;
-}
-
-/* Contenedor general de los íconos, alineado a la derecha */
-.acciones {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    gap: 40px;
-}
-
-/* Cada botón/icono */
-.boton,
-.cerrar-login {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-}
-
-/* Íconos uniformes */
-.boton i,
-.cerrar-login a {
-    font-size: 30px;
-    color: #ffffff;
-    /* Cambia si deseas otro color */
-}
-
-/* Iconos visualmente uniformes */
-.acciones i {
-    font-size: 24px;
-    /* tamaño uniforme */
-    color: #ffffff;
-}
-
-/* Estilo para los botones de la gráfica */
-.acciones button {
-    border: none;
-    background-color: transparent;
-    font-size: 20px;
-    cursor: pointer;
-}
-
-/* Texto debajo del ícono */
-.boton span,
-.cerrar-login span {
-    font-size: 20px;
-    color: #ffffff;
-    font-weight: bold;
-}
-
-/* Quitar decoración del botón de salir */
-.cerrar-login a {
-    text-decoration: none;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
 /* Estilo para la ventana del calendario */
 .ventana-calendario {
     position: fixed;
@@ -148,18 +79,19 @@ h2 {
 
 /* Estilo para la gráfica anual */
 #verAnual {
-    width: 100% !important;
-    max-height: 600px;
+    width: 80% !important;
+    height: 600px !important;
     display: block;
-    margin: 0 auto;
+    margin: 70px auto;
     background-color: #ffffff !important;
 }
 
 /* Estilo para la gráfica mensual */
 #verMensual {
-    width: 100% !important;
-    max-height: 600px;
-    margin: 0 auto;
+    width: 80% !important;
+    height: 600px !important;
+    display: block;
+    margin: 70px auto;
     background-color: #ffffff !important;
 }
 

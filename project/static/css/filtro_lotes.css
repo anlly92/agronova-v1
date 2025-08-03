@@ -1,16 +1,20 @@
+
 /* Posición ajustada para que empiece debajo del header */
 .modal_filtro_personalizado {
     position: fixed;
-    top: 110px; 
+    top: 9.8%; 
     right: 0;
-    left: 200;
     height: 96vh;
-    margin: 0;
-    width: 25%;
+    width: 400px;
     max-width: 100%;
-    transform: none !important;
+    box-shadow: -2px 0 6px rgba(0, 0, 0, 0.2);
+    z-index: 1050;
 }
 
+.main-content {
+    max-width: calc(100vw - 400px);  /* Evita que el contenido + filtro excedan el ancho total */
+    overflow-x: auto;
+}
 /* Contenedor del modal */
 .contenido_filtro {
     height: 100%;
@@ -18,9 +22,10 @@
     overflow-y: auto;
 }
 
-/* Fondo oscuro transparente */
+/* Fondo oscuro transparente */ 
 .modal-backdrop.show {
     opacity: 0;
+    display: none;
 }
 
 /* Título personalizado */
@@ -38,7 +43,8 @@
     color: #333;
 }
 
-.cuerpo_filtro input, select{
+.cuerpo_filtro input, 
+.cuerpo_filtro select{
     font-size: 16px; 
     font-weight: bold;         /* Tamaño del texto dentro del campo */
     padding: 10px 12px;       /* Aumenta el alto del campo */

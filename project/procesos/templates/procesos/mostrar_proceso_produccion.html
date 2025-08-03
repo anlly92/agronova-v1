@@ -43,13 +43,13 @@ Producción <br> Café y Cardamomo
                 <td>{{ item.fecha|date:"d/m/Y" }}</td>
             </tr>
             {% endfor %}
-            {% else %}
-            <tr>
-                <td colspan="7" style="text-align: center; font-weight: bold; color: #888;">
-                    No se encontraron registros con los filtros aplicados.
-                </td>
-            </tr>
             {% endif %}
+
+            {% for i in filas_vacias %}
+                <tr>
+                    <td class="primero"></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                </tr>
+            {% endfor %}
         </table>
     </div>
 </section>
