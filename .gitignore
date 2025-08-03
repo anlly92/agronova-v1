@@ -311,5 +311,5 @@ $RECYCLE.BIN/
 # End of https://www.toptal.com/developers/gitignore/api/django,python,visualstudiocode,windows
 
 
-project/token.json
-project/core/credentials.json
+ptoken.json
+core/credentials.json
