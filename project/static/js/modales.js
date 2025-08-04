@@ -30,6 +30,7 @@ document.addEventListener("DOMContentLoaded", () => {
     btnEnviar.addEventListener("click", () => {
       /* formulario.checkValidity() funciona en *cualquier* formulario con HTML5  */
       if (formulario.checkValidity()) {
+        
         /* a) Hay modalConfirmar ⇒ ventana “¿Estás seguro?” */
         if (modalConfirmar) {
           modalConfirmar.show();
@@ -52,8 +53,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       /* Esperamos transición, luego modal de éxito si existe */
       setTimeout(() => {
-        if (modalExito) modalExito.show();
-        setTimeout(() => formulario.submit(), 1000);// <‑‑ finalmente se envía
+        formulario.submit();// <‑‑ finalmente se envía
       }, 400);
     });
   }

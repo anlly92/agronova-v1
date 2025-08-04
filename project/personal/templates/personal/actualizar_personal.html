@@ -43,13 +43,13 @@
                 <div class="botones">
                     <i class="fas fa-phone"></i>
                     <label for="numero_telefonico">Numero telefonico</label>
-                    <input  type="tell" name="telefono" id="telefono" value="{{empleado.telefono}}" placeholder="Numero telefonico"  />
+                    <input  type="tell" name="telefono" id="telefono" value="{{empleado.telefono}}" placeholder="Numero telefonico"  required/>
                 </div>
 
                 <div class="botones">
                     <i class="fas fa-users icono"></i>
                     <label for="tipo_empleado">Tipo</label>
-                    <select name="tipo_empleado" id="tipo_empleado">
+                    <select name="tipo_empleado" id="tipo_empleado" required>
                         <option value="" disabled {% if not empleado.tipo_empleado %}selected{% endif %}>Selecciona una opción</option>
                         <option value="Vinculado" {% if empleado.tipo_empleado == "Vinculado" %}selected{% endif %}>Vinculado</option>
                         <option value="No Vinculado" {% if empleado.tipo_empleado == "No Vinculado" %}selected{% endif %}>No Vinculado</option>
@@ -60,7 +60,7 @@
                 <div class="botones">
                     <i class="fas fa-dollar-sign"></i>
                     <label for="pago_por_contrato">Pago por contrato</label>
-                    <input id="pago_contrato" name="pago_contrato" type="number"  min="0" value="{{ empleado.pago_contrato|floatformat:0 }}" placeholder="Pago por contrato"/>
+                    <input id="pago_contrato" name="pago_contrato" type="number"  min="0" value="{{ empleado.pago_contrato|floatformat:0 }}" placeholder="Pago por contrato" />
                 </div>
 
                 <button class="boton" type="button" id="btnEnviar"><i class="fas fa-sign-out-alt"></i>

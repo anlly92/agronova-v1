@@ -7,6 +7,7 @@
 
 {% block extra_styles %}
 <link rel="stylesheet" href="{% static 'css/tablas.css' %}">
+<link rel="stylesheet" href="{% static 'css/filtro_lotes.css' %}">
 {% endblock %}
 
 {% block logotipo %}
@@ -14,72 +15,75 @@ Agroquímicos
 {% endblock %}
 
 {% block nav_icons %}
-    <form action="{% url 'inventario_agroquimicos' %}" method="post" class="form-accion">
-        {% csrf_token %}
-        <input type="hidden" name="elemento" id="elemento_oculto">
+<form action="{% url 'inventario_agroquimicos' %}" method="post" class="form-accion">
+    {% csrf_token %}
+    <input type="hidden" name="elemento" id="elemento_oculto">
 
-        <div class="link" title="Editar">
-            <button type="submit" name="accion" value="editar" class="boton-actualizar">
-                <i class="fas fa-arrows-rotate"></i>
-            </button>
-            <span>Actualizar</span>
-        </div>
-        <div class="boton">
-            <button type="submit" name="accion" value="borrar" title="Eliminar"
-                    onclick="return confirm('¿Eliminar administrador?');">
-                <i class="fas fa-trash"></i>
-            </button>
-            <span>Eliminar</span>
-        </div>
-    </form>
+    <div class="link" title="Editar">
+        <button type="submit" name="accion" value="editar" class="boton-actualizar">
+            <i class="fas fa-arrows-rotate"></i>
+        </button>
+        <span>Actualizar</span>
+    </div>
+    <div class="boton">
+        <button type="submit" name="accion" value="borrar" title="Eliminar"
+            onclick="return confirm('¿Eliminar administrador?');">
+            <i class="fas fa-trash"></i>
+        </button>
+        <span>Eliminar</span>
+    </div>
+</form>
 {%endblock%}
 
 {% block content %}
-    <section class="tabla">
-        <div class="tabla-scroll-wrapper">
-            <form action="{% url 'inventario_agroquimicos' %}" method="post" >
-                {% csrf_token %}
-                <table>
-                    <tr>
-                        <th class="primero"></th>
-                        <th>Código inventario</th>
-                        <th>Nombre del agroquímico</th>
-                        <th>Descripción del agroquímico</th>
-                        <th>Contenido</th>
-                        <th>Unidad de medida</th>
-                        <th>Stock</th>
-                    </tr>
+{% include "inventarios/filtro_inventario_agroquimicos.html" %}
 
-                    {% for item in agroquimicos %}
-                    <tr class="radio-fila">
-                        <td class="primero"> 
-                            <input  type="radio"
-                                name="elemento"
-                                id="agroquimicos{{ item.id_inventario }}"
-                                value="{{ item.id_inventario }}"
-                                required>
-                        </td>
-                        <td><label for="agroquimicos{{ item.id_inventario }}">{{ item.id_inventario }}</label></td>
-                        <td><label for="agroquimicos{{ item.id_inventario }}">{{ item.nombre }}</label></td>
-                        <td><label for="agroquimicos{{ item.id_inventario }}">{{ item.descripcion }}</label></td>
-                        <td><label for="agroquimicos{{ item.id_inventario }}">{{ item.contenido }}</label></td>
-                        <td><label for="agroquimicos{{ item.id_inventario }}">{{ item.unidad }}</label></td>
-                        <td><label for="agroquimicos{{ item.id_inventario }}">{{ item.stock|floatformat:0 }}</label></td>
-                    </tr>
-                    {% endfor %}
+<section class="tabla">
+    <div class="tabla-scroll-wrapper">
+        <form action="{% url 'inventario_agroquimicos' %}" method="post">
+            {% csrf_token %}
+            <table>
+                <tr>
+                    <th class="primero"></th>
+                    <th>Código inventario</th>
+                    <th>Nombre del agroquímico</th>
+                    <th>Descripción del agroquímico</th>
+                    <th>Contenido</th>
+                    <th>Unidad de medida</th>
+                    <th>Stock</th>
+                </tr>
 
-                    {% for i in filas_vacias %}
+                {% if agroquimicos %}
+                {% for item in agroquimicos %}
+                <tr class="radio-fila">
+                    <td class="primero">
+                        <input type="radio" name="elemento" id="agroquimicos{{ item.id_inventario }}"
+                            value="{{ item.id_inventario }}" required>
+                    </td>
+                    <td><label for="agroquimicos{{ item.id_inventario }}">{{ item.id_inventario }}</label></td>
+                    <td><label for="agroquimicos{{ item.id_inventario }}">{{ item.nombre }}</label></td>
+                    <td><label for="agroquimicos{{ item.id_inventario }}">{{ item.descripcion }}</label></td>
+                    <td><label for="agroquimicos{{ item.id_inventario }}">{{ item.contenido }}</label></td>
+                    <td><label for="agroquimicos{{ item.id_inventario }}">{{ item.unidad }}</label></td>
+                    <td><label for="agroquimicos{{ item.id_inventario }}">{{ item.stock|floatformat:0 }}</label></td>
+                </tr>
+                {% endfor %}
+                {% endif %}
+
+                {% for i in filas_vacias %}
                     <tr>
                         <td class="primero"></td><td></td><td></td><td></td><td></td><td></td><td></td>
                     </tr>
-                    {% endfor %}
-                </table>
-            </form>
-        </div>
-    </section>
+                {% endfor %}
+                
 
-    <div class="ingresar">
-        <a href="{% url 'registrar_inventario_agroquimicos' %}" class="agregar-btn">+</a>
-        <span class="agregar-texto">Agregar</span>
+            </table>
+        </form>
     </div>
+</section>
+
+<div class="ingresar">
+    <a href="{% url 'registrar_inventario_agroquimicos' %}" class="agregar-btn">+</a>
+    <span class="agregar-texto">Agregar</span>
+</div>
 {% endblock %}

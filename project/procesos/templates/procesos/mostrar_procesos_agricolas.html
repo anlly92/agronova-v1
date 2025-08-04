@@ -7,6 +7,8 @@
 
 {% block extra_styles %}
 <link rel="stylesheet" href="{% static 'css/tablas.css' %}">
+<link rel="stylesheet" href="{% static 'css/filtro_lotes.css' %}">
+
 {% endblock %}
 
 {% block logotipo %}
@@ -15,6 +17,9 @@ Procesos Agrícolas
 
 
 {% block content %}
+
+{% include "procesos/filtro_proceso_agricola.html" %}
+
 <section class="tabla">
     <div class="tabla-scroll-wrapper">
         <table>
@@ -30,6 +35,7 @@ Procesos Agrícolas
                 <th>Cantidad agroquímico</th>
                 <th>Fecha de registro</th>
             </tr>
+            {% if proceso_agricola %}
 
             {% for item in proceso_agricola %}
             <tr>
@@ -45,21 +51,14 @@ Procesos Agrícolas
                 <td>{{ item.fecha|date:"d/m/Y"}}</td>
             </tr>
             {% endfor %}
+            {% endif %}
 
             {% for i in filas_vacias %}
-            <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-            </tr>
+                <tr>
+                    <td class="primero"></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                </tr>
             {% endfor %}
+            
         </table>
     </div>
 </section>
@@ -68,4 +67,10 @@ Procesos Agrícolas
     <a href="{% url 'registrar_procesos_agricolas' %}" class="agregar-btn">+</a>
     <span class="agregar-texto">Agregar</span>
 </div>
+{% endblock %}
+
+{% block extra_scripts %}
+{% if mostrar_modal %}
+<script src="{% static 'js/modal_auto_show.js' %}"></script>
+{% endif %}
 {% endblock %}

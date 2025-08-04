@@ -9,4 +9,10 @@ urlpatterns = [
     path("registrar_recoleccion/", views.registrar_recoleccion, name='registrar_recoleccion'),
     path("registrar_pago/", views.registrar_pago, name='registrar_pago'),
     path("total_de_recoleccion/", views.total_de_recoleccion, name='total_de_recoleccion'),
+    path('exportar_total_recolecciones_excel/', views.exportar_total_recolecciones_excel, name='exportar_total_recolecciones_excel'),
+    path('exportar_total_recolecciones_pdf/', views.exportar_total_recolecciones_pdf, name='exportar_total_recolecciones_pdf'),
+
 ]
+
+
+

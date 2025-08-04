@@ -214,22 +214,15 @@ main {
 .informe-mensual,
 .calendario {
     display: block;
-    height: 400px;
+    padding-bottom: 15px;
 }
 
 .informe-mensual img {
     width: 500px;
     height: 300px;
-    border-radius: 10px;
-    box-shadow: 0 0 30px #000;
+    padding-top: 35px;
 }
 
-.calendario img {
-    width: 400px;
-    height: 300px;
-    border-radius: 10px;
-    box-shadow: 0 0 30px #000;
-}
 
 .finanzas {
     width: 170px;
@@ -253,4 +246,134 @@ main {
 
 .panel-trabajo {
     display: block;
+}
+
+#calendario-js {
+    box-sizing: border-box;
+    background-color: transparent;
+    padding: 10px;
+    font-family:  sans-serif;
+    height: 100%;
+    width: 420px;
+    overflow: hidden;
+    padding-bottom: 0;
+}
+
+#calendario-js *{
+    color: #fff;
+}
+
+#calendario-js .fc-daygrid-day-frame {
+    min-height: 15px;
+    height: 15px;
+    max-height: 15px;
+}
+
+
+#calendario-js .fc-daygrid-day.fc-day-today {
+    background: transparent !important;
+}
+
+#calendario-js .fc-day-today .fc-daygrid-day-number {
+    width: 40px;
+    height: 30px;
+    margin: auto;
+    background-color: #00860440;
+    padding-bottom: 2px;
+}
+
+
+#calendario-js .fc-daygrid-event {
+    width: 20px;
+    background-color: #4CAF50 !important;
+    margin: auto;
+    border-radius:  4px;
+}
+
+.custom-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+    font-weight: bold;
+}
+
+.custom-title {
+    flex: 1;
+    text-align: center;
+    font-size: 22px;
+    text-shadow: 0 0 5px #000;
+}
+
+.custom-header button {
+    background: transparent;
+    border: none;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.fc-theme-standard td,
+.fc-theme-standard th,
+.fc-scrollgrid,
+.fc-scrollgrid-section,
+.fc-scrollgrid-sync-table {
+    border: none !important;
+}
+
+.fc .fc-col-header-cell {
+    text-align: center;
+    padding-bottom: 20px;
+}
+
+.fc .fc-daygrid-day-top {
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    height: 100%;
+    padding: 0;
+}
+
+.fc .fc-daygrid-day-frame {
+    padding: 0;
+}
+
+.fc .fc-daygrid-day-number {
+    float: none;
+    margin: 0 auto;
+    text-align: center;
+    display: block;
+}
+
+.fc-scroller {
+    overflow-y: hidden !important;
+}
+
+.fc-event-time,
+.fc-daygrid-event-dot,
+.fc-event-title{
+    display: none !important;
+}
+
+.boton-agregar-tarea,
+.boton-eliminar-tarea,
+.boton-actualizar-tarea {
+    background-color: transparent;
+    border: none;
+    color: #fff;
+    font-size: 20px;
+    padding: 0 10px;
+}
+
+.boton-agregar-tarea{
+    font-size: 35px;
+}
+
+.botones{
+    align-items: center;
+    justify-content:start;
+    display: flex;
+    padding: 0;
+    padding-left:15px;
+    margin: 0;
 }

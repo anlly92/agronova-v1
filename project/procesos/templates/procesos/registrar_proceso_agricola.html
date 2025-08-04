@@ -29,6 +29,18 @@
         {% csrf_token %}
         <fieldset class="encabezado">
             <legend>Proceso Agricola</legend>
+
+            {% if form.non_field_errors %}
+                <div class="alert alert-danger">
+                    {{ form.non_field_errors }}
+                </div>
+            {% endif %}
+
+            {% if form.cantidad.errors %}
+                <div class="text-danger small">
+                    {{ form.cantidad.errors.0 }}
+                </div>
+            {% endif %}
             
             <div class="botones">
                 <i class="fas fa-key"></i>

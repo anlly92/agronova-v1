@@ -15,7 +15,6 @@
     font-size: 4rem; /* Tamaño grande para destacar el título */
     font-weight: bold; /* Texto en negrita */
     margin-bottom: 20px; /* Espacio inferior respecto al siguiente elemento */
-    margin-top: 100px; /* Espacio para la barra de navegación */
     background: linear-gradient(45deg, #4b7510, #6eeb6e, #4b7510); /* Fondo en degradado diagonal */
     -webkit-background-clip: text; /* Clip del fondo al texto en navegadores WebKit */
     -webkit-text-fill-color: transparent; /* Hace el texto transparente para mostrar el fondo */
@@ -26,9 +25,9 @@
 
 
 .subtitulo-portada {
-    font-size: 1.8rem; /* Tamaño mediano */
-    line-height: 1.7; /* Altura de línea para mejorar la legibilidad */
-    margin-bottom: 36px; /* Espacio inferior */
+    font-size: 1.6rem; /* Tamaño mediano */
+    line-height: 1.6; /* Altura de línea para mejorar la legibilidad */
+    margin-bottom: 30px; /* Espacio inferior */
     color: #e8f5e8; /* Color verde claro */
     text-shadow: 1px 1px 3px rgba(0,0,0,0.7); /* Sombra para hacer el texto legible sobre fondo oscuro */
     animation: fadeInUp 1s ease-out 0.3s both; /* Animación de entrada con retraso de 0.3 segundos */
@@ -38,8 +37,7 @@
 .boton-video {
     background: linear-gradient(45deg, #4a7c59, #228B22, #495e31); /* Degradado verde en diagonal */
     color: white; /* Texto blanco */
-    margin-top: 20px; /* Espacio superior */
-    margin-bottom: 60px;
+    margin-top: 50px; /* Espacio superior */
     padding: 15px 40px; /* Relleno interno horizontal y vertical */
     font-size: 18px; /* Tamaño del texto */
     font-weight: bold; /* Texto en negrita */
@@ -69,12 +67,6 @@
     color: white; /* Color del icono o texto */
     animation: bounce 2s infinite; /* Animación de rebote infinita cada 2 segundos */
 }
-
-.indicador-desplazamiento i {
-    color: #f0f8f0;
-}
-
-
 
 .contenedor-video video {
     width: 100%;
@@ -235,7 +227,6 @@
     transition: all 0.3s ease;
 }
 
-
 .contenido-con-imagen:hover .contenedor-texto h2 {
     color: #8fff8f;
     text-shadow: 2px 2px 12px rgba(0,0,0,0.8);
@@ -258,238 +249,149 @@
     transform: translateY(-1px);
 }
 
-
-
-.fila-contenedores {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    justify-content: center;
-    align-items: stretch;
-    gap: 32px;
-}
-.contenido-con-imagen {
-    flex: 1 1 320px;
-    max-width: 340px;
-    min-width: 220px;
-    margin: 0;
-    height: auto;
-    min-height: 340px;
-    padding: 28px 18px;
-}
-
-/* Entre 769px y 1166px: dos arriba y uno abajo, tamaño adaptable */
-@media (max-width: 1166px) and (min-width: 769px) {
+/* Responsive design - Ajustado para mantener alineación horizontal */
+@media (max-width: 1200px) {
     .fila-contenedores {
-        flex-wrap: wrap;
-        gap: 16px;
-        padding: 12px 1vw;
+        gap: 30px;
+        padding: 50px 15px;
     }
+    
     .contenido-con-imagen {
-        flex: 1 1 47vw;
-        max-width: 47vw;
-        min-width: 160px;
-        margin-bottom: 0;
-        height: auto;
-        min-height: 370px;
-        height: 370px;
-        padding: 18px 8px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: flex-start;
-        text-align: center;
+        min-width: 300px;
+        max-width: 380px;
+        padding: 40px 30px;
     }
-    .contenido-con-imagen:nth-child(3) {
-        flex-basis: 100%;
-        max-width: 96vw;
-        margin: 0 auto;
-    }
+    
     .contenedor-imagen {
         width: 180px;
         height: 180px;
-        margin: 0 auto 12px auto;
     }
-    .contenedor-texto {
-        width: 100%;
-        text-align: center;
-    }
+    
     .contenedor-texto h2 {
-        font-size: 1.5rem;
+        font-size: 1.9rem;
     }
+    
     .contenedor-texto p {
-        font-size: 1.05rem;
-    }
-}
-
-/* Menor a 769px: uno debajo del otro, tamaño móvil */
-@media (max-width: 768px) {
-    .fila-contenedores {
-        flex-direction: column;
-        flex-wrap: nowrap;
-        gap: 10px;
-        padding: 4px 1vw;
-    }
-    .contenido-con-imagen {
-        flex: 1 1 100%;
-        max-width: 100%;
-        min-width: 180px;
-        padding: 25px 10px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: flex-start;
-        text-align: center;
-        min-height: 320px;
-        height: 320px;
-    }
-    .contenedor-imagen {
-        width: 140px;
-        height: 140px;
-        margin: 0 auto 10px auto;
-    }
-    .contenedor-texto {
-        width: 100%;
-        text-align: center;
-    }
-    .contenedor-texto h2 {
         font-size: 1.2rem;
-        margin-bottom: 10px;
-    }
-    .contenedor-texto p {
-        font-size: 1rem;
-        text-align: center;
-        line-height: 1.6;
-    }
-}
-
-/* Ajuste para evitar conflictos y duplicados */
-@media (max-width: 1200px) {
-    .fila-contenedores {
-        max-width: 100vw;
-    }
-}
-
-@media (max-width: 900px) {
-    .fila-contenedores {
-        flex-wrap: wrap;
-        gap: 25px;
-        padding: 35px 10px;
-    }
-    .contenido-con-imagen {
-        flex: 1 1 90%; /* Solo uno por fila */
-        max-width: 95vw;
-        min-width: 220px;
-        margin: 0 auto;
     }
 }
 
 @media (max-width: 768px) {
-    .contenido-portada {
+
+     .contenido-portada {
         padding: 0 15px;
         max-width: 90%;
     }
+
     .titulo-portada {
         font-size: 2.5rem;
         text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
-        margin-top: 64px; /* Más espacio en móviles */
     }
+
     .subtitulo-portada {
-        font-size: 1.3rem;
-        line-height: 1.5;
+        font-size: 1.2rem;
         margin-bottom: 20px;
     }
+
     .boton-video {
         padding: 12px 30px;
         font-size: 16px;
         margin-top: 40px;
     }
+
     .indicador-desplazamiento {
         bottom: 20px;
         font-size: 20px;
     }
+
     .fila-contenedores {
-        flex-wrap: wrap;
-        gap: 20px;
-        padding: 30px 5px;
+        flex-wrap: wrap; /* Permitir envolver en tablets */
+        gap: 30px;
+        padding: 40px 15px;
     }
+    
     .contenido-con-imagen {
-        flex: 1 1 100%;
-        max-width: 100%;
-        min-width: 180px;
-        padding: 25px 10px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: flex-start;
-        text-align: center;
-        min-height: 320px;
-        height: 320px;
+        flex: 1 1 300px;
+        max-width: 350px;
+        min-width: 280px;
+        padding: 35px 25px;
     }
+    
     .contenedor-imagen {
         width: 150px;
         height: 150px;
     }
+    
     .contenedor-texto h2 {
         font-size: 1.8rem;
     }
+    
     .contenedor-texto p {
         font-size: 1.1rem;
     }
 }
 
 @media (max-width: 480px) {
+
     .contenido-portada {
-        padding: 0 5px;
+        padding: 0 10px;
         max-width: 100%;
     }
+
     .titulo-portada {
         font-size: 2rem;
         line-height: 1.2;
     }
+
     .subtitulo-portada {
         font-size: 1rem;
         line-height: 1.5;
     }
+
     .boton-video {
         padding: 10px 25px;
         font-size: 14px;
         border-radius: 40px;
     }
+
     .indicador-desplazamiento {
         bottom: 15px;
         font-size: 18px;
     }
+    
     .fila-contenedores {
-        flex-direction: column;
-        gap: 18px;
-        padding: 10px 2px;
+        flex-direction: column; /* Solo en móviles pequeños cambiar a columna */
+        gap: 25px;
+        padding: 20px 10px;
     }
+    
     .contenido-con-imagen {
         flex: 1 1 100%;
         max-width: 100%;
         min-width: auto;
         margin: 0;
-        padding: 18px 5px;
+        padding: 25px 20px;
         flex-direction: column;
         align-items: center;
-        gap: 12px;
+        gap: 20px;
         text-align: center;
-        min-height: 260px;
-        height: 260px;
     }
+    
     .contenedor-imagen {
         width: 120px;
         height: 120px;
     }
+    
     .contenedor-texto {
         text-align: center;
     }
+    
     .contenedor-texto h2 {
         font-size: 1.5rem;
         margin-bottom: 15px;
         text-align: center;
     }
+    
     .contenedor-texto p {
         font-size: 1rem;
         text-align: center;

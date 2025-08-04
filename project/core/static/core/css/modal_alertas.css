@@ -1,0 +1,75 @@
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 2000;
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.65);
+}
+
+.modal-contenido {
+    background-color: #480c0b90;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+    margin: 0 auto;
+    padding: 2rem;
+    padding-top: 3rem; 
+    border-radius: 15px;
+    width: 80%;
+    max-width: 700px;
+    color: #fff;
+
+}
+
+/* Contenedor con scroll vertical y horizontal */
+.tabla-scroll-wrapper {
+    overflow: auto; /* Scroll horizontal y vertical */
+    height: 250px;   /* Necesario para activar scroll vertical */
+    background: none;
+    white-space: nowrap;
+    padding-right: 15px; 
+}
+
+.tabla-scroll-wrapper::-webkit-scrollbar {
+    width: 4px;   /* Grosor del scroll vertical */
+}
+
+.tabla-scroll-wrapper::-webkit-scrollbar-thumb {
+    background-color: #eee;
+    border-radius: 5px;
+}
+
+
+.modal-contenido h2 {
+    margin-top: 0;
+}
+
+.modal-contenido ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.modal-contenido li {
+    padding: 25px 0;
+    border-bottom: 1px solid #ccc;
+}
+
+.cerrar {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 35px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+    color: white;
+}
+
+.cerrar:hover{
+    transform: scale(1.2);
+    color: #000;
+}

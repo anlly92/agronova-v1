@@ -1,0 +1,35 @@
+<!-- MODAL DE FILTRO PARA PROCESOS AGRÍCOLAS -->
+<div class="modal fade" id="modalFiltro" tabindex="-1" aria-labelledby="modalFiltroLabel" aria-hidden="true">
+    <div class="modal-dialog modal_filtro_personalizado">
+        <div class="modal-content contenido_filtro">
+            <form method="GET">
+                <div class="modal-header d-none"></div>
+
+                <div class="filtro_titulo text-center fw-bold">Filtrar procesos agrícolas</div>
+
+                <div class="modal-body text-center cuerpo_filtro">
+                    <input type="number" name="id_lote" class="form-control mb-3"
+                        placeholder="Filtrar por código del lote" value="{{ filtro_id_lote }}">
+
+
+                    <input type="text" name="nombre_lote" class="form-control mb-3"
+                        placeholder="Filtrar por nombre del lote" value="{{ filtro_nombre_lote }}">
+
+                    <input type="number" name="id_empleado" class="form-control mb-3"
+                        placeholder="Filtrar por ID del empleado" value="{{ filtro_id_empleado }}">
+
+                    <input type="text" name="nombre" class="form-control" 
+                        placeholder="Filtrar por agroquímico" value="{{ filtro_nombre }}">
+
+                    <input type="date" name="fecha" class="form-control mb-3" placeholder="Filtrar por fecha"
+                        value="{{ filtro_fecha }}">
+                </div>
+
+                <div class="modal-footer botones_filtro">
+                    <a href="{% url 'procesos_agricolas' %}" class="btn boton_limpiar">Limpiar filtro</a>
+                    <button type="submit" class="btn boton_aplicar">Aplicar filtros</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

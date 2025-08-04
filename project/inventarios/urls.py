@@ -1,6 +1,9 @@
 from django.urls import path
 from inventarios import views
 
+from django.urls import path
+from . import views
+
 urlpatterns = [
     # ────────── Producto final ──────────
     path("inventario_producto_final/", views.inventario_producto_final, name='inventario_producto_final'),
@@ -11,6 +14,7 @@ urlpatterns = [
     path("inventario_arbustos/", views.inventario_arbustos, name='inventario_arbustos'),
     path("registrar_inventario_arbustos/", views.registrar_inventario_arbustos, name='registrar_inventario_arbustos'),
     path("arbustos/<int:seleccion>/editar/", views.actualizar_inventario_arbustos, name='actualizar_inventario_arbustos'),
+
 
     # ────────── Agroquímicos ──────────
     path("inventario_agroquimicos/", views.inventario_agroquimicos, name='inventario_agroquimicos'),

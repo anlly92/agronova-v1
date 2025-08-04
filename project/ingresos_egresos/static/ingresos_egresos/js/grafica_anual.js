@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', function () {
     let chart;
     // Declara variables para el elemento canvas (con id 'verAnual'), los botones 'Calendario' y 'descargarGrafica', y una variable 'chart' para almacenar la instancia de la gráfica.
 
+    
     // Verificar que los elementos existan
     if (!canvas) {
         console.error("Falta el elemento canvas en el HTML.");
@@ -16,6 +17,16 @@ document.addEventListener('DOMContentLoaded', function () {
     const ctx = canvas.getContext('2d');
     // Obtiene el contexto 2D del canvas para dibujar la gráfica.
 
+    function obtenerNombreMes(numeroMes) {
+        const meses = [
+            'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
+            'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'
+        ];
+        
+        return meses[numeroMes - 1];
+    }
+
+    
     function cargarGrafica(anio = new Date().getFullYear().toString()) {
         console.log("Cargando gráfica para el año:", anio); // Depuración
         // Define una función para cargar la gráfica, con un parámetro 'anio' que por defecto es el año actual como string (ej. "2025").
@@ -75,6 +86,20 @@ document.addEventListener('DOMContentLoaded', function () {
                     },
                     options: {
                         responsive: true,
+                        plugins: {
+                            title: {
+                                display: true,
+                                text: `Ingresos y Egresos del año ${anio}`, // Aquí usamos el año dinámico
+                                font: {
+                                    size: 18,
+                                    weight: 'bold'
+                                },
+                                padding: {
+                                    top: 20,
+                                    bottom: 15
+                                }
+                            }
+                        },
                         scales: {
                             y: {
                                 beginAtZero: true

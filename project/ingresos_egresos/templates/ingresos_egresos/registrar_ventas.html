@@ -1,0 +1,80 @@
+{% extends "base_registros.html" %}
+{% load static %}
+
+{% block title %} 
+    <title>registro de ventas</title>
+{% endblock %}
+
+{% block extra_styles %}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <link rel="stylesheet" href="{% static 'css/formularios.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="cerrar-login"> <!-- Botón o enlace para cerrar o cancelar -->
+    <a href="{% url 'ventas' %}" title="Cancelar e ir atrás">✖</a>
+</div>
+<!-- Contenedor principal del formulario como el logo -->
+<section class="contenedor_principal">
+    <div class="logo">
+        <a href="{% url 'inicio' %}" title="volver al inicio">
+            <img class="logo-item" src="{% static 'img/logo_agronova.png' %}" alt="logo - Agronova">
+        </a>
+    </div>
+    <!-- Formulario para registrar ingresos o egresos -->
+    <form id="formularioIngreso" method="post">
+        {% csrf_token %}
+        <fieldset class="encabezado">
+            <legend>Registro de ventas</legend>
+            <!-- Campo para la identificación del administrador -->
+
+        {% if form.errors %}
+        <div class="errores-formulario">
+            <ul>
+                {% for field in form %}
+                    {% for error in field.errors %}
+                        <li><strong>{{ field.label }}:</strong> {{ error }}</li>
+                    {% endfor %}
+                {% endfor %}
+                {% for error in form.non_field_errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+            <div class="botones">
+                <i class="fa-solid fa-box"></i>
+                <label for="codigo">Codigo_del_producto</label>
+                <select id="id_producto" name="id_producto" required>
+                    <option value="" disabled selected>Seleccione un producto</option>
+                    {% for producto in productos %}
+                        <option value="{{ producto.pk }}">{{ producto.nombre }} {{ producto.contenido }} {{ producto.unidad }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="botones">
+                <i class="fa-solid fa-sort-numeric-up"></i>
+                <label for="cantidad">Cantidad_vendida</label>
+                <input id="cantidad" name="cantidad" type="number" placeholder="Cantidad vendida" min = "1" required />
+            </div>
+
+            <!-- Fecha de la operación -->
+            <div class="botones">
+                <span id="icono-calendario" style="cursor: pointer;">
+                    <i class="fa-solid fa-calendar-days"></i>
+                </span>
+                <input type="text" id="fecha" name="fecha" required placeholder="Fecha">
+            </div>
+            <!-- Botón para enviar el formulario -->
+            <button class="boton" type="button" id="btnEnviar"><i class="fa-solid fa-pen-to-square"></i>Registrar venta</button>
+        </fieldset>
+    </form>
+</section>
+{% endblock %}
+
+{% block script %}
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/es.js"></script>
+    <script src="{% static 'js/calendario.js' %}"></script>
+{% endblock %}

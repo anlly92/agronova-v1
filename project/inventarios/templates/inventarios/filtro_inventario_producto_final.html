@@ -1,0 +1,34 @@
+<div class="modal fade" id="modalFiltro" tabindex="-1" aria-labelledby="modalFiltroLabel" aria-hidden="true">
+    <div class="modal-dialog modal_filtro_personalizado">
+        <div class="modal-content contenido_filtro">
+            <form method="GET">
+                <div class="modal-header d-none"></div>
+
+                <div class="filtro_titulo text-center fw-bold">Filtrar producto final</div>
+
+                <div class="modal-body text-center cuerpo_filtro">
+
+                    <input type="text" name="nombre" class="form-control mb-3"
+                        placeholder="Filtrar por nombre del producto" value="{{ filtro_nombre }}">
+
+                    <input type="text" name="contenido" class="form-control mb-3"
+                        placeholder="Filtrar por contenido neto" value="{{ filtro_contenido }}">
+
+                    <input type="text" name="unidad" class="form-control mb-3"
+                        placeholder="Filtrar por unidad de medida" value="{{ filtro_unidad }}">
+
+                    <input type="number" step="0.01" name="precio_unitario" class="form-control mb-3"
+                        placeholder="Filtrar por precio unitario" value="{{ filtro_precio_unitario }}">
+
+                    <input type="number" step="0.01" name="stock" class="form-control mb-3"
+                        placeholder="Filtrar por stock disponible" value="{{ filtro_stock }}">
+                </div>
+
+                <div class="modal-footer botones_filtro">
+                    <a href="{% url 'inventario_producto_final' %}" class="btn boton_limpiar">Limpiar filtro</a>
+                    <button type="submit" class="btn boton_aplicar">Aplicar filtros</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

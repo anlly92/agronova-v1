@@ -25,6 +25,9 @@ urlpatterns = [
     path("mision_y_vision_de_la_elisa/", views.mision_y_vision_elisa, name='mision_y_vision_la_elisa'),
     path("contraseña/", views.contraseña, name='contraseña'),
     path("terminos_condiciones/", views.terminos_condiciones, name='terminos_condiciones'),
+    path('crear-evento/', views.crear_evento_google_view, name='crear_evento'),
+    path("eliminar-evento/", views.eliminar_evento_google_view, name="eliminar_evento"),
+    path('actualizar-evento/', views.actualizar_evento_google_view, name='actualizar_evento'),
 
 
     # --------------------- Recuperar contraseña  ------------------------------

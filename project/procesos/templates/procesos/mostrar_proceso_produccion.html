@@ -1,59 +1,68 @@
 {% extends "base_header_1.html" %}
 {% load static %}
 
-{% block title %} 
-    <title> Producción Café y cardamomo </title>
+{% block title %}
+<title> Producción Café y Cardamomo </title>
 {% endblock %}
 
 {% block extra_styles %}
-    <link rel="stylesheet" href="{% static 'css/tablas.css' %}">
+<link rel="stylesheet" href="{% static 'css/tablas.css' %}">
+<link rel="stylesheet" href="{% static 'css/filtro_lotes.css' %}">
 {% endblock %}
 
 {% block logotipo %}
-    Producción <br> Café y cardamomo   
+Producción <br> Café y Cardamomo
 {% endblock %}
 
-
 {% block content %}
-    <section class="tabla">
-        <div class="tabla-scroll-wrapper">
-            <table>
+
+{% include "procesos/filtro_proceso_produccion.html" %}
+
+<section class="tabla">
+    <div class="tabla-scroll-wrapper">
+        <table>
+            <tr>
+                <th>Código del proceso</th>
+                <th>Documento del empleado</th>
+                <th>Nombre empleado</th>
+                <th>Tipo de grano</th>
+                <th>Descripción del proceso de producción</th>
+                <th>Cantidad de grano (Kg)</th>
+                <th>Fecha de registro</th>
+            </tr>
+
+            {% if proceso_produccion %}
+            {% for item in proceso_produccion %}
+            <tr>
+                <td>{{ item.id_proceso }}</td>
+                <td>{{ item.id_empleado.id_empleado }}</td>
+                <td>{{ item.id_empleado.nombre }} {{ item.id_empleado.apellido }}</td>
+                <td>{{ item.tipo_producto }}</td>
+                <td>{{ item.descripcion }}</td>
+                <td>{{ item.cantidad|floatformat:0 }}</td>
+                <td>{{ item.fecha|date:"d/m/Y" }}</td>
+            </tr>
+            {% endfor %}
+            {% endif %}
+
+            {% for i in filas_vacias %}
                 <tr>
-                    <th>Código del proceso</th>
-                    <th>Documento del empleado</th>
-                    <th>Nombre empleado</th>
-                    <th>Tipo de grano</th>
-                    <th>Descripción del proceso de producción</th>
-                    <th>Cantidad de grano (Kg)</th>
-                    <th>Fecha de registro</th>
+                    <td class="primero"></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
                 </tr>
-
-                {% for item in proceso_produccion %}
-                <tr>
-                    <td>{{ item.id_proceso }}</td>
-                    <td>{{ item.id_empleado.id_empleado }}</td>
-                    <td>{{ item.id_empleado.nombre }} {{ item.id_empleado.apellido }}</td>
-                    <td>{{ item.tipo_producto}}</td>
-                    <td>{{ item.descripcion }}</td>
-                    <td>{{ item.cantidad|floatformat:0  }}</td>
-                    <td>{{ item.fecha|date:"d/m/Y"}}</td>
-                </tr>
-
-                {% endfor %}
-
-                {% for i in filas_vacias %}
-                <tr>
-                    <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
-                </tr>
-
-                
-                {% endfor %}
-            </table>
-        </div>
-    </section>
-
-    <div class="ingresar">
-        <a href="{% url 'registrar_proceso_de_produccion' %}" class="agregar-btn">+</a>
-        <span class="agregar-texto">Agregar</span>
+            {% endfor %}
+        </table>
     </div>
+</section>
+
+<div class="ingresar">
+    <a href="{% url 'registrar_proceso_de_produccion' %}" class="agregar-btn">+</a>
+    <span class="agregar-texto">Agregar</span>
+</div>
+
+{% endblock %}
+
+{% block extra_scripts %}
+{% if mostrar_modal %}
+<script src="{% static 'js/modal_auto_show.js' %}"></script>
+{% endif %}
 {% endblock %}
