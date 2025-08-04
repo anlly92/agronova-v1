@@ -44,6 +44,7 @@ def inventario_producto_final(request):
 
 
 def registrar_inventario_producto_final (request):
+    ok = False 
     if request.method == 'POST':
         form = ProductoFinalform(request.POST)
 
@@ -52,11 +53,11 @@ def registrar_inventario_producto_final (request):
             ProductoFinal.tipo = 'Inventario Producto final'
             ProductoFinal.save()
 
-            return redirect('inventario_producto_final')  
+            ok = True   
     else:
         form = ProductoFinalform()
 
-    return render (request, 'inventarios/registrar_inventario_producto_final.html', {'form': form})
+    return render (request, 'inventarios/registrar_inventario_producto_final.html', {'form': form,'ok':ok})
 
 def actualizar_producto_final (request,seleccion):
     inventario = get_object_or_404(Inventario, pk=seleccion)
@@ -183,6 +184,7 @@ def inventario_arbustos(request):
     return render(request, 'inventarios/inventario_arbustos.html',contexto )
 
 def registrar_inventario_arbustos (request):
+    ok = False 
     if request.method == 'POST':
         form = Arbustosform(request.POST)
 
@@ -191,11 +193,11 @@ def registrar_inventario_arbustos (request):
             Arbusto.tipo = 'Inventario Arbustos'
             Arbusto.save()
 
-            return redirect('inventario_arbustos')  
+            ok = True
     else:
         form = Arbustosform()
 
-    return render (request, 'inventarios/registrar_inventario_arbustos.html', {'form': form})
+    return render (request, 'inventarios/registrar_inventario_arbustos.html', {'form': form,'ok':ok})
 
 def actualizar_inventario_arbustos (request,seleccion):
     inventario = get_object_or_404(Inventario, pk=seleccion)
@@ -313,6 +315,7 @@ def inventario_agroquimicos(request):
     return render(request, 'inventarios/inventario_agroquimicos.html',contexto )
 
 def registrar_inventario_agroquimicos (request):
+    ok = False 
     if request.method == 'POST':
         form = Agroquimicosform(request.POST)
 
@@ -321,11 +324,11 @@ def registrar_inventario_agroquimicos (request):
             Agroquimicos.tipo = 'Inventario Agroquimicos'
             Agroquimicos.save()
 
-            return redirect('inventario_agroquimicos')  
+            ok = True   
     else:
         form = Agroquimicosform()
 
-    return render (request, 'inventarios/registrar_inventario_agroquimicos.html', {'form': form})
+    return render (request, 'inventarios/registrar_inventario_agroquimicos.html', {'form': form,'ok':ok})
 
 def actualizar_inventario_agroquimicos (request,seleccion):
     inventario = get_object_or_404(Inventario, pk=seleccion)
@@ -428,6 +431,7 @@ def inventario_herramientas(request):
     return render(request, 'inventarios/inventario_herramientas.html',contexto )
 
 def registrar_herramientas (request, categoria):
+    ok = False 
     if request.method == 'POST':
         form = Herramientasform(request.POST)
 
@@ -437,11 +441,11 @@ def registrar_herramientas (request, categoria):
             Herramientas.categoria = categoria
             Herramientas.save()
 
-            return redirect('inventario_herramientas')  
+            ok = True   
     else:
         form = Herramientasform()
 
-    return render (request, 'inventarios/registrar_herramienta_maquina.html', {'form': form, 'categoria': categoria})
+    return render (request, 'inventarios/registrar_herramienta_maquina.html', {'form': form, 'categoria': categoria,'ok':ok})
 
 def actualizar_inventario_herramientas (request,seleccion):
     inventario = get_object_or_404(Inventario, pk=seleccion)

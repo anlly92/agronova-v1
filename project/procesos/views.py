@@ -35,19 +35,32 @@ def procesos_agricolas(request):
 
 
 def registrar_procesos_agricolas (request):
+    ok = False 
+
     if request.method == 'POST':
         form = Agricolaform(request.POST)
 
         if form.is_valid():
-            Agricola = form.save(commit=False) 
-            Agricola.tipo = 'Agrícola'
-            Agricola.save()
+            proceso = form.save(commit=False)
+            agroquimico = proceso.id_inventario
 
-            return redirect('procesos_agricolas')  
+            # Validar que hay suficiente stock
+            if agroquimico and agroquimico.stock is not None and proceso.cantidad is not None:
+                if proceso.cantidad > agroquimico.stock:
+                    form.add_error('cantidad', 'La cantidad supera el stock disponible.')
+                else:
+                    # Descontar del stock y guardar proceso
+                    proceso.tipo = 'Agrícola'
+                    proceso.save()
+                    agroquimico.stock -= proceso.cantidad
+                    agroquimico.save()
+                    ok = True
+            else:
+                form.add_error(None, 'Datos incompletos para realizar el descuento de stock.')
     else:
         form = Agricolaform()
-    
-    return render (request, 'procesos/registrar_proceso_agricola.html', {'form': form})
+
+    return render(request, 'procesos/registrar_proceso_agricola.html', {'form': form,'ok': ok, })
 
 def filtrar_procesos_agricolas(request):
     buscar = request.GET.get("buscar", "").strip()
@@ -152,6 +165,7 @@ def proceso_de_produccion(request):
 
 
 def registrar_proceso_de_produccion (request):
+    ok = False 
     if request.method == 'POST':
         form = Procesoform(request.POST)
 
@@ -160,13 +174,13 @@ def registrar_proceso_de_produccion (request):
             Proceso.tipo = 'Producción'
             Proceso.save()
 
-            return redirect('proceso_de_produccion') 
+            ok = True  
         else:
             print("Errores del formulario:", form.errors)  # 👈 IMPORTANTE 
     else:
         form = Procesoform()
     
-    return render (request, 'procesos/registrar_proceso_produccion.html', {'form': form})
+    return render (request, 'procesos/registrar_proceso_produccion.html', {'form': form,'ok':ok})
 
 
 def filtrar_proceso_de_produccion(request):

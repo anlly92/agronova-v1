@@ -42,6 +42,7 @@ def gestionar_personal(request):
 
 
 def registro_personal (request):
+    ok = False 
     if request.method == 'POST':
         form = Personalform(request.POST)
 
@@ -49,11 +50,11 @@ def registro_personal (request):
             personal = form.save(commit=False) 
             personal.save()
 
-            return redirect('gestionar_personal')
+            ok = True 
     else:
         form = Personalform()
 
-    return render (request, 'personal/registrar_personal.html', {'form': form})
+    return render (request, 'personal/registrar_personal.html', {'form': form,'ok':ok})
 
 def actualizar_personal (request,seleccion):
     empleado = get_object_or_404(Empleado, pk=seleccion)

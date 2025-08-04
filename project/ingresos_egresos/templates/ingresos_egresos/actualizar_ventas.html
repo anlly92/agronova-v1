@@ -1,0 +1,53 @@
+{% extends "base_actualizar.html" %}
+{% load static %}
+
+{% block title %} 
+    <title>Actualizar venta</title>
+{% endblock %}
+
+{% block extra_styles %}
+    <link rel="stylesheet" href="{% static 'css/formularios.css' %}">
+{% endblock %}
+
+{% block header %}
+{% endblock %}
+
+{% block content %}
+    <div class="cerrar-login">
+        <a href="{% url 'ventas' %}" title="Cancelar e ir atrás">✖</a>
+    </div>
+
+    <section class="contenedor_principal">
+
+        <div class="logo">
+            <a href="{% url 'inicio' %}" title="volver al inicio">
+                <img class="logo-item" src="{% static 'img/logo_agronova.png' %}" alt="logo - Agronova">
+            </a>
+        </div>
+
+        <form id="formularioIngreso">
+            <fieldset class="encabezado">
+                <legend>Actualizar venta</legend>
+
+                <div class="botones">
+                    <i class="fa-solid fa-box"></i>
+                    <label for="codigo">Codigo_del_producto</label>
+                    <select id="id_producto" name="id_producto" >
+                        <option value="" disabled selected>Seleccione un producto</option>
+                        {% for producto in productos %}
+                            <option value="{{ producto.pk }}">{{ producto.nombre }} {{ producto.contenido }} {{ producto.unidad }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="botones">
+                    <i class="fa-solid fa-sort-numeric-up"></i>
+                    <label for="cantidad">Cantidad_vendida</label>
+                    <input id="cantidad" name="cantidad" type="number" placeholder="Cantidad vendida" min = "1"  />
+                </div>
+
+                <button class="boton" type="button" id="btnEnviar" ><i class="fas fa-address-card"></i>Actualizar venta</button>
+            </fieldset>
+        </form>
+    </section>
+{% endblock %}

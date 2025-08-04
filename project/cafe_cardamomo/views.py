@@ -183,6 +183,7 @@ def gestionar_lote(request):
 
 
 def registrar_lote (request):
+    ok = False 
     if request.method == 'POST':
         form = LoteForm(request.POST)
 
@@ -190,11 +191,11 @@ def registrar_lote (request):
             lote = form.save(commit=False) 
             lote.save()
 
-            return redirect('gestionar_lote')
+            ok = True
     else:
         form = LoteForm()
 
-    return render (request, 'cafe_cardamomo/registro_lote.html', {'form': form})
+    return render (request, 'cafe_cardamomo/registro_lote.html', {'form': form,'ok':ok})
 
 def actualizar_lote (request,seleccion):
     lote = get_object_or_404(Lote, pk=seleccion)
@@ -387,6 +388,7 @@ def filtrar_recoleccion(request):
     return lotes, recolecciones, empleados, buscar, id_empleado, id_lote, tipo_producto, kilos, horas, fecha, tipo_pago  
 
 def registrar_recoleccion (request):
+    ok = False 
     if request.method == 'POST':
         form = RecoleccionForm(request.POST)
 
@@ -394,11 +396,11 @@ def registrar_recoleccion (request):
             recoleccion = form.save(commit=False) 
             recoleccion.save()
             
-            return redirect('gestionar_recoleccion')
+            ok = True
     else:
         form = RecoleccionForm()
 
-    return render (request, 'cafe_cardamomo/registro_recoleccion.html', {'form': form})
+    return render (request, 'cafe_cardamomo/registro_recoleccion.html', {'form': form,'ok':ok})
 
 def registrar_pago (request):
     if request.method == 'POST':

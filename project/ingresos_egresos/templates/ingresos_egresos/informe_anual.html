@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block title %}
-<title>Informe amensual</title>
+<title>Informe anual</title>
 {% endblock %}
 
 {% block extra_styles %}
@@ -13,16 +13,15 @@
 {% endblock %}
 
 {% block logotipo %}
-    Informe mensual de Ingresos y Egresos
+    Informe Anual de Ingresos y Egresos
 {% endblock %}
 
 {% block nav_icons %}
-
     <div class="boton">
         <button type="button" id="Calendario" title="Seleccionar año">
             <i class="fas fa-calendar-alt"></i>
         </button>
-        <span>Fecha</span>
+        <span>Año</span>
     </div>
 
     <div class="boton">
@@ -38,15 +37,16 @@
         </button>
         <span>Salir</span>
     </div>
-
 {% endblock %}
 
 {% block content %}
-<canvas class="contenedor-grafica" id="verMensual"></canvas>
+<section class="contenedor-grafica">
+    <canvas id="verAnual"></canvas>
+</section>
 
 <!-- Librería Chart.js -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <!-- Script para cargar la gráfica -->
-<script src="{% static 'ingresos_egresos/js/grafica_mensual.js' %}"></script>
+<script src="{% static 'ingresos_egresos/js/grafica_anual.js' %}"></script>
 {% endblock %}

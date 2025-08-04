@@ -9,9 +9,7 @@
 {% block extra_styles %}
 <link rel="stylesheet" href="{% static 'css/tablas.css' %}">
 <link rel="stylesheet" href="{% static 'cafe_cardamomo/css/informe.css' %}">
-
 <link rel="stylesheet" href="{% static 'css/filtro_lotes.css' %}">
-
 {% endblock %}
 
 {% block logotipo %}
@@ -32,9 +30,11 @@ Ingresos y egresos
 </div>
 
 
-<div class="menu">
-    <div class="boton_icono">
-        <i class="fa-solid fa-file-lines"></i>
+<div class="menu boton">
+    <div class="boton">
+        <button>
+            <i class="fa-solid fa-file-lines"></i>
+        </button>
         <span>Informes</span>
     </div>
 
@@ -90,18 +90,17 @@ Ingresos y egresos
                     <td><label for="ingreso_egreso{{ item.id_transaccion }}">{{ item.tipo }}</label></td>
                     <td><label for="ingreso_egreso{{ item.id_transaccion }}">{{ item.descripcion }}</label></td>
                     <td><label for="ingreso_egreso{{ item.id_transaccion }}">{{ item.fecha|date:"d/m/Y" }}</label></td>
-                    <td><label for="ingreso_egreso{{ item.id_transaccion }}">{{ item.monto|floatformat:2}}</label></td>
-                    </tr>
+                    <td><label for="ingreso_egreso{{ item.id_transaccion }}">{{ item.monto|intcomma}}</label></td>
+                </tr>
                     
-                    {% endfor %}
+                {% endfor %}
+                {% endif %}
 
-                    {% else %}
+                {% for i in filas_vacias %}
                     <tr>
-                        <td colspan="8" style="text-align: center; font-weight: bold; color: #888;">
-                            No se encontraron registros con los filtros aplicados.
-                        </td>
+                        <td class="primero"></td><td></td><td></td><td></td><td></td><td></td><td></td>
                     </tr>
-                    {% endif %}
+                {% endfor %}
             </table>
     </div>
 </section>
