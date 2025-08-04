@@ -103,12 +103,11 @@ main {
 /* Contenedores para los botones y campos de formulario */
 .botones,
 .boton {
-    width: 100%; /* Ancho total */
     display: flex; /* Flexbox */
     justify-content: left; /* Alinea el contenido a la izquierda */
-    width: 80%; /* Sobrescribe el ancho al 80% */
+    width: 70%; /* Sobrescribe el ancho al 80% */
     background-color: #4b7510; /* Fondo verde oscuro */
-    padding: 1.5rem 30px; /* Relleno arriba/abajo 1.2rem, izquierda/derecha 30px */
+    padding: 1.1rem 30px; /* Relleno arriba/abajo 1.2rem, izquierda/derecha 30px */
     margin: 20px 0; /* Margen arriba y abajo */
     border-radius: 23px; /* Bordes redondeados */
     border-right: 5px solid #fff; /* Borde derecho blanco de 5px */
@@ -125,12 +124,11 @@ input::placeholder {
     background: transparent; /* Fondo transparente */
     font-size: 22px; /* Tamaño de fuente */
     color: #fff; /* Texto blanco */
-    margin: 0 20px; /* Margen lateral de 20px */
     padding: 10px 18px; /* Relleno */
     box-sizing: border-box; /* Incluye padding y borde en el ancho */
     font-family: sans-serif; /* Fuente sans-serif */
     line-height: 1; /* Altura de línea */
-    height: 42px; /* Altura fija */
+    height: 32px; /* Altura fija */
     resize: none; /* Desactiva el redimensionamiento para textarea */
 }
 
@@ -165,10 +163,10 @@ textarea::placeholder {
 
 /* Estilos para los botones principales */
 .boton {
-    width: 60%;
+    width: 50%;
     display: flex; /* Flexbox */
-    padding: 20px; /* Relleno */
-    margin: 20px; /* Margen */
+    padding: 10px; /* Relleno */
+    margin: 10px; /* Margen */
     font-size: 30px; /* Tamaño de texto grande */
     justify-content: center; /* Centra contenido horizontalmente */
     color: white; /* Texto blanco */
@@ -283,7 +281,6 @@ select {
     margin: 0 25px; /* Margen lateral */
     box-sizing: border-box; /* Incluye padding y borde en el ancho */
     font-family: sans-serif; /* Fuente sans-serif */
-    line-height: 2; /* Altura de línea */
     resize: none; /* No permite redimensionar */
 }
 
@@ -453,7 +450,7 @@ input:-webkit-autofill:focus {
 
 @media screen and (max-width: 768px) {
     body {
-        font-size: 16px; /*Tamaño de la letra*/
+        font-size: 16px;
         padding: 10px;
         align-items: stretch;
     }
@@ -587,3 +584,11 @@ input:-webkit-autofill:focus {
     }
 }
 
+.mi-mensaje-error {
+    color: rgb(139, 24, 24);
+    font-size: 1.4rem;
+    font-weight: bold;
+    margin: 15px 0;
+    border-bottom: 2px solid  rgb(139, 24, 24);;
+    padding-bottom: 5px;
+}

@@ -48,16 +48,9 @@ body,html{
 
 
 .acciones {
+    width: auto;
     display: flex;
-    flex: 1;
-    width: 10%;
-    text-align: left;
     gap: 20px;
-    padding-left:50px ;
-}
-
-main{
-    margin-bottom: 100px;
 }
 
 footer {
@@ -184,3 +177,4 @@ select option {
     background-color: #4b7510; /* mismo verde */
     color: #fff;
 }
+

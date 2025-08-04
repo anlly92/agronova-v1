@@ -1,0 +1,68 @@
+<!-- templates/ingresos_egresos/pdf_total_recoleccion.html -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Total de Recolección</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 12px;
+        }
+
+        h2 {
+            text-align: center;
+            color: #2e6e1e;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #000;
+            padding: 6px;
+            text-align: center;
+        }
+
+        thead th {
+            background-color: #3d7a1f; /* verde oscuro */
+            color: white;
+            font-weight: bold;
+        }
+
+        tbody tr:nth-child(odd) {
+            background-color: #f9f9f9;
+        }
+
+        tbody tr:nth-child(even) {
+            background-color: #ffffff;
+        }
+    </style>
+</head>
+<body>
+    <h2>Total de Recolección</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Año</th>
+                <th>Mes</th>
+                <th>Nombre del lote</th>
+                <th>Total de kilos recolectados</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for fila in total_recoleccion %}
+            <tr>
+                <td>{{ fila.año }}</td>
+                <td>{{ fila.mes }}</td>
+                <td>{{ fila.nombre_lote }}</td>
+                <td>{{ fila.total_kilos|floatformat:0 }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

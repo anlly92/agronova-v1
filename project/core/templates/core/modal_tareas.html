@@ -1,0 +1,81 @@
+<!-- Modal -->
+<div id="modal-tarea" class="modal">
+    <div class="modal-contenido">
+        <span class="cerrar" onclick="cerrarModalTarea()">&times;</span>
+        <h2 class="titulo">Registrar tarea</h2>
+
+        <div class="tabla-scroll-wrapper">
+            <form id="form-tarea" method="POST" action="{% url 'crear_evento' %}">
+                {% csrf_token %}
+
+                <div class="form-group">
+                    <label for="titulo">Título de la tarea</label>
+                    <input type="text" id="titulo" name="titulo" placeholder="Ingrese el título" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="descripcion">Descripción</label>
+                    <textarea id="descripcion" name="descripcion" rows="3" placeholder="Ingrese la descripción"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="inicio">Fecha y hora de inicio</label>
+                    <input type="datetime-local" id="fecha_inicio" name="fecha_inicio" placeholder="Ingrese la fecha y hora de inicio" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="fin">Fecha y hora de fin</label>
+                    <input type="datetime-local" id="fecha_fin" name="fecha_fin" placeholder="Ingrese la fecha y hora de fin" required>
+                </div>
+
+                
+                <button type="submit" class="boton">Guardar tarea</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div id="modal-eliminar" class="modal" style="display: none;">
+    <div class="modal-contenido">
+        <span class="cerrar" id="btn-cancelar-eliminar">&times;</span>
+        <h2 class="titulo">¿Estás seguro de eliminar esta tarea?</h2>
+        <form method="post" action="{% url 'eliminar_evento' %}">
+            {% csrf_token %}
+            <input type="hidden" name="event_id" id="id_evento_eliminar">
+            <button type="submit" id="btn-confirmar-eliminar" class="boton">Eliminar</button>
+        </form>
+    </div>
+</div>
+
+<div id="modal-actualizar" class="modal" style="display: none;" >
+    <div class="modal-contenido">
+        <span class="cerrar" id="btn-cancelar-editar">&times;</span>
+        <h2 class="titulo">Actualizar evento</h2>
+        <form id="form-actualizar" method="POST" action="{% url 'actualizar_evento' %}">
+            {% csrf_token %}
+            <input type="hidden" id="id_evento_actualizar" name="event_id" >
+
+            <div class="form-group">
+                <label>Título</label>
+                <input type="text" id="titulo_editar" name="titulo" placeholder="Ingrese el título" required>
+            </div>
+
+            <div class="form-group">
+                <label>Descripción:</label>
+                <textarea  id="descripcion_editar" name="descripcion" rows="3" placeholder="Ingrese la descripción"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label>Fecha Inicio</label>
+                <input type="datetime-local" id="fecha_inicio_editar" name="fecha_inicio" placeholder="Ingrese la fecha y hora de inicio" required>
+            </div>
+
+            <div class="form-group">
+                <label>Fecha Fin</label>
+                <input type="datetime-local" id="fecha_fin_editar" name="fecha_fin" placeholder="Ingrese la fecha y hora de fin" required>
+            </div>
+
+            <button type="submit" id="btn-actualizar-tarea" class="boton">Actualizar</button>
+        </form>
+    </div>
+</div>

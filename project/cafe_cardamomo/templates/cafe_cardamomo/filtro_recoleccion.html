@@ -1,0 +1,66 @@
+<!-- MODAL DE FILTRO LATERAL DERECHO -->
+<div class="modal fade" id="modalFiltro" tabindex="-1" aria-labelledby="modalFiltroLabel" aria-hidden="true">
+    <div class="modal-dialog modal_filtro_personalizado">
+        <div class="modal-content contenido_filtro">
+            <form method="GET">
+                <div class="modal-header d-none"></div> <!-- Ocultamos este header para subir el título -->
+
+                <div class="filtro_titulo text-center fw-bold">Filtrar recolecciones</div>
+
+                <div class="modal-body text-center cuerpo_filtro">
+                    <!-- Filtro por Empleado -->
+                    <select name="id_empleado" class="form-select mb-3">
+                        <option value="">Todos los empleados</option>
+                        {% for empleado in empleados %}
+                        <option value="{{ empleado.id_empleado }}" {% if filtro_id_empleado == empleado.id_empleado %}selected{% endif %}>
+                            {{ empleado.id_empleado }}
+                        </option>
+                        {% endfor %}
+                    </select>
+
+                    <!-- Filtro por Lote -->
+                    <select name="id_lote" class="form-select mb-3">
+                        <option value="">Todos los lotes</option>
+                        {% for lote in lotes %}
+                        <option value="{{ lote.id_lote }}" {% if filtro_id_lote == lote.id_lote %}selected{% endif %}>
+                            {{ lote.id_lote }}
+                        </option>
+                        {% endfor %}
+                    </select>
+
+
+                    <!-- Tipo de producto -->
+                    <select name="tipo_producto" class="form-select mb-3">
+                        <option value="">Todos los tipos de grano</option>
+                        <option value="Café" {% if filtro_tipo_producto == 'Café' %}selected{% endif %}>Café</option>
+                        <option value="Cardamomo" {% if filtro_tipo_producto == 'Cardamomo' %}selected{% endif %}>
+                            Cardamomo</option>
+                    </select>
+
+                    <!-- Kilos exactos -->
+                    <input type="number" step="any" name="kilos" class="form-control mb-3"
+                        placeholder="Filtrar por kilos exactos" value="{{ filtro_kilos }}">
+
+                    <!-- Horas trabajadas exactas -->
+                    <input type="number" step="any" name="horas_trabajadas" class="form-control mb-3"
+                        placeholder="Filtrar por horas trabajadas" value="{{ filtro_horas_trabajadas }}">
+
+                    <!-- Fecha exacta -->
+                    <input type="date" name="fecha" class="form-control mb-3" value="{{ request.GET.fecha }}">
+
+                    <!-- Tipo de pago -->
+                    <select name="tipo_pago" class="form-select">
+                        <option value="">Todos los tipos de pago</option>
+                        <option value="Horas" {% if filtro_tipo_pago == 'Horas' %}selected{% endif %}>Horas</option>
+                        <option value="Kilos" {% if filtro_tipo_pago == 'Kilos' %}selected{% endif %}>Kilos</option>
+                    </select>
+                </div>
+
+                <div class="modal-footer botones_filtro">
+                    <a href="{% url 'gestionar_recoleccion' %}" class="btn boton_limpiar">Limpiar filtro</a>
+                    <button type="submit" class="btn boton_aplicar">Aplicar filtros</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
