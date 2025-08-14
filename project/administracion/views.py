@@ -10,14 +10,13 @@ import random
 import string
 from .forms import AdministradorForm
 from .models import Administrador
+from validaciones import validar_campos_especificos
 
 
 #importaciones para la busqueda y el filtro
 from inventarios.utils import normalizar_texto, es_numero # funciones que se encunetran en utils en la app de inventarios
 from django.db.models import Q
 from decimal import InvalidOperation 
-
-
 
 def generador_contraseña ():
     caracteres = string.ascii_letters + string.digits
@@ -62,11 +61,20 @@ def gestionar_administrador(request):
 
 def registro_administrador (request):
     ok = False 
+    errores = {}
+
     if request.method == 'POST':
-        form = AdministradorForm(request.POST)
+        datos = request.POST
+        form = AdministradorForm(datos)
+
+        errores = validar_campos_especificos(post_data=datos)
+
+        for campo, mensaje in errores.items():
+            if campo in form.fields:
+                form.add_error(campo, mensaje)
+
         if form.is_valid():
             administrador = form.save(commit=False) 
-
             # Generar contraseña aleatoria
             contraseña_generada = generador_contraseña()
 
@@ -108,7 +116,9 @@ def registro_administrador (request):
     else:
         form = AdministradorForm()
     
-    return render (request, 'administracion/registro_administrador.html', {'form': form,'ok':ok})
+    return render (request, 'administracion/registro_administrador.html', {
+        'form': form,
+        'ok':ok})
 
 def actualizar_administrador(request, seleccion):
     administrador = get_object_or_404(Administrador, pk=seleccion)

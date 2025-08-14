@@ -17,7 +17,10 @@ class Lote(models.Model):
     nombre = models.CharField(max_length=100)
     hectareas = models.FloatField()
     tipo_arbusto = models.CharField(max_length=20, choices=TIPO_ARBUSTO_CHOICES)
+    cantidad_maxima = models.IntegerField(default=False)
+    cantidad_actual = models.IntegerField(default=False)
     estado = models.CharField(max_length=10, choices=ESTADO_CHOICES, default='Activo')
+    
 
     class Meta:
         db_table = 'lote'  # Asegura el nombre exacto de la tabla

@@ -7,6 +7,7 @@ from inventarios.models import Inventario
 from django.db.models import Q 
 from decimal import InvalidOperation
 from inventarios.utils import normalizar_texto, es_numero, parsear_fecha # funciones que se encunetran en utils en la app de inventarios
+from validaciones import validar_campos_especificos
 
 
 def procesos_agricolas(request):
@@ -36,9 +37,17 @@ def procesos_agricolas(request):
 
 def registrar_procesos_agricolas (request):
     ok = False 
+    errores = {}
 
     if request.method == 'POST':
-        form = Agricolaform(request.POST)
+        datos = request.POST
+        form = Agricolaform(datos)
+
+        errores = validar_campos_especificos(post_data=datos)
+
+        for campo, mensaje in errores.items():
+            if campo in form.fields:
+                form.add_error(campo, mensaje)
 
         if form.is_valid():
             proceso = form.save(commit=False)
@@ -60,7 +69,10 @@ def registrar_procesos_agricolas (request):
     else:
         form = Agricolaform()
 
-    return render(request, 'procesos/registrar_proceso_agricola.html', {'form': form,'ok': ok, })
+    return render(request, 'procesos/registrar_proceso_agricola.html', {
+        'form': form,
+        'ok': ok,
+        'errores': errores })
 
 def filtrar_procesos_agricolas(request):
     buscar = request.GET.get("buscar", "").strip()
@@ -162,25 +174,33 @@ def proceso_de_produccion(request):
     }
     return render (request, 'procesos/mostrar_proceso_produccion.html',contexto)
 
-
-
 def registrar_proceso_de_produccion (request):
     ok = False 
+    errores = {}
+
     if request.method == 'POST':
-        form = Procesoform(request.POST)
+        datos = request.POST
+        form = Procesoform(datos)
+
+        errores = validar_campos_especificos(post_data=datos)
+
+        for campo, mensaje in errores.items():
+            if campo in form.fields:
+                form.add_error(campo, mensaje)
 
         if form.is_valid():
             Proceso = form.save(commit=False) 
             Proceso.tipo = 'Producción'
             Proceso.save()
-
-            ok = True  
-        else:
-            print("Errores del formulario:", form.errors)  # 👈 IMPORTANTE 
-    else:
+            ok = True
+            form = Procesoform()
+        
+    else: 
         form = Procesoform()
     
-    return render (request, 'procesos/registrar_proceso_produccion.html', {'form': form,'ok':ok})
+    return render (request, 'procesos/registrar_proceso_produccion.html', {
+        'form': form,
+        'ok':ok})
 
 
 def filtrar_proceso_de_produccion(request):

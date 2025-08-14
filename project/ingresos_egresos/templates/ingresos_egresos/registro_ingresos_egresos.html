@@ -8,6 +8,7 @@
 {% block extra_styles %}
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <link rel="stylesheet" href="{% static 'css/formularios.css' %}">
+    <link rel="stylesheet" href="{% static 'css/validaciones.css' %}">
 {% endblock %}
 
 {% block content %}
@@ -21,6 +22,7 @@
             <img class="logo-item" src="{% static 'img/logo_agronova.png' %}" alt="logo - Agronova">
         </a>
     </div>
+
     <!-- Formulario para registrar ingresos o egresos -->
     <form id="formularioIngreso" method="post">
         {% csrf_token %}
@@ -28,6 +30,10 @@
             <legend>Registro de ingresos y egresos</legend>
             <!-- Campo para la identificación del administrador -->
             
+            {% if form.errors %}
+                <div class="error-msg">Por favor, corrige los siguientes errores:</div>
+            {% endif %}
+
             <!-- Selector del tipo de operación: ingreso o egreso -->
             <div class="botones">
                 <i class="fa-solid fa-repeat ingresos_egresos"></i>
@@ -44,13 +50,17 @@
                 <label for="Descripción">Descripción</label>
                 <textarea id="descripcion" name="descripcion" placeholder="Descripción" required></textarea>
             </div>
+            
             <!-- Fecha de la operación -->
+            {{ form.fecha.errors }}
             <div class="botones">
                 <span id="icono-calendario" style="cursor: pointer;">
                     <i class="fa-solid fa-calendar-days"></i>
                 </span>
-                <input type="text" id="fecha" name="fecha" required placeholder="Fecha">
+                <input type="text" id="fecha" name="fecha" required placeholder="Fecha"
+                value="{{ form.fecha.value|date:'Y-m-d'|default_if_none:'' }}">
             </div>
+
             <!-- Valor monetario del ingreso o egreso -->
             <div class="botones">
                 <i class="fa-solid fa-dollar-sign"></i>

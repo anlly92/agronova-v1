@@ -20,9 +20,10 @@ from inventarios.utils import normalizar_texto, es_numero, parsear_fecha # funci
 import openpyxl # Se utiliza para que permita la descarga de el informe en excel 
 from openpyxl.styles import Font, Alignment, PatternFill, Border, Side # Define los estilos para el excel ya que no soporta css
 from django.http import HttpResponse
-
+from validaciones import validar_campos_especificos
 from django.template.loader import get_template
 from xhtml2pdf import pisa
+from django.contrib import messages
 
 def obtener_datos_ingresos_egresos_filtrados(request): # se define una función auxiliar para traer los datos de la funcion que filtra ingresos y egresos
     _, datos_filtrados, _, _, _, _ = filtrar_ingresos_egresos(request) # lo que hacen los guiones es ignorar lo que trae esta funcion y no necesita 
@@ -134,20 +135,29 @@ def ingresos_egresos(request):
 
 def registro_ingresos_egresos (request):
     ok = False 
+    errores = {}
+
     if request.method == 'POST':
-        form = IngresosEgresosform(request.POST)
+        datos = request.POST
+        form = IngresosEgresosform(datos)
+
+        errores = validar_campos_especificos(post_data=datos)
+
+        for campo, mensaje in errores.items():
+                if campo in form.fields:
+                    form.add_error(campo, mensaje)
 
         if form.is_valid():
             ingreso_egreso = form.save(commit=False) 
             ingreso_egreso.id_admin = Administrador.objects.get(correo=request.user.username)
             ingreso_egreso.save()
-
             ok = True 
     else:
         form = IngresosEgresosform()
 
-    return render(request, 'ingresos_egresos/registro_ingresos_egresos.html', {'form': form,'ok':ok})
-
+    return render(request, 'ingresos_egresos/registro_ingresos_egresos.html', {
+        'form': form,
+        'ok':ok})
 
 def filtrar_ingresos_egresos(request):
     documento_admin = request.GET.get("documento_admin", "")
@@ -350,8 +360,6 @@ def datos_informe_mensual(request):
         }
     })
 
-
-
 def ventas (request):
     if request.method == "POST":
         seleccion = request.POST.get("elemento")       # columna seleccionada
@@ -374,11 +382,19 @@ def ventas (request):
 
 def registrar_ventas (request):
     ok = False 
+    errores = {}
+
     if request.method == 'POST':
-        form = VentasForm(request.POST)
+        datos = request.POST
+        form = VentasForm(datos)
+
+        errores = validar_campos_especificos(post_data=datos)
+
+        for campo, mensaje in errores.items():
+            if campo in form.fields:
+                form.add_error(campo, mensaje)
 
         if form.is_valid():
-            
             venta = form.save(commit=False) 
 
             venta.id_admin = Administrador.objects.get(correo=request.user.username)
@@ -408,12 +424,86 @@ def registrar_ventas (request):
         form = VentasForm()
 
     productos = Inventario.objects.filter(tipo="Inventario Producto final")
-    return render(request, 'ingresos_egresos/registrar_ventas.html', {'form': form,'productos': productos,'ok': ok})
+    return render(request, 'ingresos_egresos/registrar_ventas.html', {
+        'form': form,'productos': productos,
+        'ok': ok})
 
-def actualizar_ventas (request,seleccion):
+def actualizar_ventas(request, seleccion):
+    ventas = get_object_or_404(Ventas, pk=seleccion)
     productos = Inventario.objects.filter(tipo="Inventario Producto final")
-    return render (request, 'ingresos_egresos/actualizar_ventas.html',{'productos': productos})
 
-def informe_ventas (request):
-    return render (request, 'ingresos_egresos/informe_ventas.html')
+    if request.method == 'POST':
+        id_producto = request.POST.get("id_producto", "").strip()
+        cantidad = request.POST.get("cantidad", "").strip()
 
+        # Validar que al menos un campo tenga valor
+        if not id_producto and not cantidad:
+            messages.error(request, "Debes ingresar al menos un dato para actualizar.")
+            return redirect("actualizar_ventas", seleccion=seleccion)
+
+        if id_producto:
+            ventas.id_producto_id = id_producto  # Asignar FK por id
+
+        if cantidad:
+            ventas.cantidad = int(cantidad)  # Sin try, asumiendo valor válido
+
+        ventas.save()
+        return redirect('ventas')  
+
+    return render(request, 'ingresos_egresos/actualizar_ventas.html', {
+        'productos': productos,
+        'ventas': ventas,
+    })
+
+def informe_ventas(request):
+    return render(request, 'ingresos_egresos/informe_ventas.html')
+
+def datos_informe_ventas(request):
+    # Obtener parámetros de la URL
+    mes_str = request.GET.get('mes')
+    anio_str = request.GET.get('anio')
+
+    # Validación de existencia
+    if not mes_str or not anio_str:
+        return JsonResponse({'error': 'Debe enviar los parámetros "mes" y "anio".'}, status=400)
+
+    # Validación de tipo
+    try:
+        mes = int(mes_str)
+        anio = int(anio_str)
+    except ValueError:
+        return JsonResponse({'error': 'Los valores de mes y año deben ser números enteros.'}, status=400)
+
+    # Validación de rango
+    current_year = datetime.now().year
+    if not (1 <= mes <= 12):
+        return JsonResponse({'error': 'El mes debe estar entre 1 y 12.'}, status=400)
+    if not (1900 <= anio <= current_year):
+        return JsonResponse({'error': f'El año debe estar entre 1900 y {current_year}.'}, status=400)
+
+    # Consulta a la base de datos: ventas agrupadas por producto
+    ventas = (
+        Ventas.objects.filter(fecha__year=anio, fecha__month=mes)
+        .values('id_producto__nombre')
+        .annotate(total_vendido=Sum('cantidad'))
+        .order_by('-total_vendido')
+    )
+
+    # Si no hay datos, devolver advertencia
+    if not ventas:
+        return JsonResponse({
+            'warning': f'No se encontraron ventas para {mes}/{anio}.',
+            'labels': [],
+            'ventas': []
+        })
+
+    # Preparar datos para el gráfico
+    labels = [v['id_producto__nombre'] for v in ventas]
+    data = [float(v['total_vendido']) for v in ventas]
+    mas_vendido = labels[0] if labels else None
+
+    return JsonResponse({
+        'labels': labels,
+        'ventas': data,
+        'mas_vendido': mas_vendido
+    })

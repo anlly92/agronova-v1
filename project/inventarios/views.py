@@ -3,6 +3,8 @@ from .forms import ProductoFinalform, Arbustosform, Agroquimicosform, Herramient
 from .models import Inventario
 from django.contrib import messages
 from.models import Lote
+from validaciones import validar_campos_especificos
+
 
 # importaciones para la usqueda
 from django.shortcuts import render # renderizar plantillas HTML desde las vistas
@@ -42,22 +44,31 @@ def inventario_producto_final(request):
 
     return render(request, 'inventarios/inventario_producto_final.html', contexto )
 
-
 def registrar_inventario_producto_final (request):
     ok = False 
+    errores = {}
+
     if request.method == 'POST':
-        form = ProductoFinalform(request.POST)
+        datos = request.POST
+        form = ProductoFinalform(datos)
+        
+        errores = validar_campos_especificos(post_data=datos)
+
+        for campo, mensaje in errores.items():
+            if campo in form.fields:
+                form.add_error(campo, mensaje)
 
         if form.is_valid():
             ProductoFinal = form.save(commit=False) 
             ProductoFinal.tipo = 'Inventario Producto final'
             ProductoFinal.save()
-
             ok = True   
     else:
         form = ProductoFinalform()
 
-    return render (request, 'inventarios/registrar_inventario_producto_final.html', {'form': form,'ok':ok})
+    return render (request, 'inventarios/registrar_inventario_producto_final.html', {
+        'form': form,
+        'ok':ok})
 
 def actualizar_producto_final (request,seleccion):
     inventario = get_object_or_404(Inventario, pk=seleccion)
@@ -185,19 +196,29 @@ def inventario_arbustos(request):
 
 def registrar_inventario_arbustos (request):
     ok = False 
+    errores = {}
+
     if request.method == 'POST':
-        form = Arbustosform(request.POST)
+        datos = request.POST
+        form = Arbustosform(datos)
+
+        errores = validar_campos_especificos(post_data=datos)
+
+        for campo, mensaje in errores.items():
+            if campo in form.fields:
+                form.add_error(campo, mensaje)
 
         if form.is_valid():
             Arbusto = form.save(commit=False) 
             Arbusto.tipo = 'Inventario Arbustos'
             Arbusto.save()
-
             ok = True
     else:
         form = Arbustosform()
 
-    return render (request, 'inventarios/registrar_inventario_arbustos.html', {'form': form,'ok':ok})
+    return render (request, 'inventarios/registrar_inventario_arbustos.html', {
+        'form': form,
+        'ok':ok})
 
 def actualizar_inventario_arbustos (request,seleccion):
     inventario = get_object_or_404(Inventario, pk=seleccion)
@@ -316,19 +337,29 @@ def inventario_agroquimicos(request):
 
 def registrar_inventario_agroquimicos (request):
     ok = False 
+    errores = {}
+
     if request.method == 'POST':
-        form = Agroquimicosform(request.POST)
+        datos = request.POST
+        form = Agroquimicosform(datos)
+
+        errores = validar_campos_especificos(post_data=datos)
+
+        for campo, mensaje in errores.items():
+            if campo in form.fields:
+                form.add_error(campo, mensaje)
 
         if form.is_valid():
             Agroquimicos = form.save(commit=False) 
             Agroquimicos.tipo = 'Inventario Agroquimicos'
             Agroquimicos.save()
-
             ok = True   
     else:
         form = Agroquimicosform()
 
-    return render (request, 'inventarios/registrar_inventario_agroquimicos.html', {'form': form,'ok':ok})
+    return render (request, 'inventarios/registrar_inventario_agroquimicos.html', {
+        'form': form,
+        'ok':ok})
 
 def actualizar_inventario_agroquimicos (request,seleccion):
     inventario = get_object_or_404(Inventario, pk=seleccion)
@@ -431,21 +462,31 @@ def inventario_herramientas(request):
     return render(request, 'inventarios/inventario_herramientas.html',contexto )
 
 def registrar_herramientas (request, categoria):
-    ok = False 
+    ok = False
+    errores = {}
+
     if request.method == 'POST':
-        form = Herramientasform(request.POST)
+        datos = request.POST
+        form = Herramientasform(datos)
+
+        errores = validar_campos_especificos(post_data=datos)
+
+        for campo, mensaje in errores.items():
+            if campo in form.fields:
+                form.add_error(campo, mensaje)
 
         if form.is_valid():
             Herramientas = form.save(commit=False) 
             Herramientas.tipo = 'Inventario Herramientas'
             Herramientas.categoria = categoria
             Herramientas.save()
-
             ok = True   
     else:
         form = Herramientasform()
 
-    return render (request, 'inventarios/registrar_herramienta_maquina.html', {'form': form, 'categoria': categoria,'ok':ok})
+    return render (request, 'inventarios/registrar_herramienta_maquina.html', {
+        'form': form, 'categoria': categoria,
+        'ok':ok})
 
 def actualizar_inventario_herramientas (request,seleccion):
     inventario = get_object_or_404(Inventario, pk=seleccion)

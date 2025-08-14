@@ -25,9 +25,18 @@
             </a>
         </div>
 
-        <form id="formularioIngreso">
+        <form id="formularioIngreso" method="POST"> 
+            {% csrf_token %}
             <fieldset class="encabezado">
                 <legend>Actualizar venta</legend>
+
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="mi-mensaje-error text-center">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
 
                 <div class="botones">
                     <i class="fa-solid fa-box"></i>

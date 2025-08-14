@@ -4,7 +4,7 @@ from .models import Lote, Recoleccion, Pagos
 class LoteForm(forms.ModelForm):
     class Meta:
         model = Lote
-        fields = '__all__' 
+        exclude = ['cantidad_actual']
 
 class RecoleccionForm(forms.ModelForm):
     class Meta:

@@ -1,3 +1,4 @@
+import traceback
 from django.shortcuts import render,redirect,get_object_or_404 #obtiene un objeto del modelo, o devuelve un error 404 si no se encuentra.
 from django.db.models import Sum, F, Q # sumar, referenciar campos del modelo, clase que sirve para construir consultas complejas
 from .forms import LoteForm, RecoleccionForm, PagosForm # formularios importados desde la  misma app
@@ -13,6 +14,7 @@ from django.template.loader import get_template # carga una plantilla html para 
 from openpyxl.styles import Font, Alignment, PatternFill, Border, Side # estilos para exce, funete, alineacion de texto, relleno, bordes
 from xhtml2pdf import pisa # para generar pdf desde html y css
 from django.db.models.functions import ExtractYear, ExtractMonth # para extraer partes de fechas en concultas 
+from validaciones import validar_campos_especificos
 
 
 def obtener_datos_recoleccion_filtrados(request):
@@ -181,21 +183,35 @@ def gestionar_lote(request):
     }
     return render(request, 'cafe_cardamomo/mostrar_lotes.html',contexto)
 
-
+#----Registro de lotes---
 def registrar_lote (request):
     ok = False 
+    errores = {}
+
     if request.method == 'POST':
-        form = LoteForm(request.POST)
+        datos = request.POST
+        form = LoteForm(datos)
+
+        errores = validar_campos_especificos(post_data=datos)
+
+        for campo, mensaje in errores.items():
+            if campo in form.fields:
+                form.add_error(campo, mensaje)
 
         if form.is_valid():
-            lote = form.save(commit=False) 
-            lote.save()
-
-            ok = True
+                lote = form.save(commit=False)
+                lote.save()
+                ok = True
+                form = LoteForm() 
+                
     else:
         form = LoteForm()
 
-    return render (request, 'cafe_cardamomo/registro_lote.html', {'form': form,'ok':ok})
+    return render (request, 'cafe_cardamomo/registro_lote.html', {
+        'form': form,
+        'ok':ok
+    })
+
 
 def actualizar_lote (request,seleccion):
     lote = get_object_or_404(Lote, pk=seleccion)
@@ -387,20 +403,40 @@ def filtrar_recoleccion(request):
 
     return lotes, recolecciones, empleados, buscar, id_empleado, id_lote, tipo_producto, kilos, horas, fecha, tipo_pago  
 
+#--Registrar recoleccion--
 def registrar_recoleccion (request):
     ok = False 
-    if request.method == 'POST':
-        form = RecoleccionForm(request.POST)
+    errores = {}
 
-        if form.is_valid():
-            recoleccion = form.save(commit=False) 
-            recoleccion.save()
-            
-            ok = True
-    else:
-        form = RecoleccionForm()
+    try: 
+        if request.method == 'POST':
+            datos = request.POST
+            form = RecoleccionForm(datos)
 
-    return render (request, 'cafe_cardamomo/registro_recoleccion.html', {'form': form,'ok':ok})
+            errores = validar_campos_especificos(post_data=datos)
+
+            for campo, mensaje in errores.items():
+                if campo in form.fields:
+                    form.add_error(campo, mensaje)
+
+            if form.is_valid():
+                recoleccion = form.save(commit=False)
+                recoleccion.save()
+                ok = True
+                form = RecoleccionForm()
+                
+        else:
+            form = RecoleccionForm()
+
+    except Exception as e:
+        print("X se produjo un error inesperado:")
+        traceback.print_exc()
+
+    return render (request, 'cafe_cardamomo/registro_recoleccion.html', {
+        'form': form,
+        'ok':ok
+    })
+    
 
 def registrar_pago (request):
     if request.method == 'POST':
