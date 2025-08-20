@@ -20,9 +20,12 @@ class Proceso(models.Model):
     descripcion = models.TextField(blank=True, null=True)
     cantidad = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
     fecha = models.DateField(blank=True, null=True)
-    id_empleado = models.ForeignKey(Empleado, on_delete=models.CASCADE, db_column='id_empleado')
+    id_empleado = models.ForeignKey(Empleado, on_delete=models.SET_NULL, null=True, blank=True, db_column='id_empleado')
+    nombre_empleado = models.CharField(max_length=100, blank=True, null=True)
     id_lote = models.ForeignKey(Lote, on_delete=models.SET_NULL, null=True, blank=True, db_column='id_lote')
+    nombre_lote = models.CharField(max_length=100, blank=True, null=True)
     id_inventario = models.ForeignKey(Inventario, on_delete=models.SET_NULL, null=True, blank=True, db_column='id_inventario')
+    nombre_agroquimico = models.CharField(max_length=150, blank=True, null=True)
 
     class Meta:
         db_table = 'proceso'

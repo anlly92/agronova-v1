@@ -21,12 +21,11 @@
             <img class="logo-item" src="{% static 'img/logo_agronova.png' %}" alt="logo - Agronova">
         </a>
     </div>
-    <!-- Formulario para registrar ingresos o egresos -->
+
     <form id="formularioIngreso" method="post">
         {% csrf_token %}
         <fieldset class="encabezado">
             <legend>Registro de ventas</legend>
-            <!-- Campo para la identificación del administrador -->
 
         {% if form.errors %}
         <div class="errores-formulario">
@@ -42,6 +41,7 @@
             </ul>
         </div>
         {% endif %}
+        
             <div class="botones">
                 <i class="fa-solid fa-box"></i>
                 <label for="codigo">Codigo_del_producto</label>

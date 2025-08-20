@@ -2,7 +2,7 @@ from django.shortcuts import render,redirect,get_object_or_404 #obtiene un objet
 from django.db.models import Sum, F, Q # sumar, referenciar campos del modelo, clase que sirve para construir consultas complejas
 from .forms import LoteForm, RecoleccionForm, PagosForm # formularios importados desde la  misma app
 from django.contrib import messages #mensajes de exito y error
-from .models import Lote, Recoleccion, Empleado # modelos utilizados en las consultas
+from .models import Lote, Recoleccion, Empleado, Pagos # modelos utilizados en las consultas
 from decimal import Decimal, InvalidOperation ##excepcion que se lanza si hay error al convertir un string a decimal
 from inventarios.utils import normalizar_texto, es_numero, parsear_fecha # funciones que se encunetran en utils en la app de inventarios
 
@@ -35,9 +35,9 @@ def obtener_datos_recoleccion_filtrados(request):
         .annotate(
             año=ExtractYear('fecha'),
             mes=ExtractMonth('fecha'),
-            nombre_lote=F('id_lote__nombre')
+            nombre_lote_anotado=F('id_lote__nombre')
         )
-        .values('año', 'mes', 'nombre_lote')
+        .values('año', 'mes', 'nombre_lote_anotado')
         .annotate(total_kilos=Sum('kilos'))
         .order_by('-año', '-mes')
     )# bloque que agrupa y resume la informacion por año, mes y lote, calcula el total de kilos y devuelve una lista de diccionarios 
@@ -128,46 +128,67 @@ def total_de_recoleccion(request):
     mes = request.GET.get("mes")
     lote = request.GET.get("lote", "").strip().lower()
 
-    años_disponibles = Recoleccion.objects.annotate(a=ExtractYear('fecha')).values_list('a', flat=True).distinct().order_by('-a')
-    meses_disponibles = Recoleccion.objects.annotate(
-        y=ExtractYear('fecha'),
-        m=ExtractMonth('fecha')
-    )
-    if año:
-        meses_disponibles = meses_disponibles.filter(fecha__year=año)
-    meses_disponibles = meses_disponibles.values_list('m', flat=True).distinct().order_by('m')
+    recolecciones = Recoleccion.objects.all()
 
-    cantidad_filas_vacias = 15 - consulta_total_recoleccion.count()
+    if año:
+        recolecciones = recolecciones.filter(fecha__year=año)
+    if mes:
+        recolecciones = recolecciones.filter(fecha__month=mes)
+    if lote:
+        recolecciones = recolecciones.filter(nombre_lote__icontains=lote)
+
+    # Agrupar por año, mes, nombre_lote y tipo_producto
+    total_recoleccion = recolecciones.annotate(
+        año=ExtractYear('fecha'),
+        mes=ExtractMonth('fecha')
+    ).values(
+        'año',
+        'mes',
+        'nombre_lote',
+        'tipo_producto'
+    ).annotate(total_kilos=Sum('kilos')).order_by('nombre_lote', 'tipo_producto')
+
+    cantidad_filas_vacias = 15 - total_recoleccion.count()
 
     contexto = {
-        'total_recoleccion': consulta_total_recoleccion,
+        'total_recoleccion': total_recoleccion,
         'filas_vacias': range(cantidad_filas_vacias),
         'año': año,
         'mes': mes,
         'lote': lote,
-        'años_disponibles': años_disponibles,
-        'meses_disponibles': meses_disponibles,
     }
     return render(request, 'cafe_cardamomo/total_de_recoleccion.html', contexto)
 
 
 #Vistas para la gestion de los lotes 
 def gestionar_lote(request):
+    ok = False 
     # para acciones de editar o borrar 
     if request.method == "POST":
+
         seleccion = request.POST.get("elemento")
         accion = request.POST.get("accion")
 
         if seleccion:
-            if accion == "editar":
-                return redirect("actualizar_lote", seleccion=seleccion)
-            elif accion == "borrar":
-                get_object_or_404(Lote, pk=seleccion).delete()
-                return redirect("gestionar_lote")
-            
+            if "," in seleccion:
+                ids = seleccion.split(",")  
+            else:
+                ids = [seleccion]
+        else:
+            ids = []
+
+        ids = [int(x) for x in ids if x.strip().isdigit()]
+
+        if accion == "borrar" and ids:
+            ok = True
+            Lote.objects.filter(pk__in=ids).delete()
+
+        elif accion == "editar" and len(ids) == 1:
+            ok = True
+            return redirect("actualizar_lote", seleccion=ids[0])
 
     lotes, buscar, id_lote, nombre, hectareas, tipo_arbusto, estado = filtrar_lotes(request)
-    cantidad_filas_vacias = lotes.count()
+    cantidad_filas_vacias = 15 -lotes.count()
 
     contexto ={
         "Lotes": lotes,
@@ -178,6 +199,7 @@ def gestionar_lote(request):
         "filtro_hectareas": hectareas,
         "filtro_tipo_arbusto": tipo_arbusto,
         "filtro_estado": estado,
+        "ok": ok,
     }
     return render(request, 'cafe_cardamomo/mostrar_lotes.html',contexto)
 
@@ -198,6 +220,7 @@ def registrar_lote (request):
     return render (request, 'cafe_cardamomo/registro_lote.html', {'form': form,'ok':ok})
 
 def actualizar_lote (request,seleccion):
+    ok = False
     lote = get_object_or_404(Lote, pk=seleccion)
 
     if request.method == 'POST':
@@ -219,9 +242,9 @@ def actualizar_lote (request,seleccion):
         if estado:
             lote.estado = estado
         lote.save()
-        return redirect("gestionar_lote")
+        ok = True
 
-    return render(request, 'cafe_cardamomo/actualizar_lote.html', {'lote': lote})
+    return render(request, 'cafe_cardamomo/actualizar_lote.html', {'lote': lote, 'ok': ok})
 
 
 #funcion para la barra de busqueda o filtro en lotes
@@ -273,7 +296,7 @@ def filtrar_lotes(request):
 
 def gestionar_recoleccion (request):
     lotes, recolecciones, empleados, buscar, id_empleado, id_lote, tipo_producto, kilos, horas, fecha, tipo_pago = filtrar_recoleccion(request)  
-    cantidad_filas_vacias = recolecciones.count()
+    cantidad_filas_vacias = 15 - recolecciones.count()
 
     contexto = {
         'recolecciones': recolecciones,
@@ -389,32 +412,50 @@ def filtrar_recoleccion(request):
 
 def registrar_recoleccion (request):
     ok = False 
+
     if request.method == 'POST':
         form = RecoleccionForm(request.POST)
 
         if form.is_valid():
             recoleccion = form.save(commit=False) 
+
+            empleado = recoleccion.id_empleado
+            lote = recoleccion.id_lote
+            recoleccion.valor_pago = recoleccion.tipo_pago.valor
+
+            if empleado:
+                recoleccion.nombre_empleado = empleado.nombre + " " + empleado.apellido
+
+            if lote:
+                recoleccion.nombre_lote = lote.nombre
+
             recoleccion.save()
             
             ok = True
     else:
         form = RecoleccionForm()
 
-    return render (request, 'cafe_cardamomo/registro_recoleccion.html', {'form': form,'ok':ok})
+    empleados = Empleado.objects.all()
+    lotes = Lote.objects.all()
+    return render (request, 'cafe_cardamomo/registro_recoleccion.html', {'form': form,'ok':ok, 'empleados': empleados, 'lotes': lotes})
 
-def registrar_pago (request):
+def registrar_pago(request):
+    ok = False
     if request.method == 'POST':
-        form = PagosForm(request.POST)
+        tipo = request.POST.get('tipo_pago')
+        valor = request.POST.get('valor')
 
-        if form.is_valid():
-            pago = form.save(commit=False) 
-            pago.save()
+        if tipo and valor:
+            # Actualiza o crea el registro
+            pago, creado = Pagos.objects.update_or_create(
+                tipo_pago=tipo,
+                defaults={'valor': valor}
+            )
+            
+            ok = True
 
-            return redirect('gestionar_recoleccion')
-    else:
-        form = PagosForm()
+    # Siempre definimos form (si quieres usar un formulario para mostrar campos)
+    from .forms import PagosForm
+    form = PagosForm()
 
-    return render (request, 'cafe_cardamomo/registrar_pago.html', {'form': form})
-
-
-
+    return render(request, 'cafe_cardamomo/registrar_pago.html', {'form': form, 'ok': ok})

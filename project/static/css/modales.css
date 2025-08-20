@@ -18,7 +18,8 @@
 /* Contenedor de cada modal */
 #confirmarModal .modal-dialog,
 #exitoModal .modal-dialog,
-#advertenciaModal .modal-dialog {
+#advertenciaModal .modal-dialog,
+#modalUnElemento .modal-dialog {
     max-width: 700px;
     width: 90%;
     margin: auto;

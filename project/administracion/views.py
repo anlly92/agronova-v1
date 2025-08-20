@@ -21,25 +21,40 @@ from decimal import InvalidOperation
 
 def generador_contraseña ():
     caracteres = string.ascii_letters + string.digits
-    return ''.join(random.choices (caracteres, k=10))
+    return ''.join(random.choices (caracteres, k=5))
 
 
 def gestionar_administrador(request):
+    ok = False
     # Acciones POST
     if request.method == "POST":
+
         seleccion = request.POST.get("elemento")
         accion = request.POST.get("accion")
 
         if seleccion:
-            if accion == "editar":
-                return redirect("editar_administrador", seleccion=seleccion)
-            elif accion == "borrar":
-                admin = get_object_or_404(Administrador, pk=seleccion)
+            if "," in seleccion:
+                ids = seleccion.split(",")  
+            else:
+                ids = [seleccion]
+        else:
+            ids = []
+
+        ids = [int(x) for x in ids if x.strip().isdigit()]
+
+        if accion == "editar" and len(ids) == 1:
+            ok = True
+            return redirect("editar_administrador", seleccion=ids[0])
+
+        elif accion == "borrar":
+            ok = True
+            admins = Administrador.objects.filter(pk__in=ids)
+
+            for admin in admins:
                 correo = admin.correo
                 admin.delete()
                 from django.contrib.auth.models import User
                 User.objects.filter(username=correo).delete()
-                return redirect("gestionar_administrador")
 
     # llamamos a la funcion de filtrar administradores
     Administradores, buscar, id_admin, nombre, apellido, telefono, correo = filtrar_administradores(request)
@@ -55,6 +70,7 @@ def gestionar_administrador(request):
         "apellido": apellido,
         "telefono": telefono,
         "correo": correo,
+        "ok": ok,
     }
 
     return render(request, "administracion/gestionar_administrador.html", contexto)
@@ -111,6 +127,7 @@ def registro_administrador (request):
     return render (request, 'administracion/registro_administrador.html', {'form': form,'ok':ok})
 
 def actualizar_administrador(request, seleccion):
+    ok = False
     administrador = get_object_or_404(Administrador, pk=seleccion)
 
     if request.method == 'POST':
@@ -130,13 +147,14 @@ def actualizar_administrador(request, seleccion):
 
         try:
             administrador.save()
-            return redirect("gestionar_administrador")
+            ok = True
+
         except IntegrityError as e:
             if "correo" in str(e):
                 messages.error(request, "Este correo electrónico ya está registrado.")
                 return redirect("actualizar_personal", seleccion=seleccion)
 
-    return render(request, 'administracion/actualizar_administrador.html', {'administrador': administrador})
+    return render(request, 'administracion/actualizar_administrador.html', {'administrador': administrador, 'ok': ok})
 
 @login_required
 def sobre_mi (request):

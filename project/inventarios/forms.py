@@ -4,12 +4,12 @@ from .models import Inventario
 class ProductoFinalform(forms.ModelForm):
     class Meta:
         model = Inventario
-        fields = ['nombre', 'descripcion', 'contenido', 'precio_unitario', 'stock', 'unidad']
+        fields = ['nombre', 'descripcion', 'contenido', 'precio_unitario', 'stock', 'unidad','fecha_siembra']
 
 class Arbustosform(forms.ModelForm):
     class Meta:
         model = Inventario
-        fields = ['tipo_arbusto', 'nombre', 'id_lote', 'stock', 'fecha_siembra', 'renovacion']
+        fields = ['tipo_arbusto', 'nombre', 'id_lote', 'stock', 'fecha_siembra', 'renovacion', 'nombre_lote']
 
 class Agroquimicosform(forms.ModelForm):
     class Meta:
@@ -19,4 +19,4 @@ class Agroquimicosform(forms.ModelForm):
 class Herramientasform(forms.ModelForm):
     class Meta:
         model = Inventario
-        fields = ['nombre', 'estado', 'stock']
+        fields = ['nombre', 'estado', 'stock', 'categoria']

@@ -40,13 +40,13 @@ Procesos Agrícolas
             {% for item in proceso_agricola %}
             <tr>
                 <td>{{ item.id_proceso }}</td>
-                <td>{{ item.id_lote.id_lote }}</td>
-                <td>{{ item.id_lote.nombre }}</td>
-                <td>{{ item.id_empleado.id_empleado }}</td>
-                <td>{{ item.id_empleado.nombre }} {{ item.id_empleado.apellido }}</td>
+                <td>{{ item.id_lote.id_lote|default:"lote inexistente" }}</td>
+                <td>{{ item.nombre_lote }}</td>
+                <td>{{ item.id_empleado.id_empleado|default:"empleado inexistente" }}</td>
+                <td>{{ item.nombre_empleado }}</td>
                 <td>{{ item.descripcion }}</td>
-                <td>{{ item.id_inventario.id_inventario}}</td>
-                <td>{{ item.id_inventario.nombre}}</td>
+                <td>{{ item.id_inventario.id_inventario|default:"agroquímico inexistente" }}</td>
+                <td>{{ item.nombre_agroquimico }}</td>
                 <td>{{ item.cantidad|floatformat:0 }}</td>
                 <td>{{ item.fecha|date:"d/m/Y"}}</td>
             </tr>

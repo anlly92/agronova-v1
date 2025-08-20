@@ -32,7 +32,7 @@ Tota recoleccion
 
 <div class="boton">
     <button type="button" title="Cancelar e ir atrás">
-        <a href="javascript:history.back()">✖</a>
+        <a href="{% url 'gestionar_recoleccion' %}">✖</a>
     </button>
     <span>Salir</span>
 </div>
@@ -49,7 +49,9 @@ Tota recoleccion
                 <th>Año</th>
                 <th>Mes</th>
                 <th>Nombre del lote</th>
+                <th>Tipo de producto</th>
                 <th>Total de kilos recolectados</th>
+                
             </tr>
 
             {% for fila in total_recoleccion %}
@@ -57,12 +59,14 @@ Tota recoleccion
                 <td>{{ fila.año }}</td>
                 <td>{{ fila.mes }}</td>
                 <td>{{ fila.nombre_lote }}</td>
+                <td>{{ fila.tipo_producto }}</td>
                 <td>{{ fila.total_kilos|floatformat:0|intcomma}}</td>
             </tr>
             {% endfor %}
 
             {% for i in filas_vacias %}
             <tr>
+                <td></td>
                 <td></td>
                 <td></td>
                 <td></td>

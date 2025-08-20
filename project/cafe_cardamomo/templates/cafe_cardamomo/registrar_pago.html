@@ -6,7 +6,9 @@
 {% endblock %}
 
 {% block extra_styles %}
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="{% static 'css/formularios.css' %}">
+    <link rel="stylesheet" href="{% static 'css/modales.css' %}">
 {% endblock %}
 
 {% block header %}
@@ -45,8 +47,47 @@
                 <input id="valor" name="valor" type="number" step="0.01" placeholder="Valor del pago" required />
             </div>
             <!-- Botón para enviar el formulario -->
-            <button class="boton" type="submit"><i class="fa-solid fa-pen-to-square"></i>Registrar pago</button>
+            <button class="boton" type="button" id="btnEnviar"><i class="fa-solid fa-pen-to-square"></i>Registrar pago</button>
         </fieldset>
     </form>
 </section>
+{% endblock %}
+
+{% block modales %}
+<!-- Modal de Confirmación -->
+    <div class="modal fade" id="confirmarModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content text-center p-4">
+            <div class="modal-body">
+            <p class="fs-5">¿Estás seguro de que deseas registrar este pago? <br> Si ya existe un pago anterior este será actualizado con la nueva información.</p>
+            <div class="d-flex justify-content-center gap-3 mt-4">
+                <button type="button" class="btn btn-si" id="btnConfirmar">SI</button>
+                <button type="button" class="btn btn-no" data-bs-dismiss="modal">NO</button>
+            </div>
+            </div>
+        </div>
+        </div>
+    </div>
+
+    <!-- Modal de Éxito -->
+    <div class="modal fade modal-success" id="exitoModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content text-center p-5 position-relative">
+            <button type="button" class="btn-close position-absolute end-0 top-0 m-3" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+            <div class="modal-body">
+            <p class="fs-5">Se ha registrado el pago correctamente.</p>
+            </div>
+        </div>
+        </div>
+    </div>
+{%endblock%}
+
+{% block extra_scripts %}
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    {% if ok %}
+    <script>
+        mostrarModal = "true";
+    </script>
+    {% endif %}
+    <script src="{% static 'js/modales.js' %}"></script>
 {% endblock %}

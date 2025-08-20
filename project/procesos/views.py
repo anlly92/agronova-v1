@@ -4,6 +4,7 @@ from .models import Proceso
 from django.shortcuts import render, get_object_or_404, redirect
 from personal.models import Empleado
 from inventarios.models import Inventario
+from cafe_cardamomo.models import Lote
 from django.db.models import Q 
 from decimal import InvalidOperation
 from inventarios.utils import normalizar_texto, es_numero, parsear_fecha # funciones que se encunetran en utils en la app de inventarios
@@ -42,25 +43,47 @@ def registrar_procesos_agricolas (request):
 
         if form.is_valid():
             proceso = form.save(commit=False)
-            agroquimico = proceso.id_inventario
 
-            # Validar que hay suficiente stock
-            if agroquimico and agroquimico.stock is not None and proceso.cantidad is not None:
-                if proceso.cantidad > agroquimico.stock:
-                    form.add_error('cantidad', 'La cantidad supera el stock disponible.')
+            agroquimico = proceso.id_inventario
+            empleado = proceso.id_empleado
+            lote = proceso.id_lote
+
+            if agroquimico:
+
+                if agroquimico.stock is not None and proceso.cantidad is not None:
+
+                    if proceso.cantidad > agroquimico.stock:
+                        form.add_error('cantidad', 'La cantidad supera el stock disponible.')
+
+                    else:
+                        # Descontar del stock y guardar proceso
+                        proceso.tipo = 'Agrícola'
+
+                        proceso.nombre_agroquimico = agroquimico.nombre
+
+                        if empleado:
+                            proceso.nombre_empleado = empleado.nombre + " " + empleado.apellido
+
+                        if lote:
+                            proceso.nombre_lote = lote.nombre
+
+
+                        proceso.save()
+
+                        agroquimico.stock -= proceso.cantidad
+
+                        agroquimico.save()
+
+                        ok = True
                 else:
-                    # Descontar del stock y guardar proceso
-                    proceso.tipo = 'Agrícola'
-                    proceso.save()
-                    agroquimico.stock -= proceso.cantidad
-                    agroquimico.save()
-                    ok = True
-            else:
-                form.add_error(None, 'Datos incompletos para realizar el descuento de stock.')
+                    form.add_error(None, 'Datos incompletos para realizar el descuento de stock.')
     else:
         form = Agricolaform()
 
-    return render(request, 'procesos/registrar_proceso_agricola.html', {'form': form,'ok': ok, })
+    empleados = Empleado.objects.all()
+    lotes = Lote.objects.all()
+    agroquimicos = Inventario.objects.filter(tipo='Inventario Agroquimicos')
+    return render(request, 'procesos/registrar_proceso_agricola.html', {'form': form,'ok': ok, 'empleados': empleados, 'lotes': lotes, 'agroquimicos': agroquimicos})
 
 def filtrar_procesos_agricolas(request):
     buscar = request.GET.get("buscar", "").strip()
@@ -171,7 +194,13 @@ def registrar_proceso_de_produccion (request):
 
         if form.is_valid():
             Proceso = form.save(commit=False) 
+
+            empleado = Proceso.id_empleado
             Proceso.tipo = 'Producción'
+
+            if empleado:
+                Proceso.nombre_empleado = empleado.nombre + " " + empleado.apellido
+            
             Proceso.save()
 
             ok = True  
@@ -179,8 +208,9 @@ def registrar_proceso_de_produccion (request):
             print("Errores del formulario:", form.errors)  # 👈 IMPORTANTE 
     else:
         form = Procesoform()
-    
-    return render (request, 'procesos/registrar_proceso_produccion.html', {'form': form,'ok':ok})
+
+    empleados = Empleado.objects.all()
+    return render (request, 'procesos/registrar_proceso_produccion.html', {'form': form,'ok':ok, 'empleados': empleados})
 
 
 def filtrar_proceso_de_produccion(request):

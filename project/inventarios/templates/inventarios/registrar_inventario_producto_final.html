@@ -6,6 +6,7 @@
 {% endblock %}
 
 {% block extra_styles %}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <link rel="stylesheet" href="{% static 'css/formularios.css' %}">
 {% endblock %}
 
@@ -59,6 +60,15 @@
                     <option value="kg">kg</option>
                 </select>
             </div>
+
+            <!-- Fecha de producción -->
+            <div class="botones seleccion">
+                <span id="icono-calendario" style="cursor: pointer;">
+                    <i class="fa-solid fa-calendar-days"></i>
+                </span>
+                <input type="text" id="fecha" name="fecha_siembra" required placeholder="Fecha">
+            </div>
+
             <!-- Precio unitario -->
             <div class="botones">
                 <i class="fa-solid fa-dollar-sign"></i>
@@ -77,4 +87,10 @@
         </fieldset>
     </form>
 </section>
+{% endblock %}
+
+{% block script %}
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/es.js"></script>
+<script src="{% static 'js/calendario.js' %}"></script>
 {% endblock %}

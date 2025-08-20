@@ -60,15 +60,15 @@ Recolección
             {% for item in recolecciones %}
             <tr>
                 <td>{{ item.id_recoleccion }}</td>
-                <td>{{ item.id_empleado.id_empleado }}</td>
-                <td>{{ item.id_empleado.nombre}} {{ item.id_empleado.apellido }}</td>
-                <td>{{ item.id_lote.id_lote }}</td>
-                <td>{{ item.id_lote.nombre }}</td>
+                <td>{{ item.id_empleado.id_empleado|default:"empleado inexistente" }}</td>
+                <td>{{ item.nombre_empleado }}</td>
+                <td>{{ item.id_lote.id_lote|default:"lote inexistente" }}</td>
+                <td>{{ item.nombre_lote }}</td>
                 <td>{{ item.tipo_producto }}</td>
                 <td>{{ item.kilos|floatformat:0 }}</td>
                 <td>{{ item.fecha|date:"d/m/Y" }}</td>
                 <td>{{ item.tipo_pago.tipo_pago }}</td>
-                <td>{{ item.tipo_pago.valor|intcomma }}</td>
+                <td>{{ item.valor_pago|intcomma }}</td>
                 <td>{{ item.horas_trabajadas|floatformat:0 }}</td>
                 <td>{{ item.calcular_total|floatformat:0|intcomma }}</td>
             </tr>

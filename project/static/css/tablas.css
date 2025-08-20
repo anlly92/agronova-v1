@@ -244,8 +244,8 @@ tbody tr:hover {
     align-items:center;
 }
 
-/* pinta cada celda del <tr> que contenga el radio marcado */
-tr:has(input[type="radio"]:checked) td{
+/* pinta cada celda del <tr> que contenga el checkbox marcado */
+tr:has(input[type="checkbox"]:checked) td{
     background:#ddd;   /* verde más notorio */
 }
 

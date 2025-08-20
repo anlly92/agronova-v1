@@ -32,11 +32,14 @@ class Recoleccion(models.Model):
     ]
 
     id_recoleccion = models.AutoField(primary_key=True)
-    id_empleado = models.ForeignKey(Empleado, on_delete=models.CASCADE, db_column='id_empleado')
-    id_lote = models.ForeignKey(Lote, on_delete=models.CASCADE, db_column='id_lote')
+    id_empleado = models.ForeignKey(Empleado, on_delete=models.SET_NULL, null=True, blank=True, db_column='id_empleado')
+    nombre_empleado = models.CharField(max_length=100, blank=True, null=True)
+    id_lote = models.ForeignKey(Lote, on_delete=models.SET_NULL, null=True, blank=True, db_column='id_lote')
+    nombre_lote = models.CharField(max_length=100, blank=True, null=True)
     tipo_producto = models.CharField(max_length=20, choices=TIPO_PRODUCTO_CHOICES)
     kilos = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
     tipo_pago = models.ForeignKey('Pagos', to_field='tipo_pago', on_delete=models.CASCADE, db_column='tipo_pago')
+    valor_pago = models.DecimalField(max_digits=10, decimal_places=0, blank=True, null=True)
     horas_trabajadas = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
     fecha = models.DateField(blank=True, null=True)
 
@@ -48,9 +51,9 @@ class Recoleccion(models.Model):
     
     def calcular_total(self):
         if self.tipo_pago.tipo_pago == 'Horas':
-            return self.horas_trabajadas * self.tipo_pago.valor
+            return (self.horas_trabajadas or 0) * (self.valor_pago or 0)
         elif self.tipo_pago.tipo_pago == 'Kilos':
-            return self.kilos * self.tipo_pago.valor
+            return (self.kilos or 0) * (self.tipo_pago.valor or 0)
         return 0
 
 class Pagos(models.Model):

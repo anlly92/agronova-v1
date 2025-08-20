@@ -44,13 +44,12 @@ Ingresos y egresos
     </ul>
 </div>
 
-<form action="{% url 'ingresos_egresos' %}" method="post" class="form-accion">
+<form id="formularioIngreso" action="{% url 'ingresos_egresos' %}" method="post" class="form-accion">
     {% csrf_token %}
     <input type="hidden" name="elemento" id="elemento_oculto">
 
     <div class="boton">
-        <button type="submit" name="accion" value="borrar" title="Eliminar"
-            onclick="return confirm('¿Eliminar administrador?');">
+        <button type="button" name="accion"  id="btnEliminar" title="Eliminar">
             <i class="fas fa-trash"></i>
         </button>
         <span>Eliminar</span>
@@ -81,7 +80,7 @@ Ingresos y egresos
                 {% for item in Ingresos_Egresos %}
                 <tr class="radio-fila">
                     <td class="primero">
-                        <input type="radio" name="elemento" id="ingreso_egreso{{ item.id_transaccion }}"
+                        <input type="checkbox" name="elemento" id="ingreso_egreso{{ item.id_transaccion }}"
                             value="{{ item.id_transaccion }}" required>
                     </td>
                     <td><label for="ingreso_egreso{{ item.id_transaccion }}">{{ item.id_transaccion }}</label></td>
@@ -98,10 +97,11 @@ Ingresos y egresos
 
                 {% for i in filas_vacias %}
                     <tr>
-                        <td class="primero"></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                        <td class="primero"></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
                     </tr>
                 {% endfor %}
             </table>
+        </form>
     </div>
 </section>
 

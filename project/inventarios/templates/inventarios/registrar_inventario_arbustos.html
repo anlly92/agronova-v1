@@ -50,7 +50,12 @@
             <div class="botones">
                 <i class="fas fa-key"></i>
                 <label for="codigoLote">Código del lote de siembra</label>
-                <input type="number" id="id_lote" name="id_lote" placeholder="Código del lote de siembra" required>
+                <select name="id_lote" id="id_lote" required>
+                    <option value="" disabled selected>Seleccionar lote</option>
+                    {% for lote in lotes %}
+                        <option value="{{ lote.pk }}">{{ lote.nombre }}</option>
+                    {% endfor %}
+                </select>
             </div>
 
             <!-- Cantidad sembrada -->

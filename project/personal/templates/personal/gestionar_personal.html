@@ -17,19 +17,18 @@ Gestionar personal
 {% endblock %}
 
 {% block nav_icons %}
-<form action="{% url 'gestionar_personal' %}" method="post" class="form-accion">
+<form id="formularioIngreso" action="{% url 'gestionar_personal' %}" method="post" class="form-accion">
     {% csrf_token %}
     <input type="hidden" name="elemento" id="elemento_oculto">
 
     <div class="link" title="Editar">
-        <button type="submit" name="accion" value="editar" class="boton-actualizar">
+        <button type="submit" name="accion" value="editar" id="btnEditar" class="boton-actualizar">
             <i class="fas fa-arrows-rotate"></i>
         </button>
         <span>Actualizar</span>
     </div>
     <div class="boton">
-        <button type="submit" name="accion" value="borrar" title="Eliminar"
-            onclick="return confirm('¿Eliminar administrador?');">
+        <button type="button" name="accion" id="btnEliminar" title="Eliminar">
             <i class="fas fa-trash"></i>
         </button>
         <span>Eliminar</span>
@@ -44,7 +43,7 @@ Gestionar personal
 
 <section class="tabla ">
     <div class="tabla-scroll-wrapper">
-        <form action="{% url 'gestionar_personal' %}" method="post">
+        <form  action="{% url 'gestionar_personal' %}"  method="post">
             {% csrf_token %}
             <table>
                 <tr>
@@ -61,7 +60,7 @@ Gestionar personal
                 {% for item in empleados %}
                 <tr class="radio-fila">
                     <td class="primero">
-                        <input type="radio" name="elemento" id="personal{{ item.id_empleado }}"
+                        <input type="checkbox" name="elemento" id="personal{{ item.id_empleado }}"
                             value="{{ item.id_empleado }}" required>
                     </td>
                     <td><label for="personal{{ item.id_empleado }}">{{ item.id_empleado }}</label></td>

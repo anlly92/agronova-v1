@@ -15,19 +15,18 @@ Arbustos
 {% endblock %}
 
 {% block nav_icons %}
-<form action="{% url 'inventario_arbustos' %}" method="post" class="form-accion">
+<form id="formularioIngreso" action="{% url 'inventario_arbustos' %}" method="post" class="form-accion">
     {% csrf_token %}
     <input type="hidden" name="elemento" id="elemento_oculto">
 
     <div class="link" title="Editar">
-        <button type="submit" name="accion" value="editar" class="boton-actualizar">
+        <button type="submit" name="accion" value="editar" id="btnEditar" class="boton-actualizar">
             <i class="fas fa-arrows-rotate"></i>
         </button>
         <span>Actualizar</span>
     </div>
     <div class="boton">
-        <button type="submit" name="accion" value="borrar" title="Eliminar"
-            onclick="return confirm('¿Eliminar el arbusto seleccionado?');">
+        <button type="button" name="accion" value="borrar" id="btnEliminar" title="Eliminar">
             <i class="fas fa-trash"></i>
         </button>
         <span>Eliminar</span>
@@ -39,14 +38,10 @@ Arbustos
 
 <!-- Modal de filtros -->
 {% include "inventarios/filtro_inventario_arbustos.html" %}
-<!-- 🔍 Formulario de Búsqueda -->
-
-
-
 
 <section class="tabla">
     <div class="tabla-scroll-wrapper">
-        <form action="{% url 'inventario_arbustos' %}" method="post">
+        <form action="{% url 'inventario_arbustos' %}"  method="post">
             {% csrf_token %}
             <table>
                 <tr>
@@ -65,18 +60,14 @@ Arbustos
                 {% for item in arbustos %}
                 <tr class="radio-fila">
                     <td class="primero">
-                        <input type="radio"
-                            name="elemento"
-                            id="arbustos{{ item.id_inventario }}"
-                            value="{{ item.id_inventario }}"
-                            required
-                            onclick="document.getElementById('elemento_oculto').value = this.value;">
+                        <input type="checkbox" name="elemento" id="arbustos{{ item.id_inventario }}"
+                            value="{{ item.id_inventario }}" required>
                     </td>
                     <td><label for="arbustos{{ item.id_inventario }}">{{ item.id_inventario }}</label></td>
                     <td><label for="arbustos{{ item.id_inventario }}">{{ item.tipo_arbusto }}</label></td>
                     <td><label for="arbustos{{ item.id_inventario }}">{{ item.nombre }}</label></td>
-                    <td><label for="arbustos{{ item.id_inventario }}">{{ item.id_lote.id_lote }}</label></td>
-                    <td><label for="arbustos{{ item.id_inventario }}">{{ item.id_lote.nombre }}</label></td>
+                    <td><label for="arbustos{{ item.id_inventario }}">{{ item.id_lote.id_lote|default:"lote inexistente" }}</label></td>
+                    <td><label for="arbustos{{ item.id_inventario }}">{{ item.nombre_lote }}</label></td>
                     <td><label for="arbustos{{ item.id_inventario }}">{{ item.stock|floatformat:0 }}</label></td>
                     <td><label for="arbustos{{ item.id_inventario }}">{{ item.fecha_siembra|date:"d/m/Y"}}</label></td>
                     <td><label for="arbustos{{ item.id_inventario }}">{{ item.renovacion }}</label></td>
@@ -86,7 +77,7 @@ Arbustos
 
                 {% for i in filas_vacias %}
                     <tr>
-                        <td class="primero"></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                        <td class="primero"></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
                     </tr>
                 {% endfor %}
                 

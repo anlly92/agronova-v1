@@ -15,20 +15,19 @@ Lotes
 {% endblock %}
 
 {% block nav_icons %}
-<form action="{% url 'gestionar_lote' %}" method="post" class="form-accion">
+<form id="formularioIngreso" action="{% url 'gestionar_lote' %}" method="post" class="form-accion">
     {% csrf_token %}
     <input type="hidden" name="elemento" id="elemento_oculto">
 
     <div class="link" title="Editar">
-        <button type="submit" name="accion" value="editar" class="boton-actualizar">
+        <button type="submit" name="accion" value="editar" id="btnEditar" class="boton-actualizar">
             <i class="fas fa-arrows-rotate"></i>
         </button>
         <span>Actualizar</span>
     </div>
 
     <div class="boton">
-        <button type="submit" name="accion" value="borrar" title="Eliminar"
-            onclick="return confirm('¿Eliminar administrador?');">
+        <button type="button" name="accion" id="btnEliminar" title="Eliminar">
             <i class="fas fa-trash"></i>
         </button>
         <span>Eliminar</span>
@@ -59,7 +58,7 @@ Lotes
                 {% for item in Lotes %}
                 <tr class="radio-fila">
                     <td class="primero">
-                        <input type="radio" name="elemento" id="lote{{ item.id_lote }}" value="{{ item.id_lote }}"
+                        <input type="checkbox" name="elemento" id="lote{{ item.id_lote }}" value="{{ item.id_lote }}"
                             required>
                     </td>
                     <td><label for="lote{{ item.id_lote }}">{{ item.id_lote }}</label></td>

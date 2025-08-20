@@ -145,7 +145,10 @@ def obtener_alertas():
     hace_siete = hoy.replace(year=hoy.year - 7)
     arbustos_sin_renovar = Inventario.objects.filter(tipo_arbusto='Café', fecha_siembra__lt=hace_siete)
     for arbusto in arbustos_sin_renovar:
-        alertas.append(f"📅 {round(arbusto.stock)} Arbustos de café sin renovar desde {arbusto.fecha_siembra.strftime('%d/%m/%Y')}: {arbusto.nombre} en el {arbusto.id_lote.nombre}")
+        if arbusto.id_lote is not None:
+            alertas.append(f"📅 {round(arbusto.stock)} Arbustos de café sin renovar desde {arbusto.fecha_siembra.strftime('%d/%m/%Y')}: {arbusto.nombre} en el {arbusto.id_lote.nombre}")
+        else:
+            continue
 
     return alertas
 

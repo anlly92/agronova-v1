@@ -31,13 +31,23 @@
             <div class="botones">
                 <i class="fas fa-id-card"></i>
                 <label for="Identificación_del_empleado">Identificación_del_empleado</label>
-                <input id="id_empleado" name="id_empleado" type="number" placeholder="Identificación del empleado" min="0" required />
+                <select name="id_empleado" id="id_empleado" required>
+                    <option value="" disabled selected>Seleccionar empleado</option>
+                    {% for empleado in empleados %}
+                        <option value="{{ empleado.pk }}">{{ empleado.nombre }} {{ empleado.apellido }}</option>
+                    {% endfor %}
+                </select>
             </div>
             <!-- Campo: Código del lote -->
             <div class="botones">
                 <i class="fas fa-key"></i>
                 <label for="Código_del_lote">Código_del_lote</label>
-                <input id="id_lote" name="id_lote" type="number" placeholder="codigo lote" min="0" required />
+                <select name="id_lote" id="id_lote" required>
+                    <option value="" disabled selected>Seleccionar lote</option>
+                    {% for lote in lotes %}
+                        <option value="{{ lote.pk }}">{{ lote.nombre }}</option>
+                    {% endfor %}
+                </select>
             </div>
             <!-- Campo: Tipo de arbusto (selección) -->
             <div class="botones">

@@ -1,3 +1,4 @@
+import traceback
 from django.shortcuts import render,redirect,get_object_or_404
 from .forms import ProductoFinalform, Arbustosform, Agroquimicosform, Herramientasform
 from .models import Inventario
@@ -15,19 +16,32 @@ from decimal import Decimal, InvalidOperation
 # ────────── Producto final ──────────
 
 def inventario_producto_final(request):
+    ok = False 
     if request.method == "POST":
+
         seleccion = request.POST.get("elemento")
         accion = request.POST.get("accion")
 
         if seleccion:
-            if accion == "editar":
-                return redirect("actualizar_producto_final", seleccion=seleccion)
-            if accion == "borrar":
-                get_object_or_404(Inventario, pk=seleccion).delete()
-                return redirect("inventario_producto_final")
+            if "," in seleccion:
+                ids = seleccion.split(",")  
+            else:
+                ids = [seleccion]
+        else:
+            ids = []
+
+        ids = [int(x) for x in ids if x.strip().isdigit()]
+
+        if accion == "borrar" and ids:
+            ok = True
+            Inventario.objects.filter(pk__in=ids).delete()
+
+        elif accion == "editar" and len(ids) == 1:
+            ok = True
+            return redirect("actualizar_producto_final", seleccion=ids[0])
 
     producto_final, buscar, nombre, contenido, unidad, precio_unitario, stock = filtrar_producto_final(request)
-    cantidad_filas_vacias = producto_final.count()
+    cantidad_filas_vacias = 15 - producto_final.count()
 
     contexto = {
         'producto_final': producto_final,
@@ -38,6 +52,7 @@ def inventario_producto_final(request):
         'filtro_unidad': unidad,
         'filtro_precio_unitario': precio_unitario,
         'filtro_stock': stock,
+        "ok": ok,
     }
 
     return render(request, 'inventarios/inventario_producto_final.html', contexto )
@@ -60,6 +75,7 @@ def registrar_inventario_producto_final (request):
     return render (request, 'inventarios/registrar_inventario_producto_final.html', {'form': form,'ok':ok})
 
 def actualizar_producto_final (request,seleccion):
+    ok = False
     inventario = get_object_or_404(Inventario, pk=seleccion)
 
     if request.method == 'POST':
@@ -82,9 +98,9 @@ def actualizar_producto_final (request,seleccion):
             inventario.stock = stock
 
         inventario.save()
-        return redirect("inventario_producto_final")
+        ok = True
 
-    return render(request, 'inventarios/actualizar_producto_final.html', {'inventario': inventario})
+    return render(request, 'inventarios/actualizar_producto_final.html', {'inventario': inventario, 'ok': ok})
 
 
 
@@ -154,16 +170,30 @@ def filtrar_producto_final(request):
 # ────────── Arbustos ──────────
 
 def inventario_arbustos(request):
+    ok = False
     # Para acciones de editar/borrar
-    if request.method == "POST" and "accion" in request.POST:
+    if request.method == "POST" :
+        
         seleccion = request.POST.get("elemento")
         accion = request.POST.get("accion")
+
         if seleccion:
-            if accion == "editar":
-                return redirect("actualizar_inventario_arbustos", seleccion=seleccion)
-            elif accion == "borrar":
-                get_object_or_404(Inventario, pk=seleccion).delete()
-                return redirect("inventario_arbustos")
+            if "," in seleccion:
+                ids = seleccion.split(",")  
+            else:
+                ids = [seleccion]
+        else:
+            ids = []
+
+        ids = [int(x) for x in ids if x.strip().isdigit()]
+
+        if accion == "borrar" and ids:
+            ok = True
+            Inventario.objects.filter(pk__in=ids).delete()
+
+        elif accion == "editar" and len(ids) == 1 :
+            ok = True
+            return redirect("actualizar_inventario_arbustos", seleccion=ids[0])
 
     arbustos, lotes, buscar, tipo_arbusto, nombre_lote, nombre, stock, fecha_siembra, renovacion = filtrar_arbustos(request)
     cantidad_filas_vacias = 15 - arbustos.count()
@@ -179,6 +209,7 @@ def inventario_arbustos(request):
         'filtro_stock': stock,
         'filtro_fecha_siembra': fecha_siembra,
         'filtro_renovacion': renovacion,
+        'ok': ok,
     }
 
     return render(request, 'inventarios/inventario_arbustos.html',contexto )
@@ -186,20 +217,28 @@ def inventario_arbustos(request):
 def registrar_inventario_arbustos (request):
     ok = False 
     if request.method == 'POST':
+
         form = Arbustosform(request.POST)
 
         if form.is_valid():
             Arbusto = form.save(commit=False) 
             Arbusto.tipo = 'Inventario Arbustos'
+            
+            if Arbusto.id_lote:
+                Arbusto.nombre_lote = Arbusto.id_lote.nombre
+                
+
             Arbusto.save()
 
             ok = True
     else:
         form = Arbustosform()
 
-    return render (request, 'inventarios/registrar_inventario_arbustos.html', {'form': form,'ok':ok})
+    lotes = Lote.objects.all()
+    return render (request, 'inventarios/registrar_inventario_arbustos.html', {'form': form,'ok':ok, 'lotes': lotes})
 
 def actualizar_inventario_arbustos (request,seleccion):
+    ok = False
     inventario = get_object_or_404(Inventario, pk=seleccion)
 
     if request.method == 'POST':
@@ -218,9 +257,9 @@ def actualizar_inventario_arbustos (request,seleccion):
             inventario.fecha_siembra = fecha_siembra
 
         inventario.save()
-        return redirect("inventario_arbustos")
+        ok = True
 
-    return render(request, 'inventarios/actualizar_arbustos.html', {'inventario': inventario})
+    return render(request, 'inventarios/actualizar_arbustos.html', {'inventario': inventario, 'ok': ok})
 
 def filtrar_arbustos(request):
     buscar = request.GET.get("buscar", "").strip()
@@ -286,16 +325,31 @@ def filtrar_arbustos(request):
 # ────────── Agroquímicos ──────────
 
 def inventario_agroquimicos(request):
+    ok = False
     if request.method == "POST":
+
         seleccion = request.POST.get("elemento")
         accion = request.POST.get("accion")
 
         if seleccion:
-            if accion == "editar":
-                return redirect("actualizar_inventario_agroquimicos", seleccion=seleccion)
-            if accion == "borrar":
-                get_object_or_404(Inventario, pk=seleccion).delete()
-                return redirect("inventario_agroquimicos")
+            if "," in seleccion:
+                ids = seleccion.split(",")  
+            else:
+                ids = [seleccion]
+        else:
+            ids = []
+
+        ids = [int(x) for x in ids if x.strip().isdigit()]
+
+        if accion == "borrar" and ids:
+            ok = True
+            Inventario.objects.filter(pk__in=ids).delete()
+
+        elif accion == "editar" and len(ids) == 1:
+            ok = True
+            return redirect("actualizar_inventario_agroquimicos", seleccion=ids[0])
+
+        
 
     agroquimicos, buscar, nombre, contenido, unidad, stock = filtrar_agroquimicos(request)
     cantidad_filas_vacias = 15 - agroquimicos.count()
@@ -310,6 +364,7 @@ def inventario_agroquimicos(request):
         'filtro_contenido': contenido,
         'filtro_unidad': unidad,
         'filtro_stock': stock,
+        'ok': ok,
     }
 
     return render(request, 'inventarios/inventario_agroquimicos.html',contexto )
@@ -331,6 +386,7 @@ def registrar_inventario_agroquimicos (request):
     return render (request, 'inventarios/registrar_inventario_agroquimicos.html', {'form': form,'ok':ok})
 
 def actualizar_inventario_agroquimicos (request,seleccion):
+    ok = False
     inventario = get_object_or_404(Inventario, pk=seleccion)
 
     if request.method == 'POST':
@@ -353,9 +409,9 @@ def actualizar_inventario_agroquimicos (request,seleccion):
             inventario.stock = stock
 
         inventario.save()
-        return redirect("inventario_agroquimicos")
+        ok = True
 
-    return render(request, 'inventarios/actualizar_agroquimico.html', {'inventario': inventario})
+    return render(request, 'inventarios/actualizar_agroquimico.html', {'inventario': inventario, 'ok': ok})
 
 
 
@@ -405,17 +461,32 @@ def filtrar_agroquimicos(request):
 # ────────── Herramientas ──────────
 
 def inventario_herramientas(request):
+    ok = False
     if request.method == "POST":
-        seleccion = request.POST.get("elemento")       # columna seleccionada
-        accion = request.POST.get("accion")            # acción enviada "editar" o "borrar"
 
+        seleccion = request.POST.get("elemento")
+        accion = request.POST.get("accion") 
+        print("REQUEST POST:", request.POST)
+        
         if seleccion:
-            if accion == "editar":
-                return redirect("actualizar_inventario_herramientas", seleccion=seleccion)
-            if accion == "borrar":
-                get_object_or_404(Inventario, pk=seleccion).delete()
-                return redirect("inventario_herramientas")
+            if "," in seleccion:
+                ids = seleccion.split(",")
+            else:
+                ids = [seleccion]
+        else:
+            ids = []
+
+        ids = [int(x) for x in ids if x.strip().isdigit()]
+
+        # acción enviada "editar" o "borrar"
+        if accion == "borrar" and ids:
+            ok = True
+            Inventario.objects.filter(pk__in=ids).delete()
             
+        elif accion == "editar" and len(ids) == 1:
+            ok = True
+            return redirect("actualizar_inventario_herramientas", seleccion=ids[0]) 
+        
     herramientas, buscar, categoria, nombre, estado, stock = filtrar_herramientas(request)
     cantidad_filas_vacias = 15 - herramientas.count()
     contexto = {
@@ -427,12 +498,13 @@ def inventario_herramientas(request):
         'filtro_nombre': nombre,
         'filtro_estado': estado,
         'filtro_stock': stock,
+        "ok": ok,  # para mostrar mensajes de éxito o error
     }
     return render(request, 'inventarios/inventario_herramientas.html',contexto )
 
 def registrar_herramientas (request, categoria):
     ok = False 
-    if request.method == 'POST':
+    if request.method == "POST":
         form = Herramientasform(request.POST)
 
         if form.is_valid():
@@ -448,6 +520,7 @@ def registrar_herramientas (request, categoria):
     return render (request, 'inventarios/registrar_herramienta_maquina.html', {'form': form, 'categoria': categoria,'ok':ok})
 
 def actualizar_inventario_herramientas (request,seleccion):
+    ok = False
     inventario = get_object_or_404(Inventario, pk=seleccion)
 
     if request.method == 'POST':
@@ -466,9 +539,9 @@ def actualizar_inventario_herramientas (request,seleccion):
             inventario.stock = stock
 
         inventario.save()
-        return redirect("inventario_herramientas")
+        ok = True
 
-    return render(request, 'inventarios/actualizar_herramienta_maquina.html', {'inventario': inventario})
+    return render(request, 'inventarios/actualizar_herramienta_maquina.html', {'inventario': inventario, 'ok': ok})
 
 def categoria_herramientas (request):
     return render (request, 'inventarios/categoria_herramienta_maquina.html')

@@ -45,14 +45,24 @@
             <div class="botones">
                 <i class="fas fa-key"></i>
                 <label for="codigolote">codigo lote</label>
-                <input type="number" id="id_lote" name="id_lote" placeholder="Código del lote" required>
+                <select name="id_lote" id="id_lote" required>
+                    <option value="" disabled selected>Seleccionar lote</option>
+                    {% for lote in lotes %}
+                        <option value="{{ lote.pk }}">{{ lote.nombre }}</option>
+                    {% endfor %}
+                </select>
             </div>
 
             <!-- Documento del empleado -->
             <div class="botones">
                 <i class="fa-solid fa-id-card"></i>
                 <label for="documentoEmpleado">documento empleado</label>
-                <input type="number" id="id_empleado" name="id_empleado" placeholder="Documento del empleado" min="0" required>
+                <select name="id_empleado" id="id_empleado" required>
+                    <option value="" disabled selected>Seleccionar empleado</option>
+                    {% for empleado in empleados %}
+                        <option value="{{ empleado.pk }}">{{ empleado.nombre }} {{ empleado.apellido }}</option>
+                    {% endfor %}
+                </select>
             </div>
 
             <!-- Descripción del proceso -->
@@ -66,7 +76,12 @@
             <div class="botones">
                 <i class="fa-solid fa-vial"></i>
                 <label for="codigoAgroquimico">código agroquimico</label>
-                <input type="number" id="id_inventario" name="id_inventario" placeholder="Código agroquímico" required>
+                <select name="id_inventario" id="id_inventario" required>
+                    <option value="" disabled selected>Seleccionar agroquímico</option>
+                    {% for agroquimico in agroquimicos %}
+                        <option value="{{ agroquimico.pk }}">{{ agroquimico.nombre }} {{ agroquimico.contenido }} {{ agroquimico.unidad }}</option>
+                    {% endfor %}
+                </select>
             </div>
 
             <!-- Cantidad agroquímico utilizado -->

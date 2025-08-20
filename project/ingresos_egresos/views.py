@@ -108,25 +108,44 @@ def exportar_ingresos_egresos_pdf(request):
     return response
 
 def ingresos_egresos(request):
+    ok = False
     if request.method == "POST":
+
         seleccion = request.POST.get("elemento")
         accion = request.POST.get("accion")
-        if seleccion:
-            if accion == "borrar":
-                get_object_or_404(IngresosEgresos, pk=seleccion).delete()
-                return redirect("ingresos_egresos")
 
+        if seleccion:
+
+            if "," in seleccion:
+                ids = seleccion.split(",")  
+            else:
+                ids = [seleccion]
+        else:
+            ids = []
+
+        ids = [int(x) for x in ids if x.strip().isdigit()]
+
+        if accion == "borrar" and ids:
+            ok = True
+            for id_ingreso_egreso in ids:
+                ingreso_egreso = get_object_or_404(IngresosEgresos, pk=id_ingreso_egreso)
+                ingreso_egreso.anulada = True
+                ingreso_egreso.save()
+    
     buscar, Ingresos_Egresos, documento_admin, tipo, fecha, monto = filtrar_ingresos_egresos(request)
+    Ingresos_Egresos = Ingresos_Egresos.filter(anulada=False) 
     cantidad_filas_vacias = 15 - Ingresos_Egresos.count()
 
     contexto = {
         'Ingresos_Egresos': Ingresos_Egresos,
+        'ingresos_egresos': ingresos_egresos,
         'filas_vacias': range(cantidad_filas_vacias),
         'buscar': buscar,
         'filtro_documento_admin': documento_admin,
         'filtro_tipo': tipo,
         'filtro_fecha': fecha,
         'filtro_monto': monto,
+        'ok': ok,
     }
 
     return render(request, 'ingresos_egresos/mostrar_ingresos_egresos.html', contexto)
@@ -353,24 +372,42 @@ def datos_informe_mensual(request):
 
 
 def ventas (request):
+    ok = False
     if request.method == "POST":
+
         seleccion = request.POST.get("elemento")       # columna seleccionada
         accion = request.POST.get("accion")         # accion enviada "editar" o "borrar"
 
         if seleccion:
+            if "," in seleccion:
+                ids = seleccion.split(",")  
+            else:
+                ids = [seleccion]
+        else:
+            ids = []
 
-            if accion == "editar":
-                # redirige al formulario de edición
-                return redirect("actualizar_ventas", seleccion=seleccion)
+        ids = [int(x) for x in ids if x.strip().isdigit()]
 
-            if accion == "borrar":
-                # elimina el elemento selecionado
-                get_object_or_404(Ventas,pk=seleccion).delete()
-                return redirect("ventas")
+        if accion == "borrar" and ids:
+            ok = True
+            for id_venta in ids:
+                venta = get_object_or_404(Ventas, pk=id_venta)
+                venta.anulada = True
+                venta.save()
 
-    ventas = Ventas.objects.all()
+        elif accion == "editar" and len(ids) == 1:
+            ok = True
+            return redirect("actualizar_ventas", seleccion=ids[0])
+
+    ventas = Ventas.objects.filter(anulada=False)
     cantidad_filas_vacias = 15 - ventas.count()
-    return render (request, 'ingresos_egresos/mostrar_ventas.html', {'ventas': ventas, 'filas_vacias': range(cantidad_filas_vacias)})
+
+    contexto = {
+        "ventas": ventas,
+        "filas_vacias": range(cantidad_filas_vacias),
+        "ok": ok,
+    }
+    return render (request, 'ingresos_egresos/mostrar_ventas.html', contexto)
 
 def registrar_ventas (request):
     ok = False 
@@ -384,26 +421,37 @@ def registrar_ventas (request):
             venta.id_admin = Administrador.objects.get(correo=request.user.username)
             
             producto = venta.id_producto
-            precio_unitario = producto.precio_unitario
-            total = venta.cantidad * precio_unitario
 
-            if producto.stock >= venta.cantidad:
-                producto.stock -= venta.cantidad
-                producto.save()
-                venta.save()
+            if producto:
+                precio_unitario = producto.precio_unitario
+                total = venta.cantidad * precio_unitario
 
-                # Registro automático en ingresos
-                IngresosEgresos.objects.create(
-                    id_admin=venta.id_admin,
-                    tipo="Ingreso",
-                    descripcion=f"Venta de {venta.cantidad} bolsas de {producto.nombre} de {producto.contenido} {producto.unidad} ",
-                    fecha=venta.fecha,
-                    monto=total
-                )
+                if producto.stock >= venta.cantidad:
+                    producto.stock -= venta.cantidad
+                    producto.save()
 
-                ok = True
+                    venta.nombre_producto = producto.nombre
+                    venta.precio_unitario = producto.precio_unitario
+                    venta.total = total 
+                    venta.contenido = producto.contenido
+                    venta.unidad = producto.unidad
+
+                    venta.save()
+
+                    # Registro automático en ingresos
+                    IngresosEgresos.objects.create(
+                        id_admin=venta.id_admin,
+                        tipo="Ingreso",
+                        descripcion=f"Venta de {venta.cantidad} bolsas de {producto.nombre} de {producto.contenido} {producto.unidad} ",
+                        fecha=venta.fecha,
+                        monto=total
+                    )
+
+                    ok = True
+                else:
+                    form.add_error('cantidad', 'No hay suficiente stock disponible.')
             else:
-                form.add_error('cantidad', 'No hay suficiente stock disponible.')
+                form.add_error('id_producto', 'Debes seleccionar un producto válido.')
     else:
         form = VentasForm()
 

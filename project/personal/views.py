@@ -7,22 +7,35 @@ from inventarios.utils import normalizar_texto, es_numero # funciones que se enc
 from django.db.models import Q
 
 def gestionar_personal(request):
+    ok = False 
     # para acciones de editar y borrar
     if request.method == "POST":
+
         seleccion = request.POST.get("elemento")
         accion = request.POST.get("accion")
 
         if seleccion:
-            if accion == "editar":
-                return redirect("actualizar_personal", seleccion=seleccion)
-            if accion == "borrar":
-                get_object_or_404(Empleado, pk=seleccion).delete()
-                return redirect("gestionar_personal")
+            if "," in seleccion:
+                ids = seleccion.split(",")  
+            else:
+                ids = [seleccion]
+        else:
+            ids = []
 
+        ids = [int(x) for x in ids if x.strip().isdigit()]
+
+        if accion == "borrar" and ids:
+            ok = True
+            Empleado.objects.filter(pk__in=ids).delete()
+
+        elif accion == "editar" and len(ids) == 1:
+            ok = True
+            return redirect("actualizar_personal", seleccion=ids[0])
+            
     # llamamos y desempaquetamos los datos de la funcion filtrar empleados
     empleados, buscar, id_empleado, nombre, apellido, telefono, tipo_empleado, pago_contrato = filtrar_personal(request)
     # cantidad de filas vacías para mantener formato en tabla
-    cantidad_filas_vacias = empleados.count()
+    cantidad_filas_vacias = 15 - empleados.count()
 
     #contexto de los datos que se utilizan para filtrar o buscar en la barra
     contexto = {
@@ -35,6 +48,7 @@ def gestionar_personal(request):
         "telefono": telefono,
         "filtro_tipo_empleado": tipo_empleado,
         "filtro_pago_contrato": pago_contrato,
+        "ok": ok,
     }
 
     return render(request, 'personal/gestionar_personal.html', contexto)
@@ -57,6 +71,7 @@ def registro_personal (request):
     return render (request, 'personal/registrar_personal.html', {'form': form,'ok':ok})
 
 def actualizar_personal (request,seleccion):
+    ok = False
     empleado = get_object_or_404(Empleado, pk=seleccion)
 
     if request.method == 'POST':
@@ -79,9 +94,9 @@ def actualizar_personal (request,seleccion):
             empleado.pago_contrato = pago_contrato
 
         empleado.save()
-        return redirect("gestionar_personal")
+        ok = True
 
-    return render(request, 'personal/actualizar_personal.html', {'empleado': empleado})
+    return render(request, 'personal/actualizar_personal.html', {'empleado': empleado, 'ok': ok})
 
 def filtrar_personal(request):
     

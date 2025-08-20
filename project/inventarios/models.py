@@ -37,6 +37,7 @@ class Inventario(models.Model):
     id_lote = models.ForeignKey(Lote, on_delete=models.SET_NULL, null=True, blank=True, db_column='id_lote')
     contenido = models.CharField(max_length=100, blank=True, null=True)
     precio_unitario = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
+    nombre_lote = models.CharField(max_length=100, blank=True, null=True)
 
     class Meta:
         db_table = 'inventario'

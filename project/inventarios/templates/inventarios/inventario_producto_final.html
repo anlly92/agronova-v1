@@ -16,19 +16,18 @@ Productos finales
 {% endblock %}
 
 {% block nav_icons %}
-<form action="{% url 'inventario_producto_final' %}" method="post" class="form-accion">
+<form  id="formularioIngreso" action="{% url 'inventario_producto_final' %}" method="post" class="form-accion">
     {% csrf_token %}
     <input type="hidden" name="elemento" id="elemento_oculto">
 
     <div class="link" title="Editar">
-        <button type="submit" name="accion" value="editar" class="boton-actualizar">
+        <button type="submit" name="accion" value="editar" id="btnEditar" class="boton-actualizar">
             <i class="fas fa-arrows-rotate"></i>
         </button>
         <span>Actualizar</span>
     </div>
     <div class="boton">
-        <button type="submit" name="accion" value="borrar" title="Eliminar"
-            onclick="return confirm('¿Eliminar administrador?');">
+        <button type="button" name="accion" value="borrar" id="btnEliminar" title="Eliminar">
             <i class="fas fa-trash"></i>
         </button>
         <span>Eliminar</span>
@@ -43,7 +42,7 @@ Productos finales
 
 <section class="tabla">
     <div class="tabla-scroll-wrapper">
-        <form action="{% url 'inventario_producto_final' %}" method="post">
+        <form action="{% url 'inventario_producto_final' %}"  method="post">
             {% csrf_token %}
             <table>
                 <tr>
@@ -53,6 +52,7 @@ Productos finales
                     <th>Descripción del producto</th>
                     <th>Contenido neto</th>
                     <th>unidad de medida</th>
+                    <th>Fecha de producción</th>
                     <th>Precio unitario</th>
                     <th>Stock</th>
                 </tr>
@@ -61,7 +61,7 @@ Productos finales
                 {% for item in producto_final %}
                 <tr class="radio-fila">
                     <td class="primero">
-                        <input type="radio" name="elemento" id="producto_final{{ item.id_inventario }}"
+                        <input type="checkbox" name="elemento" id="producto_final{{ item.id_inventario }}"
                             value="{{ item.id_inventario }}" required>
                     </td>
                     <td><label for="producto_final{{ item.id_inventario }}">{{ item.id_inventario }}</label></td>
@@ -69,6 +69,7 @@ Productos finales
                     <td><label for="producto_final{{ item.id_inventario }}">{{ item.descripcion }}</label></td>
                     <td><label for="producto_final{{ item.id_inventario }}">{{ item.contenido }}</label></td>
                     <td><label for="producto_final{{ item.id_inventario }}">{{ item.unidad }}</label></td>
+                    <td><label for="producto_final{{ item.id_inventario }}">{{ item.fecha_siembra }}</label></td>
                     <td><label for="producto_final{{ item.id_inventario }}">{{ item.precio_unitario|floatformat:0 }}</label></td>
                     <td><label for="producto_final{{ item.id_inventario }}">{{ item.stock|floatformat:0 }}</label></td>
                 </tr>
@@ -78,7 +79,7 @@ Productos finales
 
                 {% for i in filas_vacias %}
                     <tr>
-                        <td class="primero"></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                        <td class="primero"></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
                     </tr>
                 {% endfor %}
                 
