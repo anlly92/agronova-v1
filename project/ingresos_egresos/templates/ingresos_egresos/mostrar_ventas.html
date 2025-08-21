@@ -8,6 +8,8 @@
 
 {% block extra_styles %}
 <link rel="stylesheet" href="{% static 'css/tablas.css' %}">
+<link rel="stylesheet" href="{% static 'cafe_cardamomo/css/informe.css' %}">
+<link rel="stylesheet" href="{% static 'css/filtro_lotes.css' %}">
 {% endblock %}
 
 {% block logotipo %}
@@ -22,7 +24,17 @@
         <span>Informes</span>
     </div>
 
-    
+    <div class="boton dropdown" title="Descargar informe de ventas">
+        <button type="button" id="descargarVentasBtn" title="Descargar">
+            <i class="fas fa-download"></i>
+        </button>
+        <span>Descargas</span>
+        <div class="dropdown-content" id="submenuDescargaVentas">
+            <a href="{% url 'exportar_ventas_excel' %}?{{ request.GET.urlencode }}">Excel</a>
+            <a href="{% url 'exportar_ventas_pdf' %}?{{ request.GET.urlencode }}">PDF</a>
+        </div>
+    </div>
+
     <form id="formularioIngreso" action="{% url 'ventas' %}" method="post" class="form-accion">
         {% csrf_token %}
         <input type="hidden" name="elemento" id="elemento_oculto">
@@ -43,9 +55,10 @@
 {%endblock%}
 
 {% block content %}
+    {% include 'ingresos_egresos/filtro_ventas.html' %}
     <section class="tabla">
         <div class="tabla-scroll-wrapper">
-            <form action="{% url 'ventas' %}"  method="post" >
+            <form action="{% url 'ventas' %}" method="post" >
                 {% csrf_token %}
                 <table>
                     <tr>

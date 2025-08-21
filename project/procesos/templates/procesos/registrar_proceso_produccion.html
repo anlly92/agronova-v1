@@ -1,13 +1,16 @@
 {% extends "base_registros.html" %}
 {% load static %}
 
-{% block title %} 
-    <title>Registrar proceso de producción</title>
+{% block title %}
+<title>Registrar proceso de producción</title>
 {% endblock %}
 
 {% block extra_styles %}
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-    <link rel="stylesheet" href="{% static 'css/formularios.css' %}">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<link rel="stylesheet" href="{% static 'css/formularios.css' %}">
+<link rel="stylesheet" href="{% static 'css/validaciones.css' %}">
+
+
 {% endblock %}
 
 {% block content %}
@@ -27,6 +30,10 @@
         {% csrf_token %}
         <fieldset class="encabezado">
             <legend>Proceso de producción</legend>
+
+            {% if form.errors %}
+                <div class="error-msg">Por favor, corrige los siguientes errores:</div>
+            {% endif %}
 
             <!-- Documento del empleado -->
             <div class="botones">
@@ -55,23 +62,29 @@
             <div class="botones">
                 <i class="fa-solid fa-file-lines"></i>
                 <label for="descripcion">descripción proceso</label>
-                <textarea id="descripcion" name="descripcion" placeholder="Descripción del proceso..." required></textarea>
+                <textarea id="descripcion" name="descripcion" placeholder="Descripción del proceso..."
+                    required></textarea>
             </div>
 
-            <!-- Cantidad procesada -->
+            {{form.cantidad.errors}}
             <div class="botones">
                 <i class="fa-solid fa-weight-hanging"></i>
                 <label for="cantidad">cantidad procesada</label>
-                <input type="number" id="cantidad" name="cantidad" placeholder="Cantidad procesada (Kg)" step="0.01" min="0" required>
+                <input type="number" id="cantidad" name="cantidad" placeholder="Cantidad procesada (Kg)" step="0.01"
+                    min="0" required value="{{ post_data.cantidad|default_if_none:'' }}">
             </div>
 
+
             <!-- Campo: Fecha  -->
+            {{ form.fecha.errors }}
             <div class="botones">
                 <span id="icono-calendario" style="cursor: pointer;">
                     <i class="fa-solid fa-calendar-days"></i>
                 </span>
-                <input type="text" id="fecha" name="fecha" required placeholder="Fecha">
+                <input type="text" id="fecha" name="fecha" required placeholder="Fecha"
+                    value="{{ form.fecha.value|date:'Y-m-d'|default_if_none:'' }}">
             </div>
+
 
             <button class="boton" type="button" id="btnEnviar">
                 <i class="fas fa-save"></i> Registrar proceso de producción
@@ -82,7 +95,7 @@
 {% endblock %}
 
 {% block script %}
-    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-    <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/es.js"></script>
-    <script src="{% static 'js/calendario.js' %}"></script>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/es.js"></script>
+<script src="{% static 'js/calendario.js' %}"></script>
 {% endblock %}

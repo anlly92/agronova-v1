@@ -1,33 +1,41 @@
 {% extends "base_registros.html" %}
 {% load static %}
 
-{% block title %} 
-    <title>Registro de recolección</title>
+{% block title %}
+<title>Registro de recolección</title>
 {% endblock %}
 
 {% block extra_styles %}
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-    <link rel="stylesheet" href="{% static 'css/formularios.css' %}">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<link rel="stylesheet" href="{% static 'css/formularios.css' %}">
+<link rel="stylesheet" href="{% static 'css/validaciones.css' %}">
 {% endblock %}
 
 {% block content %}
-<div class="cerrar-login">  <!-- Botón o ícono para cerrar -->
+<div class="cerrar-login"> <!-- Botón o ícono para cerrar -->
     <a href="{% url 'gestionar_recoleccion' %}" title="Cancelar e ir atrás">✖</a>
 </div>
 
 <section class="contenedor_principal"> <!-- Sección principal que contiene todo el formulario -->
-    
+
     <div class="logo">
         <a href="{% url 'inicio' %}" title="volver al inicio">
             <img class="logo-item" src="{% static 'img/logo_agronova.png' %}" alt="logo - Agronova">
         </a>
     </div>
+
     <!-- Formulario de registro de recolección -->
     <form id="formularioIngreso" method="post">
         {% csrf_token %}
         <fieldset class="encabezado"> <!-- Título del formulario -->
             <legend>Registro de recolección</legend>
+
+            {% if form.errors %}
+            <div class="error-msg">Por favor, corrige los siguientes errores:</div>
+            {% endif %}
+
             <!-- Campo: Identificación del empleado -->
+            {{ form.id_empleado.errors }}
             <div class="botones">
                 <i class="fas fa-id-card"></i>
                 <label for="Identificación_del_empleado">Identificación_del_empleado</label>
@@ -38,7 +46,9 @@
                     {% endfor %}
                 </select>
             </div>
+
             <!-- Campo: Código del lote -->
+            {{ form.id_lote.errors }}
             <div class="botones">
                 <i class="fas fa-key"></i>
                 <label for="Código_del_lote">Código_del_lote</label>
@@ -48,55 +58,73 @@
                         <option value="{{ lote.pk }}">{{ lote.nombre }}</option>
                     {% endfor %}
                 </select>
+
             </div>
-            <!-- Campo: Tipo de arbusto (selección) -->
+
+            <!-- Campo: Tipo de arbusto  -->
+            {{form.tipo_producto.errors}}
             <div class="botones">
                 <i class="fa-solid fa-leaf"></i>
                 <label for="Tipo de arbusto">Tipo_de_arbusto</label>
                 <select name="tipo_producto" id="tipo_producto" required>
-                    <option value="" disabled selected >Tipo de arbusto</option>
+                    <option value="" disabled selected>Tipo de arbusto</option>
                     <option value="Café">Café</option>
                     <option value="Cardamomo">Cardamomo</option>
                 </select>
             </div>
-            <!-- Campo: Kilos recolectados -->
-            <div class="botones">
-                <i class="fas fa-weight-hanging"></i>
-                <label for="Kilos_recolectados">Kilos_recolectados</label>
-                <input id="kilos" name="kilos" type="number" placeholder="Kilos recolectados" required />
-            </div>
+
             <!-- Campo: Tipo de pago (por horas o por kilos) -->
+            {{ form.tipo_pago.errors }}
             <div class="botones">
                 <i class="fas fa-hand-holding-dollar"></i>
-                <label for="Tipo_de_pago">Tipo_de_pago</label>
-                <select name="tipo_pago" id="Tipo_de_pago" required>
-                    <option value="" disabled selected>Tipo de pago</option>
-                    <option value="Horas">Horas</option>
-                    <option value="Kilos">Kilos</option>
+                <label for="tipo_pago">Tipo de pago</label>
+                <select name="tipo_pago" id="tipo_pago" required>
+                    <option value="" disabled {% if not form.tipo_pago.value %}selected{% endif %}>Tipo de pago</option>
+                    <option value="Horas" {% if form.tipo_pago.value == "Horas" %}selected{% endif %}>Horas</option>
+                    <option value="Kilos" {% if form.tipo_pago.value == "Kilos" %}selected{% endif %}>Kilos</option>
                 </select>
             </div>
+
+            <!-- Campo: Kilos recolectados -->
+            {{ form.kilos.errors }}
+            <div class="botones">
+                <i class="fas fa-weight-hanging"></i>
+                <label for="kilos">Kilos recolectados</label>
+                <input id="kilos" name="kilos" type="number" placeholder="Kilos recolectados"
+                    value="{{ form.kilos.value|default_if_none:'' }}">
+
+            </div>
+
             <!-- Campo: Horas trabajadas (formato hora) -->
+            {{ form.horas_trabajadas.errors }}
             <div class="botones">
                 <i class="fas fa-clock"></i>
-                <label for="Horas_trabajadas">Horas_trabajadas</label>
-                <input id="horas_trabajadas" name="horas_trabajadas" type="number" placeholder="Horas trabajadas" required />
+                <label for="horas_trabajadas">Horas trabajadas</label>
+                <input id="horas_trabajadas" name="horas_trabajadas" type="number" placeholder="Horas trabajadas"
+                    value="{{ form.horas_trabajadas.value|default_if_none:'' }}">
             </div>
+
             <!-- Campo: Fecha de recolección -->
+            {{ form.fecha.errors }}
             <div class="botones">
                 <span id="icono-calendario" style="cursor: pointer;">
                     <i class="fa-solid fa-calendar-days"></i>
                 </span>
-                <input type="text" id="fecha" name="fecha" required placeholder="Fecha">
+                <input type="date" id="fecha" name="fecha" required placeholder="Fecha"
+                    value="{{ form.fecha.value|date:'Y-m-d'|default_if_none:'' }}">
             </div>
+
             <!-- Botón para enviar el formulario -->
-            <button class="boton" type="submit" id="btnEnviar"><i class="fas fa-save"></i>Registrar recolección</button>
+            <button class="boton" type="button" id="btnEnviar">
+                <i class="fas fa-save"></i>Registrar recolección
+            </button>
         </fieldset>
     </form>
 </section>
 {% endblock %}
 
 {% block script %}
-    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-    <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/es.js"></script>
-    <script src="{% static 'js/calendario.js' %}"></script>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/es.js"></script>
+<script src="{% static 'js/calendario.js' %}"></script>
 {% endblock %}

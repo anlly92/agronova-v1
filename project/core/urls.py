@@ -45,4 +45,6 @@ urlpatterns = [
         views.PasswordChangeNoRedirectView.as_view(),
         name="password_change"),
 
+    path('manual_libro/', views.manual_libro, name='manual_libro')
+
 ]

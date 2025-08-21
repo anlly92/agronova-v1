@@ -4,6 +4,8 @@ from .forms import ProductoFinalform, Arbustosform, Agroquimicosform, Herramient
 from .models import Inventario
 from django.contrib import messages
 from.models import Lote
+from validaciones import validar_campos_especificos
+
 
 # importaciones para la usqueda
 from django.shortcuts import render # renderizar plantillas HTML desde las vistas
@@ -11,10 +13,12 @@ from django.db.models import Q # realizar consultas con condiciones "OR" (|) y "
 from inventarios.utils import parsear_fecha,normalizar_texto, es_numero # funciones que se encunetran en utils
 
 from decimal import Decimal, InvalidOperation
+from django.contrib.auth.decorators import login_required
+
 
 
 # ────────── Producto final ──────────
-
+@login_required
 def inventario_producto_final(request):
     ok = False 
     if request.method == "POST":
@@ -60,20 +64,29 @@ def inventario_producto_final(request):
 
 def registrar_inventario_producto_final (request):
     ok = False 
+    errores = {}
     if request.method == 'POST':
-        form = ProductoFinalform(request.POST)
+        datos = request.POST
+        form = ProductoFinalform(datos)
+        
+        errores = validar_campos_especificos(post_data=datos)
+
+        for campo, mensaje in errores.items():
+            if campo in form.fields:
+                form.add_error(campo, mensaje)
 
         if form.is_valid():
             ProductoFinal = form.save(commit=False) 
             ProductoFinal.tipo = 'Inventario Producto final'
             ProductoFinal.save()
-
             ok = True   
     else:
         form = ProductoFinalform()
 
     return render (request, 'inventarios/registrar_inventario_producto_final.html', {'form': form,'ok':ok})
 
+
+@login_required
 def actualizar_producto_final (request,seleccion):
     ok = False
     inventario = get_object_or_404(Inventario, pk=seleccion)
@@ -168,7 +181,7 @@ def filtrar_producto_final(request):
 
     return producto_final, buscar, nombre, contenido, unidad, precio_unitario, stock
 # ────────── Arbustos ──────────
-
+@login_required
 def inventario_arbustos(request):
     ok = False
     # Para acciones de editar/borrar
@@ -214,11 +227,20 @@ def inventario_arbustos(request):
 
     return render(request, 'inventarios/inventario_arbustos.html',contexto )
 
+@login_required
 def registrar_inventario_arbustos (request):
     ok = False 
-    if request.method == 'POST':
+    errores = {}
 
-        form = Arbustosform(request.POST)
+    if request.method == 'POST':
+        datos = request.POST
+        form = Arbustosform(datos)
+
+        errores = validar_campos_especificos(post_data=datos)
+
+        for campo, mensaje in errores.items():
+            if campo in form.fields:
+                form.add_error(campo, mensaje)
 
         if form.is_valid():
             Arbusto = form.save(commit=False) 
@@ -227,9 +249,7 @@ def registrar_inventario_arbustos (request):
             if Arbusto.id_lote:
                 Arbusto.nombre_lote = Arbusto.id_lote.nombre
                 
-
             Arbusto.save()
-
             ok = True
     else:
         form = Arbustosform()
@@ -237,6 +257,8 @@ def registrar_inventario_arbustos (request):
     lotes = Lote.objects.all()
     return render (request, 'inventarios/registrar_inventario_arbustos.html', {'form': form,'ok':ok, 'lotes': lotes})
 
+
+@login_required
 def actualizar_inventario_arbustos (request,seleccion):
     ok = False
     inventario = get_object_or_404(Inventario, pk=seleccion)
@@ -323,7 +345,7 @@ def filtrar_arbustos(request):
     return arbustos, lotes, buscar, tipo_arbusto, nombre_lote, nombre, stock, fecha_siembra, renovacion 
 
 # ────────── Agroquímicos ──────────
-
+@login_required
 def inventario_agroquimicos(request):
     ok = False
     if request.method == "POST":
@@ -369,22 +391,32 @@ def inventario_agroquimicos(request):
 
     return render(request, 'inventarios/inventario_agroquimicos.html',contexto )
 
+@login_required
 def registrar_inventario_agroquimicos (request):
     ok = False 
+    errores = {}
+
     if request.method == 'POST':
-        form = Agroquimicosform(request.POST)
+        datos = request.POST
+        form = Agroquimicosform(datos)
+
+        errores = validar_campos_especificos(post_data=datos)
+
+        for campo, mensaje in errores.items():
+            if campo in form.fields:
+                form.add_error(campo, mensaje)
 
         if form.is_valid():
             Agroquimicos = form.save(commit=False) 
             Agroquimicos.tipo = 'Inventario Agroquimicos'
             Agroquimicos.save()
-
             ok = True   
     else:
         form = Agroquimicosform()
 
     return render (request, 'inventarios/registrar_inventario_agroquimicos.html', {'form': form,'ok':ok})
 
+@login_required
 def actualizar_inventario_agroquimicos (request,seleccion):
     ok = False
     inventario = get_object_or_404(Inventario, pk=seleccion)
@@ -459,7 +491,7 @@ def filtrar_agroquimicos(request):
 
     return agroquimicos, buscar, nombre, contenido, unidad, stock
 # ────────── Herramientas ──────────
-
+@login_required
 def inventario_herramientas(request):
     ok = False
     if request.method == "POST":
@@ -502,23 +534,34 @@ def inventario_herramientas(request):
     }
     return render(request, 'inventarios/inventario_herramientas.html',contexto )
 
+@login_required
 def registrar_herramientas (request, categoria):
-    ok = False 
-    if request.method == "POST":
-        form = Herramientasform(request.POST)
+    ok = False
+    errores = {}
+
+    if request.method == 'POST':
+        datos = request.POST
+        form = Herramientasform(datos)
+
+        errores = validar_campos_especificos(post_data=datos)
+
+        for campo, mensaje in errores.items():
+            if campo in form.fields:
+                form.add_error(campo, mensaje)
 
         if form.is_valid():
             Herramientas = form.save(commit=False) 
             Herramientas.tipo = 'Inventario Herramientas'
             Herramientas.categoria = categoria
             Herramientas.save()
-
             ok = True   
     else:
         form = Herramientasform()
 
     return render (request, 'inventarios/registrar_herramienta_maquina.html', {'form': form, 'categoria': categoria,'ok':ok})
 
+
+@login_required
 def actualizar_inventario_herramientas (request,seleccion):
     ok = False
     inventario = get_object_or_404(Inventario, pk=seleccion)
@@ -543,6 +586,7 @@ def actualizar_inventario_herramientas (request,seleccion):
 
     return render(request, 'inventarios/actualizar_herramienta_maquina.html', {'inventario': inventario, 'ok': ok})
 
+@login_required
 def categoria_herramientas (request):
     return render (request, 'inventarios/categoria_herramienta_maquina.html')
 

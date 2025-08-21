@@ -31,3 +31,52 @@
     </section>
 {%endblock%}
 
+{% block title %}
+    <title>Informe de ventas</title>
+{% endblock %}
+
+{% block extra_styles %}
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'ingresos_egresos/css/mensual_anual.css' %}">
+    <link rel="stylesheet" href="{% static 'cafe_cardamomo/css/informe.css' %}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+{% endblock %}
+
+{% block logotipo %}
+    Informe mensual de Ventas
+{% endblock %}
+
+{% block nav_icons %}
+
+    <div class="boton">
+        <button type="button" id="Calendario" title="Seleccionar año">
+            <i class="fas fa-calendar-alt"></i>
+        </button>
+        <span>Fecha</span>
+    </div>
+
+    <div class="boton dropdown" title="Descargar datos">
+        <button type="button" id="descargarBtn" title="Descargar">
+            <i class="fas fa-download"></i>
+        </button>
+        <div class="dropdown-content" id="submenuDescargaVentas">
+            <a href="#" id="descargarGrafica">Gráfica</a>
+        <a href="#" id="descargarDatos">Excel</a>
+        </div>
+        <span class="alineacion">Descargas</span>
+    </div>
+
+    <div class="cerrar-login">
+        <a href="{% url 'ventas' %}" class="acciones" title="Cancelar e ir atrás">✖</a>
+        <span>Salir</span>
+    </div>
+{% endblock %}
+
+{% block content %}
+    <canvas class="grafica-container" id="verVentas"></canvas>
+
+    <!-- Librería Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script src="{% static 'ingresos_egresos/js/grafica_de_ventas.js' %}"></script>
+{% endblock %}

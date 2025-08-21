@@ -29,9 +29,9 @@
                 <i class="fas fa-bars"></i>
             </button>
 
-                <ul class="menu-principal">
+                <ul class="menu-principal" id="menu-principal">
                     <li class="menu-desplegable">
-                        <a href="#">Sobre nosotros ▾</a>
+                        <a href="#" class="dropdown-toggle" data-dropdown="sobre-nosotros">Sobre nosotros ▾</a>
                         <ul class="elementos-submenu">
                             <li><a href="{% url 'que_es_agronova' %}">¿Qué es Agronova?</a></li>
                             <li><a href="{% url 'como_surgio_agronova' %}">¿Cómo surgió?</a></li>
@@ -39,15 +39,13 @@
                             <li><a href="{% url 'mision_y_vision_agronova' %}">Misión y visión</a></li>
                         </ul>
                     </li>
-
                     <li class="menu-desplegable">
-                        <a href="#">Sobre la Elisa ▾</a>
+                        <a href="#" class="dropdown-toggle" data-dropdown="sobre-elisa">Sobre la Elisa ▾</a>
                         <ul class="elementos-submenu">
                             <li><a href="{% url 'historia' %}">Historia</a></li>
                             <li><a href="{% url 'mision_y_vision_la_elisa' %}">Misión y visión</a></li>
                         </ul>
                     </li>
-
                     <li>
                         <a href="{% url 'pantalla_carga' %}" class="boton-llamada-accion">Iniciar Sesión</a>
                     </li>

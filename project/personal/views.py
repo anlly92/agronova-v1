@@ -5,7 +5,11 @@ from django.db import IntegrityError
 from .models import Empleado
 from inventarios.utils import normalizar_texto, es_numero # funciones que se encunetran en utils en la app de inventarios
 from django.db.models import Q
+from validaciones import validar_campos_especificos
 
+from django.contrib.auth.decorators import login_required
+
+@login_required
 def gestionar_personal(request):
     ok = False 
     # para acciones de editar y borrar
@@ -53,23 +57,38 @@ def gestionar_personal(request):
 
     return render(request, 'personal/gestionar_personal.html', contexto)
 
-
-
-def registro_personal (request):
-    ok = False 
+#------registro personal--
+@login_required
+def registro_personal(request):
+    ok = False
+    errores = {}
+    
     if request.method == 'POST':
-        form = Personalform(request.POST)
+        datos = request.POST
+        form = Personalform(datos)
+
+        errores = validar_campos_especificos(post_data=datos)
+
+        # Agregar errores al formulario solo para campos válidos del formulario
+        for campo, mensaje in errores.items():
+            if campo in form.fields:
+                form.add_error(campo, mensaje)
 
         if form.is_valid():
-            personal = form.save(commit=False) 
+            personal = form.save(commit=False)
             personal.save()
-
-            ok = True 
+            ok = True
+            form = Personalform()
     else:
         form = Personalform()
 
-    return render (request, 'personal/registrar_personal.html', {'form': form,'ok':ok})
+    return render(request, 'personal/registrar_personal.html', {
+        'form': form,
+        'ok': ok,
+    })
 
+#----Actualizar personal---
+@login_required
 def actualizar_personal (request,seleccion):
     ok = False
     empleado = get_object_or_404(Empleado, pk=seleccion)
@@ -97,6 +116,9 @@ def actualizar_personal (request,seleccion):
         ok = True
 
     return render(request, 'personal/actualizar_personal.html', {'empleado': empleado, 'ok': ok})
+
+
+
 
 def filtrar_personal(request):
     

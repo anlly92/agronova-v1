@@ -212,7 +212,9 @@ input:-webkit-autofill:focus {
 
 @media screen and (max-width: 1024px) {
     .contenedor_principal {
-        padding: 40px 30px;
+        width: 80%;
+        max-width: 420px;
+        padding: 28px 12px;
     }
 
     .encabezado legend {
@@ -239,9 +241,9 @@ input:-webkit-autofill:focus {
 
 @media screen and (max-width: 768px) {
     .contenedor_principal {
-        width: 95%;
-        max-width: 100%;
-        padding: 25px 15px;
+        width: 98%;
+        max-width: 340px;
+        padding: 16px 6px;
     }
 
     .encabezado legend {

@@ -8,35 +8,41 @@
 {% block extra_styles %}
 <!-- CSS del gráfico y estilos -->
 <link rel="stylesheet" href="{% static 'ingresos_egresos/css/mensual_anual.css' %}">
+<link rel="stylesheet" href="{% static 'cafe_cardamomo/css/informe.css' %}">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <link rel="icon" href="{% static 'favicon.ico' %}" type="image/x-icon">
 {% endblock %}
 
 {% block logotipo %}
-    Informe Anual de Ingresos y Egresos
+Informe Anual de Ingresos y Egresos
 {% endblock %}
 
 {% block nav_icons %}
-    <div class="boton">
-        <button type="button" id="Calendario" title="Seleccionar año">
-            <i class="fas fa-calendar-alt"></i>
-        </button>
-        <span>Año</span>
-    </div>
+<div class="boton">
+    <button type="button" id="Calendario" title="Seleccionar año">
+        <i class="fas fa-calendar-alt"></i>
+    </button>
+    <span>Año</span>
+</div>
 
-    <div class="boton">
-        <button type="button" id="descargarBtn" title="Descargar datos">
-            <i class="fas fa-download"></i>
-        </button>
-        <span>Descargar</span>
+<div class="boton dropdown" title="Descargar datos">
+    <button type="button" id="descargarBtn" title="Descargar">
+        <i class="fas fa-download"></i>
+    </button>
+    <div class="dropdown-content" id="submenuDescarga">
+        <a href="#" id="descargarGrafica">Gráfica</a>
+        <a href="#" id="descargarDatos">Excel</a>
     </div>
+    <span class="alineacion">Descargas</span>
+</div>
 
-    <div class="boton salir">
-        <button type="button" title="Cancelar e ir atrás">
-            <a href="javascript:history.back()">✖</a>
-        </button>
-        <span>Salir</span>
-    </div>
+
+<div class="boton salir">
+    <button type="button" title="Cancelar e ir atrás">
+        <a href="javascript:history.back()">✖</a>
+    </button>
+    <span>Salir</span>
+</div>
 {% endblock %}
 
 {% block content %}

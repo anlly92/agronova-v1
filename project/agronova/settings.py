@@ -26,8 +26,6 @@ SECRET_KEY = 'django-insecure-7bao$l*z0c#5b6tvys^d7tc!o945qni$x)o3rocztnj3o=o-7b
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -72,6 +70,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'administracion.context_processors.admin_es_principal',  
             ],
         },
     },
@@ -126,7 +125,7 @@ USE_I18N = True
 USE_TZ = True
 
 LOGIN_REDIRECT_URL = '/inicio/'
-LOGIN_URL = '/login/'  # ← Esta es la URL que ya tienes definida
+LOGIN_URL = '/login/'  # Esta es la url que ya tenemos defnida 
 
 USE_L10N = True
 FORMAT_MODULE_PATH = ['project.formats']
@@ -137,7 +136,6 @@ FORMAT_MODULE_PATH = ['project.formats']
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
 STATIC_URL = '/static/'
-
 STATICFILES_DIRS = [BASE_DIR / "static"]
 STATIC_ROOT = BASE_DIR / 'staticfiles' 
 # Default primary key field type

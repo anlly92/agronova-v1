@@ -2,7 +2,10 @@ document.addEventListener('DOMContentLoaded', function () {
     // Escucha el evento 'DOMContentLoaded' para asegurarse de que el DOM esté completamente cargado antes de ejecutar el código.
     const canvas = document.getElementById('verAnual');
     const btnCalendario = document.getElementById('Calendario');
-    const btnDescargar = document.getElementById('descargarGrafica');
+    const btnDescargar = document.getElementById('descargarBtn');
+    const btnDescargarGrafica = document.getElementById('descargarGrafica');
+    const btnDescargarDatos = document.getElementById('descargarDatos');
+    const submenuDescarga = document.getElementById('submenuDescarga');
     let chart;
     // Declara variables para el elemento canvas (con id 'verAnual'), los botones 'Calendario' y 'descargarGrafica', y una variable 'chart' para almacenar la instancia de la gráfica.
 
@@ -168,6 +171,34 @@ document.addEventListener('DOMContentLoaded', function () {
     // Depuración para verificar el centrado
     console.log("Estilo de justifyContent:", getComputedStyle(botonesContenedor).justifyContent);
 
+    // Agregar select de mes
+    const labelMes = document.createElement('label');
+    labelMes.textContent = 'Selecciona un mes:';
+    const selectMes = document.createElement('select');
+    const meses = [
+        { value: 1, text: 'Enero' },
+        { value: 2, text: 'Febrero' },
+        { value: 3, text: 'Marzo' },
+        { value: 4, text: 'Abril' },
+        { value: 5, text: 'Mayo' },
+        { value: 6, text: 'Junio' },
+        { value: 7, text: 'Julio' },
+        { value: 8, text: 'Agosto' },
+        { value: 9, text: 'Septiembre' },
+        { value: 10, text: 'Octubre' },
+        { value: 11, text: 'Noviembre' },
+        { value: 12, text: 'Diciembre' }
+    ];
+    meses.forEach(mes => {
+        const option = document.createElement('option');
+        option.value = mes.value;
+        option.textContent = mes.text;
+        selectMes.appendChild(option);
+    });
+    selectMes.value = (new Date().getMonth() + 1).toString();
+
+    ventana.appendChild(labelMes);
+    ventana.appendChild(selectMes);
     ventana.appendChild(label);
     ventana.appendChild(select);
     ventana.appendChild(botonesContenedor);
@@ -216,20 +247,53 @@ document.addEventListener('DOMContentLoaded', function () {
     btnCerrar.addEventListener("click", function () {
         ventana.style.display = "none";
     });
-    // Asigna un evento click al botón Cerrar para ocultar el modal.
 
-    // Soporte para el botón #descargarGrafica (sin cambios)
-    if (btnDescargar) {
-        btnDescargar.addEventListener('click', () => {
+    // Descargar gráfica (imagen)
+    if (btnDescargarGrafica) {
+        btnDescargarGrafica.addEventListener('click', () => {
             if (!chart) {
-                alert("No hay gráfica para descargar.");
+                alert('No hay gráfica para descargar.');
                 return;
             }
+            // Crear canvas temporal con fondo blanco
+            const tempCanvas = document.createElement('canvas');
+            const tempCtx = tempCanvas.getContext('2d');
+            tempCanvas.width = canvas.width;
+            tempCanvas.height = canvas.height;
+            tempCtx.fillStyle = '#ffffff';
+            tempCtx.fillRect(0, 0, tempCanvas.width, tempCanvas.height);
+            tempCtx.drawImage(canvas, 0, 0);
             const link = document.createElement('a');
-            link.href = canvas.toDataURL('image/png');
-            link.download = `grafica_anual_${new Date().getFullYear()}.png`;
+            const anio = (document.querySelector('.ventana-calendario select')?.value) || new Date().getFullYear();
+            link.href = tempCanvas.toDataURL('image/png');
+            link.download = `grafica_anual_${anio}.png`;
             link.click();
+
         });
-        console.log("Evento click asignado al botón descargarGrafica"); // Depuración
+    }
+
+    // Descargar datos (Excel)
+    if (btnDescargarDatos) {
+        btnDescargarDatos.addEventListener('click', () => {
+            // Obtener año seleccionado del select correcto
+            let anio = null;
+            // Buscar el select de año dentro de la ventana-calendario
+            document.querySelectorAll('.ventana-calendario select').forEach(sel => {
+                if (sel.options && sel.options.length > 0 && sel.options[0].textContent.length === 4) {
+                    anio = sel.value;
+                }
+            });
+            if (!anio) {
+                anio = new Date().getFullYear().toString();
+            }
+            // Validar que el año sea string de 4 dígitos
+            if (typeof anio !== 'string') anio = anio.toString();
+            if (anio.length !== 4) {
+                alert('Año inválido para la descarga.');
+                return;
+            }
+            window.location.href = `/ingresos_egresos/descargar_informe_anual/?anio=${anio}`;
+
+        });
     }
 });

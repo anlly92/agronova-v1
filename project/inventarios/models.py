@@ -23,6 +23,11 @@ class Inventario(models.Model):
         ('No', 'No'),
     ]
 
+    TALA_CHOICES = [
+        ('Sí', 'Sí'),
+        ('No', 'No'),
+    ]
+
     id_inventario = models.AutoField(primary_key=True)
     tipo = models.CharField(max_length=50,default='Desconocido')
     nombre = models.CharField(max_length=100)
@@ -36,6 +41,7 @@ class Inventario(models.Model):
     renovacion = models.CharField(max_length=2, choices=RENOVACION_CHOICES, blank=True, null=True)
     id_lote = models.ForeignKey(Lote, on_delete=models.SET_NULL, null=True, blank=True, db_column='id_lote')
     contenido = models.CharField(max_length=100, blank=True, null=True)
+    tala = models.CharField (max_length=2, choices=TALA_CHOICES, blank=True, null=True)
     precio_unitario = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
     nombre_lote = models.CharField(max_length=100, blank=True, null=True)
 

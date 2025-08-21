@@ -1,0 +1,30 @@
+<div class="modal fade" id="modalFiltro" tabindex="-1" aria-labelledby="modalFiltroLabel" aria-hidden="true">
+    <div class="modal-dialog modal_filtro_personalizado">
+        <div class="modal-content contenido_filtro">
+            <form method="GET">
+                <div class="modal-header d-none"></div>
+
+                <div class="filtro_titulo text-center fw-bold">Filtrar <br>ventas</div>
+
+                <div class="modal-body text-center cuerpo_filtro">
+                    <input type="text" name="documento_admin" class="form-control mb-3"
+                        placeholder="Documento exacto del admin" value="{{ filtro_documento_admin }}">
+
+                    <input type="text" name="producto" class="form-control mb-3"
+                        placeholder="Nombre del producto" value="{{ filtro_producto }}">
+
+                    <input type="date" name="fecha" class="form-control mb-3"
+                        placeholder="Fecha exacta" value="{{ filtro_fecha }}">
+
+                    <input type="number" step="0.01" name="cantidad" class="form-control mb-3"
+                        placeholder="Cantidad exacta" value="{{ filtro_cantidad }}">
+                </div>
+
+                <div class="modal-footer botones_filtro">
+                    <a href="{% url 'ventas' %}" class="btn boton_limpiar">Limpiar filtro</a>
+                    <button type="submit" class="btn boton_aplicar">Aplicar filtros</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

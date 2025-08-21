@@ -1,12 +1,13 @@
 {% extends "base_registros.html" %}
 {% load static %}
 
-{% block title %} 
-    <title>Registrar lotes</title>
+{% block title %}
+<title>Registrar lotes</title>
 {% endblock %}
 
 {% block extra_styles %}
-    <link rel="stylesheet" href="{% static 'css/formularios.css' %}">
+<link rel="stylesheet" href="{% static 'css/formularios.css' %}">
+<link rel="stylesheet" href="{% static 'css/validaciones.css' %}">
 {% endblock %}
 
 {% block header %}
@@ -14,58 +15,78 @@
 
 {% block content %}
 
-    <div class="cerrar-login"> <!-- Botón o enlace para cerrar o cancelar -->
-        <a href="{% url 'gestionar_lote' %}" title="Cancelar e ir atrás">✖</a>
+<div class="cerrar-login"> <!-- Botón o enlace para cerrar o cancelar -->
+    <a href="{% url 'gestionar_lote' %}" title="Cancelar e ir atrás">✖</a>
+</div>
+<!-- Contenedor principal del formulario como el logo-->
+<section class="contenedor_principal">
+    <div class="logo">
+        <a href="{% url 'inicio' %}" title="volver al inicio">
+            <img class="logo-item" src="{% static 'img/logo_agronova.png' %}" alt="logo - Agronova">
+        </a>
     </div>
-    <!-- Contenedor principal del formulario como el logo-->
-    <section class="contenedor_principal">
-        <div class="logo">
-            <a href="{% url 'inicio' %}" title="volver al inicio">
-                <img class="logo-item" src="{% static 'img/logo_agronova.png' %}" alt="logo - Agronova">
-            </a>
-        </div>
-        <!-- Formulario de registro de lotes -->
-        <form id="formularioIngreso" method= "post">
-            {% csrf_token %}
-            <fieldset class="encabezado">
-                <legend>Registro de lotes</legend>
-                <!-- Campo para el nombre del lote -->
-                <div class="botones">
-                    <i class="fa-solid fa-seedling"></i>
-                    <label for="Nombre">Nombre del lote</label>
-                    <input id="Nombre" name="nombre" type="text" placeholder="nombre" required />
-                </div>
-                <!-- Campo para ingresar el número de hectáreas -->
-                <div class="botones">
-                    <i class="fas fa-draw-polygon"></i>
-                    <label for="Hectareas">Hectareas</label>
-                    <input id="hectareas" name="hectareas" type="number" placeholder="hectareas" required />
-                </div>
-                <!-- Campo para seleccionar el tipo de arbusto -->
-                <div class="botones">
-                    <i class="fa-solid fa-leaf"></i>
-                    <label for="Tipo de arbusto">Tipo_de_arbusto</label>
-                    <select name="tipo_arbusto" id="Tipo_arbusto" placeholder="tipo arbusto">
-                        <option value=""disabled selected>Tipo de arbusto</option>
-                        <option value="Café">Café</option>
-                        <option value="Cardamomo">Cardamomo</option>
-                    </select>
-                </div>
-                <!-- Campo para seleccionar el estado del lote -->
-                <div class="botones">
-                    <i class="fa-solid fa-toggle-on"></i>
-                    <label for="Estado del lote">estado_del_lote</label>
-                    <select name="estado" id="estado" placeholder="estado" required>
-                        <option value=""disabled selected>Estado del lote</option>
-                        <option value="Activo">Activo</option>
-                        <option value="Inactivo">Inactivo</option>
-                    </select>
-                    
-                </div>
-                <!-- Botón para enviar el formulario -->
-                <button class="boton" type="button" id="btnEnviar"><i class="fa-solid fa-pen-to-square"></i>Registrar lote</button>
-            </fieldset>
-        </form>
-    </section>
-    
+
+    <!-- Formulario de registro de lotes -->
+    <form id="formularioIngreso" method="post">
+        {% csrf_token %}
+        <fieldset class="encabezado">
+            <legend>Registro de lotes</legend>
+
+            {% if form.errors %}
+            <div class="error-msg">Por favor, corrige los siguientes errores:</div>
+            {% endif %}
+
+            <!-- Campo para el nombre del lote -->
+
+            {{ form.nombre.errors }}
+            <div class="botones">
+                <i class="fa-solid fa-seedling"></i>
+                <label for="nombre">Nombre del lote</label>
+                <input id="nombre" name="nombre" type="text" placeholder="Nombre del lote" required
+                    value="{{ form.nombre.value|default_if_none:'' }}">
+            </div>
+
+            <div class="botones">
+                <i class="fas fa-draw-polygon"></i>
+                <label for="Hectareas">Hectareas</label>
+                <input id="hectareas" name="hectareas" type="number" placeholder="hectareas" required />
+            </div>
+
+            <!-- Campo para seleccionar el tipo de arbusto -->
+            <div class="botones">
+                <i class="fa-solid fa-leaf"></i>
+                <label for="Tipo de arbusto">Tipo_de_arbusto</label>
+                <select name="tipo_arbusto" id="Tipo_arbusto" placeholder="tipo arbusto">
+                    <option value="" disabled selected>Tipo de arbusto</option>
+                    <option value="Café">Café</option>
+                    <option value="Cardamomo">Cardamomo</option>
+                </select>
+            </div>
+
+            <div class="botones">
+                <i class="fas fa-layer-group"></i>
+                <label for="cantidad_maxima">Cantidad máxima de arbustos</label>
+                <input id="cantidad_maxima" name="cantidad_maxima" type="number" min="1" step="1"
+                    placeholder="Cantidad máxima">
+            </div>
+
+            <!-- Campo para seleccionar el estado del lote -->
+            <div class="botones">
+                <i class="fa-solid fa-toggle-on"></i>
+                <label for="Estado del lote">estado_del_lote</label>
+                <select name="estado" id="estado" placeholder="estado" required>
+                    <option value="" disabled selected>Estado del lote</option>
+                    <option value="Activo">Activo</option>
+                    <option value="Inactivo">Inactivo</option>
+                </select>
+            </div>
+
+            <!-- Botón para enviar el formulario -->
+            <button class="boton" type="button" id="btnEnviar">
+                <i class="fa-solid fa-pen-to-square"></i>Registrar
+                lote</button>
+        </fieldset>
+    </form>
+</section>
+
 {% endblock %}

@@ -8,6 +8,7 @@
 {% block extra_styles %}
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <link rel="stylesheet" href="{% static 'css/formularios.css' %}">
+    <link rel="stylesheet" href="{% static 'css/validaciones.css' %}">
 {% endblock %}
 
 {% block content %}
@@ -22,26 +23,18 @@
         </a>
     </div>
 
+
+    <!-- Formulario para registrar ingresos o egresos -->
     <form id="formularioIngreso" method="post">
         {% csrf_token %}
         <fieldset class="encabezado">
             <legend>Registro de ventas</legend>
+            <!-- Campo para la identificación del administrador -->
 
-        {% if form.errors %}
-        <div class="errores-formulario">
-            <ul>
-                {% for field in form %}
-                    {% for error in field.errors %}
-                        <li><strong>{{ field.label }}:</strong> {{ error }}</li>
-                    {% endfor %}
-                {% endfor %}
-                {% for error in form.non_field_errors %}
-                    <li>{{ error }}</li>
-                {% endfor %}
-            </ul>
-        </div>
-        {% endif %}
-        
+            {% if form.errors %}
+                <div class="error-msg">Por favor, corrige los siguientes errores:</div>
+            {% endif %}
+
             <div class="botones">
                 <i class="fa-solid fa-box"></i>
                 <label for="codigo">Codigo_del_producto</label>
@@ -53,6 +46,8 @@
                 </select>
             </div>
 
+
+            {{ form.cantidad.errors}}
             <div class="botones">
                 <i class="fa-solid fa-sort-numeric-up"></i>
                 <label for="cantidad">Cantidad_vendida</label>
@@ -60,12 +55,17 @@
             </div>
 
             <!-- Fecha de la operación -->
+
+            {{ form.fecha.errors }}
             <div class="botones">
                 <span id="icono-calendario" style="cursor: pointer;">
                     <i class="fa-solid fa-calendar-days"></i>
                 </span>
-                <input type="text" id="fecha" name="fecha" required placeholder="Fecha">
+
+                <input type="text" id="fecha" name="fecha" required placeholder="Fecha"
+                value="{{ form.fecha.value|date:'Y-m-d'|default_if_none:'' }}">
             </div>
+
             <!-- Botón para enviar el formulario -->
             <button class="boton" type="button" id="btnEnviar"><i class="fa-solid fa-pen-to-square"></i>Registrar venta</button>
         </fieldset>

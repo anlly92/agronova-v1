@@ -8,6 +8,7 @@
 {% block extra_styles %}
 <!-- CSS del gráfico y estilos -->
 <link rel="stylesheet" href="{% static 'ingresos_egresos/css/mensual_anual.css' %}">
+<link rel="stylesheet" href="{% static 'cafe_cardamomo/css/informe.css' %}">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <link rel="icon" href="{% static 'favicon.ico' %}" type="image/x-icon">
 {% endblock %}
@@ -25,11 +26,15 @@
         <span>Fecha</span>
     </div>
 
-    <div class="boton">
-        <button type="button" id="descargarBtn" title="Descargar datos">
+    <div class="boton dropdown" title="Descargar datos">
+        <button type="button" id="descargarBtn" title="Descargar">
             <i class="fas fa-download"></i>
         </button>
-        <span>Descargar</span>
+        <span>Descargas</span>
+        <div class="dropdown-content" id="submenuDescarga">
+            <a href="#" id="descargarGrafica">Gráfica</a>
+            <a href="#" id="descargarDatos">Excel</a>
+        </div>
     </div>
 
     <div class="boton salir">

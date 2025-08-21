@@ -95,6 +95,14 @@ h2 {
     background-color: #ffffff !important;
 }
 
+#verVentas{
+    width: 80% !important;
+    height: 600px !important;
+    display: block;
+    margin: 70px auto;
+    background-color: #ffffff !important;
+}
+
 /* Contenedor de la gráfica y título */
 .grafica-container {
     display: flex;

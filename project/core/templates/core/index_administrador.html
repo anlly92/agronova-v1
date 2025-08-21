@@ -52,7 +52,10 @@
                 <li><a href="{% url 'ventas' %}">Ventas</a></li>
             </ul>
         </li>
+
+        {% if admin_es_principal %}
         <li class="menu-item"><a href="{% url 'gestionar_administrador' %}">Administrador</a></li>
+        {% endif %}
 
         <li class="menu-item">
             <a class="icono-yo" href="#">
@@ -60,6 +63,13 @@
             </a>
             <ul class="submenu sobre-mi">
                 <li><a href="{% url 'sobre_mi' %}">Sobre mi</a></li>
+
+                <li>
+                    <a href="{% url 'manual_libro' %}" class="boton-manual">
+                        <i class="fas fa-book"></i> Manual
+                    </a>
+                </li>
+
                 <li>
                     <form action="{% url 'logout' %}" method="post" style="display:inline;">
                         {% csrf_token %}
@@ -68,6 +78,7 @@
                         </button>
                     </form>
                 </li>
+
             </ul>
         </li>
     </ul>
@@ -202,7 +213,7 @@
 <script src="{% static 'core/js/modal_alertas.js' %}"></script>
 <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
 <script>
-    window.eventos = {{ eventos|safe }};
+    window.eventos = {{ eventos | safe }};
 </script>
 <script src="{% static 'core/js/calendario.js' %}"></script>
 <script src="{% static 'core/js/modal_tarea.js' %}"></script>

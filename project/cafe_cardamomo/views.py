@@ -1,3 +1,4 @@
+import traceback
 from django.shortcuts import render,redirect,get_object_or_404 #obtiene un objeto del modelo, o devuelve un error 404 si no se encuentra.
 from django.db.models import Sum, F, Q # sumar, referenciar campos del modelo, clase que sirve para construir consultas complejas
 from .forms import LoteForm, RecoleccionForm, PagosForm # formularios importados desde la  misma app
@@ -13,8 +14,13 @@ from django.template.loader import get_template # carga una plantilla html para 
 from openpyxl.styles import Font, Alignment, PatternFill, Border, Side # estilos para exce, funete, alineacion de texto, relleno, bordes
 from xhtml2pdf import pisa # para generar pdf desde html y css
 from django.db.models.functions import ExtractYear, ExtractMonth # para extraer partes de fechas en concultas 
+from validaciones import validar_campos_especificos
+
+from administracion.decorators import solo_admin_principal # lo importamos para manejar la proteccion de las rutas si no es administrador principal
+from django.contrib.auth.decorators import login_required
 
 
+@login_required
 def obtener_datos_recoleccion_filtrados(request):
     año = request.GET.get("año")
     mes = request.GET.get("mes")
@@ -43,7 +49,7 @@ def obtener_datos_recoleccion_filtrados(request):
     )# bloque que agrupa y resume la informacion por año, mes y lote, calcula el total de kilos y devuelve una lista de diccionarios 
     return consulta_total 
 
-
+@login_required
 def exportar_total_recolecciones_excel(request):
     datos = obtener_datos_recoleccion_filtrados(request)  # usa los filtros del GET,es decir obtiene los datos filtrados segun la solicitud
 
@@ -102,7 +108,7 @@ def exportar_total_recolecciones_excel(request):
     wb.save(response)#guarda el libro excel directamente en el response, es decir lo escribe como si fuer aun archivo
     return response # devuelve el archivo como respuesta 
 
-
+@login_required
 def exportar_total_recolecciones_pdf(request):
     datos = obtener_datos_recoleccion_filtrados(request)  # se llama a al funcion que filtra los datos que estan almeacenados 
 
@@ -120,7 +126,7 @@ def exportar_total_recolecciones_pdf(request):
         return HttpResponse('Error al generar el PDF', status=500) #Si hubo un error al generar el PDF, devuelve un mensaje con error 500.
     return response
 
-
+@login_required
 def total_de_recoleccion(request):
     consulta_total_recoleccion = obtener_datos_recoleccion_filtrados(request)
     
@@ -161,6 +167,7 @@ def total_de_recoleccion(request):
 
 
 #Vistas para la gestion de los lotes 
+@login_required
 def gestionar_lote(request):
     ok = False 
     # para acciones de editar o borrar 
@@ -203,22 +210,35 @@ def gestionar_lote(request):
     }
     return render(request, 'cafe_cardamomo/mostrar_lotes.html',contexto)
 
-
+#----Registro de lotes---
+@login_required
 def registrar_lote (request):
     ok = False 
+    errores = {}
+
     if request.method == 'POST':
-        form = LoteForm(request.POST)
+        datos = request.POST
+        form = LoteForm(datos)
+
+        errores = validar_campos_especificos(post_data=datos)
+
+        for campo, mensaje in errores.items():
+            if campo in form.fields:
+                form.add_error(campo, mensaje)
 
         if form.is_valid():
             lote = form.save(commit=False) 
             lote.save()
-
             ok = True
+            form = LoteForm() 
     else:
         form = LoteForm()
 
     return render (request, 'cafe_cardamomo/registro_lote.html', {'form': form,'ok':ok})
 
+
+
+@login_required
 def actualizar_lote (request,seleccion):
     ok = False
     lote = get_object_or_404(Lote, pk=seleccion)
@@ -248,7 +268,7 @@ def actualizar_lote (request,seleccion):
 
 
 #funcion para la barra de busqueda o filtro en lotes
-
+@login_required
 def filtrar_lotes(request):
     buscar = request.GET.get("buscar", "").strip()
     id_lote = request.GET.get("id_lote", "").strip()
@@ -293,7 +313,7 @@ def filtrar_lotes(request):
 
     return lotes, buscar, id_lote, nombre, hectareas, tipo_arbusto, estado
 
-
+@login_required
 def gestionar_recoleccion (request):
     lotes, recolecciones, empleados, buscar, id_empleado, id_lote, tipo_producto, kilos, horas, fecha, tipo_pago = filtrar_recoleccion(request)  
     cantidad_filas_vacias = 15 - recolecciones.count()
@@ -315,6 +335,7 @@ def gestionar_recoleccion (request):
 
     return render (request, 'cafe_cardamomo/mostrar_recoleccion.html',contexto)
 
+@login_required
 def filtrar_recoleccion(request):
     buscar = request.GET.get("buscar", "").strip()
     id_empleado = request.GET.get("id_empleado", "")
@@ -410,6 +431,7 @@ def filtrar_recoleccion(request):
 
     return lotes, recolecciones, empleados, buscar, id_empleado, id_lote, tipo_producto, kilos, horas, fecha, tipo_pago  
 
+@login_required
 def registrar_recoleccion (request):
     ok = False 
 
@@ -439,6 +461,7 @@ def registrar_recoleccion (request):
     lotes = Lote.objects.all()
     return render (request, 'cafe_cardamomo/registro_recoleccion.html', {'form': form,'ok':ok, 'empleados': empleados, 'lotes': lotes})
 
+@solo_admin_principal
 def registrar_pago(request):
     ok = False
     if request.method == 'POST':

@@ -31,12 +31,15 @@
             </form>
 
             <div class="acciones">
-                <div class="boton">
-                    <button type="button" data-bs-toggle="modal" data-bs-target="#modalFiltro">
-                        <i class="fas fa-filter fa-lg icono-filtro"></i>
-                    </button>
-                    <span>Filtrar</span>
-                </div>
+
+                {% block filtro_icono %}
+                    <div class="boton">
+                        <button type="button" data-bs-toggle="modal" data-bs-target="#modalFiltro">
+                            <i class="fas fa-filter fa-lg icono-filtro"></i>
+                        </button>
+                        <span>Filtrar</span>
+                    </div>
+                {% endblock %}
                 {% block nav_icons %}
                 {%endblock%}
             </div>

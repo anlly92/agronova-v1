@@ -10,6 +10,7 @@ import random
 import string
 from .forms import AdministradorForm
 from .models import Administrador
+from validaciones import validar_campos_especificos
 
 
 #importaciones para la busqueda y el filtro
@@ -17,13 +18,14 @@ from inventarios.utils import normalizar_texto, es_numero # funciones que se enc
 from django.db.models import Q
 from decimal import InvalidOperation 
 
+from administracion.decorators import solo_admin_principal # lo importamos para manejar la proteccion de las rutas si no es administrador principal
 
 
 def generador_contraseña ():
     caracteres = string.ascii_letters + string.digits
     return ''.join(random.choices (caracteres, k=5))
 
-
+@solo_admin_principal
 def gestionar_administrador(request):
     ok = False
     # Acciones POST
@@ -42,11 +44,7 @@ def gestionar_administrador(request):
 
         ids = [int(x) for x in ids if x.strip().isdigit()]
 
-        if accion == "editar" and len(ids) == 1:
-            ok = True
-            return redirect("editar_administrador", seleccion=ids[0])
-
-        elif accion == "borrar":
+        if accion == "borrar":
             ok = True
             admins = Administrador.objects.filter(pk__in=ids)
 
@@ -75,14 +73,23 @@ def gestionar_administrador(request):
 
     return render(request, "administracion/gestionar_administrador.html", contexto)
 
-
+@solo_admin_principal
 def registro_administrador (request):
     ok = False 
+    errores = {}
+
     if request.method == 'POST':
-        form = AdministradorForm(request.POST)
+        datos = request.POST
+        form = AdministradorForm(datos)
+
+        errores = validar_campos_especificos(post_data=datos)
+
+        for campo, mensaje in errores.items():
+            if campo in form.fields:
+                form.add_error(campo, mensaje)
+
         if form.is_valid():
             administrador = form.save(commit=False) 
-
             # Generar contraseña aleatoria
             contraseña_generada = generador_contraseña()
 
@@ -125,36 +132,6 @@ def registro_administrador (request):
         form = AdministradorForm()
     
     return render (request, 'administracion/registro_administrador.html', {'form': form,'ok':ok})
-
-def actualizar_administrador(request, seleccion):
-    ok = False
-    administrador = get_object_or_404(Administrador, pk=seleccion)
-
-    if request.method == 'POST':
-        telefono = request.POST.get("telefono", "").strip()
-        correo = request.POST.get("correo", "").strip()
-
-        # Validación: al menos un campo debe estar lleno
-        if not telefono and not correo:
-            messages.error(request, "Debes ingresar al menos un dato para actualizar.")
-            return redirect("editar_administrador", seleccion=seleccion)
-
-        if telefono:
-            administrador.telefono = telefono 
-
-        if correo:
-            administrador.correo = correo
-
-        try:
-            administrador.save()
-            ok = True
-
-        except IntegrityError as e:
-            if "correo" in str(e):
-                messages.error(request, "Este correo electrónico ya está registrado.")
-                return redirect("actualizar_personal", seleccion=seleccion)
-
-    return render(request, 'administracion/actualizar_administrador.html', {'administrador': administrador, 'ok': ok})
 
 @login_required
 def sobre_mi (request):

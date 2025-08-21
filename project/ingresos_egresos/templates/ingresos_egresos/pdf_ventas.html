@@ -1,0 +1,30 @@
+{% load humanize %}
+<h2 style="text-align:center;">Informe de Ventas</h2>
+<table border="1" cellspacing="0" cellpadding="4" style="width:100%; font-size:12px;">
+    <thead>
+        <tr style="background-color:#3D7A1F; color:white;">
+            <th>ID Venta</th>
+            <th>Documento Admin</th>
+            <th>Nombre Admin</th>
+            <th>Producto</th>
+            <th>Cantidad</th>
+            <th>Precio Unitario</th>
+            <th>Total</th>
+            <th>Fecha</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in ventas %}
+        <tr>
+            <td>{{ item.id_venta }}</td>
+            <td>{{ item.id_admin.id_admin }}</td>
+            <td>{{ item.id_admin.nombre }} {{ item.id_admin.apellido }}</td>
+            <td>{{ item.id_producto.nombre }} {{ item.id_producto.contenido }} {{ item.id_producto.unidad }}</td>
+            <td>{{ item.cantidad|floatformat:0|intcomma }}</td>
+            <td>{{ item.id_producto.precio_unitario|floatformat:0|intcomma }}</td>
+            <td>{{ item.total|floatformat:0|intcomma }}</td>
+            <td>{{ item.fecha|date:"d/m/Y" }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>

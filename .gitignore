@@ -311,6 +311,7 @@ $RECYCLE.BIN/
 # End of https://www.toptal.com/developers/gitignore/api/django,python,visualstudiocode,windows
 
 
-echo "token.json"
-echo "credentials.json"
-echo "project.zip"
+token.json
+credentials.json
+project.zip
+moviepy/

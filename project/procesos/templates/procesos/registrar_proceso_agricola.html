@@ -8,6 +8,7 @@
 {% block extra_styles %}
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <link rel="stylesheet" href="{% static 'css/formularios.css' %}">
+    <link rel="stylesheet" href="{% static 'css/validaciones.css' %}">
 {% endblock %}
 
 
@@ -15,7 +16,6 @@
 <div class="cerrar-login">
     <a href="{% url 'procesos_agricolas' %}" title="Cancelar e ir atrás">✖</a>
 </div>
-
 
 <section class="contenedor_principal">
 
@@ -30,18 +30,11 @@
         <fieldset class="encabezado">
             <legend>Proceso Agricola</legend>
 
-            {% if form.non_field_errors %}
-                <div class="alert alert-danger">
-                    {{ form.non_field_errors }}
-                </div>
+            {% if form.errors %}
+            <div class="error-msg">Por favor, corrige los siguientes errores:</div>
             {% endif %}
 
-            {% if form.cantidad.errors %}
-                <div class="text-danger small">
-                    {{ form.cantidad.errors.0 }}
-                </div>
-            {% endif %}
-            
+            {{ form.id_lote.errors }}
             <div class="botones">
                 <i class="fas fa-key"></i>
                 <label for="codigolote">codigo lote</label>
@@ -91,11 +84,13 @@
                 <input type="number" id="cantidad" name="cantidad" placeholder="Cantidad agroquímico (kg/L)" step="0.01" min="0" required>
             </div>
 
+            {{ form.fecha.errors }}
             <div class="botones">
                 <span id="icono-calendario" style="cursor: pointer;">
                     <i class="fa-solid fa-calendar-days"></i>
                 </span>
-                <input type="text" id="fecha" name="fecha" required placeholder="Fecha">
+                <input type="text" id="fecha" name="fecha" required placeholder="Fecha"
+                value="{{ form.fecha.value|date:'Y-m-d'|default_if_none:'' }}">
             </div>
             
             <button class="boton" type="button" id="btnEnviar"><i class="fas fa-save"></i> Registrar proceso agricola</button>

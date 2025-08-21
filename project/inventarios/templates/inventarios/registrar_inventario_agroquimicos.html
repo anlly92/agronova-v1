@@ -7,6 +7,7 @@
 
 {% block extra_styles %}
     <link rel="stylesheet" href="{% static 'css/formularios.css' %}">
+    <link rel="stylesheet" href="{% static 'css/validaciones.css' %}">
 {% endblock %}
 
 {% block content %}
@@ -26,11 +27,17 @@
         <fieldset class="encabezado">
             <legend>Registro de agroquímicos</legend>
 
+            {% if form.errors %}
+                <div class="error-msg">Por favor, corrige los siguientes errores:</div>
+            {% endif %}
+
             <!-- Nombre del agroquímico -->
+            {{ form.nombre.errors }}
             <div class="botones">
                 <i class="fa-solid fa-prescription-bottle"></i>
                 <label for="nombreAgroquimico">Nombre del agroquímico</label>
-                <input type="text" id="nombre" name="nombre" placeholder="Nombre del agroquímico" required>
+                <input type="text" id="nombre" name="nombre" placeholder="Nombre del agroquímico" required
+                value="{{ form.nombre.value|default_if_none:'' }}">
             </div>
 
             <!-- Descripción del agroquímico -->
@@ -39,8 +46,6 @@
                 <label for="descripcionAgroquimico">Descripción del agroquímico</label>
                 <textarea id="descripcion" name="descripcion" placeholder="Descripción del agroquimico..." required></textarea>
             </div>
-
-
 
             <div class="botones">
                 <i class="fa-solid fa-scale-balanced"></i>

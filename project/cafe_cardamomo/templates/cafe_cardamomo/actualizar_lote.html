@@ -15,9 +15,11 @@
     <div class="cerrar-login">
         <a href="{% url 'gestionar_lote' %}" title="Cancelar e ir atrás">✖</a>
     </div>
+
     <!-- Contenedor principal con logo y formulario -->
     <section class="contenedor_principal">
         <!-- Logo con enlace al inicio -->
+        
         <div class="logo">
             <a href="{% url 'inicio' %}" title="volver al inicio">
                 <img class="logo-item" src="{% static 'img/logo_agronova.png' %}" alt="logo - Agronova">
@@ -58,8 +60,8 @@
                 <!-- Selección del estado (activo/inactivo) -->
                 <div class="botones">
                     <i class="fa-solid fa-toggle-on"></i>
-                    <label for="estado_del_lote">Estado del lote</label>
-                    <select name="estado_del_lote" id="estado_del_lote">
+                    <label for="estado">Estado del lote</label>
+                    <select name="estado" id="estado">
                         <option value="" disabled {% if not lote.estado %}selected{% endif %}>Estado del lote</option>
                         <option value="Activo" {% if lote.estado == "Activo" %}selected{% endif %}>Activo</option>
                         <option value="Inactivo" {% if lote.estado == "Inactivo" %}selected{% endif %}>Inactivo</option>

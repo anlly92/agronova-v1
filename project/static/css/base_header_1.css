@@ -54,7 +54,7 @@ body,html{
 }
 
 .buscador {
-    width: 65%;
+    width: 64%;
     display: flex;
     gap: 5px;
 }
@@ -81,9 +81,48 @@ input::placeholder{
     padding: 6px 12px;
     background: transparent;
     color: #fff;
+    border: none;}
+
+.buscador {
+    width: 64%;
+    display: flex;
+    gap: 5px;
+    margin-left: 10px;
+}
+.acciones {
+    width: auto;
+    display: flex;
+    gap: 20px;
+    padding-right: 40px;
+}
+
+.acciones a,
+.acciones button,
+.acciones-header button{
+    background: transparent;
     border: none;
+    padding: 6px 15px;
+    border-radius: 4px;
     cursor: pointer;
-    font-size: 17px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 30px;
+    color: #fff;
+    transition: transform 0.2s ease;
+    margin-left: 0;
+    
+}
+
+.acciones a:hover,
+.acciones button:hover{
+    transform: scale(1.2);
+
+}
+
+.boton{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
     font-weight: bold;
 }
 
@@ -127,7 +166,6 @@ input::placeholder{
 .salir button{
     padding-top: 0;
 }
-
 
 footer {
     background-color: #E5C49E;
@@ -257,5 +295,4 @@ select {
 
 select option {
     background-color: #4b7510; /* mismo verde */
-    color: #fff;
-}
+    color: #fff;}

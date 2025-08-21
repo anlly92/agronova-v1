@@ -9,7 +9,7 @@ class ProductoFinalform(forms.ModelForm):
 class Arbustosform(forms.ModelForm):
     class Meta:
         model = Inventario
-        fields = ['tipo_arbusto', 'nombre', 'id_lote', 'stock', 'fecha_siembra', 'renovacion', 'nombre_lote']
+        fields = ['tipo_arbusto', 'nombre', 'id_lote', 'stock', 'fecha_siembra', 'renovacion', 'nombre_lote', 'tala']
 
 class Agroquimicosform(forms.ModelForm):
     class Meta:

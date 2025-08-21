@@ -38,7 +38,6 @@ class Ventas(models.Model):
 
     class Meta:
         db_table = 'ventas'
-    
 
     def __str__(self):
         return f" {self.id_venta} - {self.id_producto.nombre} - {self.fecha}"

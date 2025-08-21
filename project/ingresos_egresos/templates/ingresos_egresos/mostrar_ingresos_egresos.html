@@ -18,17 +18,21 @@ Ingresos y egresos
 
 {% block nav_icons %}
 
-<div class="boton dropdown" title="Descargar datos">
-    <button type="button">
-        <i class="fas fa-download"></i>
-    </button>
-    <div class="dropdown-content">
-        <a href="{% url 'exportar_ingresos_egresos_excel' %}?documento_admin={{ filtro_documento_admin }}&tipo={{ filtro_tipo }}&fecha={{ filtro_fecha }}&monto={{ filtro_monto }}">Excel</a>
-        <a href="{% url 'exportar_ingresos_egresos_pdf' %}?documento_admin={{ filtro_documento_admin }}&tipo={{ filtro_tipo }}&fecha={{ filtro_fecha }}&monto={{ filtro_monto }}">PDF</a>
-    </div>
-    <span>Descargas</span>
-</div>
+<form action="{% url 'ingresos_egresos' %}" method="post" class="form-accion">
+    {% csrf_token %}
+    <input type="hidden" name="elemento" id="elemento_oculto">
 
+    {% if admin_es_principal %}
+    <div class="boton">
+        <button type="submit" name="accion" value="borrar" title="Eliminar"
+            onclick="return confirm('¿Eliminar administrador?');">
+            <i class="fas fa-trash"></i>
+        </button>
+        <span>Eliminar</span>
+    </div>
+    {% endif %}
+
+</form>
 
 <div class="menu boton">
     <div class="boton">
@@ -48,13 +52,26 @@ Ingresos y egresos
     {% csrf_token %}
     <input type="hidden" name="elemento" id="elemento_oculto">
 
+    <div class="boton dropdown" title="Descargar datos">
+        <button type="button">
+            <i class="fas fa-download"></i>
+        </button>
+        <div class="dropdown-content">
+            <a
+                href="{% url 'exportar_ingresos_egresos_excel' %}?documento_admin={{ filtro_documento_admin }}&tipo={{ filtro_tipo }}&fecha={{ filtro_fecha }}&monto={{ filtro_monto }}">Excel</a>
+            <a
+                href="{% url 'exportar_ingresos_egresos_pdf' %}?documento_admin={{ filtro_documento_admin }}&tipo={{ filtro_tipo }}&fecha={{ filtro_fecha }}&monto={{ filtro_monto }}">PDF</a>
+        </div>
+        <span>Descargas</span>
+    </div>
+
     <div class="boton">
         <button type="button" name="accion"  id="btnEliminar" title="Eliminar">
             <i class="fas fa-trash"></i>
         </button>
         <span>Eliminar</span>
     </div>
-</form>
+
 {%endblock%}
 
 {% block content %}

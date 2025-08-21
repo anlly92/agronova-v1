@@ -51,6 +51,8 @@ Lotes
                     <th>Nombre</th>
                     <th>Hectáreas</th>
                     <th>Tipo de arbusto (Café/Cardamomo)</th>
+                    <th>Cantidad maxima de arbustos</th>
+                    <th>Cantidad actual de arbustos</th>
                     <th>Estado (Activo/Inactivo)</th>
                 </tr>
 
@@ -65,6 +67,8 @@ Lotes
                     <td><label for="lote{{ item.id_lote }}">{{ item.nombre }}</label></td>
                     <td><label for="lote{{ item.id_lote }}">{{ item.hectareas|floatformat:0 }}</label></td>
                     <td><label for="lote{{ item.id_lote }}">{{ item.tipo_arbusto }}</label></td>
+                    <td><label for="lote{{ item.id_lote }}">{{ item.cantidad_maxima }}</label></td>
+                    <td><label for="lote{{ item.id_lote }}">{{ item.cantidad_actual }}</label></td>
                     <td><label for="lote{{ item.id_lote }}">{{ item.estado }}</label></td>
                 </tr>
                 {% endfor %}
@@ -72,7 +76,7 @@ Lotes
 
                 {% for i in filas_vacias %}
                 <tr>
-                    <td class="primero"></td><td></td><td></td><td></td><td></td><td></td>
+                    <td class="primero"></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
                 </tr>
                 {% endfor %}
                 

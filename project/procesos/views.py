@@ -8,8 +8,11 @@ from cafe_cardamomo.models import Lote
 from django.db.models import Q 
 from decimal import InvalidOperation
 from inventarios.utils import normalizar_texto, es_numero, parsear_fecha # funciones que se encunetran en utils en la app de inventarios
+from validaciones import validar_campos_especificos
+from django.contrib.auth.decorators import login_required
 
 
+@login_required
 def procesos_agricolas(request):
     buscar, inventario, empleados, proceso_agricola, id_proceso, id_lote, nombre_lote, id_empleado, nombre, descripcion, id_inventario, cantidad, fecha = filtrar_procesos_agricolas(request)
     cantidad_filas_vacias = 15 - proceso_agricola.count()
@@ -34,16 +37,23 @@ def procesos_agricolas(request):
     }
     return render(request, 'procesos/mostrar_procesos_agricolas.html',contexto )
 
-
+@login_required
 def registrar_procesos_agricolas (request):
     ok = False 
+    errores = {}
 
     if request.method == 'POST':
-        form = Agricolaform(request.POST)
+        datos = request.POST
+        form = Agricolaform(datos)
+
+        errores = validar_campos_especificos(post_data=datos)
+
+        for campo, mensaje in errores.items():
+            if campo in form.fields:
+                form.add_error(campo, mensaje)
 
         if form.is_valid():
             proceso = form.save(commit=False)
-
             agroquimico = proceso.id_inventario
             empleado = proceso.id_empleado
             lote = proceso.id_lote
@@ -84,6 +94,7 @@ def registrar_procesos_agricolas (request):
     lotes = Lote.objects.all()
     agroquimicos = Inventario.objects.filter(tipo='Inventario Agroquimicos')
     return render(request, 'procesos/registrar_proceso_agricola.html', {'form': form,'ok': ok, 'empleados': empleados, 'lotes': lotes, 'agroquimicos': agroquimicos})
+
 
 def filtrar_procesos_agricolas(request):
     buscar = request.GET.get("buscar", "").strip()
@@ -162,6 +173,7 @@ def filtrar_procesos_agricolas(request):
 
 
 # vistas para gestionar procesos de producción
+@login_required
 def proceso_de_produccion(request):
     
     empleados, procesos, buscar, id_proceso, id_empleado,nombre, apellido, tipo_producto, descripcion, cantidad, fecha = filtrar_proceso_de_produccion(request)
@@ -186,11 +198,20 @@ def proceso_de_produccion(request):
     return render (request, 'procesos/mostrar_proceso_produccion.html',contexto)
 
 
-
+@login_required
 def registrar_proceso_de_produccion (request):
     ok = False 
+    errores = {}
+
     if request.method == 'POST':
-        form = Procesoform(request.POST)
+        datos = request.POST
+        form = Procesoform(datos)
+
+        errores = validar_campos_especificos(post_data=datos)
+
+        for campo, mensaje in errores.items():
+            if campo in form.fields:
+                form.add_error(campo, mensaje)
 
         if form.is_valid():
             Proceso = form.save(commit=False) 
@@ -202,15 +223,14 @@ def registrar_proceso_de_produccion (request):
                 Proceso.nombre_empleado = empleado.nombre + " " + empleado.apellido
             
             Proceso.save()
-
-            ok = True  
-        else:
-            print("Errores del formulario:", form.errors)  # 👈 IMPORTANTE 
+            ok = True
+            form = Procesoform()
     else:
         form = Procesoform()
 
     empleados = Empleado.objects.all()
     return render (request, 'procesos/registrar_proceso_produccion.html', {'form': form,'ok':ok, 'empleados': empleados})
+
 
 
 def filtrar_proceso_de_produccion(request):

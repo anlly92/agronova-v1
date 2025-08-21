@@ -8,6 +8,7 @@
 {% block extra_styles %}
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <link rel="stylesheet" href="{% static 'css/formularios.css' %}">
+    <link rel="stylesheet" href="{% static 'css/validaciones.css' %}">
 {% endblock %}
 
 {% block content %}
@@ -27,12 +28,18 @@
         {% csrf_token %}
         <fieldset class="encabezado">
             <legend>Registro producto final</legend>
+
+            {% if form.errors %}
+                <div class="error-msg">Por favor, corrige los siguientes errores:</div>
+            {% endif %}
             
             <!-- nombre del producto -->
+            {{ form.nombre.errors }}
             <div class="botones">
                 <i class="fa-solid fa-clipboard-list"></i>
                 <label for="nombreProductofinal">nombre_producto</label>
-                <input type="text" id="nombre" name="nombre" placeholder="Nombre del produto final" required>
+                <input type="text" id="nombre" name="nombre" placeholder="Nombre del produto final" required
+                value="{{ form.nombre.value|default_if_none:'' }}">
             </div>
 
 
@@ -45,12 +52,14 @@
 
 
             <!-- Contenido neto del producto-->
+            {{ form.contenido.errors }}
             <div class="botones">
                 <i class="fa-solid fa-scale-balanced"></i>
                 <label for="contenido_neto">Contenido neto </label>
                 <input type="number" id="contenido" name="contenido" placeholder="Contenido Neto" step="0.01" min="0" required>
             </div>
 
+            {{ form.unidad.errors }}
             <div class="botones">
                 <i class="fa-solid fa-scale-balanced"></i>
                 <label for="unidad">unidad</label>

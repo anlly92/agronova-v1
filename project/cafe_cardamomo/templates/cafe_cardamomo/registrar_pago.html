@@ -25,6 +25,7 @@
             <img class="logo-item" src="{% static 'img/logo_agronova.png' %}" alt="logo - Agronova">
         </a>
     </div>
+{% if admin_es_principal %} <!--valida si el administrador es principal para ver si se muestra o no el formulario-->
     <!-- Formulario para registrar un nuevo pago -->
     <form id="formularioIngreso" method="post">
         {% csrf_token %}
@@ -50,6 +51,7 @@
             <button class="boton" type="button" id="btnEnviar"><i class="fa-solid fa-pen-to-square"></i>Registrar pago</button>
         </fieldset>
     </form>
+{% endif %}
 </section>
 {% endblock %}
 

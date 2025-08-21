@@ -21,6 +21,7 @@ Gestionar personal
     {% csrf_token %}
     <input type="hidden" name="elemento" id="elemento_oculto">
 
+{% if admin_es_principal%}
     <div class="link" title="Editar">
         <button type="submit" name="accion" value="editar" id="btnEditar" class="boton-actualizar">
             <i class="fas fa-arrows-rotate"></i>
@@ -33,6 +34,7 @@ Gestionar personal
         </button>
         <span>Eliminar</span>
     </div>
+{% endif %}
 </form>
 {%endblock%}
 

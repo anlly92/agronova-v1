@@ -29,6 +29,14 @@
             <fieldset class="encabezado">
                 <legend>Actualizar venta</legend>
 
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="mi-mensaje-error text-center">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+
                 <div class="botones">
                     <i class="fa-solid fa-box"></i>
                     <label for="codigo">Codigo_del_producto</label>

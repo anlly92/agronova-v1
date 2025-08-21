@@ -38,7 +38,6 @@ Arbustos
 
 <!-- Modal de filtros -->
 {% include "inventarios/filtro_inventario_arbustos.html" %}
-
 <section class="tabla">
     <div class="tabla-scroll-wrapper">
         <form action="{% url 'inventario_arbustos' %}"  method="post">
@@ -53,7 +52,9 @@ Arbustos
                     <th>Nombre del lote</th>
                     <th>Cantidad sembrada</th>
                     <th>Fecha de siembra</th>
+                    <th>Tala</th>
                     <th>Renovación</th>
+                    
                 </tr>
 
                 {% if arbustos %}
@@ -70,7 +71,9 @@ Arbustos
                     <td><label for="arbustos{{ item.id_inventario }}">{{ item.nombre_lote }}</label></td>
                     <td><label for="arbustos{{ item.id_inventario }}">{{ item.stock|floatformat:0 }}</label></td>
                     <td><label for="arbustos{{ item.id_inventario }}">{{ item.fecha_siembra|date:"d/m/Y"}}</label></td>
+                    <td><label for="arbustos{{ item.id_inventario }}">{{ item.tala }}</label></td>
                     <td><label for="arbustos{{ item.id_inventario }}">{{ item.renovacion }}</label></td>
+
                 </tr>
                 {% endfor %}
                 {% endif %}

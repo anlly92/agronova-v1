@@ -32,3 +32,15 @@
     transition: background 0.2s ease;
 }
 
+.boton {
+    display: flex;
+    flex-direction: column; /* Elementos en columna */
+    align-items: center;    /* Centrar horizontalmente */
+}
+
+
+.alineacion {
+    margin-top: 5px; /* Espacio entre icono y texto */
+    font-size: 16px;
+    text-align: center;
+}

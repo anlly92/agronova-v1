@@ -1,0 +1,1014 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Manual Técnico - Agronova</title>
+
+    {% block extra_styles %}
+    <link rel="stylesheet" href="{% static 'core/css/manual.css' %}">
+    {% endblock %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+
+    <!-- jQuery y Turn.js desde CDN -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/blasten/turn.js/turn.min.js"></script>
+</head>
+
+<body>
+    <div class="container">
+
+        <!-- Libro -->
+        <div id="flipbook">
+            <!-- Portada -->
+            <div class="page cover">
+                🌱 <br>
+                <h1>Manual de usuario</h1>
+                <h2>Agronova</h2>
+                <img src="{% static 'img/fondo_cover.jpeg' %}" alt="Portada">
+            </div>
+
+            <!-- Índice clickeable CORREGIDO -->
+            <div class="page">
+                <h2>Índice</h2>
+                <ol>
+                    <li><a href="#" onclick="goToPage(4)">Requisitos del Sistema</a></li>
+                    <li><a href="#" onclick="goToPage(6)">Introducción</a></li>
+                    <li><a href="#" onclick="goToPage(7)">Módulos del Sistema</a></li>
+                    <li><a href="#" onclick="goToPage(8)">Interfaz Principal (Home)</a></li>
+                    <li><a href="#" onclick="goToPage(10)">Módulo Personal</a></li>
+                    <li><a href="#" onclick="goToPage(22)">Módulo Café y Cardamomo</a></li>
+                    <li><a href="#" onclick="goToPage(29)">Módulo Recolección</a></li>
+                    <li><a href="#" onclick="goToPage(32)">Módulo Procesos</a></li>
+                    <li><a href="#" onclick="goToPage(37)">Módulo Inventarios</a></li>
+                    <li><a href="#" onclick="goToPage(42)">Módulo Transacciones</a></li>
+                    <li><a href="#" onclick="goToPage(48)">Módulo Administrador</a></li>
+                    <li><a href="#" onclick="goToPage(50)">Gestión de Usuario</a></li>
+                    <li><a href="#" onclick="goToPage(52)">Inicio de Sesión / Recuperación</a></li>
+                    <li><a href="#" onclick="goToPage(54)">Seguridad</a></li>
+                    <li><a href="#" onclick="goToPage(54)">Futuras Mejoras</a></li>
+                    <li><a href="#" onclick="goToPage(55)">Conclusiones</a></li>
+                </ol>
+            </div>
+
+
+            <div class="page">
+                <h2>Requisitos del Sistema</h2>
+                <p>
+                    Para garantizar el correcto funcionamiento de la plataforma Agronova, es necesario que
+                    el usuario cuente con un entorno mínimo que asegure la accesibilidad y la seguridad
+                    al momento de ingresar. Estos requisitos permiten que la experiencia sea fluida,
+                    evitando problemas de compatibilidad y garantizando que toda la información se
+                    muestre de manera adecuada.
+                </p>
+                <ul>
+                    <li><i class="fas fa-globe"></i> Navegador web actualizado (Chrome, Firefox, Edge o Safari).</li>
+                    <li><i class="fas fa-desktop"></i> Resolución mínima recomendada: 1366x768 píxeles.</li>
+                    <li><i class="fas fa-wifi"></i> Conexión estable a Internet.</li>
+                    <li><i class="fas fa-user-lock"></i> Usuario y contraseña de acceso.</li>
+                </ul>
+            </div>
+
+
+
+
+            <!-- Introducción -->
+            <div class="page">
+                <h2>Introducción</h2>
+                <p>
+                    Agronova es un sistema de gestión agrícola diseñado para optimizar la
+                    administración de lotes, inventarios, procesos agrícolas y pagos.
+                    Facilita la toma de decisiones y la trazabilidad en fincas cafeteras,
+                    garantizando un mayor control sobre las actividades productivas y los
+                    recursos utilizados. <br><br>
+                    Con este sistema, los administradores pueden llevar un registro detallado de
+                    empleados, procesos de cultivo, insumos y productos finales, lo que permite
+                    tener una visión clara y centralizada de toda la operación.
+                    Su objetivo principal es mejorar la eficiencia en la gestión agrícola,
+                    reducir costos operativos y asegurar que cada tarea quede documentada,
+                    logrando así una producción más organizada, rentable y sostenible.
+                </p>
+                <img src="{% static 'img/intro.png' %}" alt="imagen de introduccion">
+            </div>
+
+
+
+            <!-- Módulos -->
+            <div class="page">
+                <h2>Módulos del Sistema</h2>
+                <ol>
+                    <li>Personal</li>
+                    <li>Café y Cardamomo
+                        <ul>
+                            <li>Lotes</li>
+                            <li>Recolección</li>
+                        </ul>
+                    </li>
+                    <li>Procesos
+                        <ul>
+                            <li>Procesos Agrícolas</li>
+                            <li>Procesos de Producción</li>
+                        </ul>
+                    </li>
+                    <li>Inventarios
+                        <ul>
+                            <li>Productos Finales</li>
+                            <li>Arbustos</li>
+                            <li>Agroquímicos</li>
+                            <li>Herramientas</li>
+                        </ul>
+                    </li>
+                    <li>Transacciones
+                        <ul>
+                            <li>Ingresos y Egresos</li>
+                            <li>Ventas</li>
+                        </ul>
+                    </li>
+                    <li>Administrador</li>
+                    <li>Opciones de Usuario (Sobre mí, Cerrar Sesión, Manual)</li>
+                </ol>
+
+            </div>
+
+            <!-- Interfaz Principal -->
+            <div class="page">
+                <h2>Interfaz Principal (Home)</h2>
+                <p>
+                    Al iniciar sesión, el sistema muestra el panel principal del administrador. <br>
+                    Desde aquí se accede a los diferentes módulos: Personal, Café y Cardamomo,
+                    Procesos, Inventarios, Transacciones, Administrador y las Opciones de Usuario. <br>
+                    La interfaz presenta tarjetas con información resumida de producción,
+                    inventarios, productos más vendidos, finanzas, alertas y calendario donde se permite el registro
+                    de
+                    tareas.
+                </p>
+                <img src="{% static 'img/home_principal.png' %}" alt="imagen home">
+            </div>
+
+            <div class="page">
+                <h2>Iconos</h2>
+                <p>Agregar: permite registrar un nuevo dato en el sistema mediante un formulario. <br> <br>
+
+                    Actualizar: habilita la edición de un registro ya existente, asegurando que la información
+                    siempre
+                    esté al día. <br> <br>
+
+                    Eliminar: borra un registro seleccionado, previa confirmación para evitar errores. <br><br>
+
+                    Filtrar: facilita la búsqueda de información aplicando criterios como fecha, nombre o tipo de
+                    registro. <br><br>
+                    <img src="{% static 'img/iconos_principales.png' %}" alt="iconos principales">
+                </p>
+            </div>
+
+            <!-- Módulo Personal -->
+            <div class="page">
+                <h2>Módulo Personal</h2>
+                <p>
+                    El módulo de <strong>Personal</strong> permite registrar, actualizar, consultar y eliminar la
+                    información de los empleados.
+                    Desde este apartado se gestiona toda la información de los empleados de la finca. <br><br>
+                    Además, brinda un control centralizado de los datos, garantizando que la información
+                    esté siempre organizada y actualizada.
+                    Estos empleados son registrados y luego se pueden utilizar en otros módulos
+                    para completar registros de su recolección, participación en procesos
+                    agrícolas y demás actividades dentro del sistema. <br><br>
+                    Su diseño intuitivo hace que se pueda gestionar los empleados
+                    de forma sencilla y sin complicaciones.
+                </p>
+                <img src="{% static 'img/personal.png' %}" alt="Módulo de personal">
+            </div>
+
+            <!-- Barra e iconos principales -->
+            <div class="page">
+                <h3>Funciones del módulo</h3>
+                <p>
+                    En la barra superior se encuentra el <strong>icono de Agronova</strong>, el cual permite volver
+                    al
+                    Home principal.
+                    <img src="{% static 'img/icono_agronova.png' %}" alt="icono agronova">
+                </p>
+                <p>
+                    Seguidamente se muestra el <strong>nombre del módulo</strong> y la <strong>barra de
+                        búsqueda</strong>,
+                    que permite localizar un registro específico en función de: documento,
+                    tipo de empleado y pago por contrato. <br><br>
+                    <img src="{% static 'img/barra_personal.png' %}" alt="barra de personal">
+                    <br>
+                </p>
+                <p>
+                    También se encuentran disponibles los <strong>iconos principales</strong> como:
+                    <strong>Agregar</strong>, <strong>Actualizar</strong>, <strong>Eliminar</strong> y
+                    <strong>Filtrar</strong>, los cuales
+                    facilitan la gestión de los registros de empleados. <br><br>
+
+                    Estos accesos rápidos hacen que se pueda consultar y modificar información
+                    de manera más eficiente, sin necesidad de navegar entre diferentes pantallas.
+                </p>
+            </div>
+
+            <!-- Agregar -->
+            <div class="page">
+                <h3>Función Agregar</h3>
+                <p>
+                    <img src="{% static 'img/icono_agregar.png' %}" alt="icono agregar personal">
+                    El botón <strong>Agregar</strong> abre un formulario de registro de empleados.
+                    Debes diligenciar la informacion solicitada, una vez diligenciada, se debe dar clic en el botón
+                    <strong>Registrar personal</strong>.
+                </p>
+                <img src="{% static 'img/formulario_personal.png' %}" alt="Formulario de registro empleados">
+            </div>
+
+            <!-- Confirmación previa al registro -->
+            <div class="page">
+                <p>
+                    Después de diligenciar el formulario y dar clic en el botón
+                    <strong>Registrar personal</strong>, el sistema mostrará una
+                    <strong>ventana modal de confirmación</strong> como la siguiente: <br>
+                    <img src="{% static 'img/confirmar_registro.png' %}" alt="Mensaje de confirmación de registro">
+                </p>
+                <p>
+                    - Si seleccionas <strong>Sí</strong>, y los datos son ingresados correctamente se mostrará
+                    el <strong>mensaje de éxito</strong> con la confirmación del nuevo empleado registrado. <br>
+                    <img src="{% static 'img/mensaje_exito_personal.png' %}" alt="Mensaje de registro exitoso">
+                    Pero si algún campo no cumple con las condiciones necesarias (por ejemplo, un
+                    número de documento repetido o un teléfono con formato inválido), se muestra un <strong>mensaje
+                        de
+                        excepción</strong>
+                    indicando la corrección necesaria.
+                </p>
+            </div>
+
+            <!-- Confirmación de registro -->
+            <div class="page">
+                <p>
+                    <img src="{% static 'img/excepciones_empleados.png' %}"
+                        alt="Ejemplo de mensajes de validación en el formulario">
+                    Debes corregir los campos necesarios, volver a dar clic en <strong>Registrar personal</strong>,
+                    y continuar con los pasos necesarios para realizar el registro. <br><br>
+
+                    - Si seleccionas <strong>No</strong>, la operación se cancela y se regresa
+                    automaticamente al formulario.
+                </p>
+                <p>
+                    El formulario también incluye: <br>
+                    - <strong>Icono de regreso</strong> para volver al Home principal.
+                    <img src="{% static 'img/icono_agronova.png' %}" alt="Icono de regreso al home principal">
+                    - <strong>X</strong> para regresar a la tabla de registros.
+                </p>
+            </div>
+
+            <!-- Validaciones -->
+            <div class="page">
+                <h3>Función Filtrar</h3>
+                <p>
+                    Este icono se encuentra en la barra superior y permite abrir las
+                    opciones de filtrado de información.
+                    <img src="{% static 'img/icono_filtro.png' %}" alt="Icono de filtro">
+                    Al darle clic, se abre una <strong>ventana modal</strong> con los campos
+                    disponibles para realizar el filtrado de empleados.
+                    <img src="{% static 'img/filtro_personal.png' %}" alt="icono actualizar">
+                </p>
+            </div>
+
+            <div class="page">
+                <p>
+                    Seleccionas o ingresas los datos y se debe presionar el botón <strong>Aplicar filtro</strong>
+                    para
+                    ejecutar la búsqueda.
+                    Esto actualizará la tabla mostrando solo los registros que coincidan con la información
+                    buscada.
+                    <img src="{% static 'img/ejm_filtrado_empleados.png' %}" alt="Ejemplo de filtrado">
+                </p>
+                <p>
+                    En caso de querer restablecer los valores originales de la tabla, se utiliza el botón
+                    <strong>Limpiar filtro</strong>, el cual vuelve a mostrar todos los registros disponibles
+                    en la tabla empleados.
+                </p>
+                <img src="{% static 'img/registros_empleados.png' %}" alt="Registro empleados">
+
+                <p>
+                    La opción de <strong>Filtrar</strong> es muy útil porque permite localizar información de manera
+                    rápida y precisa.
+                    Al aplicar criterios específicos como documento o tipo de empleado,
+                    se reduce el tiempo de búsqueda y se evita recorrer manualmente toda la tabla de registros.
+                    De esta forma, se puede acceder solo a la información relevante, optimizando la consulta de
+                    datos
+                    y mejorando la eficiencia en la gestión del personal.
+                </p>
+            </div>
+
+            <div class="page">
+                <h4>Función Actualizar</h4>
+                <p>
+                    Para actualizar datos de un empleado se debe seleccionar un registro
+                    en la tabla y darle clic al siguiente boton.
+                    <img src="{% static 'img/icono_actualizar.png' %}" alt="icono actualizar">
+
+                    Esto mostrara un formulario con los datos que pueden modificarse.
+                    <img src="{% static 'img/actualizar_personal.png' %}" alt="Actualizar personal">
+
+                </p>
+            </div>
+
+            <!-- Mensaje Actualización -->
+            <div class="page">
+                <p>
+                    Al ingresar los nuevos datos se debe de presionar el boton <strong>Actualizar personal</strong>.
+                    Esto mostrara un mensaje de confirmacion como el siguiente:
+                    <img src="{% static 'img/mensaje_actualizar.png' %}" alt="Mensajeactualizar">
+                    Si selecionas <strong>Si</strong>, la información se actualiza correctamente
+                    y se muestra el siguiente mensaje el cual informa que la operación fue realizada exitosamente.
+                    si seleccionas <strong>No</strong> se cancela la operacion y no se realizan cambios
+                </p>
+                <img src="img/---" alt="Mensaje de confirmación al actualizar un registro">
+            </div>
+
+            <!-- Eliminar -->
+            <div class="page">
+                <p>
+                    Al igual que en el registro, la función <strong>Actualizar</strong> también maneja el control de
+                    excepciones
+                    en el ingreso de datos. Esto significa que, si algún campo es diligenciado de forma incorrecta
+                    el
+                    sistema
+                    mostrará un mensaje indicando la corrección necesaria antes de permitir que los cambios sean
+                    guardados.
+                </p>
+                <img src="--" alt="Excepciónes actualizar">
+            </div>
+
+            <div class="page">
+                <h2>Función Eliminar</h2>
+                <p>
+                    Esta funcion permite eliminar uno o varios registros de empleados al mismo tiempo.
+                    Debes seleccionar uno o los registros que desees eliminar así como en el siguiente ejemplo:
+                    <img src="{% static 'img/seleccion_eliminacion.png' %}" alt="SElección eliminacion">
+
+                    luego debes precionar el icono de eliminacion, este icono se encuentra ubicado en la parte
+                    superior derecha de la pnatalla
+                    <img src="{% static 'img/icono_eliminar.png' %}" alt="icono eliminar">
+
+                    Al presionar el icono el sistema solicita confirmación de eliminación mediante el siguiente
+                    mensaje
+                    emergente
+                </p>
+            </div>
+
+            <!-- Mensaje Eliminar -->
+            <div class="page">
+                <p>
+                    <img src="{% static 'img/COMPLEATR' %}" alt="mensaje de confirmacion de eliminacion">
+                    Al aceptar la eliminacion, se muestra otro mensaje de elimacion exítosa.
+                    <img src="{% static 'img/eliminar_exito.png' %}" alt="Mensaje de exito eliminar">
+                    Si se cancela se vuelve a la tabla de registro y se cancela la opración.
+                </p>
+                <p>
+                    Finalmente, se aclara que los empleados registrados en este módulo no solo se almacenan en la
+                    base
+                    de datos,
+                    sino que también son utilizados en diferentes partes del sistema, como en los
+                    <strong>procesos agrícolas</strong>, los <strong>procesos de producción</strong>
+                    y la <strong>recolección</strong>.
+                    Esto permite llevar un control más detallado de quién ejecuta cada actividad,
+                    garantizando una mayor trazabilidad de las operaciones y facilitando una gestión
+                    más organizada y eficiente dentro de la finca.
+                </p>
+            </div>
+
+            <!-- Módulo Café y Cardamomo -->
+            <div class="page">
+                <h2>Módulo Café y Cardamomo</h2>
+                <p>
+                    Este módulo organiza la información de los cultivos de café y cardamomo. <br>
+                    Está dividido en dos submódulos como se muestra en la barra de navegación al pasar el mouse:
+                </p>
+                <img src="{% static 'img/barra_lotes.png' %}" alt="Módulo de cafe y cardamomo">
+                <h3>Lotes</h3>
+                <p>
+                    El módulo de <strong>Lotes</strong> permite registrar y administrar los lotes de cultivo
+                    con información fundamental, ya que los lotes se vinculan directamente con procesos agrícolas
+                    y registros de recolección, facilitando el control de las actividades realizadas en cada
+                    lote.
+                </p>
+                <img src="{% static 'img/modulo_lotes.png' %}" alt="Módulo de lotes">
+            </div>
+
+            <!-- Funciones principales -->
+            <div class="page">
+                <h3>Funciones del módulo Lotes</h3>
+                <p>
+                    En la barra superior se encuentran los accesos rápidos:
+                    <strong>Actualizar</strong>, <strong>Eliminar</strong> y <strong>Filtrar</strong>.
+                    Estos permiten gestionar de manera eficiente la información de los lotes,
+                    facilitando la edición de datos cuando sea necesario, la eliminación de registros
+                    obsoletos o duplicados, y la localización rápida de un lote específico entre todos los
+                    registrados.
+                    Gracias a estos accesos directos, el administrador puede mantener la información siempre
+                    organizada,
+                    actualizada y con mayor control sobre la producción agrícola.
+                </p>
+                <img src="{% static 'img/barra_iconos_lotes.png' %}" alt="iconos de lotes">
+
+                <h3>Función Agregar</h3>
+                <p>
+                    <img src="{% static 'img/icono_agregar.png' %}" alt="Icono agregar">
+                    Esta opción abre el formulario de registro de lotes.
+                </p>
+            </div>
+
+            <!-- Función Agregar Lote -->
+            <div class="page">
+                <p>
+                    <img src="{% static 'img/registro_lotes.png' %}" alt="Registro de lotes">
+                    El usuario debe diligenciar los datos solicitados (nombre del lote, héctareas,
+                    tipo de cultivo, estado, etc).
+                    Una vez completados, se da clic en <strong>Registrar lote</strong>.
+                    Tras diligenciar el formulario, el sistema muestra una
+                    <strong>ventana modal de confirmación</strong> preguntando si desea guardar el registro.
+                    <img src="{% static 'img/confirmar_registro.png' %}" alt="confimar registro de lotes">
+                </p>
+            </div>
+
+            <!-- Confirmación y validaciones -->
+            <div class="page">
+                <p>
+                    - Si se selecciona <strong>Sí</strong>, se valida la información y se guarda el registro,
+                    mostrando un <strong>mensaje de éxito</strong>.
+                    <img src="{% static 'img/mensaje_exito_personal.png' %}" alt="Mensaje de éxito">
+
+                    - En caso de inconsistencias (campos vacíos, datos inválidos), se muestra un
+                    <strong>mensaje de excepción</strong> indicando la corrección necesaria.
+                    <img src="{% static 'img/excepciones_lotes.png' %}" alt="Excepciones de lotes">
+
+                </p>
+            </div>
+
+            <!-- Función Actualizar Lote -->
+            <div class="page">
+                <h3>Función Actualizar</h3>
+                <p>
+                    Para modificar datos de un lote, se selecciona en la tabla y se presiona el botón
+                    <strong>Actualizar</strong>. Esto abre un formulario precargado con la información actual.
+                    <img src="{% static 'img/actualizar_lote.png' %}" alt="Actualizar lotes">
+
+                    Al guardar, se valida la información y se muestra un mensaje de confirmación.
+                    <img src="{% static 'img/Exito_lotes.png' %}" alt="IMAGEN EXITO ACTUALIZAR LOTES">
+                </p>
+            </div>
+
+            <!-- Función Eliminar Lote -->
+            <div class="page">
+                <h3>Función Eliminar</h3>
+                <p>
+                    Permite eliminar uno o varios registros de lotes.
+                    Tras seleccionar los registros, se debe confirmar la acción en un mensaje modal:
+                    <img src="{% static 'img/confirmar_eliminar_lote.png' %}" alt="Conformar eliminar lotes">
+                    Si se acepta, se elimina el registro y se muestra un <strong>mensaje de éxito</strong>.
+                </p>
+                <img src="{% static 'img/exito_eliminar_lote.png' %}" alt="exito eliminar lotes">
+            </div>
+
+            <!-- Función Filtrar Lotes -->
+            <div class="page">
+                <h3>Función Filtrar</h3>
+                <p>
+                    El filtro permite localizar lotes rápidamente aplicando criterios como hectareas, tipo de
+                    arbusto y
+                    estado.
+                    <img src="{% static 'img/filtro_lotes.png' %}" alt="Filtro lotes">
+                </p>
+                <p>
+                    Es importante resaltar que los <strong>lotes</strong> cumplen un papel fundamental dentro del
+                    módulo de recolección, ya que permiten identificar con precisión el área de cultivo de donde
+                    proviene cada cosecha.
+                    En caso de dudas sobre cómo realizar las operaciones de <strong>registrar, actualizar,
+                        eliminar o filtrar lotes</strong> se puede tomar como referencia el <strong>módulo de
+                        Personal</strong>, ya que
+                    todos comparten la misma secuencia de pasos para estas operaciones.
+                </p>
+            </div>
+
+            <div class="page">
+                <h3>Módulo Recolección</h3>
+                <p>
+                    El módulo de <strong>Recolección</strong> permite registrar cada una de las cosechas realizadas
+                    por
+                    los empleados, garantizando un control detallado de la producción agrícola.
+                    Aquí se detalla la fecha de la recolección, la cantidad obtenida, el lote correspondiente y el
+                    empleado responsable.
+                    <img src="{% static 'img/recoleccion.png' %}" alt="modulo de recolecciones">
+                    Además, este módulo ofrece la posibilidad de asociar el tipo de pago
+                    correspondiente (ya sea por hora o por kilo), lo que facilita la administración de las
+                    compensaciones. <br><br>
+                    Gracias a este apartado, la finca puede llevar un seguimiento claro y transparente de quién
+                    realizó cada recolección, en qué cantidad y en qué lote, optimizando así la trazabilidad del
+                    proceso productivo y contribuyendo a una mejor toma de decisiones.
+                </p>
+            </div>
+
+
+            <!-- Apartado de Pagos -->
+            <div class="page">
+                <h3>Pagos en Recolección</h3>
+                <p>
+                    El módulo de recolección cuenta con un apartado específico para <strong>registrar
+                        pagos</strong>.
+                    <br>
+                    <img src="{% static 'img/icono_pagos.png' %}" alt="icono d epagos">
+                    Cada vez que se registra un nuevo pago, el sistema actualiza automáticamente el valor anterior
+                    Este apartado facilita la relación entre el trabajo realizado y la compensación correspondiente,
+                    asegurando que cada registro de recolección quede vinculado a su respectivo pago.
+                </p>
+                <img src="{% static 'img/registro_pago.png' %}" alt="Apartado de pagos en el modulo de decoleecion">
+            </div>
+
+            <!-- Totales de Recolección -->
+            <div class="page">
+                <h3>Totales de Recolección</h3>
+                <p>
+                    Dentro del módulo de recolección se encuentra un apartado donde se consolidan los
+                    <strong>totales de
+                        recolección</strong>,
+                    permitiendo visualizar de manera clara las cantidades recolectadas en cada lote, también permite
+                    ver
+                    el año
+                    y el mes en el que se realizaron las recolecciones. <br> <br>
+
+                    Este apartado permite tener visualmente un resumen detallado de las recolecciones que se
+                    relaizaon
+                    en el año
+                    y en que lote se realizaron.
+                    Esta funcionalidad permite llevar un control global del rendimiento de la finca y facilita la
+                    supervisión de las actividades agrícolas. <br> <br>
+                </p>
+                <img src="{% static 'img/total_recolecciones.png' %}" alt="Vista total de recolecciones">
+            </div>
+
+            <!-- Icono de descargas -->
+            <div class="page">
+                <h3>Descarga de Reportes</h3>
+                <p>
+                    En el apartado de <strong>totales de recolección</strong> se encuentra el <strong>icono de
+                        descargas</strong>, al pasar el mouse sobre este icono se muestran dos opciones:
+                    <em>Excel</em>
+                    y <em>PDF</em>.
+                    <img src="{% static 'img/icono_descargas.png' %}" alt="Icono de descargas">
+                </p>
+                <p>
+                    Al seleccionar cualquiera de estas opciones, se abrirá el explorador de archivos para definir la
+                    ubicación donde se desea guardar el reporte.
+                    Una vez descargado, el informe incluirá un detalle completo con <strong>año, mes, nombre del
+                        lote y
+                        total de kilos recolectados</strong>. <br><br>
+                    Además, es posible aplicar filtros previos para generar reportes más específicos, como la
+                    información de un lote determinado o de un rango de fechas en particular.
+                    Esto permite obtener reportes personalizados que se adaptan a las necesidades de gestión de la
+                    finca.
+                </p>
+            </div>
+
+            <div class="page">
+                <h2>Modulo de Procesos</h2>
+
+                <h3>Procesos de Producción</h3>
+                <p>
+                    El módulo de <strong>Procesos de Producción</strong> permite registrar de manera detallada cada
+                    una
+                    de las etapas
+                    que conforman la transformación del café y el cardamomo, desde el momento en que el grano es
+                    recolectado hasta su
+                    respectivo empacado. Al presionar el icono agregar se despliega un formulario con los datos
+                    necesarios para el registro del proceso. <br><br>
+                    <img src="{% static 'img/procesos_produccion.png' %}" alt="Procesos de producción">
+                </p>
+            </div>
+
+            <div class="page">
+                <p>Esto garantiza una trazabilidad completa de la producción, identificando quién intervino y en qué
+                    fase. <br><br>
+                    Al igual que en los demás módulos, aquí también se dispone de la función de
+                    <strong>filtrado</strong>, lo que
+                    facilita la búsqueda de registros específicos y la gestión eficiente de la información. <br><br>
+                    Este módulo permite llevar un <strong>control minucioso</strong> de los productos finales que
+                    resultan de cada proceso,
+                    los cuales posteriormente deberán ser registrados manualmente en el <strong>Inventario de
+                        productos
+                        finales</strong>,
+                    asegurando así la coherencia entre la producción y la disponibilidad de inventarios.
+                </p>
+            </div>
+
+            <div class="page">
+                <h3>Procesos Agrícolas</h3>
+                <p>
+                    El módulo de <strong>Procesos Agrícolas</strong> permite registrar de manera organizada las
+                    actividades que se realizan en cada lote de cultivo. <br><br>
+                    En este apartado se especifica el <strong>empleado responsable</strong> del proceso, la
+                    <strong>fecha de ejecución</strong>,
+                    así como los <strong>agroquímicos</strong> o <strong>fertilizantes</strong> utilizados y la
+                    <strong>cantidad aplicada</strong>.
+                    Cada registro genera automáticamente un descuento en el <strong>Inventario de
+                        Agroquímicos</strong>,
+                    lo que garantiza un control actualizado del uso de insumos. <br><br>
+                </p>
+                <img src="{% static 'img/procesos_agricolas.png' %}" alt="Procesos agricolas">
+
+            </div>
+
+            <div class="page">
+                <p>
+                    Además, cuando el sistema detecta que no hay existencias disponibles de un agroquímico en
+                    particular,
+                    se genera una <strong>alerta en el módulo principal</strong>, notificando al administrador para
+                    tomar acciones inmediatas.
+                    <img src="{% static 'img/alertas.png' %}" alt="Alertas">
+                    Al igual que en los demás módulos, el sistema cuenta con la opción de <strong>filtrar
+                        información</strong>.
+                    Esto permite al administrador localizar rápidamente los registros de procesos agrícolas
+                    aplicando
+                    criterios como:
+                    <em>nombre del lote</em>, <em>empleado responsable</em>, <em>tipo de agroquímico utilizado</em>
+                    o
+                    <em>rango de fechas</em>. <br><br>
+                    Gracias a esta funcionalidad, se reduce el tiempo de búsqueda y se accede únicamente a los datos
+                    relevantes,
+                    mejorando la consulta de la información y garantizando un mayor control en la gestión de los
+                    procesos agrícolas.
+                </p>
+            </div>
+
+            <div class="page">
+                <h2>Módulo Inventarios</h2>
+                <p>
+                    El sistema cuenta con <strong>cuatro inventarios principales</strong> que permiten administrar
+                    de
+                    forma ordenada
+                    y eficiente los diferentes recursos de la finca. <br> <br>
+                    <img src="{% static 'img/inventarios.png' %}" alt="Modulo de inventarios">
+                    Estos inventarios son:
+                    <em>Producto Final</em>, <em>Arbustos</em>, <em>Agroquímicos</em> y <em>Herramientas</em>.
+                    <br><br>
+                    Cada uno de ellos permite: <br>
+                <ol>
+                    <li>Registrar</li>
+                    <li>Buscar</li>
+                    <li>Actualizar algunos datos</li>
+                    <li>Elimnar uno o varios registros</li>
+                </ol>
+                garantizando un control detallado sobre la disponibilidad de insumos, cultivos y materiales.
+                </p>
+            </div>
+
+            <div class="page">
+                <p>
+                    <img src="{% static 'img/iconos_inventarios.png' %}" alt="iconos inventarios"> <br> <br>
+                    Además, todos los inventarios incluyen la función de <strong>filtrado</strong>,
+                    lo que facilita encontrar un registro específico aplicando criterios como nombre, tipo, cantidad
+                    o
+                    estado.
+                    <img src="{% static 'img/filtrado_inventarios.png' %}" alt="filtrado inventarios">
+                    De esta forma, el administrador puede tener siempre una visión clara y actualizada de los
+                    recursos
+                    de la finca.
+                </p>
+            </div>
+
+            <!-- Inventario Producto Final -->
+            <div class="page">
+                <h3>Inventario Producto Final</h3>
+                <p>
+                    En este inventario se registran los <strong>productos terminados</strong> como café o cardamomo
+                    ya
+                    procesados y listos para la venta. <br><br>
+                    <img src="{% static 'img/producto_final.png' %}" alt="Producto final"> <br> <br>
+                    Cada registro almacena información como el <strong>nombre del producto</strong>,
+                    el <strong>tipo de grano</strong>, la <strong>cantidad en kilos</strong>,
+                    la <strong>fecha de ingreso</strong> y una <strong>descripción</strong>.
+                </p>
+            </div>
+
+            <div class="page">
+                <p> Estos productos finales son el resultado de los procesos de producción y deben ser registrados
+                    manualmente en este apartado para llevar un control exacto del inventario disponible para
+                    comercialización.
+                    <br><br>
+                    Un aspecto importante es que <strong>cada vez que se realiza una venta</strong>,
+                    el sistema descuenta automáticamente la cantidad correspondiente del stock del inventario,
+                    asegurando así que siempre se tenga un control actualizado y real de la disponibilidad de
+                    productos
+                    finales.
+                </p>
+                <h3>Inventario Arbustos</h3>
+                <p>
+                    Este inventario permite registrar cada uno de los <strong>arbustos sembrados</strong> en los
+                    lotes
+                    que ya se encuentran
+                    previamente registrados en el sistema. De esta manera se lleva un control detallado de las
+                    siembras,
+                    el <strong>total de arbustos</strong> por lote y el <strong>tipo de arbusto</strong> cultivado,
+                    lo
+                    que facilita
+                    la gestión agrícola de manera organizada. <br><br>
+                    Además, este inventario sirve como apoyo para recordar y programar la <strong>renovación de
+                        arbustos</strong>,
+                    garantizando que el ciclo de cultivo se mantenga productivo y sostenible a lo largo del tiempo.
+                </p>
+            </div>
+
+            <div class="page">
+                <h3>Inventario Agroquímicos</h3>
+                <p>
+                    En este inventario se registran los <strong>agroquímicos y fertilizantes</strong> utilizados en
+                    los
+                    procesos agrícolas,
+                    como herbicidas, fungicidas y abonos. <br><br>
+                    Cada registro incluye el <strong>nombre del producto</strong>,
+                    la <strong>cantidad disponible</strong>, el <strong>contenido</strong> y una
+                    <strong>descripción</strong>.
+                    Este inventario está directamente vinculado al <strong>módulo de Procesos Agrícolas</strong>,
+                    ya que cada vez que se registra la aplicación de un agroquímico, la cantidad es descontada
+                    automáticamente.
+                    <br><br>
+                <h3>Inventario Herramientas</h3>
+                <p>
+                    Este inventario permite registrar tanto las <strong>herramientas</strong> como las
+                    <strong>máquinas</strong> utilizadas en la finca. <br><br>
+                    Cada registro incluye el <strong>nombre</strong>, su <strong>estado</strong>
+                    (bueno, regular o malo) y el <strong>stock disponible</strong>,
+                    lo que facilita un control práctico de los implementos de trabajo. <br><br>
+                </p>
+
+                </p>
+            </div>
+
+            <div class="page">
+                <h2> Módulo de Transacciones</h2>
+                <h3>Módulo Ingresos y Egresos</h3>
+                <p>
+                    Este módulo permite registrar de manera ordenada todos los
+                    <strong>ingresos</strong> y <strong>egresos</strong> de la finca,
+                    facilitando un control detallado de las finanzas. <br><br>
+                    Cada registro incluye la <strong>fecha</strong>,
+                    el <strong>monto</strong> y el <strong>tipo de transacción</strong>
+                    (ingreso o egreso), lo que ayuda a mantener la información
+                    financiera organizada y disponible para futuras consultas. <br><br>
+                    Este módulo puede llevar un control
+                    eficiente del dinero que entra y sale, lo cual es clave para la
+                    toma de decisiones estratégicas en la finca.
+                </p>
+            </div>
+
+            <div class="page">
+                <h3>Funciones principales</h3>
+                <p>
+                    En la barra superior del módulo se encuentran los accesos rápidos:
+                    <strong>Agregar</strong>, <strong>Actualizar</strong>, <strong>Eliminar</strong> y
+                    <strong>Filtrar</strong>, que permiten gestionar la información financiera con facilidad.
+                    <br><br>
+                    - El botón <strong>Agregar</strong> abre el formulario para registrar un nuevo ingreso o
+                    egreso.<br>
+                    - El botón<strong>Filtrar</strong>, permite consultar rápidamente las transacciones de un mes,
+                    año o
+                    concepto específico. <br>
+                    - La función <strong>Eliminar</strong> permite borrar registros que ya no sean necesarios.<br>
+                    - El botón de <strong>informes</strong> permite la generacion de graficas seleccionando año y
+                    mes
+                    para el reporte. <br>
+                    - El botón de <strong>Descargas</strong> permite realizar la descarga de ciertos registros tanto
+                    en
+                    excel como pdf, para esto utiliza el filtrado.
+                </p>
+                <img src="{% static 'img/ingresos_egresos.png' %}" alt="iconos de ingresosby egresos">
+            </div>
+
+
+
+            <div class="page">
+                <h3>Generación de informes</h3>
+                <p>
+                    Dentro del módulo se encuentra el <strong>icono de Informes</strong>,
+                    el cual redirige al apartado de reportes financieros. Desde allí debes seleccionar el
+                    <strong>año</strong> y el <strong>mes</strong> que desea consultar.
+                    <img src="{% static 'img/modal_año.png' %}" alt="Modal para generar el informe">
+                    El sistema genera de manera
+                    automática una <strong>gráfica comparativa</strong> de ingresos y egresos,
+                    ofreciendo una visualización clara del estado financiero en el periodo seleccionado.
+                    <img src="{% static 'img/grafica .png' %}" alt="grafica">
+
+                </p>
+            </div>
+
+            <div class="page">
+                <h3>Descargas de datos</h3>
+                <p>
+                    El sistema no solo permite visualizar las gráficas de ingresos y egresos,
+                    sino que también ofrece la opción de <strong>descargar</strong> tanto la gráfica
+                    como los datos en los que se basa. <br><br>
+                    - La gráfica puede descargarse en formato de imagen para ser utilizada en
+                    informes o presentaciones.<br>
+                    - Los datos financieros se exportan en un <strong>archivo Excel</strong> permitiendo una mejor
+                    visualización.
+                    <img src="{% static 'img/excel_ingresos.png' %}" alt="Ejemplo excel">
+                </p>
+            </div>
+
+            <div class="page">
+                <h2>Módulo de Ventas</h2>
+                <p>
+                    El módulo de <strong>Ventas</strong> permite registrar de manera ordenada y precisa todas las
+                    ventas
+                    realizadas
+                    sobre los productos que se encuentran disponibles en el <strong>inventario de productos
+                        finales</strong>. <br><br>
+
+                    Cada vez que se registra una venta, el sistema descuenta automáticamente el
+                    <strong>stock</strong>
+                    del producto
+                    seleccionado.
+
+                    Al igual que en el módulo de <strong>Ingresos y Egresos</strong>, este apartado cuenta con un
+                    sistema de
+                    generación de <strong>reportes</strong>, donde el usuario puede seleccionar el año y el mes para
+                    obtener
+                    información detallada de las ventas realizadas. <br><br>
+                    <img src="{% static 'img/ventas.png' %}" alt="Módulo de ventas">
+
+                </p>
+            </div>
+
+            <div class="page">
+                <p>
+                    Dichos reportes pueden visualizarse en formato de <strong>gráfica</strong> y descargarse tanto
+                    en
+                    <strong>Excel</strong> como en <strong>PDF</strong>
+                    Al descargar el excel o pdf se ve un informe detallado de las ventas, la cantidad vendida y el
+                    total
+                    de ingreoss que esta generó,
+                    cabe aclarar que la venta de un producto se registra automaticamente como un ingreso.
+                    para llevar un respaldo digital o compartir la información de manera externa.
+                    <img src="{% static 'img/reporte_ventas.png' %}" alt="reporte de ventas">
+                <p>
+                    En conclusión, el módulo de <strong>Ventas</strong> asegura un control eficiente de las
+                    transacciones comerciales,
+                    manteniendo actualizado el inventario y proporcionando reportes que facilitan la toma de
+                    decisiones
+                    en la finca.
+                </p>
+
+                </p>
+            </div>
+
+            <div class="page">
+                <h3>Módulo Administrador</h3>
+                <p>
+                    El módulo de <strong>Administrador</strong> permite el <strong>registro de nuevos
+                        administradores</strong>. <br><br>
+                    Este proceso está <strong>habilitado exclusivamente</strong> al <em>administrador
+                        principal</em>,
+                    mientras que los administradores secundarios tienen este módulo completamente deshabilitado.
+                    Al igual que en el módulo de <strong>Personal</strong>, el formulario de registro valida
+                    excepciones
+                    en el ingreso de datos,
+                    asegurando que la información registrada sea coherente y esté completa.
+                </p>
+                <h3>Registro de Administrador</h3>
+                <p> Al momento de registrar un nuevo administrador, se deben diligenciar los campos requeridos en el
+                    formulario
+                    (nombre, correo, contraseña y confirmación de contraseña). <br><br></p>
+            </div>
+
+            <!-- Registro de Administrador -->
+            <div class="page">
+                <p>
+                    Una vez completado el registro, el sistema envía automáticamente un <strong>correo
+                        electrónico</strong>
+                    al administrador creado, en el cual se le notifican sus credenciales de acceso
+                    para iniciar sesión en la plataforma.
+                </p>
+                <img src="{% static 'img/correo.png' %}" alt="Formulario de registro de administradores">
+            </div>
+
+
+            <div class="page">
+                <h3>Gestión de Usuario</h3>
+                <p>
+                    En la barra de navegación se encuentra el <strong>icono de usuario</strong>.
+                    Al pasar el cursor sobre este icono, se despliegan tres opciones principales:
+                    <img src="{% static 'img/sobre_mi.png' %}" alt="icono de usuario">
+                    La opción <strong>Sobre mí</strong> muestra la información actual del usuario, junto con dos
+                    botones:
+                    <em>Actualizar información</em> y <em>Cambiar contraseña</em>.
+                    Si se selecciona la opción <strong>Cambiar contraseña</strong>, el sistema despliega un
+                    formulario
+                    como el siguiente:
+                    <img src="{% static 'img/cambiar_contraseña.png' %}" alt="Formulario cambiar contraseña">
+                </p>
+            </div>
+
+            <div class="page">
+                <p> Este formulario solicita ingresar la <strong>contraseña actual</strong>, la <strong>nueva
+                        contraseña</strong>
+                    y su <strong>confirmación</strong>. Además, cuenta con validaciones que garantizan que la nueva
+                    contraseña cumplacon los criterios de seguridad establecidos.
+                    <br><br>
+                    <strong>Al cambiar la contraseña el sistema muestra un mesaje indicando que por
+                        motivos de seguridad debe iniciar sesión nuevamente.
+                        <img src="{% static 'img/modal_contraseña.png' %}" alt="modal contraseña">
+                    </strong>
+                    Si se preciona el boton cerrar sesión automaticamente lo manda la pagina publica
+                    para que inice sesion cuando desee.
+                    <img src="{% static 'img/pagina_publica.png' %}" alt="pagina publica">
+
+                </p>
+            </div>
+
+            <div class="page">
+                <h3>Inicio de Sesión</h3>
+                <p>
+                    Para ingresar al sistema debes escribir tu <strong>correo</strong>, la
+                    <strong>contraseña</strong>
+                    y aceptar los <strong>términos y condiciones</strong>. <br><br>
+                    Si los datos son correctos, el acceso se realiza de manera inmediata.
+                </p>
+                <img src="{% static 'img/inici_sesion.png' %}" alt="imagen de inicio de sesion">
+                <h3>Recuperar Contraseña</h3>
+                <p>
+                    Si olvidaste tu contraseña, haz clic en <strong>Recuperar contraseña</strong>.
+                    Esto te llevará a un formulario donde debes ingresar tu correo electrónico.
+                </p>
+            </div>
+
+            <div class="page">
+                {% static 'img/conclusion.png' %}"
+
+                <img src="{% static 'img/Formulario_reestablecer.png' %}" alt="Formulario para resstablecer contraseña">
+                <p>
+                    Al confirmar, se enviará un correo con un enlace de recuperación.
+                    Es importante aclarar que este <strong>enlace solo puede usarse una vez</strong>,
+                    por lo que si necesitas otro deberás volver a solicitarlo.
+                </p>
+                <img src="{% static 'img/correo_reestablecer_contraseña.png' %}" alt="Correo de recuperación">
+            </div>
+
+            <!-- Página 3 -->
+            <div class="page">
+                <h3>Nueva Contraseña</h3>
+                <p>
+                    El enlace recibido abre un formulario para ingresar y confirmar tu
+                    <strong>nueva contraseña</strong>. <br><br>
+                    El sistema valida que cumpla con los requisitos de seguridad.
+                    Una vez cambiada, podrás iniciar sesión nuevamente sin inconvenientes.
+                </p>
+
+                <img src="{% static 'img/nueva_contraseña.png' %}" alt="nueva contraseña" />
+
+            </div>
+
+            <!-- Seguridad -->
+            <div class="page">
+                <h2>Seguridad</h2>
+                <p>
+                    - Autenticación de usuarios.<br>
+                    - Uso de ORM de Django para evitar inyección SQL.<br>
+                    - Encriptación de contraseñas con bcrypt.<br>
+                    - Control de acceso por tipo de administrador.
+
+                <h2>Futuras Mejoras</h2>
+                <ul>
+                    <li>App movil</li>
+                    <li>Mapeo de los lotes de la finca</li>
+                    <li>Módulo de nómina</li>
+                </ul>
+                </p>
+            </div>
+
+            <div class="page">
+                <h2>Conclusiones</h2>
+                <p>
+                    Agronova no solo mejora la eficiencia en la gestión agrícola, sino que también facilita
+                    la trazabilidad, el control de inventarios y la administración financiera en las fincas
+                    cafeteras.
+                    <br><br>
+                    Gracias a su diseño modular, cada proceso está conectado y automatizado, evitando duplicidad de
+                    datos y garantizando decisiones más informadas. <br><br>
+                    En conclusión, este sistema representa una herramienta práctica, intuitiva y sostenible que
+                    ayuda a
+                    modernizar la gestión agrícola, asegurando mayor productividad y control en las operaciones.
+                </p>
+                <img src="{% static 'img/conclusion.png' %}" alt="imagen conclusion" />
+
+            </div>
+        </div>
+        <a href="http://localhost:8000/inicio/" class="cerrar-manual">×</a>
+
+    </div>
+
+    {% block script %}
+    <script src="{% static 'core/js/manual.js' %}"></script>
+    {% endblock %}
+</body>
+
+</html>

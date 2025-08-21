@@ -23,13 +23,17 @@ Recolección
         </a>
         <span>Total </span>
     </div>
-
+    
+    {% if admin_es_principal %}
     <div class="boton">
         <a href="{% url 'registrar_pago' %}">
             <i class="fas fa-dollar-sign"></i>
         </a>
         <span>Pago</span>
     </div>
+    {% endif %}
+
+
 </section>
 
 {%endblock%}

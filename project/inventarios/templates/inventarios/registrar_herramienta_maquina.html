@@ -7,6 +7,7 @@
 
 {% block extra_styles %}
     <link rel="stylesheet" href="{% static 'css/formularios.css' %}">
+    <link rel="stylesheet" href="{% static 'css/validaciones.css' %}">
 {% endblock %}
 
 {% block content %}
@@ -25,13 +26,19 @@
     <form id="formularioIngreso" method="post">
         {% csrf_token %}
         <fieldset class="encabezado">
-            <legend>Registrar</legend>
+            <legend>Registrar Herramientas y Maquinas</legend>
+
+            {% if form.errors %}
+                <div class="error-msg">Por favor, corrige los siguientes errores:</div>
+            {% endif %}
             
             <!-- nombre del producto -->
+            {{ form.nombre.errors }}
             <div class="botones">
                 <i class="fa-solid fa-tag"></i>
                 <label for="nombre">Nombre</label>
-                <input type="text" id="nombre" name="nombre" placeholder="Nombre de la (Herramienta / Maquina)" required>
+                <input type="text" id="nombre" name="nombre" placeholder="Nombre de la (Herramienta / Maquina)" required
+                value="{{ form.nombre.value|default_if_none:'' }}">
             </div>
 
 
@@ -46,7 +53,6 @@
                     <option value="Mala">Mala</option>
                 </select>
             </div>
-
 
             <!-- Stock del producto -->
             <div class="botones">

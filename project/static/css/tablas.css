@@ -1,10 +1,175 @@
+/* Centrar tablas y scroll horizontal en móviles */
+@media screen and (max-width: 600px) {
+    .tabla {
+        margin: 10px auto 0 auto !important;
+        width: 98vw !important;
+        min-width: 0 !important;
+        max-width: 100vw !important;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .tabla-scroll-wrapper {
+        max-width: 100vw !important;
+        overflow-x: auto !important;
+        -webkit-overflow-scrolling: touch;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    table {
+        margin: 0 auto !important;
+        min-width: 480px;
+        width: auto !important;
+        font-size: 12px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    body {
+        font-size: 13px;
+        padding: 0 1vw;
+    }
+    .contenedor-tabla {
+        padding: 0 1vw;
+        min-width: 0;
+        width: 100vw;
+        box-sizing: border-box;
+        align-items: center;
+    }
+    .tabla {
+        max-width: 100vw;
+        margin: 5px auto 0 auto;
+    }
+    .tabla-scroll-wrapper {
+        max-width: 100vw;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    table {
+        width: 100%;
+        margin: 5px 0;
+        font-size: 12px;
+        min-width: 480px;
+    }
+    th, td {
+        padding: 4px;
+        font-size: 12px;
+        word-break: break-word;
+    }
+    .acciones a,
+    .acciones button {
+        padding: 4px 6px;
+        font-size: 12px;
+    }
+    .ingresar {
+        position: static;
+        margin-top: 6px;
+        flex-direction: row;
+        justify-content: center;
+        gap: 4px;
+    }
+    .agregar-btn {
+        width: 28px;
+        height: 28px;
+        font-size: 12px;
+    }
+    .agregar-texto {
+        font-size: 10px;
+    }
+    .boton_icono span {
+        font-size: 10px;
+    }
+    .submenu {
+        width: 50px;
+        font-size: 10px;
+    }
+    .tabla-scroll-wrapper::-webkit-scrollbar {
+        height: 4px;
+    }
+}
 /* Fondo general de la sección de la tabla */
 main.contenedor-tabla {
     background: url('/static/img/fondo-tabla.jpg') center center / cover no-repeat fixed;
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 100vh;
+    min-height: 100vh;
+    width: 100vw;
+    max-width: 100vw;
+    box-sizing: border-box;
+    overflow-x: hidden;
+}
+@media screen and (max-width: 600px) {
+    main.contenedor-tabla {
+        background-size: cover;
+        min-height: 100vh;
+        width: 100vw;
+        max-width: 100vw;
+        box-sizing: border-box;
+        overflow-x: hidden;
+        padding: 0;
+    }
+    .tabla {
+        margin: 10px auto 0 auto !important;
+        width: 98vw !important;
+        min-width: 0 !important;
+        max-width: 100vw !important;
+    /* Mejor alineación de barra de acciones y botón agregar en tablets */
+    .acciones {
+        display: flex !important;
+        flex-direction: row !important;
+        align-items: center !important;
+        justify-content: center !important;
+        gap: 12px !important;
+        width: 100% !important;
+        margin-bottom: 8px !important;
+        flex-wrap: wrap !important;
+    }
+    .ingresar {
+        position: static !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        display: flex !important;
+        flex-direction: row !important;
+        align-items: center !important;
+        justify-content: center !important;
+        gap: 0 !important;
+        width: auto !important;
+        height: auto !important;
+        box-shadow: none !important;
+        background: none !important;
+    }
+    .acciones .agregar-btn, .acciones .agregar-texto, .ingresar .agregar-btn, .ingresar .agregar-texto {
+        display: inline-flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        margin: 0 2px !important;
+        position: static !important;
+        box-shadow: none !important;
+    }
+    /* Ajuste para evitar solapamiento con la tabla */
+    .tabla {
+        margin-top: 10px !important;
+    }
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .tabla-scroll-wrapper {
+        max-width: 100vw !important;
+        overflow-x: auto !important;
+        -webkit-overflow-scrolling: touch;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    table {
+        margin: 0 auto !important;
+        min-width: 480px;
+        width: auto !important;
+        font-size: 12px;
+    }
 }
 
 .acciones a,
@@ -114,14 +279,45 @@ tbody tr:hover {
 }
 
 /* Botón "Agregar" */
+/* Por defecto, el botón agregar es flotante */
 .ingresar {
     position: absolute;
-    right: 0px;   /* Lo pega a la derecha */
-    bottom: 20px;  /* Lo posiciona desde abajo */
+    right: 0px;
+    bottom: 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 2px;
+    z-index: 10;
+}
+@media screen and (max-width: 600px) {
+    /* Oculta el botón flotante en móviles */
+    .ingresar {
+        display: none !important;
+    }
+    /* Muestra el botón agregar en la barra de acciones */
+    .acciones .agregar-btn, .acciones .agregar-texto {
+        display: inline-flex !important;
+        align-items: center;
+        justify-content: center;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        font-size: 20px !important;
+        width: 32px !important;
+        height: 32px !important;
+        background: #fff5;
+        color: #111;
+        border-radius: 50%;
+        box-shadow: 0 0 10px #0002;
+        padding: 0;
+    }
+    .acciones .agregar-texto {
+        font-size: 12px !important;
+        background: none;
+        color: #ccc;
+        border: none;
+        margin-left: 4px !important;
+    }
 }
 
 .ingresar a{
@@ -260,114 +456,172 @@ tr:has(input[type="checkbox"]:checked) td{
 @media screen and (max-width: 768px) {
     body {
         font-size: 16px;
-        padding: 0 10px;
+        padding: 0 2vw;
     }
-
-    .tabla-contenedor {
-        padding: 40px;
-        width: 95%;
-        margin: 50px 0;
+    .contenedor-tabla {
+        padding: 0 2vw;
+        min-width: 0;
+        width: 100vw;
+        box-sizing: border-box;
+        align-items: center;
     }
-
+    .tabla {
+        max-width: 100vw;
+        margin: 10px auto 0 auto;
+    }
+    .tabla-scroll-wrapper {
+        max-width: 100vw;
+    }
     table {
         width: 100%;
-        margin: 30px 0;
+        margin: 10px 0;
         font-size: 14px;
     }
-
     th, td {
-        padding: 10px;
+        padding: 8px;
         font-size: 14px;
     }
-
     .acciones a,
     .acciones button {
         padding: 6px 10px;
-        font-size: 18px;
+        font-size: 16px;
     }
-
     .ingresar {
         position: static;
-        margin-top: 20px;
+        margin-top: 10px;
         flex-direction: row;
         justify-content: center;
-        gap: 10px;
+        gap: 8px;
     }
-
     .agregar-btn {
-        width: 48px;
-        height: 48px;
-        font-size: 24px;
+        width: 36px;
+        height: 36px;
+        font-size: 16px;
     }
-
     .agregar-texto {
-        font-size: 16px;
+        font-size: 12px;
     }
-
     .boton_icono span {
-        font-size: 16px;
+        font-size: 12px;
+    }
+    .submenu {
+        width: 70px;
+        font-size: 12px;
     }
 }
 
 
 @media screen and (max-width: 834px) {
-    .tabla-contenedor {
-        width: 90%;
-        padding: 60px;
+    .contenedor-tabla {
+        padding: 0 5px;
+        min-width: 0;
+        width: 100vw;
+        box-sizing: border-box;
+        align-items: center;
     }
-
+    .tabla {
+        max-width: 100vw;
+        margin: 20px auto 0 auto;
+    }
+    .tabla-scroll-wrapper {
+        max-width: 100vw;
+    }
+    /* Alinear el botón agregar junto a los demás botones de acción */
+    .ingresar {
+        position: static !important;
+        margin-top: 10px !important;
+        flex-direction: row !important;
+        justify-content: center !important;
+        align-items: center !important;
+        gap: 8px !important;
+        width: 100%;
+    }
+    .acciones {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 10px;
+        justify-content: center;
+        width: 100%;
+    }
+    .acciones .agregar-btn, .acciones .agregar-texto {
+        display: inline-flex !important;
+        align-items: center;
+        justify-content: center;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+    }
     table {
         width: 100%;
-        margin: 40px 0;
+        margin: 16px 0;
+        font-size: 15px;
+        border-spacing: 0 2px;
     }
-
     th, td {
-        padding: 14px;
-        font-size: 16px;
+        padding: 8px 6px;
+        font-size: 15px;
+        line-height: 1.3;
     }
-
     .agregar-btn {
-        width: 52px;
-        height: 52px;
-        font-size: 26px;
+        width: 44px;
+        height: 44px;
+        font-size: 22px;
     }
-
     .agregar-texto {
-        font-size: 18px;
+        font-size: 14px;
     }
-
     .acciones a,
     .acciones button {
-        font-size: 20px;
+        font-size: 16px;
+        padding: 5px 8px;
+    }
+    .submenu {
+        width: 60px;
+        font-size: 11px;
+    }
+    .form-accion {
+        gap: 10px;
+    }
+    .tabla-scroll-wrapper {
+        box-shadow: 0 0 10px #0002;
+    }
+    .info i {
+        font-size: 22px;
     }
 }
 
 
 @media screen and (max-width: 1024px) {
-    .tabla-contenedor {
-        width: 85%;
-        padding: 70px;
+    .contenedor-tabla {
+        padding: 0 10px;
+        min-width: 0;
+        width: 100vw;
+        box-sizing: border-box;
+        align-items: center;
     }
-
+    .tabla {
+        max-width: 100vw;
+        margin: 30px auto 0 auto;
+    }
+    .tabla-scroll-wrapper {
+        max-width: 100vw;
+    }
     table {
-        width: 95%;
-        margin: 60px auto;
+        width: 100%;
+        margin: 30px 0;
+        font-size: 18px;
     }
-
     th, td {
         font-size: 18px;
     }
-
     .agregar-btn {
         width: 56px;
         height: 56px;
         font-size: 28px;
     }
-
     .agregar-texto {
         font-size: 20px;
     }
-
     .acciones a,
     .acciones button {
         font-size: 22px;

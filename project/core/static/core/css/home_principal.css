@@ -1,4 +1,3 @@
-
 .contenido-portada {
     flex: 1;/* Ocupa todo el espacio disponible del contenedor flex padre */
     display: flex;/*Activa el modo flexbox*/
@@ -278,7 +277,7 @@
 
 @media (max-width: 768px) {
 
-     .contenido-portada {
+    .contenido-portada {
         padding: 0 15px;
         max-width: 90%;
     }

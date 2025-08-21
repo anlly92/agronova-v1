@@ -9,6 +9,7 @@
 {% block extra_styles %}
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 <link rel="stylesheet" href="{% static 'css/formularios.css' %}">
+<link rel="stylesheet" href="{% static 'css/validaciones.css' %}">
 {% endblock %}
 
 {% block content %}
@@ -28,6 +29,10 @@
         <fieldset class="encabezado">
             <legend>Registro de arbustos</legend>
 
+            {% if form.errors %}
+                <div class="error-msg">Por favor, corrige los siguientes errores:</div>
+            {% endif %}
+
             <!-- Tipo de arbusto -->
             <div class="botones seleccion">
                 <i class="fa-solid fa-seedling"></i>
@@ -40,13 +45,16 @@
             </div>
 
             <!-- Nombre del arbusto -->
+            {{ form.nombre.errors }}
             <div class="botones">
                 <i class="fa-solid fa-leaf"></i>
                 <label for="nombreArbusto">Nombre del arbusto</label>
-                <input type="text" id="nombre" name="nombre" placeholder="Nombre del arbusto" required>
+                <input type="text" id="nombre" name="nombre" placeholder="Nombre del arbusto" required
+                    value="{{ form.nombre.value|default_if_none:'' }}">
             </div>
 
             <!-- Código del lote de siembra -->
+            {{ form.id_lote.errors }}
             <div class="botones">
                 <i class="fas fa-key"></i>
                 <label for="codigoLote">Código del lote de siembra</label>
@@ -59,25 +67,37 @@
             </div>
 
             <!-- Cantidad sembrada -->
+            {{ form.stock.errors }}
             <div class="botones">
                 <i class="fa-solid fa-sort-numeric-up-alt"></i>
                 <label for="cantidadSembrada">Cantidad sembrada</label>
-                <input type="number" id="stock" name="stock" placeholder="Cantidad sembrada" min="1" required>
+                <input type="number" id="stock" name="stock" placeholder="Cantidad arbustos" min="1" required>
             </div>
 
             <div class="botones seleccion">
                 <span id="icono-calendario" style="cursor: pointer;">
                     <i class="fa-solid fa-calendar-days"></i>
                 </span>
-                <input type="text" id="fecha" name="fecha_siembra" required placeholder="Fecha">
+                <input type="text" id="fecha" name="fecha_siembra" placeholder="Fecha" required
+                    value="{{ form.fecha.value|date:'Y-m-d'|default_if_none:'' }}">
             </div>
 
             <!-- Renovación -->
-            <div class="botones seleccion">
+            <div class="botones">
                 <i class="fa-solid fa-toggle-on"></i>
                 <label for="renovacion">Renovación</label>
                 <select name="renovacion" id="renovacion" required>
-                    <option value="" disabled selected>¿Es renovación?</option>
+                    <option value="" disabled selected>Renovación</option>
+                    <option value="Sí">Sí</option>
+                    <option value="No">No</option>
+                </select>
+            </div>
+
+            <div class="botones seleccion">
+                <i class="fa-solid fa-toggle-on"></i>
+                <label for="tala">Tala</label>
+                <select name="tala" id="tala" required>
+                    <option value="" disabled selected>¿Es tala?</option>
                     <option value="Sí">Sí</option>
                     <option value="No">No</option>
                 </select>

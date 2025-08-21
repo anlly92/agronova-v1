@@ -13,17 +13,12 @@
 Gestionar administrador
 {% endblock %}
 
+{% block filtro_icono %}{% endblock %}
 {% block nav_icons %}
     <form id="formularioIngreso" action="{% url 'gestionar_administrador' %}" method="post" class="form-accion">
         {% csrf_token %}
         <input type="hidden" name="elemento" id="elemento_oculto">
 
-        <div class="link" title="Editar administrador">
-            <button type="submit" name="accion" value="editar" id="btnEditar" class="boton-actualizar">
-                <i class="fas fa-arrows-rotate"></i>
-            </button>
-            <span>Actualizar</span>
-        </div>
         <div class="boton">
             <button type="button" name="accion" id="btnEliminar"  title="Eliminar">
                 <i class="fas fa-trash"></i>

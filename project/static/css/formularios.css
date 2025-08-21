@@ -1,4 +1,3 @@
-/* Aplica estilos al cuerpo del documento */
 body {
     display: flex;
     flex-direction: column;
@@ -8,7 +7,6 @@ body {
     background: #000;
 }
 
-/* Estilos para el elemento <main> */
 main {
     flex: 1;
     width: 100%;
@@ -21,7 +19,6 @@ main {
     box-sizing: border-box;
 }
 
-/* Contenedor para el botón de cerrar login */
 .cerrar-login {
     display: flex; /* Flexbox para posicionamiento */
     position: absolute; /* Posición absoluta respecto al contenedor padre */
@@ -31,7 +28,6 @@ main {
     padding: 0; /* Sin relleno */
 }
 
-/* Estilos para el enlace dentro de cerrar-login */
 .cerrar-login a {
     font-size: 40px; /* Tamaño grande para el texto */
     color: #fff; /* Color blanco */
@@ -42,13 +38,11 @@ main {
     transition: transform 0.2s ease, color 0.2s ease; /* Transición suave para transformaciones y color */
 }
 
-/* Efecto hover para el enlace cerrar-login */
 .cerrar-login a:hover {
     transform: scale(1.2); /* Aumenta tamaño un 20% */
     color: #4b7510; /* Cambia color al verde oscuro */
 }
 
-/* Contenedor principal del contenido */
 .contenedor_principal {
     width: 90%; /* Ocupa el 80% del ancho del contenedor padre */
     margin: 0 auto; /* Centrado horizontal automático, sin margen vertical */
@@ -57,14 +51,12 @@ main {
     border-radius: 18px;
 }
 
-/* Contenedor para el logo */
 .logo {
     width: 100%; /* Ancho completo */
     display: flex; /* Flexbox para posicionar */
     justify-content: center; /* Centra horizontalmente */
 }
 
-/* Elementos individuales del logo */
 .logo-item {
     width: 200px; /* Ancho fijo de 200px */
     height: 200px; /* Alto fijo de 200px */
@@ -72,13 +64,11 @@ main {
     transition: transform 0.2s ease; /* Transición suave para transformaciones */
 }
 
-/* Efecto hover para logo-item */
 .logo-item:hover {
     transform: scale(1.2); /* Escala el elemento al 120% */
     filter: drop-shadow(0 0 10px #111); /* Añade sombra difusa blanca alrededor */
 }
 
-/* Encabezado principal */
 .encabezado {
     display: flex; /* Flexbox */
     border: none; /* Sin borde */
@@ -91,20 +81,20 @@ main {
     color: #fff; /* Texto blanco */
 }
 
-/* Estilos para la leyenda dentro del encabezado */
 .encabezado legend {
     font-size: 40px; /* Tamaño de fuente grande */
     font-weight: bold; /* Fuente en negrita */
     margin-bottom: 20px; /* Margen inferior */
     letter-spacing: 1px; /* Espacio entre letras */
     color: #fff;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5)}
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
 
-/* Contenedores para los botones y campos de formulario */
 .botones,
 .boton {
     display: flex; /* Flexbox */
-    justify-content: left; /* Alinea el contenido a la izquierda */
+    align-items: center; 
+    justify-content: flex-start; 
     width: 70%; /* Sobrescribe el ancho al 80% */
     background-color: #4b7510; /* Fondo verde oscuro */
     padding: 1.1rem 30px; /* Relleno arriba/abajo 1.2rem, izquierda/derecha 30px */
@@ -112,77 +102,90 @@ main {
     border-radius: 23px; /* Bordes redondeados */
     border-right: 5px solid #fff; /* Borde derecho blanco de 5px */
     border-bottom: 5px solid #fff; /* Borde inferior blanco de 5px */
+    box-sizing: border-box; 
 }
 
-/* Estilos para inputs y textarea dentro de botones */
+
+.botones i,
+.boton i {
+    font-size: 30px; 
+    margin-right: 25px; 
+    margin-left: 0; 
+    flex-shrink: 0; 
+    width: 30px; 
+    text-align: center; 
+}
+
 .botones input,
-.botones textarea,
-input::placeholder {
-    width: 100%; /* Ancho completo dentro del contenedor */
+.botones textarea {
+    flex: 1; /* Toma todo el espacio disponible */
     border: none; /* Sin borde */
     outline: none; /* Sin contorno al enfocar */
     background: transparent; /* Fondo transparente */
     font-size: 22px; /* Tamaño de fuente */
     color: #fff; /* Texto blanco */
-    padding: 10px 18px; /* Relleno */
+    padding: 0; 
     box-sizing: border-box; /* Incluye padding y borde en el ancho */
     font-family: sans-serif; /* Fuente sans-serif */
-    line-height: 1; /* Altura de línea */
-    height: 32px; /* Altura fija */
+    line-height: 1.3; 
+    height: 40px; 
+    min-height: 40px; 
     resize: none; /* Desactiva el redimensionamiento para textarea */
+    overflow: hidden; /* Oculta el scroll del textarea */
+    vertical-align: middle; /* Alineación vertical consistente */
+    display: flex; /* Para mejor control de alineación */
+    align-items: center; /*  Centra el contenido verticalmente */
 }
 
-/* Estilos generales para inputs, selects y textareas */
-input,
-select,
-textarea {
-    background-color: #4b7510; /* Fondo verde oscuro */
-    border-radius: 8px; /* Bordes redondeados */
-    font-size: 22px;
-}
 
-/* Color del texto placeholder para input y textarea */
 input::placeholder,
 textarea::placeholder {
     color: white; /* Texto blanco */
     opacity: 1; /* Opacidad completa */
+    font-size: 22px; /*  Mismo tamaño que el input */
+    line-height: 1.3; /*  Misma altura de línea para centrado */
+    vertical-align: middle; /*   centrado vertical */
 }
 
-/* Tamaño de íconos dentro de botones */
-.botones i,
-.boton i {
-    font-size: 30px; /* Tamaño de fuente grande */
+
+input,
+select,
+textarea {
+    font-size: 22px;
+    font-family: sans-serif;
 }
 
-/* Etiquetas dentro de botones ocultas visualmente */
+
 .botones label {
     width: 1px; /* Ancho mínimo */
     height: 1px; /* Alto mínimo */
     overflow: hidden; /* Oculta contenido que exceda */
+    position: absolute; 
+    clip: rect(0, 0, 0, 0); /* Oculta completamente */
 }
 
-/* Estilos para los botones principales */
+
 .boton {
     width: 50%;
     display: flex; /* Flexbox */
-    padding: 10px; /* Relleno */
+    justify-content: center;
+    gap: 10px; /* Opcional: espacio entre ícono y texto */
+    align-items: center; /* alineación vertical */
+    padding: 1.1rem 30px; /*  Mismo padding que .botones */
     margin: 10px; /* Margen */
-    font-size: 30px; /* Tamaño de texto grande */
-    justify-content: center; /* Centra contenido horizontalmente */
+    font-size: 25px; /* Tamaño de texto grande */
     color: white; /* Texto blanco */
+    text-decoration: none; /* Por si son enlaces */
+    cursor: pointer; /*  Cursor pointer */
+    transition: transform 0.2s ease; /*  Transición suave */
 }
 
-/* Margen para iconos dentro de botones */
-.boton i {
-    margin: 5px 20px; /* Margen arriba/abajo y lateral */
-}
 
-/* Efecto hover para botones: aumenta ligeramente tamaño */
 .boton:hover {
     transform: scale(1.03);
 }
 
-/* Contenedor para información extra */
+
 .info_extra {
     width: 80%; /* Ancho del 80% */
     display: flex; /* Flexbox */
@@ -192,7 +195,7 @@ textarea::placeholder {
     flex-wrap: wrap; /* Permite que los hijos se ajusten en varias líneas */
 }
 
-/* Estilos para labels y enlaces dentro de info_extra */
+
 .info_extra label,
 .info_extra a {
     font-size: 19px; /* Tamaño de fuente */
@@ -202,25 +205,25 @@ textarea::placeholder {
     color: #fff; /* Texto blanco */
 }
 
-/* Enlaces con clase recuperar tienen subrayado */
+
 .recuperar a {
     text-decoration: underline;
 }
 
-/* Iconos con margen y cursor pointer */
+
 .icono {
-    margin-right: 10px; /* Margen a la derecha */
-    padding-right: 10px; /* Relleno derecho */
+    margin-right: 25px; /*  Mismo margen que otros iconos */
     color: #fff; /* Color blanco */
     cursor: pointer; /* Cursor pointer */
+    width: 30px; /* Ancho consistente */
+    text-align: center; /*  Centrado */
+    flex-shrink: 0; /*  No se comprime */
 }
 
-/* Oculta la barra de desplazamiento en textarea (webkit browsers) */
 textarea::-webkit-scrollbar {
     display: none;
 }
 
-/* Estilos para formularios */
 form {
     justify-content: center; /* Centra contenido (si aplica) */
     display: block; /* Display block */
@@ -228,38 +231,44 @@ form {
     unicode-bidi: isolate; /* Aísla el texto para dirección bidireccional */
 }
 
-/* Oculta flechas de inputs tipo number en navegadores webkit */
+
 input[type=number]::-webkit-inner-spin-button,
 input[type=number]::-webkit-outer-spin-button {
     -webkit-appearance: none; /* Elimina la apariencia por defecto */
     margin: 0; /* Sin margen */
 }
 
-/* Para Firefox y otros navegadores */
+
 input[type=number] {
     -moz-appearance: textfield; /* Elimina las flechas */
     appearance: textfield; /* Elimina las flechas */
 }
 
-/* Contenedor para inputs de tipo número */
+
 .numero {
     position: relative; /* Posición relativa para posicionar elementos hijos si es necesario */
     width: 100%; /* Ancho completo */
+    display: flex; /*  alineación */
+    align-items: center; /* Centra verticalmente */
 }
 
-/* Estilos para inputs numéricos dentro de la clase .numero */
+
 .numero input[type="number"] {
-    width: 100%; /* Ancho completo */
-    padding-right: 30px; /* Espacio derecho para posibles iconos/flechas */
+    flex: 1; /* Toma el espacio disponible */
+    padding: 0; /* Sin padding para consistencia */
     background: transparent; /* Fondo transparente */
     color: #fff; /* Texto blanco */
-    font-size: 16px; /* Tamaño de fuente */
+    font-size: 22px; /* Mismo tamaño que otros inputs */
     border: none; /* Sin borde */
     outline: none; /* Sin contorno al enfocar */
-    height: 40px; /* Altura fija */
+    height: 40px; /* Misma altura fija que otros elementos */
+    min-height: 40px; /* Misma altura mínima */
+    line-height: 1.3; /* Consistente con otros elementos */
+    display: flex; 
+    align-items: center; /*  Centrado vertical */
 }
 
-/* Estilos para spans dentro de flechas */
+
 .flechas span {
     color: white; /* Color blanco */
     font-size: 10px; /* Tamaño pequeño */
@@ -268,40 +277,66 @@ input[type=number] {
     user-select: none; /* No permite selección de texto */
 }
 
-/* Estilos generales para select */
+
+.botones select {
+    flex: 1; /* ocupa el espacio disponible */
+    background-color: transparent; /*  Transparente para consistencia */
+    color: #fff; /* Texto blanco */
+    border: none; /* Sin borde */
+    outline: none; /* Sin contorno al enfocar */
+    border-radius: 0; /* Sin border-radius para que coincida con inputs */
+    font-size: 22px; /*  Mismo tamaño */
+    appearance: none; /* Quita estilo nativo */
+    cursor: pointer; /* Cursor pointer */
+    margin: 0; /* Sin margen */
+    padding: 8px 0; /* Menos padding vertical para evitar corte */
+    box-sizing: border-box; /* Incluye padding y borde en el ancho */
+    font-family: sans-serif; /* Fuente sans-serif */
+    resize: none; /* No permite redimensionar */
+    height: 40px; /* Más altura para que no se corten las letras */
+    min-height: 40px; /*  Altura mínima mayor */
+    line-height: 1.3; /* Mejor línea para centrado */
+    vertical-align: middle; /* Alineación vertical consistente */
+    display: flex; /* Para mejor control de centrado */
+    align-items: center; /*  Centra el contenido verticalmente */
+}
+
+/* 
+    Para selects independientes, con fondo y bordes redondeados.
+*/
 select {
     background-color: #4b7510; /* Fondo verde oscuro */
     color: #fff; /* Texto blanco */
     border: none; /* Sin borde */
     outline: none; /* Sin contorno al enfocar */
     border-radius: 23px; /* Bordes redondeados */
-    font-size: 24px; /* Tamaño de fuente */
+    font-size: 22px; /* Tamaño de fuente */
     appearance: none; /* Quita estilo nativo */
     cursor: pointer; /* Cursor pointer */
-    margin: 0 25px; /* Margen lateral */
+    margin: 0; /* Sin margen */
+    padding: 10px 15px; /* Padding para selects independientes */
     box-sizing: border-box; /* Incluye padding y borde en el ancho */
     font-family: sans-serif; /* Fuente sans-serif */
     resize: none; /* No permite redimensionar */
 }
 
-/* Opciones dentro de select */
+/* OPCIONES DE LOS SELECTS El fondo y color de las opciones del select.*/
 select option {
     background-color: #4b7510; /* Fondo verde oscuro */
     color: #fff; /* Texto blanco */
 }
 
-/* Efecto hover para opciones de select */
 select option:hover {
     background-color: #356306; /* Fondo verde más oscuro */
     color: #fff; /* Texto blanco */
 }
 
-/* Estilos para botones de categoría en inventario */
+
 .categoria {
-    width: 100%; /* Ancho completo */
+    width: 80%; /* Ancho al 80% */
     display: flex; /* Flexbox */
-    justify-content: left; /* Alinea contenido a la izquierda */
-    width: 80%; /* Sobrescribe ancho al 80% */
+    align-items: center; /*  Centra verticalmente */
+    justify-content: flex-start; /* Alinea contenido a la izquierda */
     background-color: #4b7510; /* Fondo verde oscuro */
     padding: 0.6rem 30px; /* Relleno */
     margin: 25px 0; /* Margen vertical */
@@ -309,64 +344,81 @@ select option:hover {
     border-right: 5px solid #fff; /* Borde derecho blanco */
     border-bottom: 5px solid #fff; /* Borde inferior blanco */
     transition: all 0.3s ease; /* Transición suave para cualquier cambio */
+    box-sizing: border-box; 
 }
 
-/* Efecto hover para categoría: levanta y sombra */
+
 .categoria:hover {
     transform: translateY(-2px); /* Mueve hacia arriba 2px */
     box-shadow: 0 5px 15px rgba(0,0,0,0.3); /* Sombra debajo */
 }
 
-/* Tamaño de íconos en categorías y subcategorías */
+
 .categoria i, .sub_categoria i {
     font-size: 30px; /* Tamaño grande */
+    margin-right: 25px; /*  Mismo margen que otros iconos */
+    width: 30px; /* Ancho consistente */
+    text-align: center; /* Centrado */
+    flex-shrink: 0; /* No se comprime */
 }
 
-/* Etiquetas dentro de categoría ocultas */
+
 .categoria label {
     width: 1px; /* Ancho mínimo */
     height: 1px; /* Alto mínimo */
     overflow: hidden; /* Oculta contenido excedente */
+    position: absolute; /* Para que no afecte el layout */
+    clip: rect(0, 0, 0, 0); /*  Oculta completamente */
 }
 
-/* Estilos para subcategoría */
+
 .sub_categoria {
-    display: flex; /* Flexbox */
-    padding: 8px; /* Relleno */
+    display: flex; 
+    align-items: center; 
+    padding: 8px 30px; /* Mismo padding lateral que otros elementos */
     margin: 20px; /* Margen */
     font-size: 30px; /* Tamaño grande */
-    justify-content: center; /* Centra horizontalmente */
+    justify-content: flex-start; /* Para alineación consistente */
     color: white; /* Texto blanco */
     width: 100%; /* Ancho completo */
     background: transparent; /* Fondo transparente */
     border: none; /* Sin borde */
     cursor: pointer; /* Cursor pointer */
     transition: all 0.3s ease; /* Transición suave */
+    box-sizing: border-box; 
 }
 
-/* Efecto hover para subcategoría: escala ligeramente */
+
 .sub_categoria:hover {
     transform: scale(1.02); /* Escala al 102% */
 }
 
-/* Margen para íconos dentro de subcategoría */
-.sub_categoria i {
-    margin: 5px 20px;
-}
 
 .tipo_ingreso label{
-    height: 50px;
+    height: auto; 
+    width: auto; 
+    position: relative; 
+    clip: none; 
+    overflow: visible; 
 }
 
 .ingresos_egresos {
-    margin-top:9px
+    margin-top: 9px;
 }
 
 #fecha {
-    background-color:none;
+    background-color: transparent; 
     outline: none;
-    padding: 10px 15px;
+    padding: 0; 
     width: 100%;
+    font-size: 22px; 
+    color: #fff; 
+    border: none; 
+    height: 40px; 
+    min-height: 40px;
+    line-height: 1.3; 
+    display: flex; 
+    align-items: center; 
 }
 
 .flatpickr-calendar {
@@ -397,7 +449,6 @@ select option:hover {
     width: -1px;
 }
 
-
 .arrowDown,
 .arrowUp{
     margin: 0 -15px;
@@ -410,7 +461,6 @@ select option:hover {
     gap: 10px;
 }
 
-/* Estilos para el selector de mes si se usa en forma de dropdown */
 .flatpickr-monthDropdown-months,
 .flatpickr-monthDropdown-months option {
     color: #000 !important;
@@ -419,20 +469,29 @@ select option:hover {
     border: 3px solid #000;
 }
 
-/* Ocultar ícono nativo del input tipo fecha */
+
 input[type="date"]::-webkit-calendar-picker-indicator {
     display: none;
     -webkit-appearance: none;
 }
 
+
+.seleccion {
+    display: flex;
+    align-items: center;
+}
+
 .seleccion i{
     margin-right: 25px;
-    
+    width: 30px; 
+    text-align: center; 
+    flex-shrink: 0; 
 }
 
 .seleccion option{
-    font-size: 22px;
+    font-size: 22px; 
 }
+
 
 input:-webkit-autofill {
     -webkit-box-shadow: 0 0 0px 1000px #4b7510 inset !important; /* Fondo verde igual al botón */
@@ -446,7 +505,6 @@ input:-webkit-autofill:focus {
     -webkit-box-shadow: 0 0 0px 1000px #4b7510 inset !important;
 }
 
-/*  Diseño responsivo  */
 
 @media screen and (max-width: 768px) {
     body {
@@ -484,13 +542,23 @@ input:-webkit-autofill:focus {
         font-size: 14px;
         width: 100%;
         margin: 6px 0;
-        padding: 4px 8px;
-        height: 30px;
+        padding: 0; 
+        height: 35px; 
+        line-height: 1.3;
+    }
+
+    .botones i,
+    .boton i {
+        font-size: 14px;
+        margin-right: 15px; 
+        width: 20px; 
     }
 
     select {
-        height: 30px !important;
+        height: 35px !important; 
         font-size: 14px;
+        padding: 0; 
+        line-height: 1.3; 
     }
 
     .boton {
@@ -502,11 +570,6 @@ input:-webkit-autofill:focus {
         text-align: left;
         white-space: nowrap;
         gap: 10px;
-    }
-
-    .boton i {
-        font-size: 14px;
-        margin-right: 10px;
     }
 
     .pie-contenedor {
@@ -532,10 +595,6 @@ input:-webkit-autofill:focus {
 }
 
 
-
-
-
-/* === RESPONSIVE: pantallas menores a 480px === */
 @media screen and (max-width: 480px) {
     
     .botones input,
@@ -544,10 +603,9 @@ input:-webkit-autofill:focus {
         font-size: 14px;
         width: 100%;
         margin: 6px 0;
-        padding: 4px 8px;
-        height: 30px;
+        padding: 0; 
+        line-height: 1.3; 
     }
-
 
     .pie-contenedor {
         flex-direction: column;
@@ -571,10 +629,10 @@ input:-webkit-autofill:focus {
     }
 
     .pie-seccion h4.creditos{
-    background-color: #5B2C23; 
-    color: white;
-    padding: 8px 0;
-    font-size: 14px;
+        background-color: #5B2C23; 
+        color: white;
+        padding: 8px 0;
+        font-size: 14px;
     }
 
     .pie-seccion p,
@@ -584,11 +642,12 @@ input:-webkit-autofill:focus {
     }
 }
 
+
 .mi-mensaje-error {
     color: rgb(139, 24, 24);
     font-size: 1.4rem;
     font-weight: bold;
     margin: 15px 0;
-    border-bottom: 2px solid  rgb(139, 24, 24);;
+    border-bottom: 2px solid  rgb(139, 24, 24);
     padding-bottom: 5px;
 }
