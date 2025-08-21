@@ -17,7 +17,6 @@
 </div>
 
 <section class="contenedor_principal"> <!-- Sección principal que contiene todo el formulario -->
-
     <div class="logo">
         <a href="{% url 'inicio' %}" title="volver al inicio">
             <img class="logo-item" src="{% static 'img/logo_agronova.png' %}" alt="logo - Agronova">
@@ -63,6 +62,7 @@
 
             <!-- Campo: Tipo de arbusto  -->
             {{form.tipo_producto.errors}}
+
             <div class="botones">
                 <i class="fa-solid fa-leaf"></i>
                 <label for="Tipo de arbusto">Tipo_de_arbusto</label>
@@ -106,6 +106,7 @@
 
             <!-- Campo: Fecha de recolección -->
             {{ form.fecha.errors }}
+
             <div class="botones">
                 <span id="icono-calendario" style="cursor: pointer;">
                     <i class="fa-solid fa-calendar-days"></i>

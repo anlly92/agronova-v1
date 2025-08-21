@@ -46,5 +46,4 @@ urlpatterns = [
         name="password_change"),
 
     path('manual_libro/', views.manual_libro, name='manual_libro')
-
 ]

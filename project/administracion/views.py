@@ -13,12 +13,13 @@ from .models import Administrador
 from validaciones import validar_campos_especificos
 
 
+
 #importaciones para la busqueda y el filtro
 from inventarios.utils import normalizar_texto, es_numero # funciones que se encunetran en utils en la app de inventarios
 from django.db.models import Q
 from decimal import InvalidOperation 
-
 from administracion.decorators import solo_admin_principal # lo importamos para manejar la proteccion de las rutas si no es administrador principal
+
 
 
 def generador_contraseña ():
@@ -30,7 +31,6 @@ def gestionar_administrador(request):
     ok = False
     # Acciones POST
     if request.method == "POST":
-
         seleccion = request.POST.get("elemento")
         accion = request.POST.get("accion")
 
@@ -67,7 +67,7 @@ def gestionar_administrador(request):
         "nombre": nombre,
         "apellido": apellido,
         "telefono": telefono,
-        "correo": correo,
+        "correo": correo,        
         "ok": ok,
     }
 

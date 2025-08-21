@@ -20,3 +20,4 @@ class Herramientasform(forms.ModelForm):
     class Meta:
         model = Inventario
         fields = ['nombre', 'estado', 'stock', 'categoria']
+

@@ -9,8 +9,6 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 <link rel="stylesheet" href="{% static 'css/formularios.css' %}">
 <link rel="stylesheet" href="{% static 'css/validaciones.css' %}">
-
-
 {% endblock %}
 
 {% block content %}
@@ -85,7 +83,6 @@
                     value="{{ form.fecha.value|date:'Y-m-d'|default_if_none:'' }}">
             </div>
 
-
             <button class="boton" type="button" id="btnEnviar">
                 <i class="fas fa-save"></i> Registrar proceso de producción
             </button>
@@ -99,3 +96,4 @@
 <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/es.js"></script>
 <script src="{% static 'js/calendario.js' %}"></script>
 {% endblock %}
+

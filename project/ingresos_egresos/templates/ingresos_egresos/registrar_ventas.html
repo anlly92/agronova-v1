@@ -23,7 +23,6 @@
         </a>
     </div>
 
-
     <!-- Formulario para registrar ingresos o egresos -->
     <form id="formularioIngreso" method="post">
         {% csrf_token %}
@@ -45,7 +44,6 @@
                     {% endfor %}
                 </select>
             </div>
-
 
             {{ form.cantidad.errors}}
             <div class="botones">

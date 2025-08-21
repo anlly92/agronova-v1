@@ -14,7 +14,6 @@ def gestionar_personal(request):
     ok = False 
     # para acciones de editar y borrar
     if request.method == "POST":
-
         seleccion = request.POST.get("elemento")
         accion = request.POST.get("accion")
 
@@ -116,8 +115,6 @@ def actualizar_personal (request,seleccion):
         ok = True
 
     return render(request, 'personal/actualizar_personal.html', {'empleado': empleado, 'ok': ok})
-
-
 
 
 def filtrar_personal(request):

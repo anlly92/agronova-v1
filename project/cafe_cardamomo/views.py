@@ -34,7 +34,7 @@ def obtener_datos_recoleccion_filtrados(request):
     if mes and mes.isdigit():
         recolecciones = recolecciones.filter(fecha__month=int(mes))
     if lote:
-        recolecciones = recolecciones.filter(id_lote__nombre__icontains=lote)
+        recolecciones = recolecciones.filter(id_lote_nombre_icontains=lote)
 
     consulta_total = (
         recolecciones
@@ -373,15 +373,15 @@ def filtrar_recoleccion(request):
         partes = buscar_normalizado.split()
         for parte in partes:
             filtro_texto &= (
-            Q(id_empleado__nombre__icontains=parte) |
-            Q(id_empleado__apellido__icontains=parte)
+            Q(id_empleado_nombre_icontains=parte) |
+            Q(id_empleado_apellido_icontains=parte)
             )
 
 
         filtro_otros_datos = (
             Q(tipo_producto__iexact=buscar_normalizado) |
-            Q(tipo_pago__tipo_pago__iexact=buscar_normalizado) |
-            Q(id_lote__nombre__iexact=buscar_normalizado) 
+            Q(tipo_pago_tipo_pago_iexact=buscar_normalizado) |
+            Q(id_lote_nombre_iexact=buscar_normalizado) 
         )
         # Filtro por fecha
         fecha_parseada = parsear_fecha(buscar)

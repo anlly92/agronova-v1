@@ -197,7 +197,7 @@ class PasswordChangeNoRedirectView(PasswordChangeView):
         context["ok"] = True                     # ← tu JS lo usará
         return render(self.request, self.template_name, context)
 
-
 def manual_libro(request):
     return render(request, 'core/manual_libro.html')
+
 

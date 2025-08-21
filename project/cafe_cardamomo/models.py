@@ -22,6 +22,7 @@ class Lote(models.Model):
     estado = models.CharField(max_length=10, choices=ESTADO_CHOICES, default='Activo')
     
 
+
     class Meta:
         db_table = 'lote'  # Asegura el nombre exacto de la tabla
 
@@ -57,6 +58,7 @@ class Recoleccion(models.Model):
             return (self.horas_trabajadas or 0) * (self.valor_pago or 0)
         elif self.tipo_pago.tipo_pago == 'Kilos':
             return (self.kilos or 0) * (self.tipo_pago.valor or 0)
+
         return 0
 
 class Pagos(models.Model):

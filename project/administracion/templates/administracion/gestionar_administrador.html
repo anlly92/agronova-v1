@@ -32,6 +32,7 @@ Gestionar administrador
 <section class="tabla">
     <div class="tabla-scroll-wrapper">
         <form action="{% url 'gestionar_administrador' %}"  method="post">
+
             {% csrf_token %}
             <table >
                 <tr>

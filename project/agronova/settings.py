@@ -26,6 +26,7 @@ SECRET_KEY = 'django-insecure-7bao$l*z0c#5b6tvys^d7tc!o945qni$x)o3rocztnj3o=o-7b
 DEBUG = True
 
 ALLOWED_HOSTS = []
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -125,7 +126,9 @@ USE_I18N = True
 USE_TZ = True
 
 LOGIN_REDIRECT_URL = '/inicio/'
+
 LOGIN_URL = '/login/'  # Esta es la url que ya tenemos defnida 
+
 
 USE_L10N = True
 FORMAT_MODULE_PATH = ['project.formats']
@@ -136,6 +139,7 @@ FORMAT_MODULE_PATH = ['project.formats']
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
 STATIC_URL = '/static/'
+
 STATICFILES_DIRS = [BASE_DIR / "static"]
 STATIC_ROOT = BASE_DIR / 'staticfiles' 
 # Default primary key field type
@@ -164,6 +168,7 @@ EMAIL_HOST_USER="agronovaesloni@gmail.com"
 EMAIL_HOST_PASSWORD="rsfrhtcoleaoxlux"
 
 SESSION_COOKIE_AGE = 86400  # 1 día en segundos
+
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 
 SITE_ID = 1

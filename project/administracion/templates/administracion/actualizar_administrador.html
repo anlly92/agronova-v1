@@ -1,0 +1,59 @@
+{% extends "base_actualizar.html" %}
+{% load static %}
+
+{% block title %} 
+    <title>Actualizar administrador</title>
+{% endblock %}
+
+{% block extra_styles %}
+    <link rel="stylesheet" href="{% static 'css/formularios.css' %}">
+{% endblock %}
+
+{% block header %}
+{% endblock %}
+
+{% block content %}
+<main>
+    <div class="cerrar-login">
+        <a href="{% url 'gestionar_administrador' %}" title="Cancelar e ir atrás">✖</a>
+    </div>
+
+    <section class="contenedor_principal">
+
+        <div class="logo">
+            <a href="{% url 'inicio' %}" title="volver al inicio">
+                <img class="logo-item" src="{% static 'img/logo_agronova.png' %}" alt="logo - Agronova">
+            </a>
+        </div>
+
+        <form id="formularioIngreso"  method="POST">
+            {% csrf_token %}
+            <fieldset class="encabezado">
+                <legend>Actualizar administrador</legend>
+
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="mi-mensaje-error text-center">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+
+                <div class="botones">
+                    <i class="fas fa-phone"></i>
+                    <label for="numero_telefonico">Numero telefonico</label>
+                    <input id="telefono" name="telefono" type="tel" value="{{administrador.telefono}}" placeholder="Numero telefonico"/>
+                </div>
+
+                <div class="botones">
+                    <i class="fas fa-envelope"></i>
+                    <label for="correo">Correo electrónico</label>
+                    <input id="correo" name="correo" type="email" value="{{ administrador.correo }}" placeholder="Correo electrónico" />
+                </div>
+
+                <button class="boton" type="button" id="btnEnviar" ><i class="fas fa-address-card"></i>Actualizar administrador</button>
+            </fieldset>
+        </form>
+    </section>
+</main>
+{% endblock %}

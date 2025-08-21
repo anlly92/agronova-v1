@@ -1050,3 +1050,4 @@ def exportar_ventas_pdf(request):
     if pisa_status.err:
         return HttpResponse('Error al generar el PDF', status=500)
     return response
+

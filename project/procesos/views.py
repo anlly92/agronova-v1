@@ -232,7 +232,6 @@ def registrar_proceso_de_produccion (request):
     return render (request, 'procesos/registrar_proceso_produccion.html', {'form': form,'ok':ok, 'empleados': empleados})
 
 
-
 def filtrar_proceso_de_produccion(request):
     buscar = request.GET.get("buscar", "").strip()
     id_proceso = request.GET.get("id_proceso", "").strip()

@@ -85,7 +85,6 @@ def registrar_inventario_producto_final (request):
 
     return render (request, 'inventarios/registrar_inventario_producto_final.html', {'form': form,'ok':ok})
 
-
 @login_required
 def actualizar_producto_final (request,seleccion):
     ok = False
@@ -114,6 +113,7 @@ def actualizar_producto_final (request,seleccion):
         ok = True
 
     return render(request, 'inventarios/actualizar_producto_final.html', {'inventario': inventario, 'ok': ok})
+
 
 
 
@@ -283,6 +283,7 @@ def actualizar_inventario_arbustos (request,seleccion):
 
     return render(request, 'inventarios/actualizar_arbustos.html', {'inventario': inventario, 'ok': ok})
 
+
 def filtrar_arbustos(request):
     buscar = request.GET.get("buscar", "").strip()
 
@@ -349,7 +350,6 @@ def filtrar_arbustos(request):
 def inventario_agroquimicos(request):
     ok = False
     if request.method == "POST":
-
         seleccion = request.POST.get("elemento")
         accion = request.POST.get("accion")
 
@@ -370,8 +370,6 @@ def inventario_agroquimicos(request):
         elif accion == "editar" and len(ids) == 1:
             ok = True
             return redirect("actualizar_inventario_agroquimicos", seleccion=ids[0])
-
-        
 
     agroquimicos, buscar, nombre, contenido, unidad, stock = filtrar_agroquimicos(request)
     cantidad_filas_vacias = 15 - agroquimicos.count()

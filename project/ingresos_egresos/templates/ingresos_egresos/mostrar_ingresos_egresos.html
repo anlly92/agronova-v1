@@ -18,10 +18,6 @@ Ingresos y egresos
 
 {% block nav_icons %}
 
-<form action="{% url 'ingresos_egresos' %}" method="post" class="form-accion">
-    {% csrf_token %}
-    <input type="hidden" name="elemento" id="elemento_oculto">
-
 <div class="menu boton">
     <div class="boton">
         <button>
@@ -59,7 +55,6 @@ Ingresos y egresos
         </button>
         <span>Eliminar</span>
     </div>
-
 {%endblock%}
 
 {% block content %}
@@ -86,6 +81,7 @@ Ingresos y egresos
                 <tr class="radio-fila">
                     <td class="primero">
                         <input type="checkbox" name="elemento" id="ingreso_egreso{{ item.id_transaccion }}"
+
                             value="{{ item.id_transaccion }}" required>
                     </td>
                     <td><label for="ingreso_egreso{{ item.id_transaccion }}">{{ item.id_transaccion }}</label></td>

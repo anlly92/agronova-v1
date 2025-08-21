@@ -16,7 +16,6 @@ class IngresosEgresos(models.Model):
     monto = models.DecimalField(max_digits=10, decimal_places=2)
     anulada = models.BooleanField(default=False)
 
-
     class Meta:
         db_table = 'ingresos_egresos'
 
