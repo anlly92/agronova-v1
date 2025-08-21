@@ -22,18 +22,6 @@ Ingresos y egresos
     {% csrf_token %}
     <input type="hidden" name="elemento" id="elemento_oculto">
 
-    {% if admin_es_principal %}
-    <div class="boton">
-        <button type="submit" name="accion" value="borrar" title="Eliminar"
-            onclick="return confirm('¿Eliminar administrador?');">
-            <i class="fas fa-trash"></i>
-        </button>
-        <span>Eliminar</span>
-    </div>
-    {% endif %}
-
-</form>
-
 <div class="menu boton">
     <div class="boton">
         <button>
