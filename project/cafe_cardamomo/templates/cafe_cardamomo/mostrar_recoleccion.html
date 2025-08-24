@@ -67,7 +67,7 @@ Recolección
                 <td>{{ item.id_lote.id_lote|default:"lote inexistente" }}</td>
                 <td>{{ item.nombre_lote }}</td>
                 <td>{{ item.tipo_producto }}</td>
-                <td>{{ item.kilos|floatformat:0 }}</td>
+                <td>{{ item.kilos|floatformat:0|intcomma }}</td>
                 <td>{{ item.fecha|date:"d/m/Y" }}</td>
                 <td>{{ item.tipo_pago.tipo_pago }}</td>
                 <td>{{ item.valor_pago|intcomma }}</td>

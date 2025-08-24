@@ -1,5 +1,6 @@
 {% extends "base_header_1.html" %}
 {% load static %}
+{% load humanize %}
 
 {% block title %}
 <title> Procesos Agrícolas </title>
@@ -47,7 +48,7 @@ Procesos Agrícolas
                 <td>{{ item.descripcion }}</td>
                 <td>{{ item.id_inventario.id_inventario|default:"agroquímico inexistente" }}</td>
                 <td>{{ item.nombre_agroquimico }}</td>
-                <td>{{ item.cantidad|floatformat:0 }}</td>
+                <td>{{ item.cantidad|floatformat:0|intcomma }}</td>
                 <td>{{ item.fecha|date:"d/m/Y"}}</td>
             </tr>
             {% endfor %}

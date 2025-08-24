@@ -1,5 +1,6 @@
 {% extends "base_header_1.html" %}
 {% load static %}
+{% load humanize %}
 
 {% block title %}
 <title> Inventario de agroquímicos </title>
@@ -64,7 +65,7 @@ Agroquímicos
                     <td><label for="agroquimicos{{ item.id_inventario }}">{{ item.descripcion }}</label></td>
                     <td><label for="agroquimicos{{ item.id_inventario }}">{{ item.contenido }}</label></td>
                     <td><label for="agroquimicos{{ item.id_inventario }}">{{ item.unidad }}</label></td>
-                    <td><label for="agroquimicos{{ item.id_inventario }}">{{ item.stock|floatformat:0 }}</label></td>
+                    <td><label for="agroquimicos{{ item.id_inventario }}">{{ item.stock|floatformat:0|intcomma }}</label></td>
                 </tr>
                 {% endfor %}
                 {% endif %}

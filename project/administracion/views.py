@@ -8,7 +8,7 @@ from django.db import IntegrityError
 from django.contrib import messages
 import random
 import string
-from .forms import AdministradorForm
+from .forms import AdministradorForm,EditarPerfilForm
 from .models import Administrador
 from validaciones import validar_campos_especificos
 
@@ -144,43 +144,58 @@ def sobre_mi (request):
     return render(request, 'administracion/sobre_mi.html',{'usuario': usuario,'administrador': administrador})
 
 @login_required
-def editar_perfil (request):
-    if request.method == 'POST':
-        correo = request.POST.get("correo")
-        telefono = request.POST.get("telefono")
+def editar_perfil(request):
+    admin = Administrador.objects.get(correo=request.user.username)
 
-        if not correo and not telefono:
-            messages.error(request, "Debes ingresar al menos un dato (correo o teléfono) para actualizar tu perfil.")
-            return redirect("editar_perfil")
+    if request.method == "POST":
+        datos = request.POST.copy()
+        form = EditarPerfilForm(datos, instance=admin)
 
-        admin = Administrador.objects.get(correo=request.user.username)
+        # aplicar validaciones personalizadas
+        errores = validar_campos_especificos(datos)
+        for campo, mensaje in errores.items():
+            if campo in form.fields:
+                form.add_error(campo, mensaje)
 
-        # Solo actualiza si los campos no están vacíos
-        if correo:
-            admin.correo = correo
-            user = request.user
-            user.username = correo
-            user.email = correo
+        if form.is_valid():
+            correo = form.cleaned_data.get("correo")
+            telefono = form.cleaned_data.get("telefono")
 
-        if telefono:
-            admin.telefono = telefono
-
-        try:
-            admin.save()
-            if correo:
-                user.save()
-            return redirect("sobre_mi")
-
-        except IntegrityError as e:
-            if "correo" in str(e):
-                messages.error(request, "Este correo electrónico ya está registrado.")
-            elif "telefono" in str(e):
-                messages.error(request, "Este número de teléfono ya está registrado.")
+            # verificar que al menos uno no esté vacío
+            if not correo and not telefono:
+                form.add_error(None, "Debes ingresar al menos un dato (correo o teléfono).")
+            
             else:
-                messages.error(request, "Ha ocurrido un error al guardar los datos.")
-    
-    return render(request, 'administracion/editar_perfil.html')
+                user = request.user
 
+                if correo:
+                    admin.correo = correo
+                    user.username = correo
+                    user.email = correo
+                
+                if telefono:
+                    admin.telefono = telefono
+
+                try:
+                    admin.save()
+                    user.save()
+                    messages.success(request, "Perfil actualizado correctamente ✅")
+                    return redirect("sobre_mi")
+                
+                except IntegrityError as e:
+
+                    if "correo" in str(e):
+                        form.add_error("correo", "Este correo electrónico ya está registrado.")
+                    
+                    elif "telefono" in str(e):
+                        form.add_error("telefono", "Este número de teléfono ya está registrado.")
+                    
+                    else:
+                        form.add_error(None, "Ha ocurrido un error al guardar los datos.")
+    else:
+        form = EditarPerfilForm(instance=admin)
+
+    return render(request, "administracion/editar_perfil.html", {"form": form})
 #Vistas para la parte de busqueda en la tabla de administradores
 
 

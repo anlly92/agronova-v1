@@ -245,12 +245,68 @@ def registrar_inventario_arbustos (request):
         if form.is_valid():
             Arbusto = form.save(commit=False) 
             Arbusto.tipo = 'Inventario Arbustos'
-            
-            if Arbusto.id_lote:
-                Arbusto.nombre_lote = Arbusto.id_lote.nombre
+
+            lote = Arbusto.id_lote
+
+            if not lote:
+                form.add_error('id_lote', 'Debes seleccionar un lote válido.')
+            else:
+                try:
+                    cantidad = int(Arbusto.stock or 0)
+                except (TypeError, ValueError):
+                    form.add_error('stock', 'La cantidad ingresada no es válida.')
+                    cantidad = None
                 
-            Arbusto.save()
-            ok = True
+                if cantidad is not None:
+                    if cantidad <= 0:
+                        form.add_error('stock', 'La cantidad debe ser mayor a 0.')
+                    else:
+                        # Reglas según acción
+                        tala = (Arbusto.tala or '').strip()
+                        renovacion = (Arbusto.renovacion or '').strip()
+
+                        if tala == "Sí":
+                            # No se puede talar más de lo que hay
+                            if cantidad > lote.cantidad_actual:
+                                form.add_error(
+                                    'stock',
+                                    f"No puedes talar {cantidad} arbustos; el lote solo tiene {lote.cantidad_actual}."
+                                )
+                            # Nunca permitir quedar negativo (doble seguro)
+                            if lote.cantidad_actual - cantidad < 0:
+                                form.add_error('stock', 'La tala dejaría el lote en negativo.')
+
+                        elif renovacion == "Sí":
+                            # No se puede renovar más de lo que hay
+                            if cantidad > lote.cantidad_actual:
+                                form.add_error(
+                                    'stock',
+                                    f"No puedes renovar {cantidad} arbustos; el lote solo tiene {lote.cantidad_actual}."
+                                )
+                            if lote.cantidad_actual - cantidad < 0:
+                                form.add_error('stock', 'La renovación dejaría el lote en negativo.')
+
+                        else:
+                            # Siembra nueva: no superar capacidad
+                            disponible = lote.cantidad_maxima - lote.cantidad_actual
+                            if cantidad > disponible:
+                                form.add_error(
+                                    'stock',
+                                    (f"No puedes sembrar {cantidad} arbustos. "
+                                    f"El lote '{lote.nombre}' solo admite {disponible} más "
+                                    f"(capacidad {lote.cantidad_maxima}).")
+                                )
+
+            # Si hubo errores de cantidad, NO guardamos
+            if form.errors:
+                ok = False
+            else:
+
+                if Arbusto.id_lote:
+                    Arbusto.nombre_lote = Arbusto.id_lote.nombre
+                    
+                Arbusto.save()
+                ok = True
     else:
         form = Arbustosform()
 

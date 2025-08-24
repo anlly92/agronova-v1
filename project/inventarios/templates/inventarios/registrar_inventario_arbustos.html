@@ -71,7 +71,8 @@
             <div class="botones">
                 <i class="fa-solid fa-sort-numeric-up-alt"></i>
                 <label for="cantidadSembrada">Cantidad sembrada</label>
-                <input type="number" id="stock" name="stock" placeholder="Cantidad arbustos" min="1" required>
+                <input type="number" id="stock" name="stock" placeholder="Cantidad arbustos" min="1" required
+                    value="{{ form.stock.value|default_if_none:'' }}">
             </div>
 
             <div class="botones seleccion">

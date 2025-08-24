@@ -90,7 +90,7 @@ Ingresos y egresos
                     <td><label for="ingreso_egreso{{ item.id_transaccion }}">{{ item.tipo }}</label></td>
                     <td><label for="ingreso_egreso{{ item.id_transaccion }}">{{ item.descripcion }}</label></td>
                     <td><label for="ingreso_egreso{{ item.id_transaccion }}">{{ item.fecha|date:"d/m/Y" }}</label></td>
-                    <td><label for="ingreso_egreso{{ item.id_transaccion }}">{{ item.monto|intcomma}}</label></td>
+                    <td><label for="ingreso_egreso{{ item.id_transaccion }}">{{ item.monto|floatformat:0|intcomma}}</label></td>
                 </tr>
                     
                 {% endfor %}

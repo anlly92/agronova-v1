@@ -1,5 +1,6 @@
 {% extends "base_header_1.html" %}
 {% load static %}
+{% load humanize %}
 
 {% block title %}
 <title> Producción Café y Cardamomo </title>
@@ -39,7 +40,7 @@ Producción <br> Café y Cardamomo
                 <td>{{ item.nombre_empleado }} </td>
                 <td>{{ item.tipo_producto }}</td>
                 <td>{{ item.descripcion }}</td>
-                <td>{{ item.cantidad|floatformat:0 }}</td>
+                <td>{{ item.cantidad|floatformat:0|intcomma }}</td>
                 <td>{{ item.fecha|date:"d/m/Y" }}</td>
             </tr>
             {% endfor %}

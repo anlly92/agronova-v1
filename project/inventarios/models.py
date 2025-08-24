@@ -1,5 +1,6 @@
 from django.db import models
 from cafe_cardamomo.models import Lote 
+from django.db import transaction
 
 class Inventario(models.Model):
     CATEGORIA_CHOICES = [
@@ -48,7 +49,31 @@ class Inventario(models.Model):
     class Meta:
         db_table = 'inventario'
 
+    # Sobrescribimos el método save para aplicar lógica adicional
+    def save(self, *args, **kwargs):
+        with transaction.atomic():
+            is_new = self._state.adding  # Saber si es creación
+            super().save(*args, **kwargs)
+
+            if is_new and self.tipo == 'Inventario Arbustos' and self.id_lote:
+                lote = self.id_lote
+                cantidad = int(self.stock or 0)  # truncar mejor que redondear
+
+                if self.renovacion == "Sí":
+                    return  
+
+                if self.tala == "Sí":
+                    nueva_cantidad = lote.cantidad_actual - cantidad
+                    lote.cantidad_actual = max(nueva_cantidad, 0)
+                else:
+                    nueva_cantidad = lote.cantidad_actual + cantidad
+                    lote.cantidad_actual = min(nueva_cantidad, lote.cantidad_maxima)
+                    
+                lote.save()
+
     def __str__(self):
         return f"{self.nombre} ({self.categoria})"
+
+    
 
 

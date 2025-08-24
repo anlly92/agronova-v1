@@ -17,8 +17,8 @@ class Lote(models.Model):
     nombre = models.CharField(max_length=100)
     hectareas = models.FloatField()
     tipo_arbusto = models.CharField(max_length=20, choices=TIPO_ARBUSTO_CHOICES)
-    cantidad_maxima = models.IntegerField(default=False)
-    cantidad_actual = models.IntegerField(default=False)
+    cantidad_maxima = models.IntegerField(default=0)
+    cantidad_actual = models.IntegerField(default=0)
     estado = models.CharField(max_length=10, choices=ESTADO_CHOICES, default='Activo')
     
 

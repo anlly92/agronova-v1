@@ -1,5 +1,6 @@
 {% extends "base_header_1.html" %}
 {% load static %}
+{% load humanize %}
 
 {% block title %}
 <title> Inventario herramientas </title>
@@ -65,7 +66,7 @@ Herramientas Maquinas
                     <td><label for="herramientas{{item.id_inventario }}">{{ item.categoria }}</label></td>
                     <td><label for="herramientas{{item.id_inventario }}">{{ item.nombre }}</label></td>
                     <td><label for="herramientas{{item.id_inventario }}">{{ item.estado }}</label></td>
-                    <td><label for="herramientas{{item.id_inventario }}">{{ item.stock|floatformat:0 }}</label></td>
+                    <td><label for="herramientas{{item.id_inventario }}">{{ item.stock|floatformat:0|intcomma }}</label></td>
                 </tr>
                 {% endfor %}
                 {% endif %}

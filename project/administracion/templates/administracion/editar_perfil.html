@@ -23,25 +23,25 @@
         <fieldset class="encabezado tarjeta-perfil">
             <legend>Editar perfil</legend>
 
-            {% if messages %}
-                {% for message in messages %}
-                    <div class="alert alert-danger text-center ">
-                        {{ message }}
-                    </div>
-                {% endfor %}
-            {% endif %}
-
             <form method="POST">
                 {% csrf_token %}
 
+                {% if form.errors %}
+                    <div class="error-msg">Por favor, corrige los siguientes errores:</div>
+                {% endif %}
+            
+                {{ form.telefono.errors }}
                 <div class="campo">
                     <i class="fas fa-phone"></i>
-                    <input type="text" name="telefono" placeholder="Número telefónico" >
+                    <input type="tel" id="numero_telefonico"  name="telefono" placeholder="Número telefónico"
+                        value="{{ form.telefono.value|default_if_none:'' }}">
                 </div>
 
+                {{ form.correo.errors }}
                 <div class="campo">
                     <i class="fas fa-envelope"></i>
-                    <input type="email" name="correo" placeholder="Correo electrónico" >
+                    <input type="email" id="correo_electronico" name="correo" placeholder="Correo electrónico"
+                        value="{{ form.correo.value|default_if_none:'' }}">
                 </div>
 
                 <section class="boton">

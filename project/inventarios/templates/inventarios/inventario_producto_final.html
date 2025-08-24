@@ -70,7 +70,7 @@ Productos finales
                     <td><label for="producto_final{{ item.id_inventario }}">{{ item.contenido }}</label></td>
                     <td><label for="producto_final{{ item.id_inventario }}">{{ item.unidad }}</label></td>
                     <td><label for="producto_final{{ item.id_inventario }}">{{ item.fecha_siembra }}</label></td>
-                    <td><label for="producto_final{{ item.id_inventario }}">{{ item.precio_unitario|floatformat:0 }}</label></td>
+                    <td><label for="producto_final{{ item.id_inventario }}">{{ item.precio_unitario|floatformat:0|intcomma }}</label></td>
                     <td><label for="producto_final{{ item.id_inventario }}">{{ item.stock|floatformat:0 }}</label></td>
                 </tr>
 
